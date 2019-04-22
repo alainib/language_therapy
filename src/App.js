@@ -7,9 +7,15 @@
  */
 
 import React, { Component } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-
+import { Button, YellowBox, Text, View } from 'react-native';
 import { createAppContainer, createBottomTabNavigator, createStackNavigator } from "react-navigation";
+
+
+import styles from "number_therapy/src/styles";
+import Comprehension from "number_therapy/src/stacknavigator/Comprehension";
+
+YellowBox.ignoreWarnings([]);
+console.disableYellowBox = true;
 
 
 class Home extends Component {
@@ -19,25 +25,19 @@ class Home extends Component {
                 <Text style={styles.welcome}>Welcome to React Native!</Text>
 
                 <Button
-                    title="Go to Details"
-                    onPress={() => this.props.navigation.navigate('Details')}
+                    title="Comprehension"
+                    onPress={() => this.props.navigation.navigate('Comprehension')}
                 />
             </View>
         );
     }
 }
 
-class DetailsScreen extends React.Component {
-    render() {
-        return (
-            <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-                <Text>Details Screen</Text>
-                <Button
-                    title="Go to Home"
-                    onPress={() => this.props.navigation.navigate('Home')}
-                />
-            </View>
-        );
+const removeHeader = {
+    headerMode: "none",
+    header: null,
+    navigationOptions: {
+        header: null
     }
 }
 
@@ -45,19 +45,11 @@ const StackNavigator = createStackNavigator(
     {
         Home: {
             screen: Home,
-            headerMode: "none",
-            header: null,
-            navigationOptions: {
-                header: null
-            }
+            ...removeHeader
         },
-        Details: {
-            screen: DetailsScreen,
-            headerMode: "none",
-            header: null,
-            navigationOptions: {
-                header: null
-            }
+        Comprehension: {
+            screen: Comprehension,
+            ...removeHeader
         },
         // il faut déclarer ici les pages affichées dans le drawer pour avoir la bar en haut avec le bouton retour
         // StaticPage: { screen: StaticPage },
@@ -65,28 +57,9 @@ const StackNavigator = createStackNavigator(
     },
     {
         mode: "modal",
-        initialRouteName: "Home"
     }
 );
 
 export default createAppContainer(StackNavigator);
 
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
-});

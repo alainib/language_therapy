@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "995805498896",
+    "firebase_url": "https://number-therapy.firebaseio.com",
+    "project_id": "number-therapy",
+    "storage_bucket": "number-therapy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:995805498896:android:42ce7bc07823f1a0",
+        "android_client_info": {
+          "package_name": "com.number_therapy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "995805498896-fbqa0mpqcrmddj18ef51us964nlt96n2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUasLMkIowTq6tfPr71iKnjau3A5RyyVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "995805498896-fbqa0mpqcrmddj18ef51us964nlt96n2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
