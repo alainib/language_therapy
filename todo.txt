@@ -1,0 +1,13 @@
+il te dicte un nombre genre 458 687 775
+et il y a option pour indiquer le nombre de chiffre 9
+
+
+
+
+
+
+
+un module ou le nombre de base est écrit sans séparer les centaines et il faut recrire en séparant
+458687775 -> 458 687 775
+
+
