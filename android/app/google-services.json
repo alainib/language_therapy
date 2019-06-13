@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "995805498896",
-    "firebase_url": "https://number-therapy.firebaseio.com",
-    "project_id": "number-therapy",
-    "storage_bucket": "number-therapy.appspot.com"
+    "project_number": "481532241349",
+    "firebase_url": "https://numbertherapy-bf2bc.firebaseio.com",
+    "project_id": "numbertherapy-bf2bc",
+    "storage_bucket": "numbertherapy-bf2bc.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:995805498896:android:42ce7bc07823f1a0",
+        "mobilesdk_app_id": "1:481532241349:android:42ce7bc07823f1a0",
         "android_client_info": {
           "package_name": "com.number_therapy"
         }
       },
       "oauth_client": [
         {
-          "client_id": "995805498896-fbqa0mpqcrmddj18ef51us964nlt96n2.apps.googleusercontent.com",
+          "client_id": "481532241349-idd2mu9mreun106shgfdtn35kca08cev.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDUasLMkIowTq6tfPr71iKnjau3A5RyyVk"
+          "current_key": "AIzaSyB2WoFuYVIB9hMZewT6XHOm4pJg8FPIddQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "995805498896-fbqa0mpqcrmddj18ef51us964nlt96n2.apps.googleusercontent.com",
+              "client_id": "481532241349-idd2mu9mreun106shgfdtn35kca08cev.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,0 +1,60 @@
+{
+    "_DATA": {
+        "mot-image": [
+            {
+                "display": "serie-a",
+                "questions": [
+                    {
+                        "display": "amende",
+                        "clue": "amende",
+                        "rightIndex": 0,
+                        "images": [
+                            "mot-image/serie-a/01.jpg",
+                            "mot-image/serie-a/02.jpg",
+                            "mot-image/serie-a/03.jpg",
+                            "mot-image/serie-a/04.jpg"
+                        ]
+                    },
+                    {
+                        "display": "ballon",
+                        "clue": "ballon",
+                        "rightIndex": 0,
+                        "images": [
+                            "mot-image/serie-a/05.jpg",
+                            "mot-image/serie-a/06.jpg",
+                            "mot-image/serie-a/07.jpg",
+                            "mot-image/serie-a/08.jpg"
+                        ]
+                    },
+                    {
+                        "display": "café",
+                        "clue": "café",
+                        "rightIndex": 3,
+                        "images": [
+                            "mot-image/serie-a/09.jpg",
+                            "mot-image/serie-a/10.jpg",
+                            "mot-image/serie-a/11.jpg",
+                            "mot-image/serie-a/12.jpg"
+                        ]
+                    },
+                    {
+                        "display": "carrote",
+                        "clue": "carrote",
+                        "rightIndex": 2,
+                        "images": [
+                            "mot-image/serie-a/13.jpg",
+                            "mot-image/serie-a/14.jpg",
+                            "mot-image/serie-a/15.jpg",
+                            "mot-image/serie-a/16.jpg"
+                        ]
+                    }
+                ]
+            },
+            {
+                "display": "serie-b",
+                "questions": []
+            }
+        ],
+        "comprehension": []
+    }
+}
