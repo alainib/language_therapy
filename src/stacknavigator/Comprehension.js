@@ -4,7 +4,6 @@ import { View, Text, Button } from "react-native";
 
 import styles from "number_therapy/src/styles";
 
-import { _DATA } from 'number_therapy/resources/data.json';
 
 /*
 import { db } from 'number_therapy/src/services/firebase';

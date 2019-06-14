@@ -6,6 +6,7 @@ import styles from "number_therapy/src/styles";
 import { LineChart } from 'react-native-chart-kit'
 import Config from "number_therapy/src/Config";
 
+import { createMotImageSerie } from "number_therapy/src/services/image";
 
 
 export default class MotImage extends React.Component {
@@ -16,7 +17,7 @@ export default class MotImage extends React.Component {
         super(props);
         this.state = {
             // toutes les series
-            series: Config.data["mot-image"],
+            series: [],
             // celle choisi par l'utilisateur
             currentSerie: this.initCurrentSerie(null),
             // permet d'afficher le nom en francais
@@ -24,8 +25,12 @@ export default class MotImage extends React.Component {
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         this._timeout = null;
+        let serie = await createMotImageSerie();
+        this.setState({
+            series: [serie]
+        })
     }
 
     componentWillUnmount = () => {
