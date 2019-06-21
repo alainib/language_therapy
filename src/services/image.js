@@ -51,7 +51,79 @@ function tools_getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function randomImageFromSerie(serieName, imagesSrc) {
+    let l = tools_getRandomInt(0, imagesSrc[serieName].length);
+    return imagesSrc[serieName][l];
+}
 
+
+function randomSerieName(exclude, imagesSrc) {
+    let _names = [];
+    for (var cat in imagesSrc) {
+        if (cat != exclude) {
+            _names.push(cat)
+        }
+    }
+
+    let l = tools_getRandomInt(0, _names.length);
+    return _names[l];
+
+}
+
+// call shuffleArray(array) , modifie la src 
+function shuffleArray(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+export function motImage_randomSerie(serieName, limit = 10) {
+    let serie = {
+        "display": "random " + serieName,
+        "questions": []
+    }
+
+
+    for (var q = 0; q < limit; q++) {
+        let randomImages = [];
+        randomImages.push({ ...this.randomImageFromSerie(serieName), right: true });
+
+        for (var i = 0; i < 3; i++) {
+            let catTmp = this.randomSerieName(serieName, RawDatas._IMAGES);
+            randomImages.push(this.randomImageFromSerie(catTmp));
+        }
+        this.shuffleArray(randomImages);
+
+        // il faut retrouver l'index de la bonne image	
+        let foundIndex = 0;
+        // contient juste les chemins des images à afficher
+        let images = [];
+
+        for (var i in randomImages) {
+            images.push(randomImages[i].path);
+            if (randomImages[i].right) {
+                foundIndex = i;
+            }
+        }
+
+        questions.push({
+            "display": randomImages[foundIndex]["ar"],
+            "clue": randomImages[foundIndex]["fr"],
+            "answer": { // résultat de la dernière réponse, pour encadrer en rouge ou vert l'image cliquée
+                "rightIndex": foundIndex, // index de la réponse correct
+            },
+            "images": images
+        })
+
+    }
+
+    return serie;
+}
+
+
+// random depuis tt les series
 export function createMotImageSerie(limit = 10) {
     let serie = {
         "display": "random",
@@ -103,3 +175,4 @@ export function createMotImageSerie(limit = 10) {
 
     return serie;
 }
+
