@@ -15,8 +15,8 @@ import styles from "number_therapy/src/styles";
 import Comprehension from "number_therapy/src/stacknavigator/Comprehension";
 import MotImage from "number_therapy/src/stacknavigator/MotImage";
 
-//YellowBox.ignoreWarnings([]);
-//console.disableYellowBox = true;
+YellowBox.ignoreWarnings([]);
+console.disableYellowBox = true;
 
 
 class Home extends Component {

@@ -11,3 +11,23 @@ export function getRandomInt(min, max) {
 export function clone(obj) {
     return JSON.parse(JSON.stringify(obj))
 }
+
+
+/**
+* permet de tester si la propriété `field` d'un des element du tableau `array` vaut `word`
+* [{ "key": "de", "doc_count": 3 },
+{ "key": "ad", "doc_count": 1 } ]
+
+* @param word : string
+* @param array of object
+* @param field name
+* @returns {boolean}
+*/
+export function stringInArrayOfObject(word, array, field) {
+    let length = array.length;
+    word = word.toLowerCase();
+    for (let i = 0; i < length; i++) {
+        if (array[i][field] && array[i][field].toLowerCase() == word) return true;
+    }
+    return false;
+}

@@ -65,13 +65,11 @@ export default class MotImage extends React.Component {
 
     /** appelé lors du click sur un element de la liste */
     chooseSerie = async (name) => {
-        // ici
-        let res = await motImage_randomSerie(name, 4, this.state.displayLg, this.state.level);
+        let res = await motImage_randomSerie(name, 10, this.state.displayLg, this.state.level);
         this.setState({ currentSerie: this.initCurrentSerie(res) });
     }
 
     render() {
-        console.log("render ", this.state.currentSerie);
         if (this.state.currentSerie.questions == null) {
             return (
                 <View>
@@ -184,20 +182,45 @@ export default class MotImage extends React.Component {
                 <View style={{ flex: 1 }}>
 
                     <View style={{
-                        marginTop: 5,
+                        margin: 5,
+                        marginBottom: 10,
                         flex: 1,
                         height,
                         flexDirection: 'row',
                         justifyContent: 'space-between'
                     }}>
-                        <View style={{ width: 50, height, backgroundColor: 'powderblue' }} />
+                        <View style={{ width: 50, height }} >
+                            {this.state.currentSerie.index > 0 &&
+                                <TouchableOpacity onPress={() => {
+                                    let { currentSerie } = this.state;
+                                    currentSerie.index = currentSerie.index - 1;
+                                    this.setState({ currentSerie })
+                                }}
+                                    style={{ justifyContent: "center", alignItems: "center" }}
+                                    underlayColor="white">
+                                    <Text style={thisstyles.title}>{"<"}</Text>
+                                </TouchableOpacity>
+                            }
+                        </View>
 
                         <TouchableHighlight onLongPress={this._onLongPress} onPressOut={this._onPressOut} underlayColor="white"
                             style={{ padding: 20, justifyContent: "center", alignItems: "center" }} >
                             <Text style={thisstyles.title}>{question.display}</Text>
                         </TouchableHighlight>
 
-                        <View style={{ width: 50, height, backgroundColor: 'steelblue' }} />
+                        <View style={{ width: 50, height }} >
+                            {this.state.currentSerie.index < this.state.currentSerie.questions.length &&
+                                <TouchableOpacity onPress={() => {
+                                    let { currentSerie } = this.state;
+                                    currentSerie.index = currentSerie.index + 1;
+                                    this.setState({ currentSerie })
+                                }}
+                                    style={{ justifyContent: "center", alignItems: "center" }}
+                                    underlayColor="white">
+                                    <Text style={thisstyles.title}>{">"}</Text>
+                                </TouchableOpacity>
+                            }
+                        </View>
                     </View>
 
                     <View style={{ flex: 8, marginTop: 15 }}>
@@ -256,9 +279,6 @@ export default class MotImage extends React.Component {
                 <Text>Pas de question </Text>
             </View>;
         }
-        console.log("show results", questions);
-
-
         let results = {
             total: questions.length,
             oneRep: 0,
@@ -368,24 +388,26 @@ export default class MotImage extends React.Component {
         if (imageIndex == question.answer.rightIndex) {
             question.answer.correct = true;
             question.answer.wrong = false;
-            this.setState({ currentSerie })
+            this.setState({ currentSerie }, () => {
+                this._timeout = setTimeout(() => {
+                    let currentSerie = this.state.currentSerie;
+                    currentSerie.index = currentSerie.index + 1;
+                    this.setState({ currentSerie })
+                }, 500);
+            });
 
-            this._timeout = setTimeout(() => {
-                let currentSerie = this.state.currentSerie;
-                currentSerie.index = currentSerie.index + 1;
-                this.setState({ currentSerie })
-            }, 500);
+
         } else {
             question.answer.correct = false;
             question.answer.wrong = true;
-            this.setState({ currentSerie })
-
-            this._timeout = setTimeout(() => {
-                let currentSerie = this.state.currentSerie;
-                let question = currentSerie.questions[currentSerie.index];
-                question.answer.showBorder = false;
-                this.setState({ currentSerie })
-            }, 500);
+            this.setState({ currentSerie }, () => {
+                this._timeout = setTimeout(() => {
+                    let currentSerie = this.state.currentSerie;
+                    let question = currentSerie.questions[currentSerie.index];
+                    question.answer.showBorder = false;
+                    this.setState({ currentSerie })
+                }, 500);
+            });
         }
 
     }

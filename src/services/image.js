@@ -10,7 +10,6 @@ import * as tools from "number_therapy/src/tools";
  * @param {*} deleteItem efface ou non l'image choisi
  */
 function randomImageFromSerie(serieName, imagesSrc, deleteItem = false) {
-    console.log(serieName, imagesSrc[serieName].length)
     if (imagesSrc == null || imagesSrc == undefined || imagesSrc[serieName].length < 1) {
         console.log("missing imagesSrc param data");
         return null;
@@ -98,13 +97,33 @@ export function motImage_randomSerie(serieName, limit = 10, displayLg = _AR, lev
         if (level == _EASY) {
             // et 3 autres images de la même serie
             for (var i = 0; i < 3; i++) {
-                randomImages.push(randomImageFromSerie(serieName, copyDatas._IMAGES, false));
+
+                let repeat = 0;
+                while (repeat < 10) {
+                    let imgTmp = randomImageFromSerie(serieName, copyDatas._IMAGES, false);
+                    if (!tools.stringInArrayOfObject(imgTmp.fr, randomImages, "fr")) {
+                        randomImages.push(imgTmp);
+                        repeat = 10;
+                    } else {
+                        repeat++;
+                    }
+                }
+
             }
         } else {
             // et 3 autres images d'autres series
             for (var i = 0; i < 3; i++) {
                 let catTmp = randomSerieName(serieName);
-                randomImages.push(randomImageFromSerie(catTmp, copyDatas._IMAGES, false));
+                let repeat = 0;
+                while (repeat < 10) {
+                    let imgTmp = randomImageFromSerie(catTmp, copyDatas._IMAGES, false);
+                    if (!tools.stringInArrayOfObject(imgTmp.fr, randomImages, "fr")) {
+                        randomImages.push(imgTmp);
+                        repeat = 10;
+                    } else {
+                        repeat++;
+                    }
+                }
             }
         }
 
@@ -127,6 +146,7 @@ export function motImage_randomSerie(serieName, limit = 10, displayLg = _AR, lev
             "answer": { // résultat de la dernière réponse, pour encadrer en rouge ou vert l'image cliquée
                 "rightIndex": foundIndex, // index de la réponse correct
                 "correct": false,
+                "attempt": 0
             },
             "images": images
         };
