@@ -15,28 +15,29 @@ import styles from "number_therapy/src/styles";
 import Comprehension from "number_therapy/src/stacknavigator/Comprehension";
 import MotImage from "number_therapy/src/stacknavigator/MotImage";
 
-YellowBox.ignoreWarnings([]);
-console.disableYellowBox = true;
+//YellowBox.ignoreWarnings([]);
+//console.disableYellowBox = true;
 
 
 class Home extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>Welcome !</Text>
+                <Text style={styles.welcome}>Choisir le type d'exercice :</Text>
                 <View style={{ margin: 10 }} >
                     <Button
                         title="Mot - Image"
                         onPress={() => this.props.navigation.navigate('MotImage')}
                     />
                 </View>
-                <View style={{ margin: 10 }} >
+                {/* <View style={{ margin: 10 }} >
                     <Button
                         containerStyle={{ margin: 10 }}
                         title="Comprehension"
                         onPress={() => this.props.navigation.navigate('Comprehension')}
                     />
                 </View>
+                */}
             </View>
         );
     }

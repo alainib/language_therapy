@@ -8,6 +8,7 @@
   "dependencies": {
     "fs": "0.0.1-security",
     "google-translate": "^2.2.0",
+    "jsonfile": "^5.0.0",
     "readline-async": "^0.1.0",
     "recursive-readdir": "^2.2.2"
   },

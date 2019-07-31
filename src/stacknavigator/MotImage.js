@@ -1,35 +1,43 @@
 //Comprehension.js
 import React from "react";
-import { View, Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, TouchableHighlight, Image } from "react-native";
+import { View, Button, Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, TouchableHighlight, Image } from "react-native";
 
 import styles from "number_therapy/src/styles";
 import { LineChart } from 'react-native-chart-kit'
 import Config from "number_therapy/src/Config";
 
-import { createMotImageSerie } from "number_therapy/src/services/image";
+import { motImage_AllSeriesNames, motImage_randomSerie } from "number_therapy/src/services/image";
+
+let _EASY = "easy", _MIDDLE = "middle";
+let _FR = "fr", _AR = "AR";
 
 
 export default class MotImage extends React.Component {
-    // pour encadrer en rouge ou vert la réponse sélectionner puis passer à la question suivante si juste
-    _timeout = null;
+
 
     constructor(props) {
         super(props);
         this.state = {
-            // toutes les series
-            series: [],
+            // tous les noms de series
+            seriesNames: [],
             // celle choisi par l'utilisateur
             currentSerie: this.initCurrentSerie(null),
             // permet d'afficher le nom en francais
             questionClueVisible: false
         };
     }
+    // pour encadrer en rouge ou vert la réponse sélectionner puis passer à la question suivante si juste
+
+    _timeout = null;
 
     async componentDidMount() {
         this._timeout = null;
-        let serie = await createMotImageSerie();
+        let seriesNames = await motImage_AllSeriesNames();
+
         this.setState({
-            series: [serie]
+            level: _EASY,
+            displayLg: _AR,
+            seriesNames
         })
     }
 
@@ -37,10 +45,11 @@ export default class MotImage extends React.Component {
         clearTimeout(this._timeout);
     };
 
-    initCurrentSerie(questions = null) {
+    initCurrentSerie(datas = null) {
         return {
-            questions, // liste des questions
+            questions: datas ? datas.questions || null : null, // liste des questions
             index: 0,  //  indice de la question courrante
+            display: datas ? datas.display || null : null
             /*  results: {
                   total: 0,
                   oneRep: 0,
@@ -54,21 +63,64 @@ export default class MotImage extends React.Component {
     }
 
 
-
-
     /** appelé lors du click sur un element de la liste */
-    chooseSerie = (data) => {
-        this.setState({ currentSerie: this.initCurrentSerie(data.questions) });
+    chooseSerie = async (name) => {
+        // ici
+        let res = await motImage_randomSerie(name, 4, this.state.displayLg, this.state.level);
+        this.setState({ currentSerie: this.initCurrentSerie(res) });
     }
 
     render() {
+        console.log("render ", this.state.currentSerie);
         if (this.state.currentSerie.questions == null) {
             return (
                 <View>
+                    <View style={{ flexDirection: 'row', height: 75, justifyContent: 'space-around' }}>
+                        <View style={{ height: 75, flex: 1 }} >
+                            <Text style={thisstyles.title}>Niveau :</Text>
+                            <View style={{ flexDirection: 'row', height: 50, justifyContent: 'space-around' }}>
+                                <View style={{ height: 50, width: 100 }} >
+                                    <Button
+                                        color={this.state.level == _EASY ? "green" : "grey"}
+                                        title="Facile"
+                                        onPress={() => this.setState({ level: _EASY })}
+                                    />
+                                </View>
+                                <View style={{ height: 50, width: 100 }} >
+                                    <Button
+                                        color={this.state.level == _MIDDLE ? "green" : "grey"}
+                                        title="Moyen"
+                                        onPress={() => this.setState({ level: _MIDDLE })}
+                                    />
+                                </View>
+                            </View>
+                        </View>
+                        <View style={{ height: 75, flex: 1 }} >
+                            <Text style={thisstyles.title}>Langue :</Text>
+                            <View style={{ flexDirection: 'row', height: 50, justifyContent: 'space-around' }}>
+                                <View style={{ height: 50, width: 100 }} >
+                                    <Button
+                                        color={this.state.displayLg == _FR ? "green" : "grey"}
+                                        title={_FR}
+                                        onPress={() => this.setState({ displayLg: _FR })}
+                                    />
+                                </View>
+                                <View style={{ height: 50, width: 100 }} >
+                                    <Button
+                                        color={this.state.displayLg == _AR ? "green" : "grey"}
+                                        title={_AR}
+                                        onPress={() => this.setState({ displayLg: _AR })}
+                                    />
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+
+
                     <Text style={thisstyles.title}>Series disponibles :</Text>
 
                     <ScrollView scrollEnabled showsVerticalScrollIndicator={true}>
-                        {this.state.series.map((item, index) => {
+                        {this.state.seriesNames.map((item, index) => {
                             return (
                                 <TouchableOpacity
                                     key={"ac" + index.toString()}
@@ -78,7 +130,7 @@ export default class MotImage extends React.Component {
                                         this.chooseSerie(item);
                                     }}
                                 >
-                                    <Text style={thisstyles.titleEntry}>{item.display}</Text>
+                                    <Text style={thisstyles.titleEntry}>{item}</Text>
                                 </TouchableOpacity>
                             )
                         })}
@@ -87,92 +139,105 @@ export default class MotImage extends React.Component {
                 </View>
             )
         } else {
-            return this.displaySeries()
+            return this.displaySerieQuestions()
         }
     }
 
     _onLongPress = () => {
+        console.log("show")
         this.setState({
             questionClueVisible: true
         })
     }
     _onPressOut = () => {
+        console.log("hde")
         this.setState({
             questionClueVisible: false
         })
     }
 
-    displaySeries() {
-
+    // affiche les questions d'une serie
+    displaySerieQuestions() {
         if (this.state.currentSerie.index < this.state.currentSerie.questions.length) {
-            const height = 20;
+            const height = 50;
             let question = this.state.currentSerie.questions[this.state.currentSerie.index];
-            let ImageWidth = Config.width / question.images.length - 25;
+            let ImageWidth = Config.width / question.images.length - 2;
+
             let borderStyle = {
                 alignItems: "center", justifyContent: "center",
                 width: ImageWidth, height: ImageWidth
             };
+
             if (question.answer.showBorder) {
                 if (question.answer.correct) {
-                    borderStyle["backgroundColor"] = "green";
+                    borderStyle["borderWidth"] = 4;
+                    borderStyle["borderColor"] = "green";
 
                 } else if (question.answer.wrong) {
-                    borderStyle["backgroundColor"] = "red";
+                    borderStyle["borderWidth"] = 4;
+                    borderStyle["borderColor"] = "red";
                 }
             }
 
+
             return (
                 <View style={{ flex: 1 }}>
+
                     <View style={{
+                        marginTop: 5,
+                        flex: 1,
                         height,
                         flexDirection: 'row',
                         justifyContent: 'space-between'
                     }}>
                         <View style={{ width: 50, height, backgroundColor: 'powderblue' }} />
-                        <View style={{ width: 50, height, backgroundColor: 'skyblue' }} />
+
+                        <TouchableHighlight onLongPress={this._onLongPress} onPressOut={this._onPressOut} underlayColor="white"
+                            style={{ padding: 20, justifyContent: "center", alignItems: "center" }} >
+                            <Text style={thisstyles.title}>{question.display}</Text>
+                        </TouchableHighlight>
+
                         <View style={{ width: 50, height, backgroundColor: 'steelblue' }} />
                     </View>
-                    <View style={{ flex: 1 }}>
-                        <View style={{ flex: 2, justifyContent: "center", alignItems: "center" }}>
-                            <TouchableHighlight onLongPress={this._onLongPress} onPressOut={this._onPressOut} underlayColor="white" >
-                                <Text style={thisstyles.title}>{question.display}</Text>
-                            </TouchableHighlight>
-                        </View>
-                        <View style={{ flex: 8 }}>
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                justifyContent: 'space-around',
-                            }}>
-                                {question.images.map((item, index) => {
-                                    return (
-                                        <TouchableHighlight
-                                            key={"im" + index.toString()}
-                                            underlayColor={"grey"}
-                                            style={{
-                                                alignItems: "center", justifyContent: "center",
-                                                width: ImageWidth, height: ImageWidth
-                                            }}
-                                            onPress={() => {
-                                                this.chooseAnswer(index);
-                                            }}
-                                        >
-                                            {question.answer.clickedIndex == index ? (
-                                                <View style={borderStyle}>
-                                                    <Image source={item} style={{ width: ImageWidth - 6, height: ImageWidth - 6 }} />
-                                                </View>
-                                            ) : (
-                                                    <Image source={item} style={{ width: ImageWidth - 6, height: ImageWidth - 6 }} />
-                                                )
-                                            }
-                                        </TouchableHighlight>
-                                    )
-                                })}
-                            </View>
-                        </View>
-                        {this.state.questionClueVisible ? <Text>{question.clue}</Text> : <Text></Text>}
-                    </View>
 
+                    <View style={{ flex: 8, marginTop: 15 }}>
+                        <View style={{
+                            flex: 1,
+                            flexDirection: 'row',
+                            justifyContent: 'space-around'
+                        }}>
+                            {question.images.map((item, index) => {
+                                return (
+                                    <TouchableOpacity
+                                        key={"im" + index.toString()}
+                                        underlayColor={"grey"}
+                                        style={{
+                                            alignItems: "center", justifyContent: "center",
+                                            width: ImageWidth, height: ImageWidth,
+                                            backgroundColor: "white"
+                                        }}
+                                        onPress={() => {
+                                            this.chooseAnswer(index);
+                                        }}
+                                    >
+                                        {question.answer.clickedIndex == index ? (
+                                            <View style={borderStyle}>
+                                                <Image resizeMode={"stretch"}
+                                                    source={item} style={{ width: ImageWidth - 6, height: ImageWidth - 6 }} />
+                                            </View>
+                                        ) : (
+                                                <Image resizeMode={"stretch"} source={item} style={{ width: ImageWidth - 6, height: ImageWidth - 6 }} />
+                                            )
+                                        }
+                                    </TouchableOpacity>
+                                )
+                            })}
+                        </View>
+                    </View>
+                    {this.state.questionClueVisible ?
+                        <Text style={thisstyles.titleEntry}>{question.clue}</Text> :
+                        <Text style={thisstyles.titleEntry}>{" "}</Text>
+                    }
                 </View>
             )
         } else {
@@ -186,6 +251,14 @@ export default class MotImage extends React.Component {
 
     showResults = () => {
         let { questions } = this.state.currentSerie;
+        if (!questions) {
+            return <View style={styles.center}>
+                <Text>Pas de question </Text>
+            </View>;
+        }
+        console.log("show results", questions);
+
+
         let results = {
             total: questions.length,
             oneRep: 0,
@@ -196,6 +269,7 @@ export default class MotImage extends React.Component {
             skiped: 0
         }
         for (var i in questions) {
+            console.log(questions[i])
             if (questions[i].answer.correct) {
                 switch (questions[i].answer.attempt) {
                     case 0:
@@ -267,22 +341,22 @@ export default class MotImage extends React.Component {
     chooseAnswer = (imageIndex) => {
         /* structure 
         question : {
-					"display": "café",
-					"clue": "café",
-					"answer": { // résultat de la dernière réponse, pour encadrer en rouge ou vert l'image cliquée
-						"showBorder": false, // afifche l'encadré ?
-						"correct": false, //réponse juste
-						"wrong": false, // réponse fausse
-						"rightIndex": 3, // index de la réponse correct
-						"attempt": -1, // nombre de tentative 
-					},
-					"images": [
-						require(_PATH + "mot-image/serie-a/09.jpg"),
-						require(_PATH + "mot-image/serie-a/10.jpg"),
-						require(_PATH + "mot-image/serie-a/11.jpg"),
-						require(_PATH + "mot-image/serie-a/12.jpg")
-					]
-				}
+                    "display": "café",
+                    "clue": "café",
+                    "answer": { // résultat de la dernière réponse, pour encadrer en rouge ou vert l'image cliquée
+                        "showBorder": false, // afifche l'encadré ?
+                        "correct": false, //réponse juste
+                        "wrong": false, // réponse fausse
+                        "rightIndex": 3, // index de la réponse correct
+                        "attempt": -1, // nombre de tentative 
+                    },
+                    "images": [
+                        require(_PATH + "mot-image/serie-a/09.jpg"),
+                        require(_PATH + "mot-image/serie-a/10.jpg"),
+                        require(_PATH + "mot-image/serie-a/11.jpg"),
+                        require(_PATH + "mot-image/serie-a/12.jpg")
+                    ]
+                }
         */
 
         let currentSerie = this.state.currentSerie;
@@ -300,7 +374,7 @@ export default class MotImage extends React.Component {
                 let currentSerie = this.state.currentSerie;
                 currentSerie.index = currentSerie.index + 1;
                 this.setState({ currentSerie })
-            }, 1000);
+            }, 500);
         } else {
             question.answer.correct = false;
             question.answer.wrong = true;
@@ -311,7 +385,7 @@ export default class MotImage extends React.Component {
                 let question = currentSerie.questions[currentSerie.index];
                 question.answer.showBorder = false;
                 this.setState({ currentSerie })
-            }, 1000);
+            }, 500);
         }
 
     }

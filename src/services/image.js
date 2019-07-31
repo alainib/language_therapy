@@ -1,100 +1,114 @@
 
 import RawDatas from "number_therapy/ressources/data";
+import * as tools from "number_therapy/src/tools";
 
-/*let _PATH = "number_therapy/ressources/";
-
-let data = {
-    "mot-image": [
-        {
-            "display": "serie-a",
-            "questions": [
-                {
-                    "display": "لوز",
-                    "clue": "amande",
-                    "answer": { // résultat de la dernière réponse, pour encadrer en rouge ou vert l'image cliquée
-                        "rightIndex": 0, // index de la réponse correct
-                    },
-                    "images": [
-                        require(_PATH + "mot-image/serie-a/allumette.jpg"),
-                        require(_PATH + "mot-image/serie-a/amande.jpg"),
-                        require(_PATH + "mot-image/serie-a/ananas.jpg"),
-                        require(_PATH + "mot-image/serie-a/arbre.jpg")
-                    ]
-                },
-                {
-                    "display": "ballon",
-                    "clue": "ballon",
-                    "answer": { // résultat de la dernière réponse, pour encadrer en rouge ou vert l'image cliquée
-                        "rightIndex": 0, // index de la réponse correct
-                    },
-                    "images": [
-                        require(_PATH + "mot-image/serie-a/appareil photo.jpg"),
-                        require(_PATH + "mot-image/serie-a/arbre.jpg"),
-                        require(_PATH + "mot-image/serie-a/bague.jpg"),
-                        require(_PATH + "mot-image/serie-a/avion.jpg")
-                    ]
-                }
-            ]
-        }
-    ],
-    "comprehension": []
-};
-*/
 
 /**
- * On renvoie un entier aléatoire entre une valeur min (incluse) et une valeur max (incluse).
- * @param min
- * @param max
- * @returns {*}
+ * retourne une image au hasard parmis une serie
+ * @param {*} serieName nom de la serie
+ * @param {*} imagesSrc  images à piocher parmis
+ * @param {*} deleteItem efface ou non l'image choisi
  */
-function tools_getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function randomImageFromSerie(serieName, imagesSrc) {
-    let l = tools_getRandomInt(0, imagesSrc[serieName].length);
-    return imagesSrc[serieName][l];
-}
-
-
-function randomSerieName(exclude, imagesSrc) {
-    let _names = [];
-    for (var cat in imagesSrc) {
-        if (cat != exclude) {
-            _names.push(cat)
+function randomImageFromSerie(serieName, imagesSrc, deleteItem = false) {
+    console.log(serieName, imagesSrc[serieName].length)
+    if (imagesSrc == null || imagesSrc == undefined || imagesSrc[serieName].length < 1) {
+        console.log("missing imagesSrc param data");
+        return null;
+    }
+    let l = tools.getRandomInt(0, imagesSrc[serieName].length - 1);
+    let img = imagesSrc[serieName][l];
+    if (deleteItem) {
+        imagesSrc[serieName].splice(l, 1);
+        if (imagesSrc[serieName].length < 1) {
+            delete imagesSrc[serieName];
         }
     }
+    return img;
+}
 
-    let l = tools_getRandomInt(0, _names.length);
+/**
+ * retourne un nom de serie au hasard différent de celui passé en parametre 
+ * @param string exclude cette serie 
+ */
+function randomSerieName(exclude = null) {
+
+    let _names = [];
+    for (var i in _allSeriesName) {
+        if (_allSeriesName[i] != exclude) {
+            _names.push(_allSeriesName[i])
+        }
+    }
+    let l = tools.getRandomInt(0, _names.length - 1);
     return _names[l];
-
 }
 
 // call shuffleArray(array) , modifie la src 
 function shuffleArray(a) {
     for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
+        let tmp = a[i];
+        a[i] = a[j]
+        a[j] = tmp;
     }
     return a;
 }
 
-export function motImage_randomSerie(serieName, limit = 10) {
+let _allSeriesName = null;
+/**
+ * retourne la liste des noms de toutes les series disponibles
+ */
+export function motImage_AllSeriesNames() {
+    if (_allSeriesName) {
+        return _allSeriesName;
+    } else {
+        let _names = [];
+        for (var cat in RawDatas._IMAGES) {
+            _names.push(cat);
+        }
+
+        _allSeriesName = _names
+        return _allSeriesName;
+    }
+}
+
+// https://www.facebook.com/MarcoSquassinaPhotography/photos/pcb.626888457797561/626887724464301/?type=3&theater
+
+let _EASY = "easy", _MIDDLE = "middle";
+let _FR = "fr", _AR = "AR";
+/**
+ * crée une serie d'exercice depuis un nom de serie donnée
+ * @param string serieName nom de la serie pour les réponses justes
+ * @param int limit : nombre de question
+ * @param string displayLg : langue du mot à afficher pour chaque question ( FR ou AR )
+ * @param string level : easy = on utilise des images que tu meme serie, middle = on prend tjrs la même serie pour l'image juste et random pour les autres
+ */
+export function motImage_randomSerie(serieName, limit = 10, displayLg = _AR, level = _EASY) {
     let serie = {
         "display": "random " + serieName,
         "questions": []
     }
 
+    let copyDatas = tools.clone(RawDatas)
 
     for (var q = 0; q < limit; q++) {
+        // on commence par mettre les 4 images 
         let randomImages = [];
-        randomImages.push({ ...this.randomImageFromSerie(serieName), right: true });
-
-        for (var i = 0; i < 3; i++) {
-            let catTmp = this.randomSerieName(serieName, RawDatas._IMAGES);
-            randomImages.push(this.randomImageFromSerie(catTmp));
+        // celle de la bonne serie
+        randomImages.push({ ...randomImageFromSerie(serieName, copyDatas._IMAGES, true), right: true });
+        if (level == _EASY) {
+            // et 3 autres images de la même serie
+            for (var i = 0; i < 3; i++) {
+                randomImages.push(randomImageFromSerie(serieName, copyDatas._IMAGES, false));
+            }
+        } else {
+            // et 3 autres images d'autres series
+            for (var i = 0; i < 3; i++) {
+                let catTmp = randomSerieName(serieName);
+                randomImages.push(randomImageFromSerie(catTmp, copyDatas._IMAGES, false));
+            }
         }
-        this.shuffleArray(randomImages);
+
+        shuffleArray(randomImages);
 
         // il faut retrouver l'index de la bonne image	
         let foundIndex = 0;
@@ -108,14 +122,22 @@ export function motImage_randomSerie(serieName, limit = 10) {
             }
         }
 
-        questions.push({
-            "display": randomImages[foundIndex]["ar"],
-            "clue": randomImages[foundIndex]["fr"],
+
+        let questionTmp = {
             "answer": { // résultat de la dernière réponse, pour encadrer en rouge ou vert l'image cliquée
                 "rightIndex": foundIndex, // index de la réponse correct
+                "correct": false,
             },
             "images": images
-        })
+        };
+        if (displayLg == _FR) {
+            questionTmp["display"] = randomImages[foundIndex]["fr"];
+            questionTmp["clue"] = randomImages[foundIndex]["ar"];
+        } else {
+            questionTmp["display"] = randomImages[foundIndex]["ar"];
+            questionTmp["clue"] = randomImages[foundIndex]["fr"];
+        }
+        serie.questions.push(questionTmp);
 
     }
 
@@ -123,31 +145,33 @@ export function motImage_randomSerie(serieName, limit = 10) {
 }
 
 
+/*
+/////////////   unused
 // random depuis tt les series
 export function createMotImageSerie(limit = 10) {
     let serie = {
         "display": "random",
         "questions": []
     }
-    /*
-        pour créer une serie de questions, 
-        il faut pour chaque question choisir 4 images aux hasard 
-        et en définir une comme celle à trouver
-    */
+    //
+    //  pour créer une serie de questions,
+    //    il faut pour chaque question choisir 4 images aux hasard
+    //    et en définir une comme celle à trouver
+    //
     for (var lim = 0; lim < limit; lim++) {
-        // on choisi les images aux hasard 
+        // on choisi les images aux hasard
         // contient path + noms, on choisira a la fin lequel sera le bon
         let randomImages = [];
         // contient juste les chemins
         let images = [];
 
         for (var i = 0; i < 4; i++) {
-            let l = tools_getRandomInt(0, RawDatas._IMAGES.length);
+            let l = tools.getRandomInt(0, RawDatas._IMAGES.length);
             randomImages.push(RawDatas._IMAGES[l]);
             images.push(RawDatas._IMAGES[l].path);
         }
         // image à trouver !
-        let foundIndex = tools_getRandomInt(0, 3);
+        let foundIndex = tools.getRandomInt(0, 3);
         serie.questions.push(
             {
                 "display": randomImages[foundIndex]["ar"],
@@ -168,11 +192,12 @@ export function createMotImageSerie(limit = 10) {
             "clickedIndex": null, // indice de l'image cliquée
             "showBorder": false, // affiche l'encadré ?
             "correct": false, //réponse juste
-            "wrong": false, // réponse fausse 
-            "attempt": 0, // nombre de tentative 
+            "wrong": false, // réponse fausse
+            "attempt": 0, // nombre de tentative
         }
     }
 
     return serie;
 }
 
+*/
