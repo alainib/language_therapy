@@ -5,13 +5,12 @@
  * @returns {*}
  */
 export function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 export function clone(obj) {
-    return JSON.parse(JSON.stringify(obj))
+  return JSON.parse(JSON.stringify(obj));
 }
-
 
 /**
 * permet de tester si la propriété `field` d'un des element du tableau `array` vaut `word`
@@ -24,10 +23,35 @@ export function clone(obj) {
 * @returns {boolean}
 */
 export function stringInArrayOfObject(word, array, field) {
-    let length = array.length;
-    word = word.toLowerCase();
-    for (let i = 0; i < length; i++) {
-        if (array[i][field] && array[i][field].toLowerCase() == word) return true;
-    }
-    return false;
+  let length = array.length;
+  word = word.toLowerCase();
+  for (let i = 0; i < length; i++) {
+    if (array[i][field] && array[i][field].toLowerCase() == word) return true;
+  }
+  return false;
+}
+
+/*
+usage : {mapObject(yourObject, function (key, value) {
+  return <div>Key: {key}, Value: {value}</div>;
+})}
+*/
+export function mapObject(object, callback) {
+  return Object.keys(object).map(function(key) {
+    return callback(key, object[key]);
+  });
+}
+
+export function getTodayDate() {
+  var todayTime = new Date();
+  var month = todayTime.getMonth() + 1;
+  if (month < 10) {
+    month = "0" + month;
+  }
+  var day = todayTime.getDate();
+  if (day < 10) {
+    day = "0" + day;
+  }
+  var year = todayTime.getFullYear();
+  return year + "/" + month + "/" + day;
 }
