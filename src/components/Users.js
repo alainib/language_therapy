@@ -141,7 +141,6 @@ class Users extends React.PureComponent {
               {this.state.showUsersList && (
                 <ScrollView>
                   {tools.mapObject(this.state.users.list, (key, value) => {
-                    console.log(key, value);
                     return (
                       <View key={key.toString()}>
                         <TouchableOpacity

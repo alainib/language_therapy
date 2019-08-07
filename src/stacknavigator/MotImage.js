@@ -78,7 +78,7 @@ class MotImage extends React.Component {
   chooseSerie = async serieName => {
     let res = await motImage_randomSerie(
       serieName,
-      10,
+      10 c,
       this.state.displayLg,
       this.state.level
     );
