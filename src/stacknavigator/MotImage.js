@@ -7,6 +7,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   TouchableHighlight,
   Image
@@ -30,6 +31,8 @@ class MotImage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      nbrOfQuestionPerSerie: 10, // nombre de question par défaut par serie
+      nbrOfImagePerQuestion: 4, // nombre d'image par question
       currentUser: this.props.currentUser || null,
       // tous les noms de series
       seriesNames: [],
@@ -78,7 +81,7 @@ class MotImage extends React.Component {
   chooseSerie = async serieName => {
     let res = await motImage_randomSerie(
       serieName,
-      10 c,
+      nbrOfQuestionPerSerie,
       this.state.displayLg,
       this.state.level
     );
@@ -88,31 +91,25 @@ class MotImage extends React.Component {
   render() {
     if (this.state.currentSerie.questions == null) {
       return (
-        <View>
+        <View style={styles.flex1}>
           <View
             style={{
+              flex: 2,
               flexDirection: "row",
-              height: 75,
               justifyContent: "space-around"
             }}
           >
-            <View style={{ height: 75, flex: 1 }}>
+            <View style={{ flex: 3 }}>
               <Text style={thisstyles.title}>Niveau :</Text>
-              <View
-                style={{
-                  flexDirection: "row",
-                  height: 50,
-                  justifyContent: "space-around"
-                }}
-              >
-                <View style={{ height: 50, width: 100 }}>
+              <View style={thisstyles.bloc}>
+                <View style={thisstyles.viewButton}>
                   <Button
                     color={this.state.level == _EASY ? "green" : "grey"}
                     title="Facile"
                     onPress={() => this.setState({ level: _EASY })}
                   />
                 </View>
-                <View style={{ height: 50, width: 100 }}>
+                <View style={thisstyles.viewButton}>
                   <Button
                     color={this.state.level == _MIDDLE ? "green" : "grey"}
                     title="Moyen"
@@ -121,23 +118,17 @@ class MotImage extends React.Component {
                 </View>
               </View>
             </View>
-            <View style={{ height: 75, flex: 1 }}>
+            <View style={{ flex: 3 }}>
               <Text style={thisstyles.title}>Langue :</Text>
-              <View
-                style={{
-                  flexDirection: "row",
-                  height: 50,
-                  justifyContent: "space-around"
-                }}
-              >
-                <View style={{ height: 50, width: 100 }}>
+              <View style={thisstyles.bloc}>
+                <View style={thisstyles.viewButton}>
                   <Button
                     color={this.state.displayLg == _FR ? "green" : "grey"}
                     title={_FR}
                     onPress={() => this.setState({ displayLg: _FR })}
                   />
                 </View>
-                <View style={{ height: 50, width: 100 }}>
+                <View style={thisstyles.viewButton}>
                   <Button
                     color={this.state.displayLg == _AR ? "green" : "grey"}
                     title={_AR}
@@ -146,26 +137,64 @@ class MotImage extends React.Component {
                 </View>
               </View>
             </View>
+            <View style={{ flex: 1 }}>
+              <Text style={thisstyles.title}>Nbr :</Text>
+              <View style={thisstyles.bloc}>
+                <TextInput
+                  autoFocus={false}
+                  autoCorrect={false}
+                  ref={input => {
+                    this.txtInput = input;
+                  }}
+                  value={this.state.nbrOfQuestionPerSerie}
+                  style={styles.acSearchSectionInput}
+                  placeholder={"10"}
+                  onChangeText={nbrOfQuestionPerSerie => {
+                    this.setState({ nbrOfQuestionPerSerie });
+                  }}
+                />
+                <TextInput
+                  autoFocus={false}
+                  autoCorrect={false}
+                  ref={input => {
+                    this.txtInput = input;
+                  }}
+                  value={this.state.nbrOfImagePerQuestion}
+                  style={styles.acSearchSectionInput}
+                  placeholder={"4"}
+                  onChangeText={nbrOfImagePerQuestion => {
+                    this.setState({ nbrOfImagePerQuestion });
+                  }}
+                />
+              </View>
+            </View>
           </View>
 
           <Text style={thisstyles.title}>Series disponibles :</Text>
+          <View
+            style={{
+              flex: 3
+            }}
+          >
+            <text>{"https://snack.expo.io/@drorbiran/flexwrap"}</text>
 
-          <ScrollView scrollEnabled showsVerticalScrollIndicator={true}>
-            {this.state.seriesNames.map((item, index) => {
-              return (
-                <TouchableOpacity
-                  key={"ac" + index.toString()}
-                  underlayColor={"rgba(207, 207, 207, 0.9)"}
-                  style={thisstyles.padding510}
-                  onPress={() => {
-                    this.chooseSerie(item);
-                  }}
-                >
-                  <Text style={thisstyles.titleEntry}>{item}</Text>
-                </TouchableOpacity>
-              );
-            })}
-          </ScrollView>
+            <ScrollView scrollEnabled showsVerticalScrollIndicator={true}>
+              {this.state.seriesNames.map((item, index) => {
+                return (
+                  <TouchableOpacity
+                    key={"ac" + index.toString()}
+                    underlayColor={"rgba(207, 207, 207, 0.9)"}
+                    style={thisstyles.padding510}
+                    onPress={() => {
+                      this.chooseSerie(item);
+                    }}
+                  >
+                    <Text style={thisstyles.titleEntry}>{item}</Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView>
+          </View>
         </View>
       );
     } else {
@@ -535,8 +564,16 @@ const thisstyles = StyleSheet.create({
     fontSize: 23,
     margin: 5
   },
+  bloc: {
+    flexDirection: "row",
+    justifyContent: "space-around"
+  },
   titleEntry: {
     fontSize: 18,
     margin: 5
+  },
+  viewButton: {
+    height: 50,
+    width: 75
   }
 });

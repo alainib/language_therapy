@@ -80,13 +80,13 @@ let _FR = "fr",
 /**
  * crée une serie d'exercice depuis un nom de serie donnée
  * @param string serieName nom de la serie pour les réponses justes
- * @param int limit : nombre de question
+ * @param int nbrQuestion : nombre de question
  * @param string displayLg : langue du mot à afficher pour chaque question ( FR ou AR )
  * @param string level : easy = on utilise des images que tu meme serie, middle = on prend tjrs la même serie pour l'image juste et random pour les autres
  */
 export function motImage_randomSerie(
   serieName,
-  limit = 10,
+  nbrQuestion = 10,
   displayLg = _AR,
   level = _EASY
 ) {
@@ -98,7 +98,7 @@ export function motImage_randomSerie(
 
   let copyDatas = tools.clone(RawDatas);
 
-  for (var q = 0; q < limit; q++) {
+  for (var q = 0; q < nbrQuestion; q++) {
     // on commence par mettre les 4 images
     let randomImages = [];
     // celle de la bonne serie
@@ -180,7 +180,7 @@ export function motImage_randomSerie(
 /*
 /////////////   unused
 // random depuis tt les series
-export function createMotImageSerie(limit = 10) {
+export function createMotImageSerie(nbrQuestion = 10) {
     let serie = {
         "display": "random",
         "questions": []
@@ -190,7 +190,7 @@ export function createMotImageSerie(limit = 10) {
     //    il faut pour chaque question choisir 4 images aux hasard
     //    et en définir une comme celle à trouver
     //
-    for (var lim = 0; lim < limit; lim++) {
+    for (var lim = 0; lim < nbrQuestion; lim++) {
         // on choisi les images aux hasard
         // contient path + noms, on choisira a la fin lequel sera le bon
         let randomImages = [];
