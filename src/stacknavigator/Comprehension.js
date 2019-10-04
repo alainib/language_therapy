@@ -2,11 +2,11 @@
 import React from "react";
 import { View, Text, Button } from "react-native";
 
-import styles from "number_therapy/src/styles";
+import styles from "language_therapy/src/styles";
 
 
 /*
-import { db } from 'number_therapy/src/services/firebase';
+import { db } from 'language_therapy/src/services/firebase';
   fb_writeUserData(email, fname, lname) {
         console.log("fb_writeUserData");
         db.ref('/Users/').set({

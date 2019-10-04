@@ -8,7 +8,7 @@ import {
   ADD_SERIE_TO_USER,
   REMOVE_SERIE_FROM_USER,
   CLEAR_SERIES_FROM_USER
-} from "number_therapy/src/redux/types";
+} from "language_therapy/src/redux/types";
 
 export const action_addUser = username => {
   return {

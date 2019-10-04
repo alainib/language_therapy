@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "number_therapy.app"
-               BlueprintName = "number_therapy"
-               ReferencedContainer = "container:number_therapy.xcodeproj">
+               BuildableName = "language_therapy.app"
+               BlueprintName = "language_therapy"
+               ReferencedContainer = "container:language_therapy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "number_therapyTests.xctest"
-               BlueprintName = "number_therapyTests"
-               ReferencedContainer = "container:number_therapy.xcodeproj">
+               BuildableName = "language_therapyTests.xctest"
+               BlueprintName = "language_therapyTests"
+               ReferencedContainer = "container:language_therapy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "number_therapyTests.xctest"
-               BlueprintName = "number_therapyTests"
-               ReferencedContainer = "container:number_therapy.xcodeproj">
+               BuildableName = "language_therapyTests.xctest"
+               BlueprintName = "language_therapyTests"
+               ReferencedContainer = "container:language_therapy.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "number_therapy.app"
-            BlueprintName = "number_therapy"
-            ReferencedContainer = "container:number_therapy.xcodeproj">
+            BuildableName = "language_therapy.app"
+            BlueprintName = "language_therapy"
+            ReferencedContainer = "container:language_therapy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "number_therapy.app"
-            BlueprintName = "number_therapy"
-            ReferencedContainer = "container:number_therapy.xcodeproj">
+            BuildableName = "language_therapy.app"
+            BlueprintName = "language_therapy"
+            ReferencedContainer = "container:language_therapy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "number_therapy.app"
-            BlueprintName = "number_therapy"
-            ReferencedContainer = "container:number_therapy.xcodeproj">
+            BuildableName = "language_therapy.app"
+            BlueprintName = "language_therapy"
+            ReferencedContainer = "container:language_therapy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

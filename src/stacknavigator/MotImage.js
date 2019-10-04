@@ -13,14 +13,14 @@ import {
   Image
 } from "react-native";
 
-import styles from "number_therapy/src/styles";
+import styles from "language_therapy/src/styles";
 import { LineChart } from "react-native-chart-kit";
-import Config from "number_therapy/src/Config";
+import Config from "language_therapy/src/Config";
 
 import {
   motImage_AllSeriesNames,
   motImage_randomSerie
-} from "number_therapy/src/services/image";
+} from "language_therapy/src/services/image";
 
 let _EASY = "easy",
   _MIDDLE = "middle";
@@ -550,7 +550,7 @@ function mapStatetoProps(data) {
   };
 }
 
-import * as actions from "number_therapy/src/redux/actions";
+import * as actions from "language_therapy/src/redux/actions";
 import { connect } from "react-redux";
 export default connect(
   mapStatetoProps,

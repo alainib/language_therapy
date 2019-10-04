@@ -2,9 +2,9 @@
 import React from "react";
 import { View, Text, Button } from "react-native";
 
-import styles from "number_therapy/src/styles";
+import styles from "language_therapy/src/styles";
 
-import { dlzip, dezip, ls } from "number_therapy/src/services/update";
+import { dlzip, dezip, ls } from "language_therapy/src/services/update";
 
 
 

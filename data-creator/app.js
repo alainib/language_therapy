@@ -1,9 +1,9 @@
 const readlineAsync = require("readline-async");
-const recursive = require("recursive-readdir");
+
 const fs = require("fs").promises;
-const googleTranslate = require("google-translate")(
-  "AIzaSyAGPrFmDaHB8n0erUabxsUNqkgk2z9HLoM"
-);
+const fse = require("fs-extra");
+var path = require("path");
+
 var jsonfile = require("jsonfile");
 
 // lit depuis le clavier
@@ -42,8 +42,6 @@ function writeJson(fileName, data) {
     .catch(error => console.error(error));
 }
 
-const path = "ressources/mot-image/";
-
 // récupere un path et retourne le nom du fichier sans espace {originalText,translatedText}
 function extractFileName(fileName) {
   fileName = replaceAll(fileName.replace(".jpg", ""), "_", " ");
@@ -67,7 +65,9 @@ function extractFileName(fileName) {
   }
 }
 
-// rajoute une entree
+/*
+ rajoute une entree dans le json
+ */
 function addEntry(pushInside, currentWord, lastWord, requirePath, output) {
   console.log(" addEntry currentWord", currentWord);
 
@@ -87,19 +87,50 @@ function addEntry(pushInside, currentWord, lastWord, requirePath, output) {
   }
 }
 
+/***
+ * parse le dossier source mot-image contenant les dossiers par catégories
+ *       les noms de fichier sont en "fr-arabe.jpg"
+ *
+ * crée un dossier de sortie (pathDest) et y copie les sous dossiers avec les images en enlevant la partie en arabe car sinon le require echoue
+ *
+ * crée un fichier data.json dans pathDest avec les noms de fichiers de pathDest
+ */
+
+const pathSource = path.join(__dirname + "/mot-image/");
+const pathDest = path.join(__dirname, "../", "ressources/mot-image/");
 let output = {};
 
 (async () => {
   try {
-    const subFolders = await fs.readdir("../" + path);
-    console.log("subFolders", subFolders);
-    for (var i = 0; i < subFolders.length; i++) {
-      const pathToFolder = "../" + path + subFolders[i];
+    clj({ source: pathSource, dest: pathDest });
+    console.log("continu ? press y");
+    if ((await readKeyboard()) == "y") {
+      const subFolders = await fs.readdir(pathSource);
+      console.log("subFolders", subFolders);
 
-      res = await fs.stat(pathToFolder);
+      for (var i = 0; i < subFolders.length; i++) {
+        const pathToFolder = pathSource + subFolders[i];
 
-      if (res.isDirectory()) {
+        res = await fs.stat(pathToFolder);
+
+        if (res.isDirectory()) {
+          /*
+          fs.copyFile("source.txt", "destination.txt", err => {
+            if (err) throw err;
+            console.log("source.txt was copied to destination.txt");
+          });
+        */
+        }
+      }
+    }
+  } catch (err) {
+    console.error("err", err);
+  }
+})();
+
+/*
         console.log("[y] scan " + subFolders[i] + " ?");
+        
         if ((await readKeyboard()) == "y") {
           output[subFolders[i]] = [];
 
@@ -108,7 +139,7 @@ let output = {};
           // on récupère le dernier car on est asynchrone, pour retourner les données à la fin
           let lastWord = extractFileName(subFiles[subFiles.length - 1]);
 
-          const requirePath = "number_therapy/" + path + subFolders[i] + "/";
+          const requirePath = "language_therapy/" + path + subFolders[i] + "/";
 
           for (var s = 0; s < subFiles.length; s++) {
             const pushInside = output[subFolders[i]];
@@ -135,14 +166,19 @@ let output = {};
             }
           }
         }
-      }
-    }
-  } catch (err) {
-    console.error("err", err);
-  }
-})();
+
+        
+
+*/
 
 /*
+
+const recursive = require("recursive-readdir");
+const googleTranslate = require("google-translate")(
+  "AIzaSyAGPrFmDaHB8n0erUabxsUNqkgk2z9HLoM"
+);
+
+
 recursive("../" + path, [], async function (err, files) {
 
 	if (err) {

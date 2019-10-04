@@ -18,14 +18,14 @@ import {
 import { createAppContainer, createStackNavigator } from "react-navigation";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/es/integration/react";
-import configureStore from "number_therapy/src/redux/store";
+import configureStore from "language_therapy/src/redux/store";
 const { persistor, store } = configureStore();
 
-import Users from "number_therapy/src/components/Users";
-import styles from "number_therapy/src/styles";
-import Comprehension from "number_therapy/src/stacknavigator/Comprehension";
-import MotImage from "number_therapy/src/stacknavigator/MotImage";
-import UpdateData from "number_therapy/src/stacknavigator/UpdateData";
+import Users from "language_therapy/src/components/Users";
+import styles from "language_therapy/src/styles";
+import Comprehension from "language_therapy/src/stacknavigator/Comprehension";
+import MotImage from "language_therapy/src/stacknavigator/MotImage";
+import UpdateData from "language_therapy/src/stacknavigator/UpdateData";
 
 YellowBox.ignoreWarnings([]);
 console.disableYellowBox = true;

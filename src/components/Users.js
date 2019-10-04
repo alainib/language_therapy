@@ -7,8 +7,8 @@ import {
   TextInput,
   TouchableOpacity
 } from "react-native";
-import styles from "number_therapy/src/styles";
-import * as tools from "number_therapy/src/tools";
+import styles from "language_therapy/src/styles";
+import * as tools from "language_therapy/src/tools";
 
 class Users extends React.PureComponent {
   constructor(props) {
@@ -171,7 +171,7 @@ function mapToStateProps(data) {
 }
 
 import { connect } from "react-redux";
-import * as actions from "number_therapy/src/redux/actions";
+import * as actions from "language_therapy/src/redux/actions";
 
 export default connect(
   mapToStateProps,

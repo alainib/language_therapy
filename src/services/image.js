@@ -1,5 +1,5 @@
-import RawDatas from "number_therapy/ressources/data";
-import * as tools from "number_therapy/src/tools";
+import RawDatas from "language_therapy/ressources/data";
+import * as tools from "language_therapy/src/tools";
 
 /**
  * retourne une image au hasard parmis une serie

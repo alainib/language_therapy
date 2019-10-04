@@ -1,4 +1,4 @@
-package com.number_therapy;
+package com.language_therapy;
 
 import android.app.Application;
 

@@ -10,7 +10,7 @@ Pour rajouter une nouvelle action redux et une variable dans le store :
     avec le contenu : 
 
       // on importe le nom des actions dont on a besoin (l'utilisation des constantes evite les typo)
-      import { LOGIN, USER_UPDATE } from "number_therapy/src/redux/types";
+      import { LOGIN, USER_UPDATE } from "language_therapy/src/redux/types";
       /* l'action ne fait pas grand chose en réalité  
         on l'appel depuis n'importe quel composant et elle ne fait que retourner un objet :
         { 
@@ -37,7 +37,7 @@ Pour rajouter une nouvelle action redux et une variable dans le store :
   et contenu 
 
   // on import aussi les constantes avec le nom des actions
-  import { LOGIN, LOGOUT, USER_UPDATE } from "number_therapy/src/redux/types";
+  import { LOGIN, LOGOUT, USER_UPDATE } from "language_therapy/src/redux/types";
 
   export default function (state = null, action) {
     // switch sur le type(nom) de l'action recue   
@@ -68,7 +68,7 @@ Pour rajouter une nouvelle action redux et une variable dans le store :
 pour appeler une action depuis un composant : 
 
       // les actions seront disponibles dans this.props. 
-      import * as actions from "number_therapy/src/redux/actions";
+      import * as actions from "language_therapy/src/redux/actions";
       class MonComposant extends React.Component {
         ...
         this.props.action_login(user);
@@ -79,7 +79,7 @@ pour appeler une action depuis un composant :
 maintenant si on veut récupèrer automatiquement les nouveaux états du store à chaque changement de store 
 
       import { connect } from "react-redux";
-      import * as actions from "number_therapy/src/redux/actions";
+      import * as actions from "language_therapy/src/redux/actions";
       class MonComposant extends React.Component {
 
         constructor (props) {

@@ -32,7 +32,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.number_therapy"
+        applicationId "com.language_therapy"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

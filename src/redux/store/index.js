@@ -1,7 +1,7 @@
 import { createStore, compose, applyMiddleware } from "redux";
 import { persistStore, persistCombineReducers } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import rootReducers from "number_therapy/src/redux/reducers";
+import rootReducers from "language_therapy/src/redux/reducers";
 
 const config = {
   key: "root",
