@@ -28,7 +28,7 @@ let _FR = "fr",
   _AR = "AR";
 
 class MotImage extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       nbrOfQuestionPerSerie: 10, // nombre de question par défaut par serie
@@ -81,7 +81,7 @@ class MotImage extends React.Component {
   chooseSerie = async serieName => {
     let res = await motImage_randomSerie(
       serieName,
-      nbrOfQuestionPerSerie,
+      this.state.nbrOfQuestionPerSerie,
       this.state.displayLg,
       this.state.level
     );
@@ -90,7 +90,7 @@ class MotImage extends React.Component {
 
   render() {
     if (this.state.currentSerie.questions == null) {
-      console.log(this.state.seriesNames);
+
       return (
         <View style={styles.flex1}>
           <View
@@ -193,7 +193,7 @@ class MotImage extends React.Component {
               {this.state.seriesNames.map((item, index) => {
                 return (
                   <View
-                    style={thisstyles.viewButton}
+                    style={thisstyles.item}
                     key={"ac" + index.toString()}
                   >
                     <Button
@@ -296,18 +296,18 @@ class MotImage extends React.Component {
             <View style={{ width: 50, height }}>
               {this.state.currentSerie.index <
                 this.state.currentSerie.questions.length && (
-                <TouchableOpacity
-                  onPress={() => {
-                    let { currentSerie } = this.state;
-                    currentSerie.index = currentSerie.index + 1;
-                    this.setState({ currentSerie });
-                  }}
-                  style={{ justifyContent: "center", alignItems: "center" }}
-                  underlayColor="white"
-                >
-                  <Text style={thisstyles.title}>{">"}</Text>
-                </TouchableOpacity>
-              )}
+                  <TouchableOpacity
+                    onPress={() => {
+                      let { currentSerie } = this.state;
+                      currentSerie.index = currentSerie.index + 1;
+                      this.setState({ currentSerie });
+                    }}
+                    style={{ justifyContent: "center", alignItems: "center" }}
+                    underlayColor="white"
+                  >
+                    <Text style={thisstyles.title}>{">"}</Text>
+                  </TouchableOpacity>
+                )}
             </View>
           </View>
 
@@ -348,15 +348,16 @@ class MotImage extends React.Component {
                         />
                       </View>
                     ) : (
-                      <Image
-                        resizeMode={"stretch"}
-                        source={item}
-                        style={{
-                          width: ImageWidth - 6,
-                          height: ImageWidth - 6
-                        }}
-                      />
-                    )}
+                        <Image
+                          resizeMode={"stretch"}
+                          source={item}
+
+                          style={{
+                            width: ImageWidth - 6,
+                            height: ImageWidth - 6
+                          }}
+                        />
+                      )}
                   </TouchableOpacity>
                 );
               })}
@@ -365,8 +366,8 @@ class MotImage extends React.Component {
           {this.state.questionClueVisible ? (
             <Text style={thisstyles.titleEntry}>{question.clue}</Text>
           ) : (
-            <Text style={thisstyles.titleEntry}> </Text>
-          )}
+              <Text style={thisstyles.titleEntry}> </Text>
+            )}
         </View>
       );
     } else {
@@ -588,10 +589,9 @@ const thisstyles = StyleSheet.create({
     width: 75
   },
   item: {
+    width: 125,
     height: 50,
     margin: 5,
-    backgroundColor: "#ecf5fd",
-    borderWidth: 1,
-    borderRadius: 5
+
   }
 });

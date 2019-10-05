@@ -32,14 +32,14 @@ function replaceAll(str, find, replace) {
   return str.replace(new RegExp(escapeRegExp(find), "g"), replace);
 }
 
-async function writeJson(fileName, data) {
+async function writeJs(fileName, data) {
   fileName = "../ressources/" + fileName;
   /*jsonfile.writeFile(fileName, data).then(res => {
     console.log("Write complete " + fileName);
   }).catch(error => console.error(error));
   */
   let writeMe =
-    "let _IMAGES =" + JSON.stringify(data) + "export default {_IMAGES }";
+    "let _IMAGES =" + data + "; export default {_IMAGES }";
 
   await fse.writeFile(fileName, writeMe, "utf8");
   console.log("Write complete " + fileName);
@@ -68,22 +68,7 @@ function extractFileName(fileName) {
   }
 }
 
-/*
- rajoute une entree dans le json
- */
-function addEntry(pushInside, currentEntry) {
-  // console.log(" addEntry currentEntry", currentEntry);
 
-  pushInside.push({
-    //   path: require(replaceAll(currentEntry.path, " ", "_")),
-    path: currentEntry.path.replace(
-      "C:/work/workspace/language_therapy",
-      "language_therapy"
-    ),
-    fr: currentEntry.originalText,
-    ar: currentEntry.translatedText
-  });
-}
 
 /**
  * recupère une entreé de fichier avec path,fr,ar  , renome le fichier en FR et le place dans destPath
@@ -122,7 +107,7 @@ async function moveEntry(entry, sourcePath, destPath) {
 
 const pathSource = path.join(__dirname, "mot-image");
 const pathDest = path.join(__dirname, "..", "ressources", "mot-image");
-let output = {};
+
 
 (async () => {
   try {
@@ -138,8 +123,8 @@ let output = {};
     if (!askForFolder || (await readKeyboard()) == "y") {
       // parcour les sous dossier
       const subFolders = await fs.readdir(pathSource);
-      // console.log("subFolders", subFolders);
 
+      let output = '{';
       for (var i = 0; i < subFolders.length; i++) {
         const sourcePathSubFolder = path.join(pathSource, subFolders[i]);
 
@@ -150,12 +135,12 @@ let output = {};
           const destPathSubFolder = path.join(pathDest, subFolders[i]);
           fse.ensureDirSync(destPathSubFolder);
 
-          output[subFolders[i]] = [];
+          output += '"' + subFolders[i] + '":[';
           // on parcours les fichiers dans le dossier courant
           const fileNames = await fs.readdir(sourcePathSubFolder);
 
           for (var s = 0; s < fileNames.length; s++) {
-            const pushInside = output[subFolders[i]];
+
             let entry = extractFileName(fileNames[s]);
             let movedEntry = await moveEntry(
               entry,
@@ -165,14 +150,25 @@ let output = {};
             if (!entry.translatedText) {
               console.warn("not translated :", entry);
             } else {
-              addEntry(pushInside, movedEntry);
+              output +=
+                `{"path": require("${movedEntry.path.replace(
+                  "C:/work/workspace/language_therapy",
+                  "language_therapy"
+                )}"),
+                "fr": "${movedEntry.originalText}",
+                "ar": "${movedEntry.translatedText}"
+              }`;
+              if (s + 1 < fileNames.length) {
+                output += ','
+              }
             }
           }
+          output += '],';
         }
       }
-
+      output += '}';
       console.log("finish ALL ");
-      writeJson(`output.json`, output);
+      writeJs(`dataNew.js`, output);
     }
   } catch (err) {
     console.error("err", err);
