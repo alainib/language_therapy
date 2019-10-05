@@ -32,14 +32,14 @@ function replaceAll(str, find, replace) {
   return str.replace(new RegExp(escapeRegExp(find), "g"), replace);
 }
 
-function writeJson(fileName, data) {
+async function writeJson(fileName, data) {
   fileName = "../ressources/" + fileName;
-  jsonfile
-    .writeFile(fileName, data)
-    .then(res => {
-      console.log("Write complete " + fileName);
-    })
-    .catch(error => console.error(error));
+  /*jsonfile.writeFile(fileName, data).then(res => {
+    console.log("Write complete " + fileName);
+  }).catch(error => console.error(error));
+  */
+  await fse.writeFile(fileName, JSON.stringify(data), 'utf8');
+  console.log("Write complete " + fileName);
 }
 
 // récupere un path et retourne le nom du fichier sans espace {originalText,translatedText}
@@ -68,108 +68,111 @@ function extractFileName(fileName) {
 /*
  rajoute une entree dans le json
  */
-function addEntry(pushInside, currentWord, lastWord, requirePath, output) {
-  console.log(" addEntry currentWord", currentWord);
+function addEntry(pushInside, currentEntry) {
+  // console.log(" addEntry currentEntry", currentEntry);
 
   pushInside.push({
-    path:
-      '<require(">' +
-      requirePath +
-      replaceAll(currentWord.fileName, " ", "_") +
-      '.jpg">)',
-    //'path': require(requirePath + currentWord.originalText.replace(" ", "_") + ".jpg"),
-    fr: currentWord.originalText,
-    ar: currentWord.translatedText
+    //   path: require(replaceAll(currentEntry.path, " ", "_")),
+    path: replaceAll(currentEntry.path, " ", "_"),
+    fr: currentEntry.originalText,
+    ar: currentEntry.translatedText
   });
+}
 
-  if (lastWord.originalText == currentWord.originalText) {
-    writeJson(`output.json`, output);
+/**
+ * recupère une entreé de fichier avec path,fr,ar  , renome le fichier en FR et le place dans destPath
+ * @param {obj} entry 
+ * @param {string} sourcePath
+ * @param {string} destPath 
+ */
+async function moveEntry(entry, sourcePath, destPath) {
+
+  let s = path.join(sourcePath, entry.fileName + ".jpg");
+  let d = path.join(destPath, entry.originalText + ".jpg");
+  s = replaceAll(s, "\\", "/");
+  d = replaceAll(d, "\\", "/");
+
+  let movedEntry = {
+    fileName: entry.originalText,
+    originalText: entry.originalText,
+    translatedText: entry.translatedText,
+    path: d
   }
+  try {
+
+    await fse.copy(s, d);
+  } catch (err) {
+    console.error(err)
+  }
+  return movedEntry;
 }
 
 /***
- * parse le dossier source mot-image contenant les dossiers par catégories
+ * parse le dossier-source "mot-image" contenant les dossiers par catégories
  *       les noms de fichier sont en "fr-arabe.jpg"
  *
- * crée un dossier de sortie (pathDest) et y copie les sous dossiers avec les images en enlevant la partie en arabe car sinon le require echoue
+ * dans le dossier de sortie (pathDest), crée le dossier "mot-image" si n'existe pas, copie les sous dossiers avec les images en enlevant la partie en arabe car sinon le require echoue
  *
  * crée un fichier data.json dans pathDest avec les noms de fichiers de pathDest
  */
 
-const pathSource = path.join(__dirname + "/mot-image/");
-const pathDest = path.join(__dirname, "../", "ressources/mot-image/");
+const pathSource = path.join(__dirname, "mot-image");
+const pathDest = path.join(__dirname, "..", "ressources", "mot-image");
 let output = {};
+
 
 (async () => {
   try {
-    clj({ source: pathSource, dest: pathDest });
+    clj({ pathSource, pathDest });
     console.log("continu ? press y");
-    if ((await readKeyboard()) == "y") {
+
+    // vide le dossier de dest
+    fse.removeSync(pathDest);
+    fse.ensureDirSync(pathDest);
+
+    if (true || (await readKeyboard()) == "y") {
+      // parcour les sous dossier
       const subFolders = await fs.readdir(pathSource);
       console.log("subFolders", subFolders);
 
-      for (var i = 0; i < subFolders.length; i++) {
-        const pathToFolder = pathSource + subFolders[i];
 
-        res = await fs.stat(pathToFolder);
+      for (var i = 0; i < subFolders.length; i++) {
+        const sourcePathSubFolder = path.join(pathSource, subFolders[i]);
+
+        res = await fs.stat(sourcePathSubFolder);
 
         if (res.isDirectory()) {
-          /*
-          fs.copyFile("source.txt", "destination.txt", err => {
-            if (err) throw err;
-            console.log("source.txt was copied to destination.txt");
-          });
-        */
+          // on crée le sous dossier dans le dossier de destination
+          const destPathSubFolder = path.join(pathDest, subFolders[i]);
+          fse.ensureDirSync(destPathSubFolder);
+
+          output[subFolders[i]] = [];
+          // on parcours les fichiers dans le dossier courant
+          const fileNames = await fs.readdir(sourcePathSubFolder);
+
+          for (var s = 0; s < fileNames.length; s++) {
+            const pushInside = output[subFolders[i]];
+            let entry = extractFileName(fileNames[s]);
+            let movedEntry = await moveEntry(entry, sourcePathSubFolder, destPathSubFolder);
+            if (!entry.translatedText) {
+              console.warn("not translated :", entry);
+            } else {
+              addEntry(pushInside, movedEntry);
+            }
+          }
         }
       }
+
+      console.log("finish ALL ");
+      writeJson(`output.json`, output);
+
     }
   } catch (err) {
     console.error("err", err);
   }
 })();
 
-/*
-        console.log("[y] scan " + subFolders[i] + " ?");
-        
-        if ((await readKeyboard()) == "y") {
-          output[subFolders[i]] = [];
 
-          // on liste la liste des fichiers dans le dossier
-          const subFiles = await fs.readdir(pathToFolder);
-          // on récupère le dernier car on est asynchrone, pour retourner les données à la fin
-          let lastWord = extractFileName(subFiles[subFiles.length - 1]);
-
-          const requirePath = "language_therapy/" + path + subFolders[i] + "/";
-
-          for (var s = 0; s < subFiles.length; s++) {
-            const pushInside = output[subFolders[i]];
-            let word = extractFileName(subFiles[s]);
-
-            if (!word.translatedText) {
-              googleTranslate.translate(word.originalText, "fr", "ar", function(
-                err,
-                translation
-              ) {
-                addEntry(
-                  pushInside,
-                  {
-                    fileName: word.originalText,
-                    ...translation
-                  },
-                  lastWord,
-                  requirePath,
-                  output
-                );
-              });
-            } else {
-              addEntry(pushInside, word, lastWord, requirePath, output);
-            }
-          }
-        }
-
-        
-
-*/
 
 /*
 
@@ -186,12 +189,12 @@ recursive("../" + path, [], async function (err, files) {
 	}
 
 
-	let lastWord = extractFileName(files[files.length - 1]);
+	let lastEntry = extractFileName(files[files.length - 1]);
 	for (var i = 0; i < files.length; i++) {
 		console.log(files[i]);
 
-		let word = extractFileName(files[i]);
-		googleTranslate.translate(word, 'fr', 'ar', function (err, translation) {
+		let entry = extractFileName(files[i]);
+		googleTranslate.translate(entry, 'fr', 'ar', function (err, translation) {
 
 			output.push({
 				'path': '<require(>"' + requirePath + translation.originalText.replace(" ", "_") + ".jpg" + '"<)>',
@@ -199,7 +202,7 @@ recursive("../" + path, [], async function (err, files) {
 				'ar': translation.translatedText
 			});
 
-			if (lastWord == translation.originalText) {
+			if (lastEntry == translation.originalText) {
 				cljmin(output);
 			}
 		});

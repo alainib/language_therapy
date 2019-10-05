@@ -12,69 +12,10 @@ _IMAGES = { aliments : [] , animaux : [] , autre : [] , recette: [] }
 chaque question à 4 images, 1 base + 3 fausses 
 on crée d'abord les N questions avec la premiere images bonne et on shuffle chaque image après
 
-function randomImageFromSerie(serieName){
-	let l = tools_getRandomInt(0, RawDatas._IMAGES[serieName].length);
-	return RawDatas._IMAGES[serieName][l] ;
-}
-
-
-function randomSerieName( exclude , _IMAGES ){
-	let _names = [] ;
-	for(var cat in _IMAGES){
-		if(  cat != exclude ){
-			_names.push( cat )
-		}
-	}
-	
-	let l = tools_getRandomInt(0, _names.length);
-	return _names[l] ;
-	
-}
-
-
-function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-}
-// call shuffle(array) , modifie la src 
 
 
 
-questions = [] ;
-for (var q = 0 ; q<N; q++){
-	randomImages = [] ;
-	randomImages.push( { ...this.randomImageFromSerie( "base" ) ,right : true }) ;
-	
-	for (var i=0 ; i<3; i++ ){
-		let catTmp = this.randomSerieName( "base", RawDatas._IMAGES ) ;
-		randomImages.push( this.randomImageFromSerie( catTmp )) ;
-	}
-	shuffle(randomImages);
-	// il faut retrouver l'index de la bonne image	
-	
-	let foundIndex = 0;
-	for(var i in randomImages){
-		if(	randomImages[i].right ) {
-			foundIndex = i ;
-		}
-	}
-	// contient juste les chemins
-	let images = [];
-	questions.push({
-
-		"display": randomImages[foundIndex]["ar"],
-		"clue": randomImages[foundIndex]["fr"],
-		"answer": { // résultat de la dernière réponse, pour encadrer en rouge ou vert l'image cliquée
-			"rightIndex": foundIndex, // index de la réponse correct
-		},
-		"images": images
-	
-	})
-	
-}	
+ 
 	
 			
 	
