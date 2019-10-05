@@ -1,4 +1,5 @@
 import RawDatas from "language_therapy/ressources/data";
+console.log("RawDatas", RawDatas);
 import * as tools from "language_therapy/src/tools";
 
 /**

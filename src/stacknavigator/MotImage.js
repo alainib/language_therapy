@@ -90,6 +90,7 @@ class MotImage extends React.Component {
 
   render() {
     if (this.state.currentSerie.questions == null) {
+      console.log(this.state.seriesNames);
       return (
         <View style={styles.flex1}>
           <View
@@ -146,11 +147,14 @@ class MotImage extends React.Component {
                   ref={input => {
                     this.txtInput = input;
                   }}
-                  value={this.state.nbrOfQuestionPerSerie}
+                  value={this.state.nbrOfQuestionPerSerie + ""}
+                  keyboardType={"numeric"}
                   style={styles.acSearchSectionInput}
                   placeholder={"10"}
                   onChangeText={nbrOfQuestionPerSerie => {
-                    this.setState({ nbrOfQuestionPerSerie });
+                    this.setState({
+                      nbrOfQuestionPerSerie: nbrOfQuestionPerSerie + ""
+                    });
                   }}
                 />
                 <TextInput
@@ -159,11 +163,14 @@ class MotImage extends React.Component {
                   ref={input => {
                     this.txtInput = input;
                   }}
-                  value={this.state.nbrOfImagePerQuestion}
+                  value={this.state.nbrOfImagePerQuestion + ""}
+                  keyboardType={"numeric"}
                   style={styles.acSearchSectionInput}
                   placeholder={"4"}
                   onChangeText={nbrOfImagePerQuestion => {
-                    this.setState({ nbrOfImagePerQuestion });
+                    this.setState({
+                      nbrOfImagePerQuestion: nbrOfImagePerQuestion + ""
+                    });
                   }}
                 />
               </View>
@@ -176,24 +183,28 @@ class MotImage extends React.Component {
               flex: 3
             }}
           >
-            <text>{"https://snack.expo.io/@drorbiran/flexwrap"}</text>
-
-            <ScrollView scrollEnabled showsVerticalScrollIndicator={true}>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                flexWrap: "wrap"
+              }}
+            >
               {this.state.seriesNames.map((item, index) => {
                 return (
-                  <TouchableOpacity
+                  <View
+                    style={thisstyles.viewButton}
                     key={"ac" + index.toString()}
-                    underlayColor={"rgba(207, 207, 207, 0.9)"}
-                    style={thisstyles.padding510}
-                    onPress={() => {
-                      this.chooseSerie(item);
-                    }}
                   >
-                    <Text style={thisstyles.titleEntry}>{item}</Text>
-                  </TouchableOpacity>
+                    <Button
+                      color={"green"}
+                      title={item}
+                      onPress={() => this.chooseSerie(item)}
+                    />
+                  </View>
                 );
               })}
-            </ScrollView>
+            </View>
           </View>
         </View>
       );
@@ -575,5 +586,12 @@ const thisstyles = StyleSheet.create({
   viewButton: {
     height: 50,
     width: 75
+  },
+  item: {
+    height: 50,
+    margin: 5,
+    backgroundColor: "#ecf5fd",
+    borderWidth: 1,
+    borderRadius: 5
   }
 });

@@ -38,7 +38,10 @@ async function writeJson(fileName, data) {
     console.log("Write complete " + fileName);
   }).catch(error => console.error(error));
   */
-  await fse.writeFile(fileName, JSON.stringify(data), 'utf8');
+  let writeMe =
+    "let _IMAGES =" + JSON.stringify(data) + "export default {_IMAGES }";
+
+  await fse.writeFile(fileName, writeMe, "utf8");
   console.log("Write complete " + fileName);
 }
 
@@ -73,7 +76,10 @@ function addEntry(pushInside, currentEntry) {
 
   pushInside.push({
     //   path: require(replaceAll(currentEntry.path, " ", "_")),
-    path: replaceAll(currentEntry.path, " ", "_"),
+    path: currentEntry.path.replace(
+      "C:/work/workspace/language_therapy",
+      "language_therapy"
+    ),
     fr: currentEntry.originalText,
     ar: currentEntry.translatedText
   });
@@ -81,28 +87,26 @@ function addEntry(pushInside, currentEntry) {
 
 /**
  * recupère une entreé de fichier avec path,fr,ar  , renome le fichier en FR et le place dans destPath
- * @param {obj} entry 
+ * @param {obj} entry
  * @param {string} sourcePath
- * @param {string} destPath 
+ * @param {string} destPath
  */
 async function moveEntry(entry, sourcePath, destPath) {
-
   let s = path.join(sourcePath, entry.fileName + ".jpg");
   let d = path.join(destPath, entry.originalText + ".jpg");
-  s = replaceAll(s, "\\", "/");
-  d = replaceAll(d, "\\", "/");
+  s = replaceAll(replaceAll(s, "\\", "/"), " ", "_");
+  d = replaceAll(replaceAll(d, "\\", "/"), " ", "_");
 
   let movedEntry = {
     fileName: entry.originalText,
     originalText: entry.originalText,
     translatedText: entry.translatedText,
     path: d
-  }
+  };
   try {
-
     await fse.copy(s, d);
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
   return movedEntry;
 }
@@ -120,21 +124,21 @@ const pathSource = path.join(__dirname, "mot-image");
 const pathDest = path.join(__dirname, "..", "ressources", "mot-image");
 let output = {};
 
-
 (async () => {
   try {
     clj({ pathSource, pathDest });
-    console.log("continu ? press y");
-
+    let askForFolder = false;
+    if (askForFolder) {
+      console.log("continu ? press y");
+    }
     // vide le dossier de dest
     fse.removeSync(pathDest);
     fse.ensureDirSync(pathDest);
 
-    if (true || (await readKeyboard()) == "y") {
+    if (!askForFolder || (await readKeyboard()) == "y") {
       // parcour les sous dossier
       const subFolders = await fs.readdir(pathSource);
-      console.log("subFolders", subFolders);
-
+      // console.log("subFolders", subFolders);
 
       for (var i = 0; i < subFolders.length; i++) {
         const sourcePathSubFolder = path.join(pathSource, subFolders[i]);
@@ -153,7 +157,11 @@ let output = {};
           for (var s = 0; s < fileNames.length; s++) {
             const pushInside = output[subFolders[i]];
             let entry = extractFileName(fileNames[s]);
-            let movedEntry = await moveEntry(entry, sourcePathSubFolder, destPathSubFolder);
+            let movedEntry = await moveEntry(
+              entry,
+              sourcePathSubFolder,
+              destPathSubFolder
+            );
             if (!entry.translatedText) {
               console.warn("not translated :", entry);
             } else {
@@ -165,14 +173,11 @@ let output = {};
 
       console.log("finish ALL ");
       writeJson(`output.json`, output);
-
     }
   } catch (err) {
     console.error("err", err);
   }
 })();
-
-
 
 /*
 
