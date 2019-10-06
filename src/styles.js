@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import Config from "language_therapy/src/Config";
 
 const styles = StyleSheet.create({
   flex1: {
@@ -10,7 +11,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#F5FCFF"
   },
-
+  textInput: {
+    textAlign: "left",
+    fontSize: Config.textSize.xl
+  },
+  padding10: {
+    padding: 10,
+    justifyContent: "center",
+    alignItems: "center"
+  },
   containerCol: {
     flex: 1,
     flexDirection: "row",

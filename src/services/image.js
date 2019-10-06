@@ -2,6 +2,8 @@ import RawDatas from "language_therapy/ressources/data";
 console.log("RawDatas", RawDatas);
 import * as tools from "language_therapy/src/tools";
 
+import Config from "language_therapy/src/Config";
+
 /**
  * retourne une image au hasard parmis une serie
  * @param {*} serieName nom de la serie
@@ -74,22 +76,20 @@ export function motImage_AllSeriesNames() {
 
 // https://www.facebook.com/MarcoSquassinaPhotography/photos/pcb.626888457797561/626887724464301/?type=3&theater
 
-let _EASY = "easy",
-  _MIDDLE = "middle";
-let _FR = "fr",
-  _AR = "AR";
 /**
  * crée une serie d'exercice depuis un nom de serie donnée
  * @param string serieName nom de la serie pour les réponses justes
  * @param int nbrQuestion : nombre de question
+ * @param int nbrOfImagePerQuestion : nombre d'image par question
  * @param string displayLg : langue du mot à afficher pour chaque question ( FR ou AR )
  * @param string level : easy = on utilise des images que tu meme serie, middle = on prend tjrs la même serie pour l'image juste et random pour les autres
  */
 export function motImage_randomSerie(
   serieName,
   nbrQuestion = 10,
-  displayLg = _AR,
-  level = _EASY
+  nbrOfImagePerQuestion = 4,
+  displayLg = Config._const.ar,
+  level = Config._const.easy
 ) {
   let serie = {
     serieName,
@@ -107,9 +107,9 @@ export function motImage_randomSerie(
       ...randomImageFromSerie(serieName, copyDatas._IMAGES, true),
       right: true
     });
-    if (level == _EASY) {
+    if (level == Config._const.easy) {
       // et 3 autres images de la même serie
-      for (var i = 0; i < 3; i++) {
+      for (var i = 1; i < nbrOfImagePerQuestion; i++) {
         let repeat = 0;
         while (repeat < 10) {
           let imgTmp = randomImageFromSerie(
@@ -127,7 +127,7 @@ export function motImage_randomSerie(
       }
     } else {
       // et 3 autres images d'autres series
-      for (var i = 0; i < 3; i++) {
+      for (var i = 1; i < nbrOfImagePerQuestion; i++) {
         let catTmp = randomSerieName(serieName);
         let repeat = 0;
         while (repeat < 10) {
@@ -165,7 +165,7 @@ export function motImage_randomSerie(
       },
       images: images
     };
-    if (displayLg == _FR) {
+    if (displayLg == Config._const.fr) {
       questionTmp["display"] = randomImages[foundIndex]["fr"];
       questionTmp["clue"] = randomImages[foundIndex]["ar"];
     } else {

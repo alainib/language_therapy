@@ -7,6 +7,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  Alert,
   TextInput,
   TouchableOpacity,
   TouchableHighlight,
@@ -16,19 +17,15 @@ import {
 import styles from "language_therapy/src/styles";
 import { LineChart } from "react-native-chart-kit";
 import Config from "language_therapy/src/Config";
+import IconFeather from "react-native-vector-icons/Feather";
 
 import {
   motImage_AllSeriesNames,
   motImage_randomSerie
 } from "language_therapy/src/services/image";
 
-let _EASY = "easy",
-  _MIDDLE = "middle";
-let _FR = "fr",
-  _AR = "AR";
-
 class MotImage extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       nbrOfQuestionPerSerie: 10, // nombre de question par défaut par serie
@@ -51,10 +48,24 @@ class MotImage extends React.Component {
     let seriesNames = await motImage_AllSeriesNames();
 
     this.setState({
-      level: _EASY,
-      displayLg: _AR,
-      seriesNames
+      level: Config._const.easy,
+      displayLg: Config._const.ar,
+      seriesNames,
+      showOptions: false
     });
+    if (this.props.currentUser == null) {
+      Alert.alert(
+        "STOP",
+        "Aucun n'utilisateur n'a été selectionné, revenir en arrière et en créer un",
+        [
+          {
+            text: "revenir en arrière",
+            onPress: () => this.props.navigation()
+          }
+        ],
+        { cancelable: false }
+      );
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -82,130 +93,168 @@ class MotImage extends React.Component {
     let res = await motImage_randomSerie(
       serieName,
       this.state.nbrOfQuestionPerSerie,
+      this.state.nbrOfImagePerQuestion,
       this.state.displayLg,
       this.state.level
     );
     this.setState({ currentSerie: this.initCurrentSerie(res) });
   };
 
+  renderOptions() {
+    if (!this.state.showOptions) {
+      return null;
+    }
+    return (
+      <View style={{ flex: 1, flexDirection: "row" }}>
+        <View style={{ flex: 9 }}>
+          <View style={thisstyles.bloc}>
+            <Text style={thisstyles.title}>Niveau :</Text>
+            <View style={thisstyles.bloc}>
+              <View style={thisstyles.viewButton}>
+                <Button
+                  color={
+                    this.state.level == Config._const.easy ? "green" : "grey"
+                  }
+                  title="Facile"
+                  onPress={() => this.setState({ level: Config._const.easy })}
+                />
+              </View>
+              <View style={thisstyles.viewButton}>
+                <Button
+                  color={
+                    this.state.level == Config._const.middle ? "green" : "grey"
+                  }
+                  title="Moyen"
+                  onPress={() => this.setState({ level: Config._const.middle })}
+                />
+              </View>
+            </View>
+          </View>
+          <View style={thisstyles.bloc}>
+            <Text style={thisstyles.title}>Langue :</Text>
+            <View style={thisstyles.bloc}>
+              <View style={thisstyles.viewButton}>
+                <Button
+                  color={
+                    this.state.displayLg == Config._const.fr ? "green" : "grey"
+                  }
+                  title={Config._const.fr}
+                  onPress={() => this.setState({ displayLg: Config._const.fr })}
+                />
+              </View>
+              <View style={thisstyles.viewButton}>
+                <Button
+                  color={
+                    this.state.displayLg == Config._const.ar ? "green" : "grey"
+                  }
+                  title={Config._const.ar}
+                  onPress={() => this.setState({ displayLg: Config._const.ar })}
+                />
+              </View>
+            </View>
+          </View>
+          <View style={thisstyles.bloc}>
+            <Text style={thisstyles.title}>Nombre de series :</Text>
+            <TextInput
+              autoFocus={false}
+              autoCorrect={false}
+              ref={input => {
+                this.txtInput = input;
+              }}
+              value={this.state.nbrOfQuestionPerSerie + ""}
+              keyboardType={"numeric"}
+              style={styles.textInput}
+              placeholder={"10"}
+              onChangeText={nbrOfQuestionPerSerie => {
+                this.setState({
+                  nbrOfQuestionPerSerie: nbrOfQuestionPerSerie + ""
+                });
+              }}
+            />
+          </View>
+
+          <View style={thisstyles.bloc}>
+            <Text style={thisstyles.title}>Nombre d'images par serie :</Text>
+
+            <TextInput
+              autoFocus={false}
+              autoCorrect={false}
+              ref={input => {
+                this.txtInput = input;
+              }}
+              value={this.state.nbrOfImagePerQuestion + ""}
+              keyboardType={"numeric"}
+              style={styles.textInput}
+              placeholder={"4"}
+              onChangeText={nbrOfImagePerQuestion => {
+                this.setState({
+                  nbrOfImagePerQuestion: nbrOfImagePerQuestion + ""
+                });
+              }}
+            />
+          </View>
+        </View>
+
+        <View style={{ width: 50, height: 50 }}>
+          <IconFeather
+            name="settings"
+            style={styles.padding10}
+            size={Config.iconSize.l}
+            color="#000"
+            onPress={() => {
+              this.setState({ showOptions: false });
+            }}
+          />
+        </View>
+      </View>
+    );
+  }
+
+  renderSeries() {
+    if (this.state.showOptions) {
+      return null;
+    }
+
+    return (
+      <View style={{ flex: 1, flexDirection: "row" }}>
+        <View style={{ flex: 9 }}>
+          <Text style={thisstyles.title}>Series disponibles :</Text>
+          <View style={{ flex: 1, flexDirection: "row", flexWrap: "wrap" }}>
+            {this.state.seriesNames.map((item, index) => {
+              return (
+                <View style={thisstyles.item} key={"ac" + index.toString()}>
+                  <Button
+                    color={"green"}
+                    title={item}
+                    onPress={() => this.chooseSerie(item)}
+                  />
+                </View>
+              );
+            })}
+          </View>
+        </View>
+
+        <View style={{ width: 50, height: 50 }}>
+          <IconFeather
+            name="settings"
+            style={styles.padding10}
+            size={Config.iconSize.l}
+            color="#000"
+            onPress={() => {
+              this.setState({ showOptions: true });
+            }}
+          />
+        </View>
+      </View>
+    );
+  }
+
   render() {
     if (this.state.currentSerie.questions == null) {
-
       return (
         <View style={styles.flex1}>
-          <View
-            style={{
-              flex: 2,
-              flexDirection: "row",
-              justifyContent: "space-around"
-            }}
-          >
-            <View style={{ flex: 3 }}>
-              <Text style={thisstyles.title}>Niveau :</Text>
-              <View style={thisstyles.bloc}>
-                <View style={thisstyles.viewButton}>
-                  <Button
-                    color={this.state.level == _EASY ? "green" : "grey"}
-                    title="Facile"
-                    onPress={() => this.setState({ level: _EASY })}
-                  />
-                </View>
-                <View style={thisstyles.viewButton}>
-                  <Button
-                    color={this.state.level == _MIDDLE ? "green" : "grey"}
-                    title="Moyen"
-                    onPress={() => this.setState({ level: _MIDDLE })}
-                  />
-                </View>
-              </View>
-            </View>
-            <View style={{ flex: 3 }}>
-              <Text style={thisstyles.title}>Langue :</Text>
-              <View style={thisstyles.bloc}>
-                <View style={thisstyles.viewButton}>
-                  <Button
-                    color={this.state.displayLg == _FR ? "green" : "grey"}
-                    title={_FR}
-                    onPress={() => this.setState({ displayLg: _FR })}
-                  />
-                </View>
-                <View style={thisstyles.viewButton}>
-                  <Button
-                    color={this.state.displayLg == _AR ? "green" : "grey"}
-                    title={_AR}
-                    onPress={() => this.setState({ displayLg: _AR })}
-                  />
-                </View>
-              </View>
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text style={thisstyles.title}>Nbr :</Text>
-              <View style={thisstyles.bloc}>
-                <TextInput
-                  autoFocus={false}
-                  autoCorrect={false}
-                  ref={input => {
-                    this.txtInput = input;
-                  }}
-                  value={this.state.nbrOfQuestionPerSerie + ""}
-                  keyboardType={"numeric"}
-                  style={styles.acSearchSectionInput}
-                  placeholder={"10"}
-                  onChangeText={nbrOfQuestionPerSerie => {
-                    this.setState({
-                      nbrOfQuestionPerSerie: nbrOfQuestionPerSerie + ""
-                    });
-                  }}
-                />
-                <TextInput
-                  autoFocus={false}
-                  autoCorrect={false}
-                  ref={input => {
-                    this.txtInput = input;
-                  }}
-                  value={this.state.nbrOfImagePerQuestion + ""}
-                  keyboardType={"numeric"}
-                  style={styles.acSearchSectionInput}
-                  placeholder={"4"}
-                  onChangeText={nbrOfImagePerQuestion => {
-                    this.setState({
-                      nbrOfImagePerQuestion: nbrOfImagePerQuestion + ""
-                    });
-                  }}
-                />
-              </View>
-            </View>
-          </View>
-
-          <Text style={thisstyles.title}>Series disponibles :</Text>
-          <View
-            style={{
-              flex: 3
-            }}
-          >
-            <View
-              style={{
-                flex: 1,
-                flexDirection: "row",
-                flexWrap: "wrap"
-              }}
-            >
-              {this.state.seriesNames.map((item, index) => {
-                return (
-                  <View
-                    style={thisstyles.item}
-                    key={"ac" + index.toString()}
-                  >
-                    <Button
-                      color={"green"}
-                      title={item}
-                      onPress={() => this.chooseSerie(item)}
-                    />
-                  </View>
-                );
-              })}
-            </View>
-          </View>
+          {this.renderOptions()}
+          {this.renderSeries()}
         </View>
       );
     } else {
@@ -266,17 +315,17 @@ class MotImage extends React.Component {
           >
             <View style={{ width: 50, height }}>
               {this.state.currentSerie.index > 0 && (
-                <TouchableOpacity
+                <IconFeather
+                  name="arrow-left"
+                  style={{ justifyContent: "center", alignItems: "center" }}
+                  size={Config.iconSize.l}
+                  color="#000"
                   onPress={() => {
                     let { currentSerie } = this.state;
                     currentSerie.index = currentSerie.index - 1;
                     this.setState({ currentSerie });
                   }}
-                  style={{ justifyContent: "center", alignItems: "center" }}
-                  underlayColor="white"
-                >
-                  <Text style={thisstyles.title}>{"<"}</Text>
-                </TouchableOpacity>
+                />
               )}
             </View>
 
@@ -296,18 +345,18 @@ class MotImage extends React.Component {
             <View style={{ width: 50, height }}>
               {this.state.currentSerie.index <
                 this.state.currentSerie.questions.length && (
-                  <TouchableOpacity
-                    onPress={() => {
-                      let { currentSerie } = this.state;
-                      currentSerie.index = currentSerie.index + 1;
-                      this.setState({ currentSerie });
-                    }}
-                    style={{ justifyContent: "center", alignItems: "center" }}
-                    underlayColor="white"
-                  >
-                    <Text style={thisstyles.title}>{">"}</Text>
-                  </TouchableOpacity>
-                )}
+                <IconFeather
+                  name="arrow-right"
+                  style={{ justifyContent: "center", alignItems: "center" }}
+                  size={Config.iconSize.l}
+                  color="#000"
+                  onPress={() => {
+                    let { currentSerie } = this.state;
+                    currentSerie.index = currentSerie.index + 1;
+                    this.setState({ currentSerie });
+                  }}
+                />
+              )}
             </View>
           </View>
 
@@ -348,16 +397,15 @@ class MotImage extends React.Component {
                         />
                       </View>
                     ) : (
-                        <Image
-                          resizeMode={"stretch"}
-                          source={item}
-
-                          style={{
-                            width: ImageWidth - 6,
-                            height: ImageWidth - 6
-                          }}
-                        />
-                      )}
+                      <Image
+                        resizeMode={"stretch"}
+                        source={item}
+                        style={{
+                          width: ImageWidth - 6,
+                          height: ImageWidth - 6
+                        }}
+                      />
+                    )}
                   </TouchableOpacity>
                 );
               })}
@@ -366,8 +414,8 @@ class MotImage extends React.Component {
           {this.state.questionClueVisible ? (
             <Text style={thisstyles.titleEntry}>{question.clue}</Text>
           ) : (
-              <Text style={thisstyles.titleEntry}> </Text>
-            )}
+            <Text style={thisstyles.titleEntry}> </Text>
+          )}
         </View>
       );
     } else {
@@ -376,6 +424,7 @@ class MotImage extends React.Component {
   }
 
   showResults = () => {
+    console.log("showResults");
     let { questions } = this.state.currentSerie;
     if (!questions) {
       return (
@@ -578,20 +627,21 @@ const thisstyles = StyleSheet.create({
   },
   bloc: {
     flexDirection: "row",
-    justifyContent: "space-around"
+    justifyContent: "space-between",
+    margin: 5
   },
   titleEntry: {
     fontSize: 18,
     margin: 5
   },
   viewButton: {
+    padding: 3,
     height: 50,
     width: 75
   },
   item: {
     width: 125,
-    height: 50,
-    margin: 5,
-
+    height: 75,
+    margin: 5
   }
 });

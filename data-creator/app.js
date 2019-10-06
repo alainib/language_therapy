@@ -4,8 +4,6 @@ const fs = require("fs").promises;
 const fse = require("fs-extra");
 var path = require("path");
 
-var jsonfile = require("jsonfile");
-
 // lit depuis le clavier
 async function readKeyboard() {
   return readlineAsync().then(line => {
@@ -38,8 +36,7 @@ async function writeJs(fileName, data) {
     console.log("Write complete " + fileName);
   }).catch(error => console.error(error));
   */
-  let writeMe =
-    "let _IMAGES =" + data + "; export default {_IMAGES }";
+  let writeMe = "let _IMAGES =" + data + "; export default {_IMAGES }";
 
   await fse.writeFile(fileName, writeMe, "utf8");
   console.log("Write complete " + fileName);
@@ -67,8 +64,6 @@ function extractFileName(fileName) {
     };
   }
 }
-
-
 
 /**
  * recupère une entreé de fichier avec path,fr,ar  , renome le fichier en FR et le place dans destPath
@@ -108,7 +103,6 @@ async function moveEntry(entry, sourcePath, destPath) {
 const pathSource = path.join(__dirname, "mot-image");
 const pathDest = path.join(__dirname, "..", "ressources", "mot-image");
 
-
 (async () => {
   try {
     clj({ pathSource, pathDest });
@@ -124,7 +118,7 @@ const pathDest = path.join(__dirname, "..", "ressources", "mot-image");
       // parcour les sous dossier
       const subFolders = await fs.readdir(pathSource);
 
-      let output = '{';
+      let output = "{";
       for (var i = 0; i < subFolders.length; i++) {
         const sourcePathSubFolder = path.join(pathSource, subFolders[i]);
 
@@ -140,7 +134,6 @@ const pathDest = path.join(__dirname, "..", "ressources", "mot-image");
           const fileNames = await fs.readdir(sourcePathSubFolder);
 
           for (var s = 0; s < fileNames.length; s++) {
-
             let entry = extractFileName(fileNames[s]);
             let movedEntry = await moveEntry(
               entry,
@@ -150,23 +143,22 @@ const pathDest = path.join(__dirname, "..", "ressources", "mot-image");
             if (!entry.translatedText) {
               console.warn("not translated :", entry);
             } else {
-              output +=
-                `{"path": require("${movedEntry.path.replace(
-                  "C:/work/workspace/language_therapy",
-                  "language_therapy"
-                )}"),
+              output += `{"path": require("${movedEntry.path.replace(
+                "C:/work/workspace/language_therapy",
+                "language_therapy"
+              )}"),
                 "fr": "${movedEntry.originalText}",
                 "ar": "${movedEntry.translatedText}"
               }`;
               if (s + 1 < fileNames.length) {
-                output += ','
+                output += ",";
               }
             }
           }
-          output += '],';
+          output += "],";
         }
       }
-      output += '}';
+      output += "}";
       console.log("finish ALL ");
       writeJs(`dataNew.js`, output);
     }
@@ -174,42 +166,3 @@ const pathDest = path.join(__dirname, "..", "ressources", "mot-image");
     console.error("err", err);
   }
 })();
-
-/*
-
-const recursive = require("recursive-readdir");
-const googleTranslate = require("google-translate")(
-  "AIzaSyAGPrFmDaHB8n0erUabxsUNqkgk2z9HLoM"
-);
-
-
-recursive("../" + path, [], async function (err, files) {
-
-	if (err) {
-		console.error(err);
-	}
-
-
-	let lastEntry = extractFileName(files[files.length - 1]);
-	for (var i = 0; i < files.length; i++) {
-		console.log(files[i]);
-
-		let entry = extractFileName(files[i]);
-		googleTranslate.translate(entry, 'fr', 'ar', function (err, translation) {
-
-			output.push({
-				'path': '<require(>"' + requirePath + translation.originalText.replace(" ", "_") + ".jpg" + '"<)>',
-				'fr': translation.originalText,
-				'ar': translation.translatedText
-			});
-
-			if (lastEntry == translation.originalText) {
-				cljmin(output);
-			}
-		});
-
-	}
-});
-
-
-*/
