@@ -7,7 +7,9 @@ const initState = {
 
   showClueReversed: true, // affiche la traduction du mot retourné à 90 degrés pour une lettre d'en face
   interfaceSize: Config.textSize.xxl,
-  playSoundAfterXWrong: 2
+  playSoundAfterXWrong: 2,
+  displayLg: Config._const.ar,
+  level: Config._const.easy
 };
 
 export default function(state = initState, action) {

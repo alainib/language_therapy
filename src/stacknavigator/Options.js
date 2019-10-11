@@ -24,9 +24,9 @@ class Options extends React.Component {
   }
 
   render() {
-    thisstyles.title["fontSize"] = this.props.options.interfaceSize;
+    console.log(this.props.options);
     return (
-      <View style={{ flex: 1, justifyContent: "space-around" }}>
+      <ScrollView contentContainerStyle={{ justifyContent: "space-around" }}>
         <View>
           <View style={thisstyles.bloc}>
             <Text style={thisstyles.title}>Niveau :</Text>
@@ -211,7 +211,12 @@ class Options extends React.Component {
                   justifyContent: "center"
                 }}
               >
-                <Text style={thisstyles.title}>
+                <Text
+                  style={{
+                    margin: 5,
+                    fontSize: this.props.options.interfaceSize
+                  }}
+                >
                   Taille de police :{this.props.options.interfaceSize}
                 </Text>
               </View>
@@ -239,14 +244,15 @@ class Options extends React.Component {
             </View>
           </View>
         </View>
-        <View style={styles.center}>
+
+        <View style={{ ...styles.center, padding: 30 }}>
           <Button
             color={"blue"}
             title="Fermer"
             onPress={() => this.props.navigation.goBack()}
           />
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }

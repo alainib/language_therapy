@@ -162,7 +162,13 @@ class MotImage extends React.Component {
     if (
       this.state.currentSerie.index < this.state.currentSerie.questions.length
     ) {
-      const height = 50;
+      const height =
+        this.props.options.interfaceSize &&
+        this.props.options.interfaceSize > 50
+          ? this.props.options.interfaceSize
+          : 50;
+      console.log("height", height);
+
       let question = this.state.currentSerie.questions[
         this.state.currentSerie.index
       ];
@@ -182,7 +188,9 @@ class MotImage extends React.Component {
       };
 
       let titleClueStyle = {
-        fontSize: this.props.options.interfaceSize,
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: this.props.options.interfaceSize * 0.6,
         margin: 5
       };
 
@@ -208,12 +216,12 @@ class MotImage extends React.Component {
         <View style={{ flex: 1 }}>
           <View
             style={{
-              margin: 5,
-              marginBottom: 10,
-              flex: 1,
+              marginTop: 20,
+              padding: 10,
               height,
               flexDirection: "row",
               alignItems: "center",
+              alignSelf: "baseline",
               justifyContent: "space-between"
             }}
           >
@@ -235,11 +243,30 @@ class MotImage extends React.Component {
             <View
               style={{
                 flex: 1,
+                height,
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "center"
               }}
             >
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}
+              >
+                <IconFeather
+                  name="volume-2"
+                  style={styles.center}
+                  size={this.props.options.interfaceSize}
+                  color="#000"
+                  onPress={() => {
+                    sound_play(question.display);
+                  }}
+                />
+              </View>
+
               <View
                 style={{
                   flex: 4,
@@ -266,23 +293,6 @@ class MotImage extends React.Component {
                     {question.display}
                   </Text>
                 </TouchableHighlight>
-              </View>
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: "center",
-                  justifyContent: "center"
-                }}
-              >
-                <IconFeather
-                  name="volume-2"
-                  style={styles.center}
-                  size={this.props.options.interfaceSize}
-                  color="#000"
-                  onPress={() => {
-                    sound_play(question.display);
-                  }}
-                />
               </View>
               <View
                 style={{
