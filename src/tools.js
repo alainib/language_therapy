@@ -8,6 +8,10 @@ export function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+export function round(number) {
+  return Math.floor(number * Math.pow(10, 0)) / Math.pow(10, 0);
+}
+
 export function clone(obj) {
   return JSON.parse(JSON.stringify(obj));
 }

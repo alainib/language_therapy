@@ -60,7 +60,7 @@ let _allSeriesName = null;
 /**
  * retourne la liste des noms de toutes les series disponibles
  */
-export function motImage_AllSeriesNames() {
+export function image_AllSeriesNames() {
   if (_allSeriesName) {
     return _allSeriesName;
   } else {
@@ -84,7 +84,7 @@ export function motImage_AllSeriesNames() {
  * @param string displayLg : langue du mot à afficher pour chaque question ( FR ou AR )
  * @param string level : easy = on utilise des images que tu meme serie, middle = on prend tjrs la même serie pour l'image juste et random pour les autres
  */
-export function motImage_randomSerie(
+export function image_randomSerie(
   serieName,
   nbrQuestion = 10,
   nbrOfImagePerQuestion = 4,
@@ -108,15 +108,12 @@ export function motImage_randomSerie(
       right: true
     });
     if (level == Config._const.easy) {
-      // et 3 autres images de la même serie
+      // et 3(ou nbrOfImagePerQuestion) autres images d'autres series
       for (var i = 1; i < nbrOfImagePerQuestion; i++) {
+        let catTmp = randomSerieName(serieName);
         let repeat = 0;
         while (repeat < 10) {
-          let imgTmp = randomImageFromSerie(
-            serieName,
-            copyDatas._IMAGES,
-            false
-          );
+          let imgTmp = randomImageFromSerie(catTmp, copyDatas._IMAGES, false);
           if (!tools.stringInArrayOfObject(imgTmp.fr, randomImages, "fr")) {
             randomImages.push(imgTmp);
             repeat = 10;
@@ -126,12 +123,15 @@ export function motImage_randomSerie(
         }
       }
     } else {
-      // et 3 autres images d'autres series
+      // et 3(ou nbrOfImagePerQuestion) autres images de la même serie
       for (var i = 1; i < nbrOfImagePerQuestion; i++) {
-        let catTmp = randomSerieName(serieName);
         let repeat = 0;
         while (repeat < 10) {
-          let imgTmp = randomImageFromSerie(catTmp, copyDatas._IMAGES, false);
+          let imgTmp = randomImageFromSerie(
+            serieName,
+            copyDatas._IMAGES,
+            false
+          );
           if (!tools.stringInArrayOfObject(imgTmp.fr, randomImages, "fr")) {
             randomImages.push(imgTmp);
             repeat = 10;

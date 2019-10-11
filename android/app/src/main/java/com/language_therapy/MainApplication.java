@@ -3,9 +3,10 @@ package com.language_therapy;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.zmxv.RNSound.RNSoundPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.rnfs.RNFSPackage;
-import com.RNFetchBlob.RNFetchBlobPackage;
+
 import com.rnziparchive.RNZipArchivePackage;
 import com.horcrux.svg.SvgPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
@@ -30,8 +31,9 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(new MainReactPackage(), new AsyncStoragePackage(), new RNFSPackage(),
-          new RNFetchBlobPackage(), new RNZipArchivePackage(), new SvgPackage(), new RNGestureHandlerPackage(),
+      return Arrays.<ReactPackage>asList(new MainReactPackage(),
+            new RNSoundPackage(), new AsyncStoragePackage(), new RNFSPackage(),
+            new RNZipArchivePackage(), new SvgPackage(), new RNGestureHandlerPackage(),
           new RNFirebasePackage(), new RNFirebaseDatabasePackage(), new VectorIconsPackage());
     }
 

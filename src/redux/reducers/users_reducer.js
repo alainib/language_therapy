@@ -15,14 +15,8 @@ import * as tools from "language_therapy/src/tools";
  */
 
 export default function(state = { current: null, list: {} }, action) {
-  let { current, list } = state;
-  console.log(
-    JSON.stringify({
-      type: action.type,
-      payload: action.payload,
-      state
-    })
-  );
+  let { list } = state;
+
   let newstate = { current: null, list: {} };
 
   switch (action.type) {
@@ -44,7 +38,9 @@ export default function(state = { current: null, list: {} }, action) {
       }
 
     case REMOVE_USER:
-      return state;
+      newstate["list"] = { ...list };
+      delete newstate["list"][action.payload];
+      return newstate;
 
     case ADD_SERIE_TO_USER:
       newstate = { ...state };

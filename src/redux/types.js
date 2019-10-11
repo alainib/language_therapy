@@ -5,3 +5,5 @@ export const CLEAR_SERIES_FROM_USER = "CLEAR_SERIES_FROM_USER";
 export const SETCURRENT_USER = "SETCURRENT_USER";
 export const ADD_USER = "ADD_USER";
 export const REMOVE_USER = "REMOVE_USER";
+
+export const UPDATE_OPTION = "UPDATE_OPTION";

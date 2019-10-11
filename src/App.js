@@ -25,7 +25,8 @@ import Users from "language_therapy/src/components/Users";
 import styles from "language_therapy/src/styles";
 import Comprehension from "language_therapy/src/stacknavigator/Comprehension";
 import MotImage from "language_therapy/src/stacknavigator/MotImage";
-import UpdateData from "language_therapy/src/stacknavigator/UpdateData";
+// import UpdateData from "language_therapy/src/stacknavigator/UpdateData";
+import Options from "language_therapy/src/stacknavigator/Options";
 
 YellowBox.ignoreWarnings([]);
 console.disableYellowBox = true;
@@ -53,6 +54,7 @@ class Home extends Component {
                 onPress={() => this.props.navigation.navigate("MotImage")}
               />
             </View>
+            {/*
             <View style={{ margin: 10 }}>
               <Button
                 containerStyle={{ margin: 10 }}
@@ -61,7 +63,7 @@ class Home extends Component {
               />
             </View>
 
-            {/* <View style={{ margin: 10 }} >
+            <View style={{ margin: 10 }} >
                     <Button
                         containerStyle={{ margin: 10 }}
                         title="Comprehension"
@@ -98,10 +100,14 @@ const StackNavigator = createStackNavigator(
       screen: Comprehension,
       ...removeHeader
     },
-    UpdateData: {
-      screen: UpdateData,
+    Options: {
+      screen: Options,
       ...removeHeader
     }
+    /*UpdateData: {
+      screen: UpdateData,
+      ...removeHeader
+    }*/
     // il faut déclarer ici les pages affichées dans le drawer pour avoir la bar en haut avec le bouton retour
     // StaticPage: {screen: StaticPage },
   },

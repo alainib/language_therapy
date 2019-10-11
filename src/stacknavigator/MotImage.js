@@ -18,19 +18,20 @@ import styles from "language_therapy/src/styles";
 import { LineChart } from "react-native-chart-kit";
 import Config from "language_therapy/src/Config";
 import IconFeather from "react-native-vector-icons/Feather";
+import * as tools from "language_therapy/src/tools";
 
 import {
-  motImage_AllSeriesNames,
-  motImage_randomSerie
+  image_AllSeriesNames,
+  image_randomSerie
 } from "language_therapy/src/services/image";
+
+import { sound_play } from "language_therapy/src/services/sound";
 
 class MotImage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nbrOfQuestionPerSerie: 10, // nombre de question par défaut par serie
-      nbrOfImagePerQuestion: 4, // nombre d'image par question
-      currentUser: this.props.currentUser || null,
+      currentUser: props.currentUser || null,
       // tous les noms de series
       seriesNames: [],
       // celle choisi par l'utilisateur
@@ -45,13 +46,10 @@ class MotImage extends React.Component {
 
   async componentDidMount() {
     this._timeout = null;
-    let seriesNames = await motImage_AllSeriesNames();
+    let seriesNames = await image_AllSeriesNames();
 
     this.setState({
-      level: Config._const.easy,
-      displayLg: Config._const.ar,
-      seriesNames,
-      showOptions: false
+      seriesNames
     });
     if (this.props.currentUser == null) {
       Alert.alert(
@@ -60,7 +58,7 @@ class MotImage extends React.Component {
         [
           {
             text: "revenir en arrière",
-            onPress: () => this.props.navigation()
+            onPress: () => this.props.navigation.goBack()
           }
         ],
         { cancelable: false }
@@ -70,7 +68,6 @@ class MotImage extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.state.currentUser != nextProps.currentUser) {
-      console.log(" componentWillReceiveProps(nextProps)", nextProps);
       this.setState({ currentUser: nextProps.currentUser });
     }
   }
@@ -90,136 +87,27 @@ class MotImage extends React.Component {
 
   /** appelé lors du click sur un element de la liste */
   chooseSerie = async serieName => {
-    let res = await motImage_randomSerie(
+    let res = await image_randomSerie(
       serieName,
-      this.state.nbrOfQuestionPerSerie,
-      this.state.nbrOfImagePerQuestion,
-      this.state.displayLg,
-      this.state.level
+      this.props.options.nbrOfQuestionPerSerie,
+      this.props.options.nbrOfImagePerQuestion,
+      this.props.options.displayLg,
+      this.props.options.level
     );
     this.setState({ currentSerie: this.initCurrentSerie(res) });
   };
 
-  renderOptions() {
-    if (!this.state.showOptions) {
-      return null;
-    }
-    return (
-      <View style={{ flex: 1, flexDirection: "row" }}>
-        <View style={{ flex: 9 }}>
-          <View style={thisstyles.bloc}>
-            <Text style={thisstyles.title}>Niveau :</Text>
-            <View style={thisstyles.bloc}>
-              <View style={thisstyles.viewButton}>
-                <Button
-                  color={
-                    this.state.level == Config._const.easy ? "green" : "grey"
-                  }
-                  title="Facile"
-                  onPress={() => this.setState({ level: Config._const.easy })}
-                />
-              </View>
-              <View style={thisstyles.viewButton}>
-                <Button
-                  color={
-                    this.state.level == Config._const.middle ? "green" : "grey"
-                  }
-                  title="Moyen"
-                  onPress={() => this.setState({ level: Config._const.middle })}
-                />
-              </View>
-            </View>
-          </View>
-          <View style={thisstyles.bloc}>
-            <Text style={thisstyles.title}>Langue :</Text>
-            <View style={thisstyles.bloc}>
-              <View style={thisstyles.viewButton}>
-                <Button
-                  color={
-                    this.state.displayLg == Config._const.fr ? "green" : "grey"
-                  }
-                  title={Config._const.fr}
-                  onPress={() => this.setState({ displayLg: Config._const.fr })}
-                />
-              </View>
-              <View style={thisstyles.viewButton}>
-                <Button
-                  color={
-                    this.state.displayLg == Config._const.ar ? "green" : "grey"
-                  }
-                  title={Config._const.ar}
-                  onPress={() => this.setState({ displayLg: Config._const.ar })}
-                />
-              </View>
-            </View>
-          </View>
-          <View style={thisstyles.bloc}>
-            <Text style={thisstyles.title}>Nombre de series :</Text>
-            <TextInput
-              autoFocus={false}
-              autoCorrect={false}
-              ref={input => {
-                this.txtInput = input;
-              }}
-              value={this.state.nbrOfQuestionPerSerie + ""}
-              keyboardType={"numeric"}
-              style={styles.textInput}
-              placeholder={"10"}
-              onChangeText={nbrOfQuestionPerSerie => {
-                this.setState({
-                  nbrOfQuestionPerSerie: nbrOfQuestionPerSerie + ""
-                });
-              }}
-            />
-          </View>
-
-          <View style={thisstyles.bloc}>
-            <Text style={thisstyles.title}>Nombre d'images par serie :</Text>
-
-            <TextInput
-              autoFocus={false}
-              autoCorrect={false}
-              ref={input => {
-                this.txtInput = input;
-              }}
-              value={this.state.nbrOfImagePerQuestion + ""}
-              keyboardType={"numeric"}
-              style={styles.textInput}
-              placeholder={"4"}
-              onChangeText={nbrOfImagePerQuestion => {
-                this.setState({
-                  nbrOfImagePerQuestion: nbrOfImagePerQuestion + ""
-                });
-              }}
-            />
-          </View>
-        </View>
-
-        <View style={{ width: 50, height: 50 }}>
-          <IconFeather
-            name="settings"
-            style={styles.padding10}
-            size={Config.iconSize.l}
-            color="#000"
-            onPress={() => {
-              this.setState({ showOptions: false });
-            }}
-          />
-        </View>
-      </View>
-    );
-  }
-
   renderSeries() {
-    if (this.state.showOptions) {
-      return null;
-    }
-
     return (
       <View style={{ flex: 1, flexDirection: "row" }}>
         <View style={{ flex: 9 }}>
           <Text style={thisstyles.title}>Series disponibles :</Text>
-          <View style={{ flex: 1, flexDirection: "row", flexWrap: "wrap" }}>
+          <ScrollView
+            contentContainerStyle={{
+              flexDirection: "row",
+              flexWrap: "wrap"
+            }}
+          >
             {this.state.seriesNames.map((item, index) => {
               return (
                 <View style={thisstyles.item} key={"ac" + index.toString()}>
@@ -231,17 +119,17 @@ class MotImage extends React.Component {
                 </View>
               );
             })}
-          </View>
+          </ScrollView>
         </View>
 
         <View style={{ width: 50, height: 50 }}>
           <IconFeather
             name="settings"
             style={styles.padding10}
-            size={Config.iconSize.l}
+            size={Config.iconSize.xl}
             color="#000"
             onPress={() => {
-              this.setState({ showOptions: true });
+              this.props.navigation.navigate("Options");
             }}
           />
         </View>
@@ -251,12 +139,7 @@ class MotImage extends React.Component {
 
   render() {
     if (this.state.currentSerie.questions == null) {
-      return (
-        <View style={styles.flex1}>
-          {this.renderOptions()}
-          {this.renderSeries()}
-        </View>
-      );
+      return <View style={styles.flex1}>{this.renderSeries()}</View>;
     } else {
       return this.displaySerieQuestions();
     }
@@ -267,6 +150,7 @@ class MotImage extends React.Component {
       questionClueVisible: true
     });
   };
+
   _onPressOut = () => {
     this.setState({
       questionClueVisible: false
@@ -282,7 +166,13 @@ class MotImage extends React.Component {
       let question = this.state.currentSerie.questions[
         this.state.currentSerie.index
       ];
-      let ImageWidth = Config.width / question.images.length - 2;
+      let ImageWidth = tools.round(Config.width / question.images.length - 2);
+
+      if (ImageWidth < 75) {
+        ImageWidth = tools.round(
+          Config.width / (question.images.length / 2) - 20
+        );
+      }
 
       let borderStyle = {
         alignItems: "center",
@@ -290,6 +180,15 @@ class MotImage extends React.Component {
         width: ImageWidth,
         height: ImageWidth
       };
+
+      let titleClueStyle = {
+        fontSize: this.props.options.interfaceSize,
+        margin: 5
+      };
+
+      if (this.props.options.showClueReversed) {
+        titleClueStyle["transform"] = [{ rotate: "180deg" }];
+      }
 
       if (question.answer.showBorder) {
         if (question.answer.correct) {
@@ -300,6 +199,10 @@ class MotImage extends React.Component {
           borderStyle["borderColor"] = "red";
         }
       }
+      let iconWidth =
+        this.props.options.interfaceSize + 10 > 50
+          ? this.props.options.interfaceSize + 10
+          : 50;
 
       return (
         <View style={{ flex: 1 }}>
@@ -310,15 +213,16 @@ class MotImage extends React.Component {
               flex: 1,
               height,
               flexDirection: "row",
+              alignItems: "center",
               justifyContent: "space-between"
             }}
           >
-            <View style={{ width: 50, height }}>
+            <View style={{ width: iconWidth, height }}>
               {this.state.currentSerie.index > 0 && (
                 <IconFeather
                   name="arrow-left"
-                  style={{ justifyContent: "center", alignItems: "center" }}
-                  size={Config.iconSize.l}
+                  style={styles.center}
+                  size={this.props.options.interfaceSize}
                   color="#000"
                   onPress={() => {
                     let { currentSerie } = this.state;
@@ -328,27 +232,82 @@ class MotImage extends React.Component {
                 />
               )}
             </View>
-
-            <TouchableHighlight
-              onLongPress={this._onLongPress}
-              onPressOut={this._onPressOut}
-              underlayColor="white"
+            <View
               style={{
-                padding: 20,
-                justifyContent: "center",
-                alignItems: "center"
+                flex: 1,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center"
               }}
             >
-              <Text style={thisstyles.title}>{question.display}</Text>
-            </TouchableHighlight>
+              <View
+                style={{
+                  flex: 4,
+                  alignItems: "flex-end",
+                  justifyContent: "center"
+                }}
+              >
+                <TouchableHighlight
+                  onLongPress={this._onLongPress}
+                  onPressOut={this._onPressOut}
+                  underlayColor="white"
+                  style={{
+                    padding: 20,
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: this.props.options.interfaceSize,
+                      margin: 5
+                    }}
+                  >
+                    {question.display}
+                  </Text>
+                </TouchableHighlight>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}
+              >
+                <IconFeather
+                  name="volume-2"
+                  style={styles.center}
+                  size={this.props.options.interfaceSize}
+                  color="#000"
+                  onPress={() => {
+                    sound_play(question.display);
+                  }}
+                />
+              </View>
+              <View
+                style={{
+                  flex: 4,
+                  alignItems: "flex-start",
+                  justifyContent: "center"
+                }}
+              >
+                {this.state.questionClueVisible ? (
+                  <Text style={titleClueStyle}>{question.clue}</Text>
+                ) : (
+                  <Text style={titleClueStyle}> </Text>
+                )}
+              </View>
+            </View>
 
-            <View style={{ width: 50, height }}>
+            <View
+              style={{ width: this.props.options.interfaceSize + 10, height }}
+            >
               {this.state.currentSerie.index <
                 this.state.currentSerie.questions.length && (
                 <IconFeather
                   name="arrow-right"
-                  style={{ justifyContent: "center", alignItems: "center" }}
-                  size={Config.iconSize.l}
+                  style={styles.center}
+                  size={this.props.options.interfaceSize}
                   color="#000"
                   onPress={() => {
                     let { currentSerie } = this.state;
@@ -364,6 +323,7 @@ class MotImage extends React.Component {
             <View
               style={{
                 flex: 1,
+                flexWrap: "wrap",
                 flexDirection: "row",
                 justifyContent: "space-around"
               }}
@@ -411,11 +371,6 @@ class MotImage extends React.Component {
               })}
             </View>
           </View>
-          {this.state.questionClueVisible ? (
-            <Text style={thisstyles.titleEntry}>{question.clue}</Text>
-          ) : (
-            <Text style={thisstyles.titleEntry}> </Text>
-          )}
         </View>
       );
     } else {
@@ -573,8 +528,10 @@ class MotImage extends React.Component {
       let question = currentSerie.questions[currentSerie.index];
 
       question.answer.attempt++;
+
       question.answer.showBorder = true;
       question.answer.clickedIndex = imageIndex;
+      //bonne réponse
       if (imageIndex == question.answer.rightIndex) {
         question.answer.correct = true;
         question.answer.wrong = false;
@@ -586,6 +543,12 @@ class MotImage extends React.Component {
           }, 500);
         });
       } else {
+        if (
+          question.answer.attempt >= this.props.options.playSoundAfterXWrong
+        ) {
+          sound_play(question.display);
+        }
+        // mauvaise réponse
         question.answer.correct = false;
         question.answer.wrong = true;
         this.setState({ currentSerie }, () => {
@@ -607,7 +570,8 @@ class MotImage extends React.Component {
 
 function mapStatetoProps(data) {
   return {
-    currentUser: data.users.current
+    currentUser: data.users.current,
+    options: data["options"]
   };
 }
 
@@ -640,7 +604,7 @@ const thisstyles = StyleSheet.create({
     width: 75
   },
   item: {
-    width: 125,
+    width: 175,
     height: 75,
     margin: 5
   }

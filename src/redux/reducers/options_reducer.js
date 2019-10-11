@@ -1,0 +1,27 @@
+import Config from "language_therapy/src/Config";
+import { UPDATE_OPTION } from "language_therapy/src/redux/types";
+
+const initState = {
+  nbrOfQuestionPerSerie: 10, // nombre de question par défaut par serie
+  nbrOfImagePerQuestion: 4, // nombre d'image par question
+
+  showClueReversed: true, // affiche la traduction du mot retourné à 90 degrés pour une lettre d'en face
+  interfaceSize: Config.textSize.xxl,
+  playSoundAfterXWrong: 2
+};
+
+export default function(state = initState, action) {
+  switch (action.type) {
+    case UPDATE_OPTION:
+      let newState = { ...state };
+      if (action.payload.subkey == null) {
+        newState[action.payload.key] = action.payload.value;
+      } else {
+        newState[action.payload.key][action.payload.subkey] =
+          action.payload.value;
+      }
+      return newState;
+    default:
+      return state;
+  }
+}

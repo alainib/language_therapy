@@ -5,10 +5,13 @@ import {
   Text,
   Button,
   TextInput,
+  Alert,
   TouchableOpacity
 } from "react-native";
 import styles from "language_therapy/src/styles";
 import * as tools from "language_therapy/src/tools";
+import IconFeather from "react-native-vector-icons/Feather";
+import Config from "language_therapy/src/Config";
 
 class Users extends React.PureComponent {
   constructor(props) {
@@ -30,29 +33,10 @@ class Users extends React.PureComponent {
   render() {
     const _listLength = Object.keys(this.state.users.list).length;
     return (
-      <View
-        style={{
-          flex: 1
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "flex-start"
-          }}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "flex-start"
-            }}
-          >
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-            >
+      <View style={{ flex: 1 }}>
+        {this.state.users.current != null ? (
+          <View style={{ flexDirection: "row", justifyContent: "flex-start" }}>
+            <View style={styles.center}>
               <TouchableOpacity
                 style={{
                   justifyContent: "center",
@@ -80,7 +64,19 @@ class Users extends React.PureComponent {
               Utilisateur courant : {"\n" + this.state.users.current}
             </Text>
           </View>
-        </View>
+        ) : (
+          <View style={styles.center}>
+            <Button
+              title="Ajouter un utilisateur"
+              onPress={() => {
+                this.setState({
+                  showAddUser: !this.state.showAddUser
+                });
+              }}
+            />
+          </View>
+        )}
+
         {this.state.showAddUser && (
           <View
             style={{
@@ -142,15 +138,44 @@ class Users extends React.PureComponent {
                 <ScrollView>
                   {tools.mapObject(this.state.users.list, (key, value) => {
                     return (
-                      <View key={key.toString()}>
+                      <View
+                        key={key.toString()}
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          paddingHorizontal: 10,
+                          alignItems: "center"
+                        }}
+                      >
                         <TouchableOpacity
-                          style={{ padding: 5 }}
                           onPress={() => {
                             this.props.action_setCurrentUser(key);
                           }}
                         >
                           <Text style={styles.titleMD}>{key}</Text>
                         </TouchableOpacity>
+                        <IconFeather
+                          name="trash"
+                          size={Config.iconSize.md}
+                          color="#000"
+                          onPress={() => {
+                            Alert.alert(
+                              "Effacer l'utilisateur ?",
+                              "ainsi que tous ses tests ",
+                              [
+                                {
+                                  text: "Oui",
+                                  onPress: () =>
+                                    this.props.action_removeUser(key)
+                                },
+                                {
+                                  text: "Non"
+                                }
+                              ],
+                              { cancelable: true }
+                            );
+                          }}
+                        />
                       </View>
                     );
                   })}
@@ -166,7 +191,8 @@ class Users extends React.PureComponent {
 
 function mapToStateProps(data) {
   return {
-    users: data.users
+    users: data.users,
+    options: data["options"]
   };
 }
 
