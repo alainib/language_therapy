@@ -2,6 +2,7 @@ const readlineAsync = require("readline-async");
 
 const fs = require("fs").promises;
 const fse = require("fs-extra");
+var _ = require("lodash");
 var path = require("path");
 
 // lit depuis le clavier
@@ -65,6 +66,15 @@ function extractFileName(fileName) {
   }
 }
 
+// retourne l'extension du fichier (jpg, mp3)
+function getExtension(fileName) {
+  if (fileName.indexOf(".jpg") > 0) {
+    return "jpg";
+  } else if (fileName.indexOf(".mp3") > 0) {
+    return "mp3";
+  }
+}
+
 /**
  * recupère une entreé de fichier avec path,fr,ar  , renome le fichier en FR et le place dans destPath
  * @param {obj} entry
@@ -81,7 +91,8 @@ async function moveEntry(entry, sourcePath, destPath) {
     fileName: entry.originalText,
     originalText: entry.originalText,
     translatedText: entry.translatedText,
-    path: d
+    path: d,
+    audio: cleanName(entry.originalText)
   };
   try {
     await fse.copy(s, d);
@@ -89,6 +100,37 @@ async function moveEntry(entry, sourcePath, destPath) {
     console.error(err);
   }
   return movedEntry;
+}
+
+function cleanName(entry) {
+  return _.deburr(entry);
+}
+
+const destPathAudio = path.join(
+  __dirname,
+  "..",
+  "android",
+  "app",
+  "src",
+  "main",
+  "res",
+  "raw"
+);
+
+async function moveAudio(entry, sourcePath) {
+  let s = path.join(sourcePath, entry);
+
+  let d = path.join(destPathAudio, cleanName(entry));
+  s = replaceAll(s, "\\", "/");
+  d = replaceAll(d, "\\", "/");
+  //console.log("s", { s, d });
+
+  try {
+    await fse.copy(s, d);
+  } catch (err) {
+    console.error(err);
+  }
+  return true;
 }
 
 /***
@@ -105,7 +147,7 @@ const pathDest = path.join(__dirname, "..", "ressources", "mot-image");
 
 (async () => {
   try {
-    clj({ pathSource, pathDest });
+    clj({ pathSource, pathDest, destPathAudio });
     let askForFolder = false;
     if (askForFolder) {
       console.log("continu ? press y");
@@ -115,7 +157,7 @@ const pathDest = path.join(__dirname, "..", "ressources", "mot-image");
     fse.ensureDirSync(pathDest);
 
     if (!askForFolder || (await readKeyboard()) == "y") {
-      // parcour les sous dossier
+      // parcour les sous dossiers
       const subFolders = await fs.readdir(pathSource);
 
       let output = "{";
@@ -134,25 +176,31 @@ const pathDest = path.join(__dirname, "..", "ressources", "mot-image");
           const fileNames = await fs.readdir(sourcePathSubFolder);
 
           for (var s = 0; s < fileNames.length; s++) {
-            let entry = extractFileName(fileNames[s]);
-            let movedEntry = await moveEntry(
-              entry,
-              sourcePathSubFolder,
-              destPathSubFolder
-            );
-            if (!entry.translatedText) {
-              console.warn("not translated :", entry);
-            } else {
-              output += `{"path": require("${movedEntry.path.replace(
-                "C:/work/workspace/language_therapy",
-                "language_therapy"
-              )}"),
-                "fr": "${movedEntry.originalText}",
-                "ar": "${movedEntry.translatedText}"
-              }`;
-              if (s + 1 < fileNames.length) {
-                output += ",";
+            let extension = getExtension(fileNames[s]);
+            if (extension == "jpg") {
+              let entry = extractFileName(fileNames[s]);
+              let movedEntry = await moveEntry(
+                entry,
+                sourcePathSubFolder,
+                destPathSubFolder
+              );
+              if (!entry.translatedText) {
+                console.warn("not translated :", entry);
+              } else {
+                output += `{"path": require("${movedEntry.path.replace(
+                  "C:/work/workspace/language_therapy",
+                  "language_therapy"
+                )}"),
+                  "fr": "${movedEntry.originalText}",
+                  "ar": "${movedEntry.translatedText}",
+                  "audio":"${movedEntry.audio}"
+                }`;
+                if (s + 1 < fileNames.length) {
+                  output += ",";
+                }
               }
+            } else {
+              moveAudio(fileNames[s], sourcePathSubFolder);
             }
           }
           output += "],";
@@ -160,7 +208,7 @@ const pathDest = path.join(__dirname, "..", "ressources", "mot-image");
       }
       output += "}";
       console.log("finish ALL ");
-      writeJs(`dataNew.js`, output);
+      writeJs(`data.js`, output);
     }
   } catch (err) {
     console.error("err", err);

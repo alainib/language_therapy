@@ -5,7 +5,7 @@ const _const = {
   easy: "easy",
   middle: "middle",
   fr: "fr",
-  ar: "AR"
+  ar: "ar"
 };
 
 const iconSize = {

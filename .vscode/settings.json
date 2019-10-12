@@ -1,3 +1,4 @@
 {
-    "editor.wordWrapColumn": 140
+    "editor.wordWrapColumn": 140,
+    "java.configuration.updateBuildConfiguration": "automatic"
 }

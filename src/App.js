@@ -23,7 +23,7 @@ const { persistor, store } = configureStore();
 
 import Users from "language_therapy/src/components/Users";
 import styles from "language_therapy/src/styles";
-import Comprehension from "language_therapy/src/stacknavigator/Comprehension";
+import Record from "language_therapy/src/stacknavigator/Record";
 import MotImage from "language_therapy/src/stacknavigator/MotImage";
 // import UpdateData from "language_therapy/src/stacknavigator/UpdateData";
 import Options from "language_therapy/src/stacknavigator/Options";
@@ -62,15 +62,15 @@ class Home extends Component {
                 onPress={() => this.props.navigation.navigate("UpdateData")}
               />
             </View>
+             */}
 
-            <View style={{ margin: 10 }} >
-                    <Button
-                        containerStyle={{ margin: 10 }}
-                        title="Comprehension"
-                        onPress={() => this.props.navigation.navigate('Comprehension')}
-                    />
-                </View>
-                */}
+            <View style={{ margin: 10 }}>
+              <Button
+                containerStyle={{ margin: 10 }}
+                title="Record"
+                onPress={() => this.props.navigation.navigate("Record")}
+              />
+            </View>
           </ScrollView>
         </View>
       </View>
@@ -96,8 +96,8 @@ const StackNavigator = createStackNavigator(
       screen: MotImage,
       ...removeHeader
     },
-    Comprehension: {
-      screen: Comprehension,
+    Record: {
+      screen: Record,
       ...removeHeader
     },
     Options: {
@@ -135,7 +135,6 @@ export default class App extends React.PureComponent {
        }*/
 
   render() {
-    console.log("render app");
     return (
       <Provider store={store}>
         <PersistGate loading={<ActivityIndicator />} persistor={persistor}>

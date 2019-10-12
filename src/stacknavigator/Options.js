@@ -1,4 +1,3 @@
-//Comprehension.js
 import React from "react";
 import {
   View,

@@ -9,10 +9,12 @@ var Sound = require("react-native-sound");
  */
 export function sound_play(filename) {
   setTimeout(() => {
-    filename = "test.mp3";
+    if (filename.indexOf(".mp3") < 0) {
+      filename += ".mp3";
+    }
 
     var sound = new Sound(filename, Sound.MAIN_BUNDLE, error => {
-      console.log(error);
+      console.warn(error);
     });
 
     setTimeout(() => {

@@ -1,4 +1,3 @@
-//Comprehension.js
 import React from "react";
 import {
   View,
@@ -157,6 +156,14 @@ class MotImage extends React.Component {
     });
   };
 
+  playSound(name) {
+    if (this.props.options.displayLg == Config._const.ar) {
+      sound_play(name + "_" + this.props.options.displayLg);
+    } else {
+      sound_play(name);
+    }
+  }
+
   // affiche les questions d'une serie
   displaySerieQuestions() {
     if (
@@ -167,7 +174,6 @@ class MotImage extends React.Component {
         this.props.options.interfaceSize > 50
           ? this.props.options.interfaceSize
           : 50;
-      console.log("height", height);
 
       let question = this.state.currentSerie.questions[
         this.state.currentSerie.index
@@ -262,7 +268,7 @@ class MotImage extends React.Component {
                   size={this.props.options.interfaceSize}
                   color="#000"
                   onPress={() => {
-                    sound_play(question.display);
+                    this.playSound(question.audio);
                   }}
                 />
               </View>
@@ -389,7 +395,6 @@ class MotImage extends React.Component {
   }
 
   showResults = () => {
-    console.log("showResults");
     let { questions } = this.state.currentSerie;
     if (!questions) {
       return (
@@ -507,7 +512,7 @@ class MotImage extends React.Component {
         </View>
       );
     } catch (error) {
-      console.log(error);
+      console.warn(error);
       return <Text>Erreur de calcul </Text>;
     }
   };
@@ -556,7 +561,7 @@ class MotImage extends React.Component {
         if (
           question.answer.attempt >= this.props.options.playSoundAfterXWrong
         ) {
-          sound_play(question.display);
+          this.playSound(question.audio);
         }
         // mauvaise réponse
         question.answer.correct = false;

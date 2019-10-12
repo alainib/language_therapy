@@ -1,5 +1,5 @@
 import RawDatas from "language_therapy/ressources/data";
-console.log("RawDatas", RawDatas);
+
 import * as tools from "language_therapy/src/tools";
 
 import Config from "language_therapy/src/Config";
@@ -16,7 +16,7 @@ function randomImageFromSerie(serieName, imagesSrc, deleteItem = false) {
     imagesSrc == undefined ||
     imagesSrc[serieName].length < 1
   ) {
-    console.log("missing imagesSrc param data");
+    console.warn("missing imagesSrc param data");
     return null;
   }
   let l = tools.getRandomInt(0, imagesSrc[serieName].length - 1);
@@ -163,7 +163,8 @@ export function image_randomSerie(
         correct: false,
         attempt: 0
       },
-      images: images
+      images: images,
+      audio: randomImages[foundIndex]["audio"]
     };
     if (displayLg == Config._const.fr) {
       questionTmp["display"] = randomImages[foundIndex]["fr"];
