@@ -14,7 +14,11 @@ export function sound_play(filename) {
     }
 
     var sound = new Sound(filename, Sound.MAIN_BUNDLE, error => {
-      console.warn(error);
+      if (error) {
+        console.log("not found", filename);
+        console.warn(error);
+        return;
+      }
     });
 
     setTimeout(() => {

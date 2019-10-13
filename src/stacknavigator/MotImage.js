@@ -84,7 +84,7 @@ class MotImage extends React.Component {
     };
   }
 
-  /** appelé lors du click sur un element de la liste */
+  /** choix de la serie thèmatique */
   chooseSerie = async serieName => {
     let res = await image_randomSerie(
       serieName,
@@ -93,6 +93,7 @@ class MotImage extends React.Component {
       this.props.options.displayLg,
       this.props.options.level
     );
+
     this.setState({ currentSerie: this.initCurrentSerie(res) });
   };
 
@@ -276,7 +277,7 @@ class MotImage extends React.Component {
               <View
                 style={{
                   flex: 4,
-                  alignItems: "flex-end",
+                  alignItems: "flex-start",
                   justifyContent: "center"
                 }}
               >
@@ -299,19 +300,6 @@ class MotImage extends React.Component {
                     {question.display}
                   </Text>
                 </TouchableHighlight>
-              </View>
-              <View
-                style={{
-                  flex: 4,
-                  alignItems: "flex-start",
-                  justifyContent: "center"
-                }}
-              >
-                {this.state.questionClueVisible ? (
-                  <Text style={titleClueStyle}>{question.clue}</Text>
-                ) : (
-                  <Text style={titleClueStyle}> </Text>
-                )}
               </View>
             </View>
 
@@ -386,6 +374,20 @@ class MotImage extends React.Component {
                 );
               })}
             </View>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              alignItems: "flex-end",
+              justifyContent: "center",
+              paddingRight: 25
+            }}
+          >
+            {this.state.questionClueVisible ? (
+              <Text style={titleClueStyle}>{question.clue}</Text>
+            ) : (
+              <Text style={titleClueStyle}> </Text>
+            )}
           </View>
         </View>
       );

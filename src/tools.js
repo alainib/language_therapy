@@ -35,6 +35,25 @@ export function stringInArrayOfObject(word, array, field) {
   return false;
 }
 
+export function isdefined(myvar) {
+  return myvar != null && myvar != undefined;
+}
+export function isString(x) {
+  return Object.prototype.toString.call(x) === "[object String]";
+}
+/**
+ * test if a `word` is in `array`
+ * @param word : string
+ * @param array : array list
+ * @returns {boolean}
+ */
+export function stringInArray(word, array) {
+  if (isdefined(array) && isdefined(word)) {
+    return array.includes(word);
+  }
+  return false;
+}
+
 /*
 usage : {mapObject(yourObject, function (key, value) {
   return <div>Key: {key}, Value: {value}</div>;

@@ -92,7 +92,7 @@ async function moveEntry(entry, sourcePath, destPath) {
     originalText: entry.originalText,
     translatedText: entry.translatedText,
     path: d,
-    audio: cleanName(entry.originalText)
+    audio: replaceAll(cleanName(entry.originalText), " ", "_")
   };
   try {
     await fse.copy(s, d);
