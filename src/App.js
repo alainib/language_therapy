@@ -23,7 +23,7 @@ const { persistor, store } = configureStore();
 
 import Users from "language_therapy/src/components/Users";
 import styles from "language_therapy/src/styles";
-import Record from "language_therapy/src/stacknavigator/Record";
+import Suivi from "language_therapy/src/stacknavigator/Suivi";
 import MotImage from "language_therapy/src/stacknavigator/MotImage";
 // import UpdateData from "language_therapy/src/stacknavigator/UpdateData";
 import Options from "language_therapy/src/stacknavigator/Options";
@@ -67,8 +67,8 @@ class Home extends Component {
             <View style={{ margin: 10 }}>
               <Button
                 containerStyle={{ margin: 10 }}
-                title="Record"
-                onPress={() => this.props.navigation.navigate("Record")}
+                title="Suivi"
+                onPress={() => this.props.navigation.navigate("Suivi")}
               />
             </View>
           </ScrollView>
@@ -96,8 +96,9 @@ const StackNavigator = createStackNavigator(
       screen: MotImage,
       ...removeHeader
     },
-    Record: {
-      screen: Record,
+    Suivi: {
+      screen: Suivi,
+
       ...removeHeader
     },
     Options: {
