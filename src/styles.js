@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   titleMD: {
     fontSize: 15,
-    textAlign: "center",
+    textAlign: "left",
     margin: 10
   },
   instructions: {

@@ -8,6 +8,10 @@ export function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+export function round(number) {
+  return Math.floor(number * Math.pow(10, 0)) / Math.pow(10, 0);
+}
+
 export function clone(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
@@ -31,6 +35,25 @@ export function stringInArrayOfObject(word, array, field) {
   return false;
 }
 
+export function isdefined(myvar) {
+  return myvar != null && myvar != undefined;
+}
+export function isString(x) {
+  return Object.prototype.toString.call(x) === "[object String]";
+}
+/**
+ * test if a `word` is in `array`
+ * @param word : string
+ * @param array : array list
+ * @returns {boolean}
+ */
+export function stringInArray(word, array) {
+  if (isdefined(array) && isdefined(word)) {
+    return array.includes(word);
+  }
+  return false;
+}
+
 /*
 usage : {mapObject(yourObject, function (key, value) {
   return <div>Key: {key}, Value: {value}</div>;
@@ -42,7 +65,11 @@ export function mapObject(object, callback) {
   });
 }
 
-export function getTodayDate() {
+/**
+ * return date of today yyyy/mm/dd , if hm==true return yyyy/mm/dd hh-mm
+ * @param {*} hm
+ */
+export function getTodayDate(hm = false) {
   var todayTime = new Date();
   var month = todayTime.getMonth() + 1;
   if (month < 10) {
@@ -53,5 +80,17 @@ export function getTodayDate() {
     day = "0" + day;
   }
   var year = todayTime.getFullYear();
-  return year + "/" + month + "/" + day;
+  if (hm) {
+    var hours = todayTime.getHours();
+    if (hours < 10) {
+      hours = "0" + hours;
+    }
+    var minutes = todayTime.getMinutes();
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+    return `${year}/${month}/${day} ${hours}:${minutes}`;
+  } else {
+    return `${year}/${month}/${day}`;
+  }
 }

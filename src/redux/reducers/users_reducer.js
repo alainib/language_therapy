@@ -15,14 +15,8 @@ import * as tools from "language_therapy/src/tools";
  */
 
 export default function(state = { current: null, list: {} }, action) {
-  let { current, list } = state;
-  console.log(
-    JSON.stringify({
-      type: action.type,
-      payload: action.payload,
-      state
-    })
-  );
+  let { list } = state;
+
   let newstate = { current: null, list: {} };
 
   switch (action.type) {
@@ -36,7 +30,7 @@ export default function(state = { current: null, list: {} }, action) {
         newstate["list"] = { ...list };
 
         if (newstate.list[action.payload] == undefined) {
-          newstate.list[action.payload] = [];
+          newstate.list[action.payload] = {};
         }
         return newstate;
       } else {
@@ -44,16 +38,20 @@ export default function(state = { current: null, list: {} }, action) {
       }
 
     case REMOVE_USER:
-      return state;
+      newstate["list"] = { ...list };
+      delete newstate["list"][action.payload];
+      return newstate;
 
     case ADD_SERIE_TO_USER:
       newstate = { ...state };
+      console.log("action.payload", action.payload);
 
-      newstate.list[action.payload.currentUser].push({
-        date: tools.getTodayDate(),
-        currentSerie: action.payload.currentSerie,
+      newstate.list[action.payload.currentUser][Date.now()] = {
+        id: Date.now(),
+        date: tools.getTodayDate(true),
+        serie: action.payload.currentSerie,
         score: action.payload.score
-      });
+      };
 
     case REMOVE_SERIE_FROM_USER:
 

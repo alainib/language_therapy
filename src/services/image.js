@@ -1,5 +1,5 @@
 import RawDatas from "language_therapy/ressources/data";
-console.log("RawDatas", RawDatas);
+
 import * as tools from "language_therapy/src/tools";
 
 import Config from "language_therapy/src/Config";
@@ -16,9 +16,10 @@ function randomImageFromSerie(serieName, imagesSrc, deleteItem = false) {
     imagesSrc == undefined ||
     imagesSrc[serieName].length < 1
   ) {
-    console.log("missing imagesSrc param data");
+    console.error("wrong imagesSrc param data");
     return null;
   }
+
   let l = tools.getRandomInt(0, imagesSrc[serieName].length - 1);
   let img = imagesSrc[serieName][l];
   if (deleteItem) {
@@ -32,15 +33,17 @@ function randomImageFromSerie(serieName, imagesSrc, deleteItem = false) {
 
 /**
  * retourne un nom de serie au hasard différent de celui passé en parametre
- * @param string exclude cette serie
+ * @param array of string, exclude ces series
  */
-function randomSerieName(exclude = null) {
+function randomSerieName(exclude = []) {
   let _names = [];
+
   for (var i in _allSeriesName) {
-    if (_allSeriesName[i] != exclude) {
+    if (!exclude.includes(_allSeriesName[i])) {
       _names.push(_allSeriesName[i]);
     }
   }
+
   let l = tools.getRandomInt(0, _names.length - 1);
   return _names[l];
 }
@@ -56,11 +59,14 @@ function shuffleArray(a) {
   return a;
 }
 
+//pour certaines series on ne prend que les images de la même serie
+let _unmixedSeries = ["nombres-fr", "nombres-ar"];
+
 let _allSeriesName = null;
 /**
  * retourne la liste des noms de toutes les series disponibles
  */
-export function motImage_AllSeriesNames() {
+export function image_AllSeriesNames() {
   if (_allSeriesName) {
     return _allSeriesName;
   } else {
@@ -74,8 +80,6 @@ export function motImage_AllSeriesNames() {
   }
 }
 
-// https://www.facebook.com/MarcoSquassinaPhotography/photos/pcb.626888457797561/626887724464301/?type=3&theater
-
 /**
  * crée une serie d'exercice depuis un nom de serie donnée
  * @param string serieName nom de la serie pour les réponses justes
@@ -84,16 +88,21 @@ export function motImage_AllSeriesNames() {
  * @param string displayLg : langue du mot à afficher pour chaque question ( FR ou AR )
  * @param string level : easy = on utilise des images que tu meme serie, middle = on prend tjrs la même serie pour l'image juste et random pour les autres
  */
-export function motImage_randomSerie(
+export function image_randomSerie(
   serieName,
   nbrQuestion = 10,
   nbrOfImagePerQuestion = 4,
   displayLg = Config._const.ar,
   level = Config._const.easy
 ) {
+  // pour les series nombres-fr et nombres-ar on reste en mode easy
+  if (_unmixedSeries.includes(serieName)) {
+    level = Config._const.easy;
+  }
+
   let serie = {
     serieName,
-    display: "random " + serieName,
+    display: serieName,
     questions: []
   };
 
@@ -108,15 +117,29 @@ export function motImage_randomSerie(
       right: true
     });
     if (level == Config._const.easy) {
-      // et 3 autres images de la même serie
+      // et 3(ou nbrOfImagePerQuestion) autres images d'autres series
       for (var i = 1; i < nbrOfImagePerQuestion; i++) {
+        let catTmp = null;
+
+        // si on est dans une serie a ne pas mélanger
+        if (_unmixedSeries.includes(serieName)) {
+          catTmp = serieName;
+        } else {
+          let excluded = [];
+          catTmp = randomSerieName([excluded, ..._unmixedSeries]);
+        }
+
         let repeat = 0;
+
         while (repeat < 10) {
-          let imgTmp = randomImageFromSerie(
-            serieName,
-            copyDatas._IMAGES,
-            false
-          );
+          let imgTmp;
+          if (_unmixedSeries.includes(serieName)) {
+            let copyDatasTmp = tools.clone(RawDatas);
+            imgTmp = randomImageFromSerie(catTmp, copyDatasTmp._IMAGES, false);
+          } else {
+            imgTmp = randomImageFromSerie(catTmp, copyDatas._IMAGES, false);
+          }
+
           if (!tools.stringInArrayOfObject(imgTmp.fr, randomImages, "fr")) {
             randomImages.push(imgTmp);
             repeat = 10;
@@ -126,12 +149,15 @@ export function motImage_randomSerie(
         }
       }
     } else {
-      // et 3 autres images d'autres series
+      // et 3(ou nbrOfImagePerQuestion) autres images de la même serie
       for (var i = 1; i < nbrOfImagePerQuestion; i++) {
-        let catTmp = randomSerieName(serieName);
         let repeat = 0;
         while (repeat < 10) {
-          let imgTmp = randomImageFromSerie(catTmp, copyDatas._IMAGES, false);
+          let imgTmp = randomImageFromSerie(
+            serieName,
+            copyDatas._IMAGES,
+            false
+          );
           if (!tools.stringInArrayOfObject(imgTmp.fr, randomImages, "fr")) {
             randomImages.push(imgTmp);
             repeat = 10;
@@ -163,7 +189,8 @@ export function motImage_randomSerie(
         correct: false,
         attempt: 0
       },
-      images: images
+      images: images,
+      audio: randomImages[foundIndex]["audio"]
     };
     if (displayLg == Config._const.fr) {
       questionTmp["display"] = randomImages[foundIndex]["fr"];
@@ -199,7 +226,7 @@ export function createMotImageSerie(nbrQuestion = 10) {
         let images = [];
 
         for (var i = 0; i < 4; i++) {
-            let l = tools.getRandomInt(0, RawDatas._IMAGES.length);
+           let l = tools.getRandomInt(0, RawDatas._IMAGES.length);
             randomImages.push(RawDatas._IMAGES[l]);
             images.push(RawDatas._IMAGES[l].path);
         }
