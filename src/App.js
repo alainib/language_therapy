@@ -25,7 +25,7 @@ import Users from "language_therapy/src/components/Users";
 import styles from "language_therapy/src/styles";
 import Suivi from "language_therapy/src/stacknavigator/Suivi";
 import MotImage from "language_therapy/src/stacknavigator/MotImage";
-// import UpdateData from "language_therapy/src/stacknavigator/UpdateData";
+import TrainSerie from "language_therapy/src/stacknavigator/TrainSerie";
 import Options from "language_therapy/src/stacknavigator/Options";
 
 YellowBox.ignoreWarnings([]);
@@ -104,13 +104,11 @@ const StackNavigator = createStackNavigator(
     Options: {
       screen: Options,
       ...removeHeader
-    }
-    /*UpdateData: {
-      screen: UpdateData,
+    },
+    TrainSerie: {
+      screen: TrainSerie,
       ...removeHeader
-    }*/
-    // il faut déclarer ici les pages affichées dans le drawer pour avoir la bar en haut avec le bouton retour
-    // StaticPage: {screen: StaticPage },
+    }
   },
   {
     mode: "modal"

@@ -1,13 +1,10 @@
 import React from "react";
 import {
   View,
-  Button,
   Dimensions,
   ScrollView,
   StyleSheet,
   Text,
-  Alert,
-  TextInput,
   TouchableOpacity,
   TouchableHighlight,
   Image
@@ -27,13 +24,14 @@ import { sound_play } from "language_therapy/src/services/sound";
 class TrainSerie extends React.PureComponent {
   constructor(props) {
     super(props);
+
     this.state = {
       // permet d'afficher le nom en francais
       questionClueVisible: false,
       // liste des questions
-      questions: props.serie.questions,
-      display: props.serie.display,
-      serieName: props.serie.serieName,
+      questions: props.navigation.state.params.serie.questions,
+      display: props.navigation.state.params.serie.display,
+      serieName: props.navigation.state.params.serie.serieName,
       index: 0
     };
   }
@@ -305,23 +303,18 @@ class TrainSerie extends React.PureComponent {
           switch (questions[i].answer.attempt) {
             case 0:
             case 1:
-              results.score += 10;
               results.oneRep++;
               break;
             case 2:
-              results.score += 7;
               results.twoRep++;
               break;
             case 3:
-              results.score += 5;
               results.threeRep++;
               break;
             case 4:
-              results.score += 3;
               results.fourRep++;
               break;
             case 5:
-              results.score += 1;
               results.fiveAndMoreRep++;
               break;
             default:
@@ -331,10 +324,12 @@ class TrainSerie extends React.PureComponent {
           results.skiped++;
         }
       }
+      results.score = `t:${results.total}-s:${results.skiped}-1:${results.oneRep}-2:${results.twoRep}-3:${results.threeRep}-4:${results.fourRep}-5+:${results.fiveAndMoreRep}`;
 
       this.props.action_addSerieToUser({
+        id: this.props.navigation.state.params.serie.id,
         currentUser: this.props.currentUser,
-        currentSerie: this.props.serie,
+        currentSerie: this.props.navigation.state.params.serie,
         score: results.score
       });
 
@@ -359,15 +354,6 @@ class TrainSerie extends React.PureComponent {
               results.fiveAndMoreRep,
               results.skiped
             ]
-            /* data: [
-                     results.oneRep * 100 / results.total,
-                     results.twoRep * 100 / results.total,
-                     results.threeRep * 100 / results.total,
-                     results.fourRep * 100 / results.total,
-                     results.fiveAndMoreRep * 100 / results.total,
-                     results.skiped * 100 / results.total,
-                     100
-                 ]*/
           }
         ]
       };

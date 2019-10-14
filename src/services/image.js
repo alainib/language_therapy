@@ -101,6 +101,7 @@ export function image_randomSerie(
   }
 
   let serie = {
+    id: Date.now(),
     serieName,
     display: serieName,
     questions: []

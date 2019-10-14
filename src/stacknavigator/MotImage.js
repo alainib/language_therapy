@@ -12,8 +12,6 @@ import styles from "language_therapy/src/styles";
 import Config from "language_therapy/src/Config";
 import IconFeather from "react-native-vector-icons/Feather";
 
-import TrainSerie from "language_therapy/src/components/TrainSerie";
-
 import {
   image_AllSeriesNames,
   image_randomSerie
@@ -24,9 +22,7 @@ class MotImage extends React.Component {
     super(props);
     this.state = {
       // tous les noms de series
-      seriesNames: [],
-      // celle choisi par l'utilisateur
-      currentSerie: null
+      seriesNames: []
     };
   }
   // pour encadrer en rouge ou vert la réponse sélectionner puis passer à la question suivante si juste
@@ -71,7 +67,7 @@ class MotImage extends React.Component {
       this.props.options.level
     );
 
-    this.setState({ currentSerie: res });
+    this.props.navigation.navigate("TrainSerie", { serie: res });
   };
 
   /**
@@ -118,22 +114,11 @@ class MotImage extends React.Component {
   }
 
   render() {
-    if (this.state.currentSerie == null) {
-      return <View style={styles.flex1}>{this.renderSeries()}</View>;
-    } else {
-      return this.displaySerieQuestions();
-    }
-  }
-
-  // affiche les questions d'une serie
-  displaySerieQuestions() {
-    return <TrainSerie serie={this.state.currentSerie} />;
+    return <View style={styles.flex1}>{this.renderSeries()}</View>;
   }
 }
 
 function mapStatetoProps(data) {
-  console.log(data.users);
-
   return {
     currentUser: data.users.current,
     options: data["options"]

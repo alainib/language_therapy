@@ -23,7 +23,6 @@ class Options extends React.Component {
   }
 
   render() {
-    console.log(this.props.options);
     return (
       <ScrollView contentContainerStyle={{ justifyContent: "space-around" }}>
         <View>

@@ -44,14 +44,33 @@ export default function(state = { current: null, list: {} }, action) {
 
     case ADD_SERIE_TO_USER:
       newstate = { ...state };
-      console.log("action.payload", action.payload);
 
-      newstate.list[action.payload.currentUser][Date.now()] = {
-        id: Date.now(),
+      let id = action.payload.id; //? action.payload.id : Date.now();
+      if (!newstate.list[action.payload.currentUser][id]) {
+        newstate.list[action.payload.currentUser][id] = [];
+      }
+
+      // on enlever de chaques réponses attempt,clickedIndex,correct,wrong,showBorder
+      let serieCleaned = action.payload.currentSerie;
+      for (var q in serieCleaned.questions) {
+        serieCleaned.questions[q].answer = {
+          rightIndex: serieCleaned.questions[q].answer.rightIndex,
+          attempt: 0,
+          clickedIndex: null,
+          correct: false,
+          wrong: false,
+          showBorder: false
+        };
+      }
+
+      console.log("serieCleaned", serieCleaned);
+
+      newstate.list[action.payload.currentUser][id].push({
+        id: id,
         date: tools.getTodayDate(true),
-        serie: action.payload.currentSerie,
+        serie: serieCleaned,
         score: action.payload.score
-      };
+      });
 
     case REMOVE_SERIE_FROM_USER:
 
