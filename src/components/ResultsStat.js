@@ -2,16 +2,24 @@ import React from "react";
 import { View, Text, Dimensions } from "react-native";
 import styles from "language_therapy/src/styles";
 
-import { LineChart } from "react-native-chart-kit";
+import { LineChart, BarChart } from "react-native-chart-kit";
 
 export default class ResultsStat extends React.PureComponent {
   render() {
     let lineChartData = {
-      labels: ["total", "1 rép", "2 rép", "3 rép", "4 rép", "5 ou +", "sautée"],
+      labels: [
+        /*"total",*/
+        "1 rép",
+        "2 rép",
+        "3 rép",
+        "4 rép",
+        "5 ou +",
+        "sautée"
+      ],
       datasets: [
         {
           data: [
-            this.props.results.total,
+            // this.props.results.total,
             this.props.results.oneRep,
             this.props.results.twoRep,
             this.props.results.threeRep,
@@ -31,10 +39,37 @@ export default class ResultsStat extends React.PureComponent {
         }}
       >
         <Text>Résultat : </Text>
-        <LineChart
+        <BarChart
+          style={{
+            borderRadius: 16
+          }}
           data={lineChartData}
           width={Dimensions.get("window").width - 40} // from react-native
           height={Dimensions.get("window").height - 100}
+          yAxisLabel={""}
+          chartConfig={{
+            backgroundColor: "skyblue",
+            backgroundGradientFrom: "aliceblue",
+            backgroundGradientTo: "skyblue",
+            decimalPlaces: 0, // optional, defaults to 2dp
+            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+            style: {
+              borderRadius: 16
+            }
+          }}
+        />
+      </View>
+    );
+  }
+}
+
+/*
+        <LineChart
+          data={lineChartData}
+           width={Dimensions.get("window").width - 40} // from react-native
+          height={Dimensions.get("window").height - 100}
+        
           chartConfig={{
             // backgroundColor: '#e26a00',
             backgroundGradientFrom: "#ffae49",
@@ -47,14 +82,10 @@ export default class ResultsStat extends React.PureComponent {
           }}
           bezier
           style={{
-            marginVertical: 8,
             borderRadius: 16
           }}
         />
-      </View>
-    );
-  }
-}
+        */
 /*import React from "react";
 import { View, Text, Dimensions } from "react-native";
 import styles from "language_therapy/src/styles";
