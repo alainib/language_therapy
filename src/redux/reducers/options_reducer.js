@@ -9,7 +9,8 @@ const initState = {
   interfaceSize: Config.textSize.xxl,
   playSoundAfterXWrong: 2,
   displayLg: Config._const.ar,
-  level: Config._const.easy
+  level: Config._const.easy,
+  manualChooseImage: false // choisi les images d'une serie à la main
 };
 
 export default function(state = initState, action) {

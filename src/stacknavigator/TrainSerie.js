@@ -24,7 +24,7 @@ import { sound_play } from "language_therapy/src/services/sound";
 class TrainSerie extends React.PureComponent {
   constructor(props) {
     super(props);
-    console.log(props.navigation.state.params.serie);
+    // console.log(props.navigation.state.params.serie);
     this.state = {
       // permet d'afficher le nom en francais
       questionClueVisible: false,

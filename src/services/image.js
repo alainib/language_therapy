@@ -87,13 +87,17 @@ export function image_AllSeriesNames() {
  * @param int nbrOfImagePerQuestion : nombre d'image par question
  * @param string displayLg : langue du mot à afficher pour chaque question ( FR ou AR )
  * @param string level : easy = on utilise des images que tu meme serie, middle = on prend tjrs la même serie pour l'image juste et random pour les autres
+ * @param array selectedImages : array of images,
+ *
+ * si selectedImages not null alors ces images seront utilisées comme image à trouver
  */
 export function image_randomSerie(
   serieName,
   nbrQuestion = 10,
   nbrOfImagePerQuestion = 4,
   displayLg = Config._const.ar,
-  level = Config._const.easy
+  level = Config._const.easy,
+  selectedImages = null
 ) {
   // pour les series nombres-fr et nombres-ar on reste en mode easy
   if (_unmixedSeries.includes(serieName)) {
@@ -109,16 +113,27 @@ export function image_randomSerie(
 
   let copyDatas = tools.clone(RawDatas);
 
+  let _useSelectedImages = selectedImages && selectedImages.length > 0;
+  if (_useSelectedImages) {
+    nbrQuestion = selectedImages.length;
+  }
   for (var q = 0; q < nbrQuestion; q++) {
-    // on commence par mettre les 4 images
+    // on commence par mettre les 4(ou nbrOfImagePerQuestion) images
     let randomImages = [];
     // celle de la bonne serie
-    randomImages.push({
-      ...randomImageFromSerie(serieName, copyDatas._IMAGES, true),
-      right: true
-    });
+    if (_useSelectedImages) {
+      randomImages.push({
+        ...selectedImages[q],
+        right: true
+      });
+    } else {
+      randomImages.push({
+        ...randomImageFromSerie(serieName, copyDatas._IMAGES, true),
+        right: true
+      });
+    }
     if (level == Config._const.easy) {
-      // et 3(ou nbrOfImagePerQuestion) autres images d'autres series
+      // et 3(ou nbrOfImagePerQuestion-1) autres images d'autres series
       for (var i = 1; i < nbrOfImagePerQuestion; i++) {
         let catTmp = null;
 
@@ -204,6 +219,35 @@ export function image_randomSerie(
   }
 
   return serie;
+}
+
+// retourne toutes les images d'une serie
+// utilisé pour choix images à la main
+export function image_allImagesFromSerie(serieName) {
+  return tools.clone(RawDatas._IMAGES[serieName]);
+}
+
+/**
+ * creée une serie pour trainSerie à partir d'images selectionnées à la main
+ * @param string serieName
+ * @param array selectedImages
+ */
+export function image_serieFromImages(
+  selectedImages,
+  serieName,
+  nbrQuestion,
+  nbrOfImagePerQuestion,
+  displayLg,
+  level
+) {
+  return image_randomSerie(
+    serieName,
+    nbrQuestion,
+    nbrOfImagePerQuestion,
+    displayLg,
+    level,
+    selectedImages
+  );
 }
 
 /*

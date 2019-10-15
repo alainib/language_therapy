@@ -5,9 +5,7 @@ import {
   Dimensions,
   ScrollView,
   StyleSheet,
-  Text,
-  TouchableOpacity,
-  TouchableHighlight
+  Text
 } from "react-native";
 
 import styles from "language_therapy/src/styles";
@@ -104,6 +102,43 @@ class Options extends React.Component {
               </View>
             </View>
           </View>
+
+          <View style={thisstyles.bloc}>
+            <Text style={thisstyles.title}>Choix des images manuel :</Text>
+            <View style={thisstyles.bloc}>
+              <View style={thisstyles.viewButton}>
+                <Button
+                  color={
+                    this.props.options.manualChooseImage ? "green" : "grey"
+                  }
+                  title={"OUI"}
+                  onPress={() =>
+                    this.props.action_optionUpdate(
+                      "manualChooseImage",
+                      null,
+                      true
+                    )
+                  }
+                />
+              </View>
+              <View style={thisstyles.viewButton}>
+                <Button
+                  color={
+                    !this.props.options.manualChooseImage ? "green" : "grey"
+                  }
+                  title={"NON"}
+                  onPress={() =>
+                    this.props.action_optionUpdate(
+                      "manualChooseImage",
+                      null,
+                      false
+                    )
+                  }
+                />
+              </View>
+            </View>
+          </View>
+
           <View style={thisstyles.bloc}>
             <View
               style={{

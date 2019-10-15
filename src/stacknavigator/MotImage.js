@@ -5,24 +5,33 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableHighlight,
+  Image,
+  Modal,
   Alert
 } from "react-native";
 
 import styles from "language_therapy/src/styles";
 import Config from "language_therapy/src/Config";
 import IconFeather from "react-native-vector-icons/Feather";
+import * as tools from "language_therapy/src/tools";
 
 import {
   image_AllSeriesNames,
-  image_randomSerie
+  image_randomSerie,
+  image_allImagesFromSerie,
+  image_serieFromImages
 } from "language_therapy/src/services/image";
+
+let _ImageWidth = 175;
 
 class MotImage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       // tous les noms de series
-      seriesNames: []
+      seriesNames: [],
+      modal: { show: false, images: [] }
     };
   }
   // pour encadrer en rouge ou vert la réponse sélectionner puis passer à la question suivante si juste
@@ -59,21 +68,49 @@ class MotImage extends React.Component {
 
   /** choix de la serie thèmatique */
   chooseSerie = async serieName => {
-    let res = await image_randomSerie(
-      serieName,
-      this.props.options.nbrOfQuestionPerSerie,
-      this.props.options.nbrOfImagePerQuestion,
-      this.props.options.displayLg,
-      this.props.options.level
-    );
+    // si les images ne sont pas choisie à la main le service
+    // image_randomSerie le fait automatiquement
+    if (!this.props.options.manualChooseImage) {
+      let res = await image_randomSerie(
+        serieName,
+        this.props.options.nbrOfQuestionPerSerie,
+        this.props.options.nbrOfImagePerQuestion,
+        this.props.options.displayLg,
+        this.props.options.level
+      );
 
-    this.props.navigation.navigate("TrainSerie", { serie: res });
+      this.props.navigation.navigate("TrainSerie", { serie: res });
+    } else {
+      let images = image_allImagesFromSerie(serieName);
+      // si les images sont choisie à la main on ouvre la modal pour afficher celles de la serie choisie
+      this.setState({ serieName, modal: { show: true, images } });
+    }
+  };
+
+  clickImage = frname => {
+    let _images = tools.clone(this.state.modal.images);
+    for (var i in _images) {
+      if (_images[i]["fr"] == frname) {
+        _images[i]["selected"] = !!!_images[i]["selected"];
+      }
+    }
+    this.setState({ modal: { show: true, images: _images } });
   };
 
   /**
    * affiche la liste des series thematiques disponibles
    */
   renderSeries() {
+    let borderStyleSelected = {
+      padding: 5,
+      alignItems: "center",
+      justifyContent: "center",
+      width: _ImageWidth,
+      height: _ImageWidth,
+      borderWidth: 4,
+      borderColor: "green"
+    };
+    let normalStyle = { padding: 5 };
     return (
       <View style={{ flex: 1, flexDirection: "row" }}>
         <View style={{ flex: 9 }}>
@@ -114,8 +151,122 @@ class MotImage extends React.Component {
   }
 
   render() {
-    return <View style={styles.flex1}>{this.renderSeries()}</View>;
+    return (
+      <View style={styles.flex1}>
+        {this.renderModal()}
+        {this.renderSeries()}
+      </View>
+    );
   }
+
+  renderModal = () => {
+    if (!this.state.modal.show) {
+      return null;
+    }
+
+    let borderStyleSelected = {
+      margin: 5,
+      alignItems: "center",
+      justifyContent: "center",
+      width: _ImageWidth,
+      height: _ImageWidth,
+      borderWidth: 4,
+      borderColor: "green"
+    };
+    let normalStyle = { margin: 9 };
+
+    return (
+      <Modal
+        animationType="slide"
+        transparent={false}
+        visible={this.state.modal.show}
+        style={{ flex: 1 }}
+        onRequestClose={() => {}}
+      >
+        <View style={{ flex: 1, backgroundColor: "white" }}>
+          <Text style={thisstyles.title}>Choisir les images : </Text>
+
+          <ScrollView
+            contentContainerStyle={{
+              padding: 15,
+              flexDirection: "row",
+              flexWrap: "wrap"
+            }}
+          >
+            {this.state.modal.images.map((item, index) => {
+              return (
+                <View
+                  style={item.selected ? borderStyleSelected : normalStyle}
+                  key={"ac" + index.toString()}
+                >
+                  <TouchableHighlight
+                    onPress={() => this.clickImage(item.fr)}
+                    underlayColor="white"
+                  >
+                    <Image
+                      resizeMode={"stretch"}
+                      source={item.path}
+                      style={{
+                        width: _ImageWidth - 6,
+                        height: _ImageWidth - 6
+                      }}
+                    />
+                  </TouchableHighlight>
+                </View>
+              );
+            })}
+          </ScrollView>
+          <View
+            style={{
+              zIndex: 99999,
+              position: "absolute",
+              width: 100,
+              height: 50,
+              alignItems: "center",
+              justifyContent: "center",
+              right: 5,
+              bottom: 5
+            }}
+          >
+            <Button
+              color={"blue"}
+              title="Valider"
+              onPress={() => {
+                const selectedImages = this.state.modal.images.filter(
+                  item => item.selected
+                );
+
+                if (selectedImages.length < 2) {
+                  return null;
+                }
+
+                let _serie = image_serieFromImages(
+                  selectedImages,
+                  this.state.serieName,
+                  this.props.options.nbrOfQuestionPerSerie,
+                  this.props.options.nbrOfImagePerQuestion,
+                  this.props.options.displayLg,
+                  this.props.options.level
+                );
+
+                this.setState(
+                  {
+                    serieName: null,
+                    modal: { show: false, images: null }
+                  },
+                  () => {
+                    this.props.navigation.navigate("TrainSerie", {
+                      serie: _serie
+                    });
+                  }
+                );
+              }}
+            />
+          </View>
+        </View>
+      </Modal>
+    );
+  };
 }
 
 function mapStatetoProps(data) {
