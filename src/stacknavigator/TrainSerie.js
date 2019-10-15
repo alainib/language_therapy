@@ -1,8 +1,6 @@
 import React from "react";
 import {
   View,
-  Dimensions,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -11,10 +9,12 @@ import {
 } from "react-native";
 
 import styles from "language_therapy/src/styles";
-import { LineChart } from "react-native-chart-kit";
 import Config from "language_therapy/src/Config";
 import IconFeather from "react-native-vector-icons/Feather";
 import * as tools from "language_therapy/src/tools";
+
+import ResultsStat from "language_therapy/src/components/ResultsStat";
+
 import { sound_play } from "language_therapy/src/services/sound";
 
 /**
@@ -24,7 +24,7 @@ import { sound_play } from "language_therapy/src/services/sound";
 class TrainSerie extends React.PureComponent {
   constructor(props) {
     super(props);
-
+    console.log(props.navigation.state.params.serie);
     this.state = {
       // permet d'afficher le nom en francais
       questionClueVisible: false,
@@ -295,8 +295,7 @@ class TrainSerie extends React.PureComponent {
         threeRep: 0,
         fourRep: 0,
         fiveAndMoreRep: 0,
-        skiped: 0,
-        score: 0
+        skiped: 0
       };
       for (var i in questions) {
         if (questions[i].answer.correct) {
@@ -324,65 +323,16 @@ class TrainSerie extends React.PureComponent {
           results.skiped++;
         }
       }
-      results.score = `t:${results.total}-s:${results.skiped}-1:${results.oneRep}-2:${results.twoRep}-3:${results.threeRep}-4:${results.fourRep}-5+:${results.fiveAndMoreRep}`;
 
       this.props.action_addSerieToUser({
         id: this.props.navigation.state.params.serie.id,
-        currentUser: this.props.currentUser,
-        currentSerie: this.props.navigation.state.params.serie,
-        score: results.score
+        user: this.props.currentUser,
+        serie: this.props.navigation.state.params.serie,
+
+        results
       });
 
-      let lineChartData = {
-        labels: [
-          "total",
-          "1 rép",
-          "2 rép",
-          "3 rép",
-          "4 rép",
-          "5 ou +",
-          "sautée"
-        ],
-        datasets: [
-          {
-            data: [
-              results.total,
-              results.oneRep,
-              results.twoRep,
-              results.threeRep,
-              results.fourRep,
-              results.fiveAndMoreRep,
-              results.skiped
-            ]
-          }
-        ]
-      };
-
-      return (
-        <View style={styles.center}>
-          <Text>Résultat : </Text>
-          <LineChart
-            data={lineChartData}
-            width={Dimensions.get("window").width - 40} // from react-native
-            height={Dimensions.get("window").height - 100}
-            chartConfig={{
-              // backgroundColor: '#e26a00',
-              backgroundGradientFrom: "#ffae49",
-              backgroundGradientTo: "#ffae49",
-              decimalPlaces: 0, // optional, defaults to 2dp
-              color: (opacity = 0.5) => `rgba(255, 255, 255, ${opacity})`,
-              style: {
-                borderRadius: 16
-              }
-            }}
-            bezier
-            style={{
-              marginVertical: 8,
-              borderRadius: 16
-            }}
-          />
-        </View>
-      );
+      return <ResultsStat results={results}></ResultsStat>;
     } catch (error) {
       console.warn(error);
       return <Text>Erreur de calcul </Text>;

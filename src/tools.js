@@ -89,8 +89,8 @@ export function getTodayDate(hm = false) {
     if (minutes < 10) {
       minutes = "0" + minutes;
     }
-    return `${year}/${month}/${day} ${hours}:${minutes}`;
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
   } else {
-    return `${year}/${month}/${day}`;
+    return `${day}/${month}/${year}`;
   }
 }

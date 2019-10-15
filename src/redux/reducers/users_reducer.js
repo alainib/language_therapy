@@ -18,7 +18,6 @@ export default function(state = { current: null, list: {} }, action) {
   let { list } = state;
 
   let newstate = { current: null, list: {} };
-
   switch (action.type) {
     case SETCURRENT_USER:
       newstate = { ...state, current: action.payload };
@@ -46,12 +45,12 @@ export default function(state = { current: null, list: {} }, action) {
       newstate = { ...state };
 
       let id = action.payload.id; //? action.payload.id : Date.now();
-      if (!newstate.list[action.payload.currentUser][id]) {
-        newstate.list[action.payload.currentUser][id] = [];
+      if (!newstate.list[action.payload.user][id]) {
+        newstate.list[action.payload.user][id] = [];
       }
 
       // on enlever de chaques réponses attempt,clickedIndex,correct,wrong,showBorder
-      let serieCleaned = action.payload.currentSerie;
+      let serieCleaned = action.payload.serie;
       for (var q in serieCleaned.questions) {
         serieCleaned.questions[q].answer = {
           rightIndex: serieCleaned.questions[q].answer.rightIndex,
@@ -63,17 +62,18 @@ export default function(state = { current: null, list: {} }, action) {
         };
       }
 
-      console.log("serieCleaned", serieCleaned);
-
-      newstate.list[action.payload.currentUser][id].push({
+      newstate.list[action.payload.user][id].push({
         id: id,
         date: tools.getTodayDate(true),
         serie: serieCleaned,
-        score: action.payload.score
+        results: action.payload.results
       });
+      // return newstate ne declenche pas le refresh de <Suivi>, trop nested peut etre
+      console.log(newstate);
+      return tools.clone(newstate);
 
     case REMOVE_SERIE_FROM_USER:
-
+      return newstate;
     case CLEAR_SERIES_FROM_USER:
       return newstate;
 
