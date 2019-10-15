@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, { Component } from "react";
 import {
   Button,
@@ -13,8 +5,10 @@ import {
   Text,
   View,
   ScrollView,
+  StyleSheet,
   ActivityIndicator
 } from "react-native";
+
 import { createAppContainer, createStackNavigator } from "react-navigation";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/es/integration/react";
@@ -35,38 +29,23 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.containerCol}>
-        <View
-          style={{
-            ...styles.flex1,
-            borderRightWidth: 1,
-            borderColor: "#d6d7da"
-          }}
-        >
+        <View style={thisstyles.flex1grey}>
           <Users />
         </View>
 
         <View style={styles.flex1}>
           <ScrollView style={styles.flex1}>
             <Text style={styles.title}>Choisir le type d'exercice :</Text>
-            <View style={{ margin: 10 }}>
+            <View style={styles.margin10}>
               <Button
                 title="Mot - Image"
                 onPress={() => this.props.navigation.navigate("MotImage")}
               />
             </View>
-            {/*
-            <View style={{ margin: 10 }}>
-              <Button
-                containerStyle={{ margin: 10 }}
-                title="UpdateData"
-                onPress={() => this.props.navigation.navigate("UpdateData")}
-              />
-            </View>
-             */}
 
-            <View style={{ margin: 10 }}>
+            <View style={styles.margin10}>
               <Button
-                containerStyle={{ margin: 10 }}
+                containerStyle={styles.margin10}
                 title="Suivi"
                 onPress={() => this.props.navigation.navigate("Suivi")}
               />
@@ -143,3 +122,11 @@ export default class App extends React.PureComponent {
     );
   }
 }
+
+const thisstyles = StyleSheet.create({
+  flex1grey: {
+    ...styles.flex1,
+    borderRightWidth: 1,
+    borderColor: "grey"
+  }
+});

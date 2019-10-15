@@ -2,6 +2,7 @@ import React from "react";
 import {
   ScrollView,
   View,
+  StyleSheet,
   Text,
   Button,
   TextInput,
@@ -33,34 +34,23 @@ class Users extends React.PureComponent {
   render() {
     const _listLength = Object.keys(this.state.users.list).length;
     return (
-      <View style={{ flex: 1 }}>
+      <View style={styles.flex1}>
         {this.state.users.current != null ? (
-          <View style={{ flexDirection: "row", justifyContent: "flex-start" }}>
+          <View style={thisstyles.drjfs}>
             <View style={styles.center}>
               <TouchableOpacity
-                style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                  padding: 20
-                }}
+                style={thisstyles.centerp20}
                 onPress={() => {
                   this.setState({
                     showAddUser: !this.state.showAddUser
                   });
                 }}
               >
-                <Text style={{ fontSize: 20, textAlign: "center" }}> + </Text>
+                <Text style={thisstyles.centerf20}> + </Text>
               </TouchableOpacity>
             </View>
 
-            <Text
-              style={{
-                fontSize: 20,
-                textAlign: "center",
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-            >
+            <Text style={thisstyles.centerf20}>
               Utilisateur courant : {"\n" + this.state.users.current}
             </Text>
           </View>
@@ -78,14 +68,7 @@ class Users extends React.PureComponent {
         )}
 
         {this.state.showAddUser && (
-          <View
-            style={{
-              flexDirection: "row",
-              height: 50,
-              alignItems: "center",
-              justifyContent: "space-between"
-            }}
-          >
+          <View style={thisstyles.flexRow50Center}>
             <TextInput
               autoFocus={true}
               autoCorrect={false}
@@ -99,7 +82,7 @@ class Users extends React.PureComponent {
                 this.setState({ newUserName });
               }}
             />
-            <View style={{ width: 40, marginRight: 10 }}>
+            <View style={thisstyles.w40mr10}>
               <Button
                 title="Ok"
                 onPress={() => {
@@ -114,17 +97,11 @@ class Users extends React.PureComponent {
           </View>
         )}
 
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "flex-start",
-            flex: 1
-          }}
-        >
+        <View style={thisstyles.flexRowStart}>
           {_listLength > 0 && (
             <View style={styles.flex1}>
               <TouchableOpacity
-                style={{ padding: 5 }}
+                style={thisstyles.padding5}
                 onPress={() => {
                   this.setState({ showUsersList: !this.state.showUsersList });
                 }}
@@ -140,12 +117,7 @@ class Users extends React.PureComponent {
                     return (
                       <View
                         key={key.toString()}
-                        style={{
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                          paddingHorizontal: 10,
-                          alignItems: "center"
-                        }}
+                        style={thisstyles.flexRowbetween10}
                       >
                         <TouchableOpacity
                           onPress={() => {
@@ -203,3 +175,38 @@ export default connect(
   mapToStateProps,
   actions
 )(Users);
+
+const thisstyles = StyleSheet.create({
+  drjfs: { flexDirection: "row", justifyContent: "flex-start" },
+  centerp20: {
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20
+  },
+  centerf20: {
+    fontSize: 20,
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  flexRow50Center: {
+    flexDirection: "row",
+    height: 50,
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+
+  w40mr10: { width: 40, marginRight: 10 },
+  flexRowStart: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    flex: 1
+  },
+  padding5: { padding: 5 },
+  flexRowbetween10: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
+    alignItems: "center"
+  }
+});

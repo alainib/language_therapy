@@ -68,7 +68,16 @@ class TrainSerie extends React.PureComponent {
 
       let ImageWidth = tools.round(Config.width / question.images.length - 2);
 
-      if (ImageWidth < 75) {
+      if (ImageWidth > 300) {
+        switch (question.images.length) {
+          case 2:
+            ImageWidth -= 100;
+            break;
+          case 3:
+            ImageWidth -= 75;
+            break;
+        }
+      } else if (ImageWidth < 75) {
         ImageWidth = tools.round(
           Config.width / (question.images.length / 2) - 20
         );
@@ -107,7 +116,7 @@ class TrainSerie extends React.PureComponent {
           : 50;
 
       return (
-        <View style={{ flex: 1 }}>
+        <View style={styles.flex1}>
           <View
             style={{
               marginTop: 20,
@@ -122,7 +131,7 @@ class TrainSerie extends React.PureComponent {
             <View style={{ width: iconWidth, height }}>
               {this.state.index > 0 && (
                 <IconFeather
-                  name="arrow-left"
+                  name="arrow-left-circle"
                   style={styles.center}
                   size={this.props.options.interfaceSize}
                   color="#000"
@@ -193,7 +202,7 @@ class TrainSerie extends React.PureComponent {
             >
               {this.state.index < this.state.questions.length && (
                 <IconFeather
-                  name="arrow-right"
+                  name="arrow-right-circle"
                   style={styles.center}
                   size={this.props.options.interfaceSize}
                   color="#000"
@@ -274,7 +283,7 @@ class TrainSerie extends React.PureComponent {
         </View>
       );
     } else {
-      return <View style={{ flex: 1 }}>{this.showResults()}</View>;
+      return <View style={styles.flex1}>{this.showResults()}</View>;
     }
   }
 

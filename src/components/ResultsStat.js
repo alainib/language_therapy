@@ -32,12 +32,7 @@ export default class ResultsStat extends React.PureComponent {
     };
 
     return (
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
+      <View style={styles.center}>
         <Text>Résultat : </Text>
         <BarChart
           style={{

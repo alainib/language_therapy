@@ -20,7 +20,7 @@ export default class FlexSize extends Component {
     for (var i = 1; i <= number; i++) {
       let styleTmp = i % 2 == 0 ? thisstyles.item : thisstyles.itemBis;
       items.push(
-        <View key={i.toString()} style={{ flex: 1, ...styleTmp }}>
+        <View key={i.toString()} style={styleTmp}>
           <Text>{i}</Text>
         </View>
       );
@@ -47,12 +47,14 @@ const thisstyles = StyleSheet.create({
     fontSize: 20
   },
   item: {
+    flex: 1,
     height: _height,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "skyblue"
   },
   itemBis: {
+    flex: 1,
     height: _height,
     alignItems: "center",
     justifyContent: "center",

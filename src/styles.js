@@ -45,7 +45,8 @@ const styles = StyleSheet.create({
   center: {
     justifyContent: "center",
     alignItems: "center"
-  }
+  },
+  margin10: { margin: 10 }
 });
 
 export default styles;

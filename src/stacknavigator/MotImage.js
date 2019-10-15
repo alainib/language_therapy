@@ -101,16 +101,6 @@ class MotImage extends React.Component {
    * affiche la liste des series thematiques disponibles
    */
   renderSeries() {
-    let borderStyleSelected = {
-      padding: 5,
-      alignItems: "center",
-      justifyContent: "center",
-      width: _ImageWidth,
-      height: _ImageWidth,
-      borderWidth: 4,
-      borderColor: "green"
-    };
-    let normalStyle = { padding: 5 };
     return (
       <View style={{ flex: 1, flexDirection: "row" }}>
         <View style={{ flex: 9 }}>
@@ -180,7 +170,7 @@ class MotImage extends React.Component {
         animationType="slide"
         transparent={false}
         visible={this.state.modal.show}
-        style={{ flex: 1 }}
+        style={styles.flex1}
         onRequestClose={() => {}}
       >
         <View style={{ flex: 1, backgroundColor: "white" }}>
@@ -216,18 +206,7 @@ class MotImage extends React.Component {
               );
             })}
           </ScrollView>
-          <View
-            style={{
-              zIndex: 99999,
-              position: "absolute",
-              width: 100,
-              height: 50,
-              alignItems: "center",
-              justifyContent: "center",
-              right: 5,
-              bottom: 5
-            }}
-          >
+          <View style={thisstyles.absolute}>
             <Button
               color={"blue"}
               title="Valider"
@@ -289,7 +268,16 @@ const thisstyles = StyleSheet.create({
     fontSize: 23,
     margin: 5
   },
-
+  absolute: {
+    zIndex: 99999,
+    position: "absolute",
+    width: 100,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    right: 5,
+    bottom: 5
+  },
   item: {
     width: 175,
     height: 75,

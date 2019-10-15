@@ -42,7 +42,7 @@ class Suivi extends Component {
           animationType="slide"
           transparent={false}
           visible={this.state.showModal}
-          style={{ flex: 1 }}
+          style={styles.flex1}
           onRequestClose={() => {}}
         >
           <View style={{ flex: 1, backgroundColor: "white" }}>

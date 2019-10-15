@@ -20,7 +20,7 @@ export default class Template1 extends React.PureComponent {
   }
 
   render() {
-    return <View style={{ flex: 1 }}></View>;
+    return <View style={styles.flex1}></View>;
   }
 }
 

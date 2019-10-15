@@ -140,32 +140,13 @@ class Options extends React.Component {
           </View>
 
           <View style={thisstyles.bloc}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center"
-              }}
-            >
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: "stretch",
-                  justifyContent: "center"
-                }}
-              >
+            <View style={thisstyles.flex1rowcenter}>
+              <View style={thisstyles.flex1stretchcenter}>
                 <Text style={thisstyles.title}>
                   Nombre de series :{this.props.options.nbrOfQuestionPerSerie}
                 </Text>
               </View>
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: "stretch",
-                  justifyContent: "center"
-                }}
-              >
+              <View style={thisstyles.flex1stretchcenter}>
                 <Slider
                   value={this.props.options.nbrOfQuestionPerSerie}
                   minimumValue={3}
@@ -184,33 +165,14 @@ class Options extends React.Component {
           </View>
 
           <View style={thisstyles.bloc}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center"
-              }}
-            >
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: "stretch",
-                  justifyContent: "center"
-                }}
-              >
+            <View style={thisstyles.flex1rowcenter}>
+              <View style={thisstyles.flex1stretchcenter}>
                 <Text style={thisstyles.title}>
                   Nombre d'images par serie :
                   {this.props.options.nbrOfImagePerQuestion}
                 </Text>
               </View>
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: "stretch",
-                  justifyContent: "center"
-                }}
-              >
+              <View style={thisstyles.flex1stretchcenter}>
                 <Slider
                   value={this.props.options.nbrOfImagePerQuestion}
                   minimumValue={2}
@@ -229,21 +191,8 @@ class Options extends React.Component {
           </View>
 
           <View style={thisstyles.bloc}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center"
-              }}
-            >
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: "stretch",
-                  justifyContent: "center"
-                }}
-              >
+            <View style={thisstyles.flex1rowcenter}>
+              <View style={thisstyles.flex1stretchcenter}>
                 <Text
                   style={{
                     margin: 5,
@@ -253,13 +202,7 @@ class Options extends React.Component {
                   Taille de police :{this.props.options.interfaceSize}
                 </Text>
               </View>
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: "stretch",
-                  justifyContent: "center"
-                }}
-              >
+              <View style={thisstyles.flex1stretchcenter}>
                 <Slider
                   value={this.props.options.interfaceSize}
                   minimumValue={20}
@@ -328,5 +271,16 @@ const thisstyles = StyleSheet.create({
     width: 175,
     height: 75,
     margin: 5
+  },
+  flex1stretchcenter: {
+    flex: 1,
+    alignItems: "stretch",
+    justifyContent: "center"
+  },
+  flex1rowcenter: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
