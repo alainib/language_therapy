@@ -54,6 +54,10 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "courgette",
                   "ar": "كوسا",
                   "audio":"courgette"
+                },{"path": require("language_therapy/ressources/mot-image/aliments/datte.jpg"),
+                  "fr": "datte",
+                  "ar": "تمر",
+                  "audio":"datte"
                 },{"path": require("language_therapy/ressources/mot-image/aliments/figue.jpg"),
                   "fr": "figue",
                   "ar": "تين",
@@ -70,6 +74,10 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "haricot vert",
                   "ar": "الفاصوليا",
                   "audio":"haricot_vert"
+                },{"path": require("language_therapy/ressources/mot-image/aliments/mandarine.jpg"),
+                  "fr": "mandarine",
+                  "ar": "اليوسفي",
+                  "audio":"mandarine"
                 },{"path": require("language_therapy/ressources/mot-image/aliments/miel.jpg"),
                   "fr": "miel",
                   "ar": "عسل",
@@ -102,6 +110,10 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "pates",
                   "ar": "معكرونة",
                   "audio":"pates"
+                },{"path": require("language_therapy/ressources/mot-image/aliments/pistache.jpg"),
+                  "fr": "pistache",
+                  "ar": "فستق",
+                  "audio":"pistache"
                 },{"path": require("language_therapy/ressources/mot-image/aliments/poire.jpg"),
                   "fr": "poire",
                   "ar": "اجاصة",
@@ -282,7 +294,7 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "éléphant",
                   "ar": "فيل",
                   "audio":"elephant"
-                }],"autre":[{"path": require("language_therapy/ressources/mot-image/autre/allumette.jpg"),
+                },],"autre":[{"path": require("language_therapy/ressources/mot-image/autre/allumette.jpg"),
                   "fr": "allumette",
                   "ar": "كبريتة",
                   "audio":"allumette"
@@ -662,7 +674,7 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "zero",
                   "ar": "zero",
                   "audio":"zero"
-                },],"recette-arabe":[{"path": require("language_therapy/ressources/mot-image/recette-arabe/bami.jpg"),
+                }],"recette-arabe":[{"path": require("language_therapy/ressources/mot-image/recette-arabe/bami.jpg"),
                   "fr": "bami",
                   "ar": "بامية",
                   "audio":"bami"

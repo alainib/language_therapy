@@ -43,6 +43,13 @@ async function writeJs(fileName, data) {
   console.log("Write complete " + fileName);
 }
 
+async function writeTxt(fileName, data) {
+  fileName = "./" + fileName;
+
+  await fse.writeFile(fileName, data, "utf8");
+  console.log("Write complete " + fileName);
+}
+
 // récupere un path et retourne le nom du fichier sans espace {originalText,translatedText}
 function extractFileName(fileName) {
   fileName = replaceAll(fileName.replace(".jpg", ""), "_", " ");
@@ -102,6 +109,7 @@ async function moveEntry(entry, sourcePath, destPath) {
   return movedEntry;
 }
 
+// enleve les caractères speciaux (accents)
 function cleanName(entry) {
   return _.deburr(entry);
 }
@@ -148,68 +156,82 @@ const pathDest = path.join(__dirname, "..", "ressources", "mot-image");
 (async () => {
   try {
     clj({ pathSource, pathDest, destPathAudio });
-    let askForFolder = false;
-    if (askForFolder) {
-      console.log("continu ? press y");
-    }
+
     // vide le dossier de dest
     fse.removeSync(pathDest);
     fse.ensureDirSync(pathDest);
 
-    if (!askForFolder || (await readKeyboard()) == "y") {
-      // parcour les sous dossiers
-      const subFolders = await fs.readdir(pathSource);
+    // parcour les sous dossiers
+    const subFolders = await fs.readdir(pathSource);
 
-      let output = "{";
-      for (var i = 0; i < subFolders.length; i++) {
-        const sourcePathSubFolder = path.join(pathSource, subFolders[i]);
+    let output = "{";
+    let missingMp3Output = "";
+    for (var i = 0; i < subFolders.length; i++) {
+      const sourcePathSubFolder = path.join(pathSource, subFolders[i]);
 
-        res = await fs.stat(sourcePathSubFolder);
+      res = await fs.stat(sourcePathSubFolder);
 
-        if (res.isDirectory()) {
-          // on crée le sous dossier dans le dossier de destination
-          const destPathSubFolder = path.join(pathDest, subFolders[i]);
-          fse.ensureDirSync(destPathSubFolder);
+      if (res.isDirectory()) {
+        // on crée le sous dossier dans le dossier de destination
+        const destPathSubFolder = path.join(pathDest, subFolders[i]);
+        fse.ensureDirSync(destPathSubFolder);
 
-          output += '"' + subFolders[i] + '":[';
-          // on parcours les fichiers dans le dossier courant
-          const fileNames = await fs.readdir(sourcePathSubFolder);
+        missingMp3Output += subFolders[i] + "\n";
 
-          for (var s = 0; s < fileNames.length; s++) {
-            let extension = getExtension(fileNames[s]);
-            if (extension == "jpg") {
-              let entry = extractFileName(fileNames[s]);
-              let movedEntry = await moveEntry(
-                entry,
-                sourcePathSubFolder,
-                destPathSubFolder
-              );
-              if (!entry.translatedText) {
-                console.warn("not translated :", entry);
-              } else {
-                output += `{"path": require("${movedEntry.path.replace(
-                  "C:/work/workspace/language_therapy",
-                  "language_therapy"
-                )}"),
+        output += '"' + subFolders[i] + '":[';
+        // on parcours les fichiers dans le dossier courant
+        const fileNames = await fs.readdir(sourcePathSubFolder);
+
+        for (var s = 0; s < fileNames.length; s++) {
+          let extension = getExtension(fileNames[s]);
+          if (extension == "jpg") {
+            let entry = extractFileName(fileNames[s]);
+            let movedEntry = await moveEntry(
+              entry,
+              sourcePathSubFolder,
+              destPathSubFolder
+            );
+
+            let pathToMp3 = path.join(
+              sourcePathSubFolder,
+              replaceAll(movedEntry.originalText, " ", "_")
+            );
+
+            // test que le fichier audio exist pour ce mot
+            if (!fse.existsSync(pathToMp3 + ".mp3")) {
+              missingMp3Output += "   " + movedEntry.originalText + "\n";
+            }
+            if (!fse.existsSync(pathToMp3 + "_ar.mp3")) {
+              missingMp3Output += "   " + movedEntry.translatedText + "\n";
+            }
+
+            if (!entry.translatedText) {
+              console.warn("not translated :", entry);
+            } else {
+              output += `{"path": require("${movedEntry.path.replace(
+                "C:/work/workspace/language_therapy",
+                "language_therapy"
+              )}"),
                   "fr": "${movedEntry.originalText}",
                   "ar": "${movedEntry.translatedText}",
                   "audio":"${movedEntry.audio}"
                 }`;
-                if (s + 1 < fileNames.length) {
-                  output += ",";
-                }
+              if (s + 1 < fileNames.length) {
+                output += ",";
               }
-            } else {
-              moveAudio(fileNames[s], sourcePathSubFolder);
             }
+          } else {
+            moveAudio(fileNames[s], sourcePathSubFolder);
           }
-          output += "],";
         }
+        output += "],";
       }
-      output += "}";
-      console.log("finish ALL ");
-      writeJs(`data.js`, output);
     }
+    output += "}";
+    console.log("finish ALL ");
+    writeJs(`data.js`, output);
+    writeTxt(`missingMp3Output.txt`, missingMp3Output);
+    missingMp3Output;
   } catch (err) {
     console.error("err", err);
   }
