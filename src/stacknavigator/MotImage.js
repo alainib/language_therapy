@@ -60,8 +60,6 @@ class MotImage extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {}
-
   componentWillUnmount = () => {
     clearTimeout(this._timeout);
   };

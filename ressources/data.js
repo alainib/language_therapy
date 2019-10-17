@@ -580,7 +580,7 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "audio":"valise"
                 },{"path": require("language_therapy/ressources/mot-image/autre/verre.jpg"),
                   "fr": "verre",
-                  "ar": "زجاج",
+                  "ar": "كأس",
                   "audio":"verre"
                 },{"path": require("language_therapy/ressources/mot-image/autre/voiture.jpg"),
                   "fr": "voiture",
@@ -594,7 +594,7 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "évier",
                   "ar": "حوض الغسيل",
                   "audio":"evier"
-                }],"nombres-ar":[{"path": require("language_therapy/ressources/mot-image/nombres-ar/cinq.jpg"),
+                },],"nombres-ar":[{"path": require("language_therapy/ressources/mot-image/nombres-ar/cinq.jpg"),
                   "fr": "cinq",
                   "ar": "خمسة",
                   "audio":"cinq"
@@ -722,4 +722,4 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "taboule",
                   "ar": "تبوله",
                   "audio":"taboule"
-                }],}; export default {_IMAGES }
+                },],}; export default {_IMAGES }

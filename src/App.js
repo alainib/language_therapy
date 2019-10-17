@@ -20,6 +20,8 @@ import styles from "language_therapy/src/styles";
 import Suivi from "language_therapy/src/stacknavigator/Suivi";
 import MotImage from "language_therapy/src/stacknavigator/MotImage";
 import TrainSerie from "language_therapy/src/stacknavigator/TrainSerie";
+import DataChecker from "language_therapy/src/stacknavigator/DataChecker";
+
 import Options from "language_therapy/src/stacknavigator/Options";
 
 YellowBox.ignoreWarnings([]);
@@ -48,6 +50,13 @@ class Home extends Component {
                 containerStyle={styles.margin10}
                 title="Suivi"
                 onPress={() => this.props.navigation.navigate("Suivi")}
+              />
+            </View>
+            <View style={styles.margin10}>
+              <Button
+                containerStyle={styles.margin10}
+                title="Verification des données"
+                onPress={() => this.props.navigation.navigate("DataChecker")}
               />
             </View>
           </ScrollView>
@@ -86,6 +95,10 @@ const StackNavigator = createStackNavigator(
     },
     TrainSerie: {
       screen: TrainSerie,
+      ...removeHeader
+    },
+    DataChecker: {
+      screen: DataChecker,
       ...removeHeader
     }
   },

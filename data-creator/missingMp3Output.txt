@@ -1,197 +1,28 @@
 aliments
 animaux
-   بطريق
 autre
-   allumette
-   كبريتة
-   arbre
-   شجره
-   aspirateur
-   مكنسة كهربائية
-   assiette
-   صحن
-   avion
-   طائرة
-   bague
-   خاتم
-   balai
-   مكنسة
-   balançoire
-   أرجوحة
-   ballon
-   كرة
-   bateau
-   قارب
-   bonnet
-   قبعة
-   bouteille
-   زجاجة
-   boîte
-   ساعة
-   briquet
-   ولاعة
-   brosse à dent
-   فرشاة أسنان
-   bus
-   الباص
-   café
-   قهوة
-   camion
-   شاحنة
-   caméra
-   كاميرا
-   cartes
-   شدة
-   casque
-   خوذة
-   casserole
-   وعاء طهي
-   ceinture
-   حزام
-   cerveau
-   دماغ
-   chaise
-   كرسي
-   chapeau
-   قبعة
-   chaussure
-   حذاء
-   chemise
-   قميص
-   ciseaux
-   مقص
-   clé
-   مفتاح
-   couteau
-   سكين
-   cuillère
-   ملعقة
-   dés
-   النرد
-   echarpe
-   وشاح
-   enveloppe
-   مظروف
-   fauteuil
-   أريكة
-   fleur
-   زهرة
-   fourchette
-   شوكة
-   gomme
-   ممحاة
-   guitare
-   غيتار
-   horloge
-   الساعة
-   lait
-   حليب
-   lampe
-   مصباح
-   lit
-   سرير
-   lunettes
-   نظارات
-   marteau
-   مطرقة
-   montagne
-   جبل
-   montre
-   ساعة
-   nuage
-   غيم
-   ordinateur
-   الكمبيوتر
-   panier
-   سلة
-   pansement
    صلصة
-   pantalon
-   بنطلون
-   peigne
-   مشط
-   plage
-   شاطئ
-   poele
-   موقد
-   porte
-   باب
-   pull
-   سترة
-   raquette
-   مضرب
-   rasoir
-   ماكينة حلاقة
-   sac
-   حقيبة
-   scie
-   منشار
-   stylo
-   قلم
-   table
-   حقيبة
-   tente
-   خيمة
-   thermometre
-   ميزان الحرارة
-   théière
-   إبريق
-   train
-   قطار
-   téléphone
-   هاتف
-   télévision
-   التلفزيون
-   valise
-   حقيبة
-   verre
-   زجاج
-   voiture
-   سيارة
-   vélo
-   دراجة
-   évier
-   حوض الغسيل
 nombres-ar
 nombres-fr
    cinq
-   cinq
    deux
    huit
-   huit
-   neuf
    neuf
    quatre
    sept
-   sept
-   six
    six
    trois
    un
    zero
    zero
 recette-arabe
-   bami
    بامية
-   falafel
    فلافل
-   fatouche
    فتوش
-   houmous
    الحمص
-   kebbeh cru
    الكبة
-   kebbeh frit
-   الكبة
-   kebbe bel fern
-   الكبة
-   malfouf
    ملفوف
-   mehshi
    محشي
-   moujadra
    مجدرة
-   namoura
    نمورت
-   taboule
    تبوله
