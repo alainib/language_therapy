@@ -119,7 +119,7 @@ class TrainSerie extends React.PureComponent {
         <View style={styles.flex1}>
           <View
             style={{
-              marginTop: 20,
+              margin: 20,
               padding: 10,
               height,
               flexDirection: "row",
@@ -128,7 +128,14 @@ class TrainSerie extends React.PureComponent {
               justifyContent: "space-between"
             }}
           >
-            <View style={{ width: iconWidth, height }}>
+            <View
+              style={{
+                width: iconWidth,
+                height,
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
               {this.state.index > 0 && (
                 <IconFeather
                   name="arrow-left-circle"
@@ -150,9 +157,15 @@ class TrainSerie extends React.PureComponent {
                 justifyContent: "center"
               }}
             >
-              <View
+              <TouchableOpacity
+                onPress={() => {
+                  this.playSound(question.audio);
+                }}
+                underlayColor="grey"
                 style={{
                   flex: 1,
+                  height,
+                  paddingHorizontal: 30,
                   alignItems: "center",
                   justifyContent: "center"
                 }}
@@ -162,11 +175,9 @@ class TrainSerie extends React.PureComponent {
                   style={styles.center}
                   size={this.props.options.interfaceSize}
                   color="#000"
-                  onPress={() => {
-                    this.playSound(question.audio);
-                  }}
+                  onPress={() => {}}
                 />
-              </View>
+              </TouchableOpacity>
 
               <View
                 style={{
@@ -198,7 +209,12 @@ class TrainSerie extends React.PureComponent {
             </View>
 
             <View
-              style={{ width: this.props.options.interfaceSize + 10, height }}
+              style={{
+                width: this.props.options.interfaceSize + 10,
+                height,
+                alignItems: "center",
+                justifyContent: "center"
+              }}
             >
               {this.state.index < this.state.questions.length && (
                 <IconFeather

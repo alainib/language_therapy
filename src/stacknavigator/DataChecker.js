@@ -110,7 +110,7 @@ export default class DataChecker extends React.Component {
                 sound_play(item.audio);
                 setTimeout(() => {
                   sound_play(item.audio + "_ar");
-                }, 1000);
+                }, 2000);
               }}
               underlayColor="white"
             >
