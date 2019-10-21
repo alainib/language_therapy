@@ -55,6 +55,7 @@ export function stringInArray(word, array) {
 }
 
 /*
+retourne un tableau a partir des clés d'un object
 usage : {mapObject(yourObject, function (key, value) {
   return <div>Key: {key}, Value: {value}</div>;
 })}

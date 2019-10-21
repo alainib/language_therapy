@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
     fontSize: Config.textSize.xl
   },
-  padding10: {
+  padding10center: {
     padding: 10,
     justifyContent: "center",
     alignItems: "center"
@@ -46,12 +46,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
+  padding10: {
+    padding: 10
+  },
   margin10: { margin: 10 },
   flexRowSpaceAround: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around"
+  },
+  flexRowSpaceBetween: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between"
   }
 });
 

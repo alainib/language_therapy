@@ -41,7 +41,8 @@ class Users extends React.PureComponent {
       users: props.users || null,
       showUsersList: false,
       showAddUser: false,
-      newUserName: "alain ibrahim" || null
+      newUserName: "alain ibrahim" || null,
+      uniqueUserName: true
     };
   }
 
@@ -53,18 +54,43 @@ class Users extends React.PureComponent {
 
   render() {
     const _listLength = Object.keys(this.state.users.list).length;
+    if (_listLength == 0 && !this.state.showAddUser) {
+      return (
+        <View style={styles.container}>
+          <Button
+            title="Ajouter un utilisateur"
+            onPress={() => {
+              this.setState({
+                showAddUser: !this.state.showAddUser
+              });
+            }}
+          />
+        </View>
+      );
+    }
 
     return (
       <View style={styles.flex1}>
         {!this.state.showUsersList && (
-          <View style={styles.flex1}>
+          <View
+            style={{
+              margin: 5,
+              marginVertical: 15
+            }}
+          >
             {this.state.users.current != null ? (
-              <View>
-                <Text style={thisstyles.titleLeft}>
+              <View style={styles.flexRowSpaceBetween}>
+                <Text style={thisstyles.title}>
                   Utilisateur courant : {this.state.users.current}
                 </Text>
 
-                <View style={{ ...styles.center, width: 100 }}>
+                <View
+                  style={{
+                    marginRight: 40,
+                    width: 100,
+                    justifyContent: "flex-start"
+                  }}
+                >
                   <Button
                     containerStyle={{ margin: 10 }}
                     title="Suivi"
@@ -99,12 +125,14 @@ class Users extends React.PureComponent {
               style={styles.acSearchSectionInput}
               placeholder={"nom - prénom"}
               onChangeText={newUserName => {
-                this.setState({ newUserName });
+                this.setState({ newUserName }, () => {
+                  this.checkUniqueUserName();
+                });
               }}
             />
 
             <View style={{ flexDirection: "row" }}>
-              <View style={styles.margin10}>
+              <View style={{ width: 100, margin: 10 }}>
                 <Button
                   title="Annuler"
                   color="grey"
@@ -116,8 +144,9 @@ class Users extends React.PureComponent {
                   }}
                 />
               </View>
-              <View style={styles.margin10}>
+              <View style={{ width: 100, margin: 10 }}>
                 <Button
+                  disabled={!this.state.uniqueUserName}
                   title="Ok"
                   color="green"
                   onPress={() => {
@@ -134,108 +163,116 @@ class Users extends React.PureComponent {
         )}
 
         {!this.state.showAddUser && _listLength > 0 && (
-          <View style={thisstyles.flexRowStart}>
-            <View style={styles.flex1}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center"
-                }}
-              >
+          <View
+            style={{
+              margin: 5,
+              marginHorizontal: 15
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center"
+              }}
+            >
+              {!this.state.showUsersList && (
                 <TouchableOpacity
                   onPress={() => {
                     this.setState({
-                      showUsersList: !this.state.showUsersList
+                      showAddUser: !this.state.showAddUser
                     });
                   }}
                 >
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Text style={thisstyles.titleLeft}>
-                      Utilisateurs : Autres
-                    </Text>
-                    <IconIonic
-                      name={
-                        this.state.showUsersList
-                          ? "md-arrow-dropup-circle"
-                          : "md-arrow-dropdown-circle"
-                      }
-                      size={Config.iconSize.xl}
-                    />
-                  </View>
-                </TouchableOpacity>
-
-                {!this.state.showUsersList && (
-                  <TouchableOpacity
-                    onPress={() => {
-                      this.setState({
-                        showAddUser: !this.state.showAddUser
-                      });
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center"
                     }}
                   >
+                    <Text style={thisstyles.title}>Ajouter</Text>
+                    <IconIonic name="md-add-circle" size={Config.iconSize.xl} />
+                  </View>
+                </TouchableOpacity>
+              )}
+
+              <TouchableOpacity
+                onPress={() => {
+                  this.setState({
+                    showUsersList: !this.state.showUsersList
+                  });
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    paddingRight: 15
+                  }}
+                >
+                  <Text style={thisstyles.title}>Autres</Text>
+                  <IconIonic
+                    name={
+                      this.state.showUsersList
+                        ? "md-arrow-dropup-circle"
+                        : "md-arrow-dropdown-circle"
+                    }
+                    size={Config.iconSize.xl}
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
+            {this.state.showUsersList && (
+              <ScrollView>
+                {tools.mapObject(this.state.users.list, (key, value) => {
+                  return (
                     <View
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        paddingRight: 20
-                      }}
+                      key={key.toString()}
+                      style={thisstyles.flexRowbetween10}
                     >
-                      <Text style={thisstyles.titleLeft}>Ajouter</Text>
-                      <IconIonic
-                        name="md-add-circle"
-                        size={Config.iconSize.xl}
+                      <TouchableOpacity
+                        onPress={() => {
+                          this.props.action_setCurrentUser(key);
+                        }}
+                      >
+                        <Text style={styles.titleMD}>{key}</Text>
+                      </TouchableOpacity>
+                      <IconFeather
+                        name="trash"
+                        size={Config.iconSize.md}
+                        color="#000"
+                        onPress={() => {
+                          Alert.alert(
+                            "Effacer l'utilisateur ?",
+                            "ainsi que tous ses tests ",
+                            [
+                              {
+                                text: "Oui",
+                                onPress: () => this.props.action_removeUser(key)
+                              },
+                              {
+                                text: "Non"
+                              }
+                            ],
+                            { cancelable: true }
+                          );
+                        }}
                       />
                     </View>
-                  </TouchableOpacity>
-                )}
-              </View>
-              {this.state.showUsersList && (
-                <ScrollView>
-                  {tools.mapObject(this.state.users.list, (key, value) => {
-                    return (
-                      <View
-                        key={key.toString()}
-                        style={thisstyles.flexRowbetween10}
-                      >
-                        <TouchableOpacity
-                          onPress={() => {
-                            this.props.action_setCurrentUser(key);
-                          }}
-                        >
-                          <Text style={styles.titleMD}>{key}</Text>
-                        </TouchableOpacity>
-                        <IconFeather
-                          name="trash"
-                          size={Config.iconSize.md}
-                          color="#000"
-                          onPress={() => {
-                            Alert.alert(
-                              "Effacer l'utilisateur ?",
-                              "ainsi que tous ses tests ",
-                              [
-                                {
-                                  text: "Oui",
-                                  onPress: () =>
-                                    this.props.action_removeUser(key)
-                                },
-                                {
-                                  text: "Non"
-                                }
-                              ],
-                              { cancelable: true }
-                            );
-                          }}
-                        />
-                      </View>
-                    );
-                  })}
-                </ScrollView>
-              )}
-            </View>
+                  );
+                })}
+              </ScrollView>
+            )}
           </View>
         )}
       </View>
     );
+  }
+
+  checkUniqueUserName() {
+    this.setState({
+      uniqueUserName: !!!this.state.users.list[this.state.newUserName.trim()]
+    });
   }
 }
 
@@ -268,18 +305,16 @@ const thisstyles = StyleSheet.create({
     alignItems: "center"
   },
 
-  titleLeft: {
+  title: {
     padding: 5,
     paddingHorizontal: 20,
-    fontSize: 20,
-    flexDirection: "row",
-    justifyContent: "flex-start"
+    fontSize: 20
   },
 
   flexRowStart: {
     flexDirection: "row",
     justifyContent: "flex-start",
-    flex: 1
+    padding: 5
   },
   padding5: { padding: 5 },
   flexRowbetween10: {

@@ -12,7 +12,7 @@ import {
 
 export const action_addUser = username => {
   return {
-    payload: username,
+    payload: username.trim(),
     type: ADD_USER
   };
 };

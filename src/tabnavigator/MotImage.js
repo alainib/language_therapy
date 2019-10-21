@@ -147,7 +147,7 @@ class MotImage extends React.Component {
         <View style={{ width: 50, height: 50 }}>
           <IconFeather
             name="settings"
-            style={styles.padding10}
+            style={styles.padding10center}
             size={Config.iconSize.xl}
             color="#000"
             onPress={() => {
