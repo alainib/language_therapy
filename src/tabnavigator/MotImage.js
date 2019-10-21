@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   View,
   Button,
@@ -6,11 +7,13 @@ import {
   StyleSheet,
   Text,
   TouchableHighlight,
+  TouchableOpacity,
   Image,
   Modal,
   Alert
 } from "react-native";
 
+import IconIonic from "react-native-vector-icons/Ionicons";
 import styles from "language_therapy/src/styles";
 import Config from "language_therapy/src/Config";
 import IconFeather from "react-native-vector-icons/Feather";
@@ -26,6 +29,24 @@ import {
 let _ImageWidth = 175;
 
 class MotImage extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      tabBarIcon: ({ tintColor }) => (
+        <TouchableOpacity
+          underlayColor={Config.colors.green}
+          onPress={() => {
+            navigation.navigate("MotImage");
+          }}
+        >
+          <IconIonic
+            name="md-images"
+            size={Config.iconSize.xxl}
+            color={tintColor}
+          />
+        </TouchableOpacity>
+      )
+    };
+  };
   constructor(props) {
     super(props);
     this.state = {

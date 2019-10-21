@@ -46,7 +46,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
-  margin10: { margin: 10 }
+  margin10: { margin: 10 },
+  flexRowSpaceAround: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around"
+  }
 });
 
 export default styles;

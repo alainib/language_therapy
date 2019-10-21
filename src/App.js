@@ -9,62 +9,55 @@ import {
   ActivityIndicator
 } from "react-native";
 
-import { createAppContainer, createStackNavigator } from "react-navigation";
+import {
+  createAppContainer,
+  createBottomTabNavigator,
+  createStackNavigator
+} from "react-navigation";
+
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/es/integration/react";
 import configureStore from "language_therapy/src/redux/store";
 const { persistor, store } = configureStore();
 
-import Users from "language_therapy/src/components/Users";
 import styles from "language_therapy/src/styles";
 import Suivi from "language_therapy/src/stacknavigator/Suivi";
-import MotImage from "language_therapy/src/stacknavigator/MotImage";
-import TrainSerie from "language_therapy/src/stacknavigator/TrainSerie";
 import DataChecker from "language_therapy/src/stacknavigator/DataChecker";
 
+import TrainSerie from "language_therapy/src/stacknavigator/TrainSerie";
 import Options from "language_therapy/src/stacknavigator/Options";
+import Config from "language_therapy/src/Config";
 
 YellowBox.ignoreWarnings([]);
 console.disableYellowBox = true;
 
-class Home extends Component {
-  render() {
-    return (
-      <View style={styles.containerCol}>
-        <View style={thisstyles.flex1grey}>
-          <Users />
-        </View>
+import MotImage from "language_therapy/src/tabnavigator/MotImage";
+import Users from "language_therapy/src/tabnavigator/Users";
+import Settings from "language_therapy/src/tabnavigator/Settings";
 
-        <View style={styles.flex1}>
-          <ScrollView style={styles.flex1}>
-            <Text style={styles.title}>Choisir le type d'exercice :</Text>
-            <View style={styles.margin10}>
-              <Button
-                title="Mot - Image"
-                onPress={() => this.props.navigation.navigate("MotImage")}
-              />
-            </View>
-
-            <View style={styles.margin10}>
-              <Button
-                containerStyle={styles.margin10}
-                title="Suivi"
-                onPress={() => this.props.navigation.navigate("Suivi")}
-              />
-            </View>
-            <View style={styles.margin10}>
-              <Button
-                containerStyle={styles.margin10}
-                title="Verification des données"
-                onPress={() => this.props.navigation.navigate("DataChecker")}
-              />
-            </View>
-          </ScrollView>
-        </View>
-      </View>
-    );
+const MyTabView = createBottomTabNavigator(
+  {
+    Users: { screen: Users },
+    MotImage: { screen: MotImage },
+    Settings: { screen: Settings }
+  },
+  {
+    swipeEnabled: false,
+    tabBarPosition: "bottom",
+    tabBarOptions: {
+      activeTintColor: Config.colors.green,
+      pressColor: Config.colors.green,
+      inactiveTintColor: "#373738",
+      showIcon: true,
+      style: {
+        backgroundColor: Config.colors.background
+      },
+      indicatorStyle: {
+        backgroundColor: Config.colors.green
+      }
+    }
   }
-}
+);
 
 const removeHeader = {
   headerMode: "none",
@@ -76,14 +69,15 @@ const removeHeader = {
 
 const StackNavigator = createStackNavigator(
   {
-    Home: {
-      screen: Home,
-      ...removeHeader
+    global: {
+      screen: MyTabView,
+      headerMode: "none",
+      header: null,
+      navigationOptions: {
+        header: null
+      }
     },
-    MotImage: {
-      screen: MotImage,
-      ...removeHeader
-    },
+
     Suivi: {
       screen: Suivi,
 
