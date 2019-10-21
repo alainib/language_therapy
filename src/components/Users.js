@@ -55,7 +55,7 @@ class Users extends React.PureComponent {
             </Text>
           </View>
         ) : (
-          <View style={styles.center}>
+          <View style={styles.container}>
             <Button
               title="Ajouter un utilisateur"
               onPress={() => {
@@ -97,8 +97,8 @@ class Users extends React.PureComponent {
           </View>
         )}
 
-        <View style={thisstyles.flexRowStart}>
-          {_listLength > 0 && (
+        {_listLength > 0 && (
+          <View style={thisstyles.flexRowStart}>
             <View style={styles.flex1}>
               <TouchableOpacity
                 style={thisstyles.padding5}
@@ -154,8 +154,8 @@ class Users extends React.PureComponent {
                 </ScrollView>
               )}
             </View>
-          )}
-        </View>
+          </View>
+        )}
       </View>
     );
   }

@@ -141,7 +141,8 @@ export default class DataChecker extends React.Component {
                   style={{
                     flexDirection: "column",
                     justifyContent: "space-around",
-                    alignItems: "center"
+                    alignItems: "center",
+                    flex: 1
                   }}
                 >
                   <IconFeather
