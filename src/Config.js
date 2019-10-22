@@ -27,6 +27,7 @@ const textSize = {
 };
 
 const colors = {
+  do: "#04b09a",
   // couleur du fond de l'application
   background: "#FFF",
   // couleur gris clair pour le touchOpacity
