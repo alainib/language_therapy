@@ -14,6 +14,7 @@ import IconFeather from "react-native-vector-icons/Feather";
 import * as tools from "language_therapy/src/tools";
 
 import ResultsStat from "language_therapy/src/components/ResultsStat";
+import FlexSize from "language_therapy/src/components/FlexSize";
 
 import { sound_play } from "language_therapy/src/services/sound";
 
@@ -68,6 +69,13 @@ class TrainSerie extends React.PureComponent {
 
       let ImageWidth = tools.round(Config.width / question.images.length - 2);
 
+      const blueButtonBack = {
+        backgroundColor: Config.colors.bluegrad,
+        borderColor: "#bfc2c7",
+        borderRadius: 30,
+        borderWidth: 1
+      };
+
       if (ImageWidth > 300) {
         switch (question.images.length) {
           case 2:
@@ -110,17 +118,12 @@ class TrainSerie extends React.PureComponent {
           borderStyle["borderColor"] = "red";
         }
       }
-      let iconWidth =
-        this.props.options.interfaceSize + 10 > 50
-          ? this.props.options.interfaceSize + 10
-          : 50;
 
       return (
         <View style={styles.flex1}>
           <View
             style={{
               margin: 20,
-              padding: 10,
               height,
               flexDirection: "row",
               alignItems: "center",
@@ -128,17 +131,26 @@ class TrainSerie extends React.PureComponent {
               justifyContent: "space-between"
             }}
           >
-            <View
-              style={{
-                width: iconWidth,
-                height,
-                alignItems: "center",
-                justifyContent: "center"
+            <TouchableOpacity
+              onPress={() => {
+                if (this.state.index > 0) {
+                  this.setState({ index: this.state.index - 1 });
+                }
               }}
+              underlayColor="grey"
+              style={[
+                {
+                  flex: 1,
+                  height,
+                  alignItems: "center",
+                  justifyContent: "center"
+                }
+                /*this.state.index > 0 ? blueButtonBack : null*/
+              ]}
             >
               {this.state.index > 0 && (
                 <IconFeather
-                  name="arrow-left-circle"
+                  name="arrow-left"
                   style={styles.center}
                   size={this.props.options.interfaceSize}
                   color="#000"
@@ -147,10 +159,11 @@ class TrainSerie extends React.PureComponent {
                   }}
                 />
               )}
-            </View>
+            </TouchableOpacity>
             <View
               style={{
-                flex: 1,
+                flex: 6,
+                marginLeft: 2,
                 height,
                 flexDirection: "row",
                 alignItems: "center",
@@ -168,6 +181,7 @@ class TrainSerie extends React.PureComponent {
                   paddingHorizontal: 30,
                   alignItems: "center",
                   justifyContent: "center"
+                  //...blueButtonBack
                 }}
               >
                 <IconFeather
@@ -175,7 +189,9 @@ class TrainSerie extends React.PureComponent {
                   style={styles.center}
                   size={this.props.options.interfaceSize}
                   color="#000"
-                  onPress={() => {}}
+                  onPress={() => {
+                    this.playSound(question.audio);
+                  }}
                 />
               </TouchableOpacity>
 
@@ -208,26 +224,39 @@ class TrainSerie extends React.PureComponent {
               </View>
             </View>
 
-            <View
-              style={{
-                width: this.props.options.interfaceSize + 10,
-                height,
-                alignItems: "center",
-                justifyContent: "center"
+            <TouchableOpacity
+              onPress={() => {
+                if (this.state.index < this.state.questions.length) {
+                  this.setState({ index: this.state.index + 1 });
+                }
               }}
+              underlayColor="grey"
+              style={[
+                {
+                  flex: 1,
+                  height,
+                  alignItems: "center",
+                  justifyContent: "center"
+                } /*
+                this.state.index < this.state.questions.length
+                  ? blueButtonBack
+                  : null*/
+              ]}
             >
-              {this.state.index < this.state.questions.length && (
-                <IconFeather
-                  name="arrow-right-circle"
-                  style={styles.center}
-                  size={this.props.options.interfaceSize}
-                  color="#000"
-                  onPress={() => {
-                    this.setState({ index: this.state.index + 1 });
-                  }}
-                />
-              )}
-            </View>
+              <IconFeather
+                name={
+                  this.state.index + 1 < this.state.questions.length
+                    ? "arrow-right"
+                    : "trending-up" //"log-in"
+                }
+                style={styles.center}
+                size={this.props.options.interfaceSize}
+                color="#000"
+                onPress={() => {
+                  this.setState({ index: this.state.index + 1 });
+                }}
+              />
+            </TouchableOpacity>
           </View>
 
           <View style={{ flex: 8, marginTop: 15 }}>
@@ -282,14 +311,22 @@ class TrainSerie extends React.PureComponent {
               })}
             </View>
           </View>
+
           <View
             style={{
               flex: 1,
-              alignItems: "flex-end",
-              justifyContent: "center",
-              paddingRight: 25
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              height,
+              margin: 2,
+              marginHorizontal: 10
             }}
           >
+            <Text>
+              {this.state.index + 1 + " / " + this.state.questions.length}
+            </Text>
+
             {this.state.questionClueVisible ? (
               <Text style={titleClueStyle}>{question.clue}</Text>
             ) : (

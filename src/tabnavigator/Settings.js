@@ -19,7 +19,7 @@ class Settings extends React.Component {
     return {
       tabBarIcon: ({ tintColor }) => (
         <TouchableOpacity
-          underlayColor={Config.colors.green}
+          underlayColor={Config.colors.blue}
           onPress={() => {
             navigation.navigate("Settings");
           }}

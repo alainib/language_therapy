@@ -33,7 +33,8 @@ export default class FlexSize extends Component {
             ? this.props.flexDirection
             : "row",
           height: _height,
-          backgroundColor: "bluesky"
+          backgroundColor: "bluesky",
+          ...this.props.parentStyle
         }}
       >
         {items}

@@ -44,15 +44,15 @@ const MyTabView = createBottomTabNavigator(
     swipeEnabled: false,
     tabBarPosition: "bottom",
     tabBarOptions: {
-      activeTintColor: Config.colors.green,
-      pressColor: Config.colors.green,
+      activeTintColor: Config.colors.blue,
+      pressColor: Config.colors.blue,
       inactiveTintColor: "#373738",
       showIcon: true,
       style: {
         backgroundColor: Config.colors.background
       },
       indicatorStyle: {
-        backgroundColor: Config.colors.green
+        backgroundColor: Config.colors.blue
       }
     }
   }

@@ -1,28 +1,8 @@
 aliments
 animaux
 autre
-   صلصة
 nombres-ar
 nombres-fr
-   cinq
-   deux
-   huit
-   neuf
-   quatre
-   sept
-   six
-   trois
-   un
    zero
    zero
 recette-arabe
-   بامية
-   فلافل
-   فتوش
-   الحمص
-   الكبة
-   ملفوف
-   محشي
-   مجدرة
-   نمورت
-   تبوله

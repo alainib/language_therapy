@@ -27,7 +27,6 @@ const textSize = {
 };
 
 const colors = {
-  do: "#04b09a",
   // couleur du fond de l'application
   background: "#FFF",
   // couleur gris clair pour le touchOpacity
@@ -36,14 +35,16 @@ const colors = {
   opaque: "rgba(0,0,0,0.8)",
 
   // pour les boutons etc
-  green: "#75c043",
+  blue: "#04b09a",
+  bluegrad: "#F4FFFF",
+  green: "#04b09a",
   grey: "#BFBEBE",
   red: "#c1272d",
   black: "#535559",
   white: "white",
   orange: "#f1c40f",
 
-  greyOverlay: "rgba(114, 114, 114,0.8)",
+  greyOverlay: "rgba(114, 114, 114,0.1)",
   whiteOverlay: "rgba( 246, 246, 246, 0.9)"
 };
 

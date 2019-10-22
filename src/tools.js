@@ -56,14 +56,13 @@ export function stringInArray(word, array) {
 
 /*
 retourne un tableau a partir des clés d'un object
-usage : {mapObject(yourObject, function (key, value) {
-  return <div>Key: {key}, Value: {value}</div>;
-})}
+ 
 */
-export function mapObject(object, callback) {
-  return Object.keys(object).map(function(key) {
-    return callback(key, object[key]);
+export function objectToArray(object) {
+  let res = Object.keys(object).map(function(key) {
+    return { key, value: object[key] };
   });
+  return res;
 }
 
 /**

@@ -20,7 +20,7 @@ class Users extends React.PureComponent {
     return {
       tabBarIcon: ({ tintColor }) => (
         <TouchableOpacity
-          underlayColor={Config.colors.green}
+          underlayColor={Config.colors.blue}
           onPress={() => {
             navigation.navigate("Users");
           }}
@@ -53,8 +53,10 @@ class Users extends React.PureComponent {
   }
 
   render() {
-    const _listLength = Object.keys(this.state.users.list).length;
-    if (_listLength == 0 && !this.state.showAddUser) {
+    usersListArray = tools.objectToArray(this.state.users.list);
+    const listLength = usersListArray.length;
+
+    if (listLength == 0 && !this.state.showAddUser) {
       return (
         <View style={styles.container}>
           <Button
@@ -162,7 +164,7 @@ class Users extends React.PureComponent {
           </View>
         )}
 
-        {!this.state.showAddUser && _listLength > 0 && (
+        {!this.state.showAddUser && listLength > 0 && (
           <View
             style={{
               margin: 5,
@@ -224,18 +226,25 @@ class Users extends React.PureComponent {
             </View>
             {this.state.showUsersList && (
               <ScrollView>
-                {tools.mapObject(this.state.users.list, (key, value) => {
+                {usersListArray.map((item, index) => {
                   return (
                     <View
-                      key={key.toString()}
-                      style={thisstyles.flexRowbetween10}
+                      key={index.toString()}
+                      style={
+                        index % 2 == 0
+                          ? thisstyles.listeItem
+                          : thisstyles.listeItemBis
+                      }
                     >
                       <TouchableOpacity
                         onPress={() => {
-                          this.props.action_setCurrentUser(key);
+                          this.props.action_setCurrentUser(item.key);
+                          this.setState({
+                            showUsersList: !this.state.showUsersList
+                          });
                         }}
                       >
-                        <Text style={styles.titleMD}>{key}</Text>
+                        <Text style={styles.titleMD}>{item.key}</Text>
                       </TouchableOpacity>
                       <IconFeather
                         name="trash"
@@ -248,7 +257,8 @@ class Users extends React.PureComponent {
                             [
                               {
                                 text: "Oui",
-                                onPress: () => this.props.action_removeUser(key)
+                                onPress: () =>
+                                  this.props.action_removeUser(item.key)
                               },
                               {
                                 text: "Non"
@@ -317,7 +327,20 @@ const thisstyles = StyleSheet.create({
     padding: 5
   },
   padding5: { padding: 5 },
-  flexRowbetween10: {
+
+  listeItem: {
+    height: 50,
+    margin: 5,
+    backgroundColor: "skyblue",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
+    alignItems: "center"
+  },
+  listeItemBis: {
+    margin: 5,
+    height: 50,
+    backgroundColor: "aliceblue",
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 10,
