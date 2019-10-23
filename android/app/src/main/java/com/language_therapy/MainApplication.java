@@ -16,8 +16,6 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.soloader.SoLoader;
-import io.invertase.firebase.RNFirebasePackage;
-import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,7 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
             new ReactNativeAudioPackage(),
             new RNSoundPackage(), new AsyncStoragePackage(), new RNFSPackage(),
             new RNZipArchivePackage(), new SvgPackage(), new RNGestureHandlerPackage(),
-          new RNFirebasePackage(), new RNFirebaseDatabasePackage(), new VectorIconsPackage());
+           new VectorIconsPackage());
     }
 
     @Override

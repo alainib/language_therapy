@@ -18,6 +18,7 @@ import IconIonic from "react-native-vector-icons/Ionicons";
 class Users extends React.PureComponent {
   static navigationOptions = ({ navigation }) => {
     return {
+      title: "Utilisateurs",
       tabBarIcon: ({ tintColor }) => (
         <TouchableOpacity
           underlayColor={Config.colors.blue}

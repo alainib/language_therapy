@@ -4,6 +4,7 @@ let { width, height } = Dimensions.get("window");
 const _const = {
   easy: "easy",
   middle: "middle",
+  hard: "hard",
   fr: "fr",
   ar: "ar"
 };

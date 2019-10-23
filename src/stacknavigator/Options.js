@@ -61,6 +61,24 @@ class Options extends React.Component {
                   }
                 />
               </View>
+
+              <View style={thisstyles.viewButton}>
+                <Button
+                  color={
+                    this.props.options.level == Config._const.hard
+                      ? "green"
+                      : "grey"
+                  }
+                  title="Dur"
+                  onPress={() =>
+                    this.props.action_optionUpdate(
+                      "level",
+                      null,
+                      Config._const.hard
+                    )
+                  }
+                />
+              </View>
             </View>
           </View>
           <View style={thisstyles.bloc}>

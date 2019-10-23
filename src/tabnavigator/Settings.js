@@ -17,6 +17,7 @@ import * as tools from "language_therapy/src/tools";
 class Settings extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
+      title: "Réglages",
       tabBarIcon: ({ tintColor }) => (
         <TouchableOpacity
           underlayColor={Config.colors.blue}
@@ -41,12 +42,24 @@ class Settings extends React.Component {
 
   render() {
     return (
-      <View style={styles.flex1}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "space-around",
+          alignItems: "center"
+        }}
+      >
         <Text>Settings ...</Text>
         <Button
           containerStyle={styles.margin10}
           title="Verification des données"
           onPress={() => this.props.navigation.navigate("DataChecker")}
+        />
+
+        <Button
+          containerStyle={styles.margin10}
+          title="UpdateData"
+          onPress={() => this.props.navigation.navigate("UpdateData")}
         />
       </View>
     );

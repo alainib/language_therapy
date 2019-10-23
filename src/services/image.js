@@ -32,14 +32,15 @@ function randomImageFromSerie(serieName, imagesSrc, deleteItem = false) {
 }
 
 /**
- * retourne un nom de serie au hasard différent de celui passé en parametre
- * @param array of string, exclude ces series
+ * retourne un nom de serie au hasard différent de ceux passées en parametre
+ * @param array of string, excluded series
  */
-function randomSerieName(exclude = []) {
+function randomSerieName(excluded = []) {
+  console.log("randomSerieName", excluded);
   let _names = [];
 
   for (var i in _allSeriesName) {
-    if (!exclude.includes(_allSeriesName[i])) {
+    if (!excluded.includes(_allSeriesName[i])) {
       _names.push(_allSeriesName[i]);
     }
   }
@@ -61,6 +62,12 @@ function shuffleArray(a) {
 
 //pour certaines series on ne prend que les images de la même serie
 let _unmixedSeries = ["nombres-fr", "nombres-ar"];
+// pour certaine series on ne prend pas les images de certaines autres series
+// par exemple aliments et recette-arabe
+let _excludeFor = {
+  aliments: ["recette-arabe"],
+  "recette-arabe": ["aliments"]
+};
 
 let _allSeriesName = null;
 /**
@@ -90,6 +97,10 @@ export function image_AllSeriesNames() {
  * @param array selectedImages : array of images,
  *
  * si selectedImages not null alors ces images seront utilisées comme image à trouver
+ *
+ * si c'est niveau facile alors il ne faut pas que les images retournés soit de la meme serie du tout
+ * si c'est niveau moyen alors les images sont un mélanges d'autres series et celle choisie
+ * si c'est niveau dur alors les images ne sont que de la serie choisie
  */
 export function image_randomSerie(
   serieName,
@@ -132,7 +143,7 @@ export function image_randomSerie(
         right: true
       });
     }
-    if (level == Config._const.easy) {
+    if (level == Config._const.easy || level == Config._const.middle) {
       // et 3(ou nbrOfImagePerQuestion-1) autres images d'autres series
       for (var i = 1; i < nbrOfImagePerQuestion; i++) {
         let catTmp = null;
@@ -141,8 +152,13 @@ export function image_randomSerie(
         if (_unmixedSeries.includes(serieName)) {
           catTmp = serieName;
         } else {
-          let excluded = [];
-          catTmp = randomSerieName([excluded, ..._unmixedSeries]);
+          let excluded = _excludeFor[serieName]
+            ? [..._excludeFor[serieName]]
+            : [];
+          if (level == Config._const.easy) {
+            excluded.push(serieName);
+          }
+          catTmp = randomSerieName([...excluded, ..._unmixedSeries]);
         }
 
         let repeat = 0;

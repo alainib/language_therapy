@@ -31,6 +31,7 @@ let _ImageWidth = 175;
 class MotImage extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
+      title: "Mot image",
       tabBarIcon: ({ tintColor }) => (
         <TouchableOpacity
           underlayColor={Config.colors.blue}
