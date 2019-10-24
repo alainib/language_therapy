@@ -36,7 +36,6 @@ function randomImageFromSerie(serieName, imagesSrc, deleteItem = false) {
  * @param array of string, excluded series
  */
 function randomSerieName(excluded = []) {
-  console.log("randomSerieName", excluded);
   let _names = [];
 
   for (var i in _allSeriesName) {

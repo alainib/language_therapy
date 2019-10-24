@@ -1,13 +1,6 @@
 import React, { Component } from "react";
 
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableHighlight,
-  Modal
-} from "react-native";
+import { StyleSheet, Text, View, ScrollView, TouchableHighlight, Modal } from "react-native";
 
 import ResultsStat from "language_therapy/src/components/ResultsStat";
 import IconFeather from "react-native-vector-icons/Feather";
@@ -38,13 +31,7 @@ class Suivi extends Component {
   render() {
     return (
       <View style={styles.flex1}>
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.showModal}
-          style={styles.flex1}
-          onRequestClose={() => {}}
-        >
+        <Modal animationType="slide" transparent={false} visible={this.state.showModal} style={styles.flex1} onRequestClose={() => {}}>
           <View style={{ flex: 1, backgroundColor: "white" }}>
             <TouchableHighlight
               style={{
@@ -94,13 +81,8 @@ class Suivi extends Component {
         for (var i in _tests) {
           let _test = _tests[i];
 
-          score = `t:${_test.results.total}-s:${_test.results.skiped}-1:${_test.results.oneRep}-2:${_test.results.twoRep}-3:${_test.results.threeRep}-4:${_test.results.fourRep}-5+:${_test.results.fiveAndMoreRep}`;
-
           res.push(
-            <View
-              style={i == 0 ? thisstyles.item : thisstyles.itemBis}
-              key={"id" + i + _test.id.toString()}
-            >
+            <View style={i == 0 ? thisstyles.item : thisstyles.itemBis} key={"id" + i + _test.id.toString()}>
               <View style={{ ...styles.center, flex: 5 }}>
                 <Text style={thisstyles.title}>
                   {i == 0 ? "-" : " "} {_test.date}
@@ -111,7 +93,7 @@ class Suivi extends Component {
               </View>
 
               <TouchableHighlight
-                style={{ ...styles.center, flex: 7 }}
+                style={{ flex: 7 }}
                 onPress={() => {
                   this.setState({
                     showModal: true,
@@ -120,7 +102,7 @@ class Suivi extends Component {
                 }}
                 underlayColor="white"
               >
-                <Text style={thisstyles.title}>{score}</Text>
+                <ResultsStat results={_test.results} minimizedDisplay={true}></ResultsStat>
               </TouchableHighlight>
 
               <View style={{ ...styles.center, flex: 2 }}>

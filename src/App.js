@@ -57,7 +57,6 @@ const MyTabView = createBottomTabNavigator(
         alignItems: "space-around",
         justifyContent: "center"
       },*/
-
       indicatorStyle: {
         backgroundColor: Config.colors.blue
       }
