@@ -1,8 +1,11 @@
 aliments
+   قرنبيط
 animaux
 autre
+   oreiller
 nombres-ar
 nombres-fr
    zero
    zero
-recette-arabe
+parties-du-corps
+   ظهر

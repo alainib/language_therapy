@@ -26,6 +26,10 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "beurre",
                   "ar": "زبدة",
                   "audio":"beurre"
+                },{"path": require("language_therapy/ressources/mot-image/aliments/café.jpg"),
+                  "fr": "café",
+                  "ar": "قهوة",
+                  "audio":"cafe"
                 },{"path": require("language_therapy/ressources/mot-image/aliments/carotte.jpg"),
                   "fr": "carotte",
                   "ar": "جزرة",
@@ -38,18 +42,34 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "champignon",
                   "ar": "فطر",
                   "audio":"champignon"
+                },{"path": require("language_therapy/ressources/mot-image/aliments/chips.jpg"),
+                  "fr": "chips",
+                  "ar": "رقائق البطاطا",
+                  "audio":"chips"
                 },{"path": require("language_therapy/ressources/mot-image/aliments/chocolat.jpg"),
                   "fr": "chocolat",
                   "ar": "شوكولا",
                   "audio":"chocolat"
+                },{"path": require("language_therapy/ressources/mot-image/aliments/choux.jpg"),
+                  "fr": "choux",
+                  "ar": "ملفوف",
+                  "audio":"choux"
                 },{"path": require("language_therapy/ressources/mot-image/aliments/choux_fleur.jpg"),
                   "fr": "choux fleur",
-                  "ar": "ملفوف",
+                  "ar": "قرنبيط",
                   "audio":"choux_fleur"
                 },{"path": require("language_therapy/ressources/mot-image/aliments/citron.jpg"),
                   "fr": "citron",
                   "ar": "ليمون",
                   "audio":"citron"
+                },{"path": require("language_therapy/ressources/mot-image/aliments/cola.jpg"),
+                  "fr": "cola",
+                  "ar": "الكولا",
+                  "audio":"cola"
+                },{"path": require("language_therapy/ressources/mot-image/aliments/concombre.jpg"),
+                  "fr": "concombre",
+                  "ar": "خيار",
+                  "audio":"concombre"
                 },{"path": require("language_therapy/ressources/mot-image/aliments/courgette.jpg"),
                   "fr": "courgette",
                   "ar": "كوسا",
@@ -66,18 +86,46 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "fraise",
                   "ar": "فراولة",
                   "audio":"fraise"
+                },{"path": require("language_therapy/ressources/mot-image/aliments/framboises.jpg"),
+                  "fr": "framboises",
+                  "ar": "توت",
+                  "audio":"framboises"
+                },{"path": require("language_therapy/ressources/mot-image/aliments/frite.jpg"),
+                  "fr": "frite",
+                  "ar": "بطاطا مقلية",
+                  "audio":"frite"
+                },{"path": require("language_therapy/ressources/mot-image/aliments/fromage.jpg"),
+                  "fr": "fromage",
+                  "ar": "جبن",
+                  "audio":"fromage"
                 },{"path": require("language_therapy/ressources/mot-image/aliments/grenade.jpg"),
                   "fr": "grenade",
                   "ar": "رمان",
                   "audio":"grenade"
+                },{"path": require("language_therapy/ressources/mot-image/aliments/hamburger.jpg"),
+                  "fr": "hamburger",
+                  "ar": "هامبورجر",
+                  "audio":"hamburger"
+                },{"path": require("language_therapy/ressources/mot-image/aliments/haricots_verts.jpg"),
+                  "fr": "haricots verts",
+                  "ar": "فاصوليا خضراء",
+                  "audio":"haricots_verts"
                 },{"path": require("language_therapy/ressources/mot-image/aliments/haricot_vert.jpg"),
                   "fr": "haricot vert",
                   "ar": "الفاصوليا",
                   "audio":"haricot_vert"
+                },{"path": require("language_therapy/ressources/mot-image/aliments/laitue.jpg"),
+                  "fr": "laitue",
+                  "ar": "الخس",
+                  "audio":"laitue"
                 },{"path": require("language_therapy/ressources/mot-image/aliments/mandarine.jpg"),
                   "fr": "mandarine",
                   "ar": "اليوسفي",
                   "audio":"mandarine"
+                },{"path": require("language_therapy/ressources/mot-image/aliments/maïs.jpg"),
+                  "fr": "maïs",
+                  "ar": "ذرة",
+                  "audio":"mais"
                 },{"path": require("language_therapy/ressources/mot-image/aliments/miel.jpg"),
                   "fr": "miel",
                   "ar": "عسل",
@@ -110,6 +158,10 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "pates",
                   "ar": "معكرونة",
                   "audio":"pates"
+                },{"path": require("language_therapy/ressources/mot-image/aliments/petits_pois.jpg"),
+                  "fr": "petits pois",
+                  "ar": "بازيلاء",
+                  "audio":"petits_pois"
                 },{"path": require("language_therapy/ressources/mot-image/aliments/pistache.jpg"),
                   "fr": "pistache",
                   "ar": "فستق",
@@ -118,6 +170,10 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "poire",
                   "ar": "اجاصة",
                   "audio":"poire"
+                },{"path": require("language_therapy/ressources/mot-image/aliments/poivre.jpg"),
+                  "fr": "poivre",
+                  "ar": "فلفل",
+                  "audio":"poivre"
                 },{"path": require("language_therapy/ressources/mot-image/aliments/poivron.jpg"),
                   "fr": "poivron",
                   "ar": "فلفل حلو",
@@ -130,6 +186,10 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "pomme de terre",
                   "ar": "بطاطا",
                   "audio":"pomme_de_terre"
+                },{"path": require("language_therapy/ressources/mot-image/aliments/popcorn.jpg"),
+                  "fr": "popcorn",
+                  "ar": "فُشار",
+                  "audio":"popcorn"
                 },{"path": require("language_therapy/ressources/mot-image/aliments/radis.jpg"),
                   "fr": "radis",
                   "ar": "فجل",
@@ -142,6 +202,14 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "riz",
                   "ar": "الرز",
                   "audio":"riz"
+                },{"path": require("language_therapy/ressources/mot-image/aliments/sel.jpg"),
+                  "fr": "sel",
+                  "ar": "ملح",
+                  "audio":"sel"
+                },{"path": require("language_therapy/ressources/mot-image/aliments/thé.jpg"),
+                  "fr": "thé",
+                  "ar": "شاي",
+                  "audio":"the"
                 },{"path": require("language_therapy/ressources/mot-image/aliments/tomate.jpg"),
                   "fr": "tomate",
                   "ar": "بندورة",
@@ -150,6 +218,10 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "abeille",
                   "ar": "نحلة",
                   "audio":"abeille"
+                },{"path": require("language_therapy/ressources/mot-image/animaux/aigle.jpg"),
+                  "fr": "aigle",
+                  "ar": "نسر",
+                  "audio":"aigle"
                 },{"path": require("language_therapy/ressources/mot-image/animaux/araignée.jpg"),
                   "fr": "araignée",
                   "ar": "عنكبوت",
@@ -162,6 +234,10 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "canard",
                   "ar": "بطة",
                   "audio":"canard"
+                },{"path": require("language_therapy/ressources/mot-image/animaux/cerf.jpg"),
+                  "fr": "cerf",
+                  "ar": "غزال",
+                  "audio":"cerf"
                 },{"path": require("language_therapy/ressources/mot-image/animaux/chameau.jpg"),
                   "fr": "chameau",
                   "ar": "جمل",
@@ -190,6 +266,10 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "colombe",
                   "ar": "حمام",
                   "audio":"colombe"
+                },{"path": require("language_therapy/ressources/mot-image/animaux/crabe.jpg"),
+                  "fr": "crabe",
+                  "ar": "سلطعون",
+                  "audio":"crabe"
                 },{"path": require("language_therapy/ressources/mot-image/animaux/crocodile.jpg"),
                   "fr": "crocodile",
                   "ar": "تمساح",
@@ -218,6 +298,18 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "grenouille",
                   "ar": "ضفدع",
                   "audio":"grenouille"
+                },{"path": require("language_therapy/ressources/mot-image/animaux/hibou.jpg"),
+                  "fr": "hibou",
+                  "ar": "بومة",
+                  "audio":"hibou"
+                },{"path": require("language_therapy/ressources/mot-image/animaux/homard.jpg"),
+                  "fr": "homard",
+                  "ar": "سرطان البحر",
+                  "audio":"homard"
+                },{"path": require("language_therapy/ressources/mot-image/animaux/hérisson.jpg"),
+                  "fr": "hérisson",
+                  "ar": "قنفذ",
+                  "audio":"herisson"
                 },{"path": require("language_therapy/ressources/mot-image/animaux/lapin.jpg"),
                   "fr": "lapin",
                   "ar": "أرنب",
@@ -238,18 +330,34 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "lézard",
                   "ar": "حرباء",
                   "audio":"lezard"
+                },{"path": require("language_therapy/ressources/mot-image/animaux/mouche.jpg"),
+                  "fr": "mouche",
+                  "ar": "ذبابة",
+                  "audio":"mouche"
                 },{"path": require("language_therapy/ressources/mot-image/animaux/mouton.jpg"),
                   "fr": "mouton",
                   "ar": "خاروف",
                   "audio":"mouton"
+                },{"path": require("language_therapy/ressources/mot-image/animaux/oiseau.jpg"),
+                  "fr": "oiseau",
+                  "ar": "طائر",
+                  "audio":"oiseau"
                 },{"path": require("language_therapy/ressources/mot-image/animaux/ours.jpg"),
                   "fr": "ours",
                   "ar": "دب",
                   "audio":"ours"
+                },{"path": require("language_therapy/ressources/mot-image/animaux/papillon.jpg"),
+                  "fr": "papillon",
+                  "ar": "فراشة",
+                  "audio":"papillon"
                 },{"path": require("language_therapy/ressources/mot-image/animaux/pingouin.jpg"),
                   "fr": "pingouin",
                   "ar": "بطريق",
                   "audio":"pingouin"
+                },{"path": require("language_therapy/ressources/mot-image/animaux/poisson.jpg"),
+                  "fr": "poisson",
+                  "ar": "سمك",
+                  "audio":"poisson"
                 },{"path": require("language_therapy/ressources/mot-image/animaux/poisson_rouge.jpg"),
                   "fr": "poisson rouge",
                   "ar": "سمكة حمراء",
@@ -258,6 +366,10 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "poule",
                   "ar": "دجاجة",
                   "audio":"poule"
+                },{"path": require("language_therapy/ressources/mot-image/animaux/poulpe.jpg"),
+                  "fr": "poulpe",
+                  "ar": "أخطبوط",
+                  "audio":"poulpe"
                 },{"path": require("language_therapy/ressources/mot-image/animaux/rat.jpg"),
                   "fr": "rat",
                   "ar": "فأر",
@@ -266,6 +378,14 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "renard",
                   "ar": "ثعلب",
                   "audio":"renard"
+                },{"path": require("language_therapy/ressources/mot-image/animaux/requin.jpg"),
+                  "fr": "requin",
+                  "ar": "سمك القرش",
+                  "audio":"requin"
+                },{"path": require("language_therapy/ressources/mot-image/animaux/rhinoceros.jpg"),
+                  "fr": "rhinoceros",
+                  "ar": "وحيد القرن",
+                  "audio":"rhinoceros"
                 },{"path": require("language_therapy/ressources/mot-image/animaux/serpent.jpg"),
                   "fr": "serpent",
                   "ar": "أفعى",
@@ -290,11 +410,31 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "vache",
                   "ar": "بقرة",
                   "audio":"vache"
+                },{"path": require("language_therapy/ressources/mot-image/animaux/zébre.jpg"),
+                  "fr": "zébre",
+                  "ar": "حمار الوحش",
+                  "audio":"zebre"
+                },{"path": require("language_therapy/ressources/mot-image/animaux/âne.jpg"),
+                  "fr": "âne",
+                  "ar": "حمار",
+                  "audio":"ane"
+                },{"path": require("language_therapy/ressources/mot-image/animaux/écureuil.jpg"),
+                  "fr": "écureuil",
+                  "ar": "سنجاب",
+                  "audio":"ecureuil"
                 },{"path": require("language_therapy/ressources/mot-image/animaux/éléphant.jpg"),
                   "fr": "éléphant",
                   "ar": "فيل",
                   "audio":"elephant"
-                },],"autre":[{"path": require("language_therapy/ressources/mot-image/autre/allumette.jpg"),
+                },],"autre":[{"path": require("language_therapy/ressources/mot-image/autre/agrafeuse.jpg"),
+                  "fr": "agrafeuse",
+                  "ar": "كباسات",
+                  "audio":"agrafeuse"
+                },{"path": require("language_therapy/ressources/mot-image/autre/aiguille.jpg"),
+                  "fr": "aiguille",
+                  "ar": "إبرة",
+                  "audio":"aiguille"
+                },{"path": require("language_therapy/ressources/mot-image/autre/allumette.jpg"),
                   "fr": "allumette",
                   "ar": "كبريتة",
                   "audio":"allumette"
@@ -302,6 +442,14 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "arbre",
                   "ar": "شجره",
                   "audio":"arbre"
+                },{"path": require("language_therapy/ressources/mot-image/autre/argent.jpg"),
+                  "fr": "argent",
+                  "ar": "مال",
+                  "audio":"argent"
+                },{"path": require("language_therapy/ressources/mot-image/autre/armoire.jpg"),
+                  "fr": "armoire",
+                  "ar": "خزانة",
+                  "audio":"armoire"
                 },{"path": require("language_therapy/ressources/mot-image/autre/aspirateur.jpg"),
                   "fr": "aspirateur",
                   "ar": "مكنسة كهربائية",
@@ -310,18 +458,22 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "assiette",
                   "ar": "صحن",
                   "audio":"assiette"
-                },{"path": require("language_therapy/ressources/mot-image/autre/avion.jpg"),
-                  "fr": "avion",
-                  "ar": "طائرة",
-                  "audio":"avion"
                 },{"path": require("language_therapy/ressources/mot-image/autre/bague.jpg"),
                   "fr": "bague",
                   "ar": "خاتم",
                   "audio":"bague"
+                },{"path": require("language_therapy/ressources/mot-image/autre/baignoire.jpg"),
+                  "fr": "baignoire",
+                  "ar": "حوض الاستحمام",
+                  "audio":"baignoire"
                 },{"path": require("language_therapy/ressources/mot-image/autre/balai.jpg"),
                   "fr": "balai",
                   "ar": "مكنسة",
                   "audio":"balai"
+                },{"path": require("language_therapy/ressources/mot-image/autre/balance.jpg"),
+                  "fr": "balance",
+                  "ar": "ميزان",
+                  "audio":"balance"
                 },{"path": require("language_therapy/ressources/mot-image/autre/balançoire.jpg"),
                   "fr": "balançoire",
                   "ar": "أرجوحة",
@@ -330,22 +482,34 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "ballon",
                   "ar": "كرة",
                   "audio":"ballon"
-                },{"path": require("language_therapy/ressources/mot-image/autre/bateau.jpg"),
-                  "fr": "bateau",
-                  "ar": "قارب",
-                  "audio":"bateau"
-                },{"path": require("language_therapy/ressources/mot-image/autre/bonnet.jpg"),
-                  "fr": "bonnet",
-                  "ar": "قبعة",
-                  "audio":"bonnet"
+                },{"path": require("language_therapy/ressources/mot-image/autre/banc.jpg"),
+                  "fr": "banc",
+                  "ar": "مقعد",
+                  "audio":"banc"
+                },{"path": require("language_therapy/ressources/mot-image/autre/bol.jpg"),
+                  "fr": "bol",
+                  "ar": "زبدية",
+                  "audio":"bol"
+                },{"path": require("language_therapy/ressources/mot-image/autre/bombe.jpg"),
+                  "fr": "bombe",
+                  "ar": "قنبلة",
+                  "audio":"bombe"
+                },{"path": require("language_therapy/ressources/mot-image/autre/bougie.jpg"),
+                  "fr": "bougie",
+                  "ar": "شمعة",
+                  "audio":"bougie"
                 },{"path": require("language_therapy/ressources/mot-image/autre/bouteille.jpg"),
                   "fr": "bouteille",
                   "ar": "زجاجة",
                   "audio":"bouteille"
-                },{"path": require("language_therapy/ressources/mot-image/autre/boîte.jpg"),
-                  "fr": "boîte",
-                  "ar": "ساعة",
-                  "audio":"boite"
+                },{"path": require("language_therapy/ressources/mot-image/autre/boutton.jpg"),
+                  "fr": "boutton",
+                  "ar": "زر",
+                  "audio":"boutton"
+                },{"path": require("language_therapy/ressources/mot-image/autre/brique.jpg"),
+                  "fr": "brique",
+                  "ar": "قرميد",
+                  "audio":"brique"
                 },{"path": require("language_therapy/ressources/mot-image/autre/briquet.jpg"),
                   "fr": "briquet",
                   "ar": "ولاعة",
@@ -354,22 +518,30 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "brosse à dent",
                   "ar": "فرشاة أسنان",
                   "audio":"brosse_a_dent"
-                },{"path": require("language_therapy/ressources/mot-image/autre/bus.jpg"),
-                  "fr": "bus",
-                  "ar": "الباص",
-                  "audio":"bus"
-                },{"path": require("language_therapy/ressources/mot-image/autre/café.jpg"),
-                  "fr": "café",
-                  "ar": "قهوة",
-                  "audio":"cafe"
-                },{"path": require("language_therapy/ressources/mot-image/autre/camion.jpg"),
-                  "fr": "camion",
-                  "ar": "شاحنة",
-                  "audio":"camion"
+                },{"path": require("language_therapy/ressources/mot-image/autre/cactus.jpg"),
+                  "fr": "cactus",
+                  "ar": "صبار",
+                  "audio":"cactus"
+                },{"path": require("language_therapy/ressources/mot-image/autre/cadenas.jpg"),
+                  "fr": "cadenas",
+                  "ar": "قفل",
+                  "audio":"cadenas"
+                },{"path": require("language_therapy/ressources/mot-image/autre/calculatrice.jpg"),
+                  "fr": "calculatrice",
+                  "ar": "آلة حاسبة",
+                  "audio":"calculatrice"
+                },{"path": require("language_therapy/ressources/mot-image/autre/calendrier.jpg"),
+                  "fr": "calendrier",
+                  "ar": "تقويم",
+                  "audio":"calendrier"
                 },{"path": require("language_therapy/ressources/mot-image/autre/caméra.jpg"),
                   "fr": "caméra",
                   "ar": "كاميرا",
                   "audio":"camera"
+                },{"path": require("language_therapy/ressources/mot-image/autre/canne.jpg"),
+                  "fr": "canne",
+                  "ar": "عكاز",
+                  "audio":"canne"
                 },{"path": require("language_therapy/ressources/mot-image/autre/cartes.jpg"),
                   "fr": "cartes",
                   "ar": "شدة",
@@ -382,30 +554,14 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "casserole",
                   "ar": "وعاء طهي",
                   "audio":"casserole"
-                },{"path": require("language_therapy/ressources/mot-image/autre/ceinture.jpg"),
-                  "fr": "ceinture",
-                  "ar": "حزام",
-                  "audio":"ceinture"
-                },{"path": require("language_therapy/ressources/mot-image/autre/cerveau.jpg"),
-                  "fr": "cerveau",
-                  "ar": "دماغ",
-                  "audio":"cerveau"
                 },{"path": require("language_therapy/ressources/mot-image/autre/chaise.jpg"),
                   "fr": "chaise",
                   "ar": "كرسي",
                   "audio":"chaise"
-                },{"path": require("language_therapy/ressources/mot-image/autre/chapeau.jpg"),
-                  "fr": "chapeau",
-                  "ar": "قبعة",
-                  "audio":"chapeau"
-                },{"path": require("language_therapy/ressources/mot-image/autre/chaussure.jpg"),
-                  "fr": "chaussure",
-                  "ar": "حذاء",
-                  "audio":"chaussure"
-                },{"path": require("language_therapy/ressources/mot-image/autre/chemise.jpg"),
-                  "fr": "chemise",
-                  "ar": "قميص",
-                  "audio":"chemise"
+                },{"path": require("language_therapy/ressources/mot-image/autre/chaîne.jpg"),
+                  "fr": "chaîne",
+                  "ar": "جِنزير",
+                  "audio":"chaine"
                 },{"path": require("language_therapy/ressources/mot-image/autre/ciseaux.jpg"),
                   "fr": "ciseaux",
                   "ar": "مقص",
@@ -414,22 +570,42 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "clé",
                   "ar": "مفتاح",
                   "audio":"cle"
+                },{"path": require("language_therapy/ressources/mot-image/autre/collier.jpg"),
+                  "fr": "collier",
+                  "ar": "عقد",
+                  "audio":"collier"
+                },{"path": require("language_therapy/ressources/mot-image/autre/corde.jpg"),
+                  "fr": "corde",
+                  "ar": "حبل",
+                  "audio":"corde"
+                },{"path": require("language_therapy/ressources/mot-image/autre/couronne.jpg"),
+                  "fr": "couronne",
+                  "ar": "تاج",
+                  "audio":"couronne"
                 },{"path": require("language_therapy/ressources/mot-image/autre/couteau.jpg"),
                   "fr": "couteau",
                   "ar": "سكين",
                   "audio":"couteau"
+                },{"path": require("language_therapy/ressources/mot-image/autre/crayon.jpg"),
+                  "fr": "crayon",
+                  "ar": "قلم رصاص",
+                  "audio":"crayon"
+                },{"path": require("language_therapy/ressources/mot-image/autre/crayon_de_couleur.jpg"),
+                  "fr": "crayon de couleur",
+                  "ar": "قلم تلوين",
+                  "audio":"crayon_de_couleur"
                 },{"path": require("language_therapy/ressources/mot-image/autre/cuillère.jpg"),
                   "fr": "cuillère",
                   "ar": "ملعقة",
                   "audio":"cuillere"
+                },{"path": require("language_therapy/ressources/mot-image/autre/drapeau.jpg"),
+                  "fr": "drapeau",
+                  "ar": "علم",
+                  "audio":"drapeau"
                 },{"path": require("language_therapy/ressources/mot-image/autre/dés.jpg"),
                   "fr": "dés",
                   "ar": "النرد",
                   "audio":"des"
-                },{"path": require("language_therapy/ressources/mot-image/autre/echarpe.jpg"),
-                  "fr": "echarpe",
-                  "ar": "وشاح",
-                  "audio":"echarpe"
                 },{"path": require("language_therapy/ressources/mot-image/autre/enveloppe.jpg"),
                   "fr": "enveloppe",
                   "ar": "مظروف",
@@ -458,6 +634,14 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "horloge",
                   "ar": "الساعة",
                   "audio":"horloge"
+                },{"path": require("language_therapy/ressources/mot-image/autre/imprimante.jpg"),
+                  "fr": "imprimante",
+                  "ar": "طابعة",
+                  "audio":"imprimante"
+                },{"path": require("language_therapy/ressources/mot-image/autre/journal.jpg"),
+                  "fr": "journal",
+                  "ar": "جريدة",
+                  "audio":"journal"
                 },{"path": require("language_therapy/ressources/mot-image/autre/lait.jpg"),
                   "fr": "lait",
                   "ar": "حليب",
@@ -470,6 +654,14 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "lit",
                   "ar": "سرير",
                   "audio":"lit"
+                },{"path": require("language_therapy/ressources/mot-image/autre/livre.jpg"),
+                  "fr": "livre",
+                  "ar": "كتاب",
+                  "audio":"livre"
+                },{"path": require("language_therapy/ressources/mot-image/autre/lune.jpg"),
+                  "fr": "lune",
+                  "ar": "قمر",
+                  "audio":"lune"
                 },{"path": require("language_therapy/ressources/mot-image/autre/lunettes.jpg"),
                   "fr": "lunettes",
                   "ar": "نظارات",
@@ -494,22 +686,50 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "ordinateur",
                   "ar": "الكمبيوتر",
                   "audio":"ordinateur"
+                },{"path": require("language_therapy/ressources/mot-image/autre/oreiller.jpg"),
+                  "fr": "oreiller",
+                  "ar": "مخدة",
+                  "audio":"oreiller"
+                },{"path": require("language_therapy/ressources/mot-image/autre/os.jpg"),
+                  "fr": "os",
+                  "ar": "عظم",
+                  "audio":"os"
                 },{"path": require("language_therapy/ressources/mot-image/autre/panier.jpg"),
                   "fr": "panier",
                   "ar": "سلة",
                   "audio":"panier"
-                },{"path": require("language_therapy/ressources/mot-image/autre/pantalon.jpg"),
-                  "fr": "pantalon",
-                  "ar": "بنطلون",
-                  "audio":"pantalon"
+                },{"path": require("language_therapy/ressources/mot-image/autre/papier.jpg"),
+                  "fr": "papier",
+                  "ar": "ورقة",
+                  "audio":"papier"
                 },{"path": require("language_therapy/ressources/mot-image/autre/peigne.jpg"),
                   "fr": "peigne",
                   "ar": "مشط",
                   "audio":"peigne"
+                },{"path": require("language_therapy/ressources/mot-image/autre/perceuse.jpg"),
+                  "fr": "perceuse",
+                  "ar": "حفر",
+                  "audio":"perceuse"
+                },{"path": require("language_therapy/ressources/mot-image/autre/piano.jpg"),
+                  "fr": "piano",
+                  "ar": "بيانو",
+                  "audio":"piano"
+                },{"path": require("language_therapy/ressources/mot-image/autre/pioche.jpg"),
+                  "fr": "pioche",
+                  "ar": "معول",
+                  "audio":"pioche"
+                },{"path": require("language_therapy/ressources/mot-image/autre/pistolet.jpg"),
+                  "fr": "pistolet",
+                  "ar": "مسدس",
+                  "audio":"pistolet"
                 },{"path": require("language_therapy/ressources/mot-image/autre/plage.jpg"),
                   "fr": "plage",
                   "ar": "شاطئ",
                   "audio":"plage"
+                },{"path": require("language_therapy/ressources/mot-image/autre/plume.jpg"),
+                  "fr": "plume",
+                  "ar": "ريشة",
+                  "audio":"plume"
                 },{"path": require("language_therapy/ressources/mot-image/autre/poele.jpg"),
                   "fr": "poele",
                   "ar": "موقد",
@@ -518,10 +738,6 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "porte",
                   "ar": "باب",
                   "audio":"porte"
-                },{"path": require("language_therapy/ressources/mot-image/autre/pull.jpg"),
-                  "fr": "pull",
-                  "ar": "سترة",
-                  "audio":"pull"
                 },{"path": require("language_therapy/ressources/mot-image/autre/raquette.jpg"),
                   "fr": "raquette",
                   "ar": "مضرب",
@@ -530,6 +746,22 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "rasoir",
                   "ar": "ماكينة حلاقة",
                   "audio":"rasoir"
+                },{"path": require("language_therapy/ressources/mot-image/autre/rocher.jpg"),
+                  "fr": "rocher",
+                  "ar": "صخرة",
+                  "audio":"rocher"
+                },{"path": require("language_therapy/ressources/mot-image/autre/rouge_à_lèvres.jpg"),
+                  "fr": "rouge à lèvres",
+                  "ar": "أحمر شفاه",
+                  "audio":"rouge_a_levres"
+                },{"path": require("language_therapy/ressources/mot-image/autre/règle.jpg"),
+                  "fr": "règle",
+                  "ar": "مسطرة",
+                  "audio":"regle"
+                },{"path": require("language_therapy/ressources/mot-image/autre/réfrigérateur.jpg"),
+                  "fr": "réfrigérateur",
+                  "ar": "ثلاجة",
+                  "audio":"refrigerateur"
                 },{"path": require("language_therapy/ressources/mot-image/autre/sac.jpg"),
                   "fr": "sac",
                   "ar": "حقيبة",
@@ -538,6 +770,18 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "scie",
                   "ar": "منشار",
                   "audio":"scie"
+                },{"path": require("language_therapy/ressources/mot-image/autre/seau.jpg"),
+                  "fr": "seau",
+                  "ar": "دلو",
+                  "audio":"seau"
+                },{"path": require("language_therapy/ressources/mot-image/autre/soleil.jpg"),
+                  "fr": "soleil",
+                  "ar": "شمس",
+                  "audio":"soleil"
+                },{"path": require("language_therapy/ressources/mot-image/autre/sonnette.jpg"),
+                  "fr": "sonnette",
+                  "ar": "جرس",
+                  "audio":"sonnette"
                 },{"path": require("language_therapy/ressources/mot-image/autre/stylo.jpg"),
                   "fr": "stylo",
                   "ar": "قلم",
@@ -546,6 +790,14 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "table",
                   "ar": "حقيبة",
                   "audio":"table"
+                },{"path": require("language_therapy/ressources/mot-image/autre/tapis.jpg"),
+                  "fr": "tapis",
+                  "ar": "سجادة",
+                  "audio":"tapis"
+                },{"path": require("language_therapy/ressources/mot-image/autre/tasse.jpg"),
+                  "fr": "tasse",
+                  "ar": "كوب",
+                  "audio":"tasse"
                 },{"path": require("language_therapy/ressources/mot-image/autre/tente.jpg"),
                   "fr": "tente",
                   "ar": "خيمة",
@@ -558,10 +810,14 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "théière",
                   "ar": "إبريق",
                   "audio":"theiere"
-                },{"path": require("language_therapy/ressources/mot-image/autre/train.jpg"),
-                  "fr": "train",
-                  "ar": "قطار",
-                  "audio":"train"
+                },{"path": require("language_therapy/ressources/mot-image/autre/tournevis.jpg"),
+                  "fr": "tournevis",
+                  "ar": "مفك البراغي",
+                  "audio":"tournevis"
+                },{"path": require("language_therapy/ressources/mot-image/autre/télécommande.jpg"),
+                  "fr": "télécommande",
+                  "ar": "جهاز تحكم عن بعد",
+                  "audio":"telecommande"
                 },{"path": require("language_therapy/ressources/mot-image/autre/téléphone.jpg"),
                   "fr": "téléphone",
                   "ar": "هاتف",
@@ -574,18 +830,30 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "valise",
                   "ar": "حقيبة",
                   "audio":"valise"
+                },{"path": require("language_therapy/ressources/mot-image/autre/ventilateur.jpg"),
+                  "fr": "ventilateur",
+                  "ar": "مروحة",
+                  "audio":"ventilateur"
                 },{"path": require("language_therapy/ressources/mot-image/autre/verre.jpg"),
                   "fr": "verre",
                   "ar": "كأس",
                   "audio":"verre"
-                },{"path": require("language_therapy/ressources/mot-image/autre/voiture.jpg"),
-                  "fr": "voiture",
-                  "ar": "سيارة",
-                  "audio":"voiture"
-                },{"path": require("language_therapy/ressources/mot-image/autre/vélo.jpg"),
-                  "fr": "vélo",
-                  "ar": "دراجة",
-                  "audio":"velo"
+                },{"path": require("language_therapy/ressources/mot-image/autre/vis.jpg"),
+                  "fr": "vis",
+                  "ar": "برغي",
+                  "audio":"vis"
+                },{"path": require("language_therapy/ressources/mot-image/autre/échecs.jpg"),
+                  "fr": "échecs",
+                  "ar": "شطرنج",
+                  "audio":"echecs"
+                },{"path": require("language_therapy/ressources/mot-image/autre/échelle.jpg"),
+                  "fr": "échelle",
+                  "ar": "سلم",
+                  "audio":"echelle"
+                },{"path": require("language_therapy/ressources/mot-image/autre/éponge.jpg"),
+                  "fr": "éponge",
+                  "ar": "إسفنج",
+                  "audio":"eponge"
                 },{"path": require("language_therapy/ressources/mot-image/autre/évier.jpg"),
                   "fr": "évier",
                   "ar": "حوض الغسيل",
@@ -670,7 +938,95 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "zero",
                   "ar": "zero",
                   "audio":"zero"
-                }],"recette-arabe":[{"path": require("language_therapy/ressources/mot-image/recette-arabe/bami.jpg"),
+                }],"parties-du-corps":[{"path": require("language_therapy/ressources/mot-image/parties-du-corps/bouche.jpg"),
+                  "fr": "bouche",
+                  "ar": "فم",
+                  "audio":"bouche"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/cerveau.jpg"),
+                  "fr": "cerveau",
+                  "ar": "دماغ",
+                  "audio":"cerveau"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/cheville.jpg"),
+                  "fr": "cheville",
+                  "ar": "الكاحل",
+                  "audio":"cheville"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/cils.jpg"),
+                  "fr": "cils",
+                  "ar": "الرموش",
+                  "audio":"cils"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/coeur.jpg"),
+                  "fr": "coeur",
+                  "ar": "قلب",
+                  "audio":"coeur"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/cou.jpg"),
+                  "fr": "cou",
+                  "ar": "رئة",
+                  "audio":"cou"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/coude.jpg"),
+                  "fr": "coude",
+                  "ar": "كوع",
+                  "audio":"coude"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/doigt.jpg"),
+                  "fr": "doigt",
+                  "ar": "إصبع",
+                  "audio":"doigt"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/dos.jpg"),
+                  "fr": "dos",
+                  "ar": "ظهر",
+                  "audio":"dos"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/estomac.jpg"),
+                  "fr": "estomac",
+                  "ar": "معدة",
+                  "audio":"estomac"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/genou.jpg"),
+                  "fr": "genou",
+                  "ar": "ركبة",
+                  "audio":"genou"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/joue.jpg"),
+                  "fr": "joue",
+                  "ar": "الخد",
+                  "audio":"joue"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/lévre.jpg"),
+                  "fr": "lévre",
+                  "ar": "شفة",
+                  "audio":"levre"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/main.jpg"),
+                  "fr": "main",
+                  "ar": "يد",
+                  "audio":"main"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/menton.jpg"),
+                  "fr": "menton",
+                  "ar": "ذقن",
+                  "audio":"menton"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/oeil.jpg"),
+                  "fr": "oeil",
+                  "ar": "عين",
+                  "audio":"oeil"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/ongle.jpg"),
+                  "fr": "ongle",
+                  "ar": "ظفر",
+                  "audio":"ongle"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/oreille.jpg"),
+                  "fr": "oreille",
+                  "ar": "إذن",
+                  "audio":"oreille"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/poitrine.jpg"),
+                  "fr": "poitrine",
+                  "ar": "صدر",
+                  "audio":"poitrine"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/poumon.jpg"),
+                  "fr": "poumon",
+                  "ar": "رئة",
+                  "audio":"poumon"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/sourcil.jpg"),
+                  "fr": "sourcil",
+                  "ar": "حاجب العين",
+                  "audio":"sourcil"
+                },{"path": require("language_therapy/ressources/mot-image/parties-du-corps/épaule.jpg"),
+                  "fr": "épaule",
+                  "ar": "كتف",
+                  "audio":"epaule"
+                },],"personnes-et-action":[],"recette-arabe":[{"path": require("language_therapy/ressources/mot-image/recette-arabe/bami.jpg"),
                   "fr": "bami",
                   "ar": "بامية",
                   "audio":"bami"
@@ -718,4 +1074,108 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "taboule",
                   "ar": "تبوله",
                   "audio":"taboule"
+                },],"vehicules":[{"path": require("language_therapy/ressources/mot-image/vehicules/avion.jpg"),
+                  "fr": "avion",
+                  "ar": "طائرة",
+                  "audio":"avion"
+                },{"path": require("language_therapy/ressources/mot-image/vehicules/bateau.jpg"),
+                  "fr": "bateau",
+                  "ar": "قارب",
+                  "audio":"bateau"
+                },{"path": require("language_therapy/ressources/mot-image/vehicules/bus.jpg"),
+                  "fr": "bus",
+                  "ar": "الباص",
+                  "audio":"bus"
+                },{"path": require("language_therapy/ressources/mot-image/vehicules/camion.jpg"),
+                  "fr": "camion",
+                  "ar": "شاحنة",
+                  "audio":"camion"
+                },{"path": require("language_therapy/ressources/mot-image/vehicules/hélicoptère.jpg"),
+                  "fr": "hélicoptère",
+                  "ar": "طائرة مروحية",
+                  "audio":"helicoptere"
+                },{"path": require("language_therapy/ressources/mot-image/vehicules/moto.jpg"),
+                  "fr": "moto",
+                  "ar": "دراجة نارية",
+                  "audio":"moto"
+                },{"path": require("language_therapy/ressources/mot-image/vehicules/tracteur.jpg"),
+                  "fr": "tracteur",
+                  "ar": "جرارة",
+                  "audio":"tracteur"
+                },{"path": require("language_therapy/ressources/mot-image/vehicules/train.jpg"),
+                  "fr": "train",
+                  "ar": "قطار",
+                  "audio":"train"
+                },{"path": require("language_therapy/ressources/mot-image/vehicules/voiture.jpg"),
+                  "fr": "voiture",
+                  "ar": "سيارة",
+                  "audio":"voiture"
+                },{"path": require("language_therapy/ressources/mot-image/vehicules/vélo.jpg"),
+                  "fr": "vélo",
+                  "ar": "دراجة",
+                  "audio":"velo"
+                },],"vetements":[{"path": require("language_therapy/ressources/mot-image/vetements/bonnet.jpg"),
+                  "fr": "bonnet",
+                  "ar": "قبعة",
+                  "audio":"bonnet"
+                },{"path": require("language_therapy/ressources/mot-image/vetements/ceinture.jpg"),
+                  "fr": "ceinture",
+                  "ar": "حزام",
+                  "audio":"ceinture"
+                },{"path": require("language_therapy/ressources/mot-image/vetements/chapeau.jpg"),
+                  "fr": "chapeau",
+                  "ar": "قبعة",
+                  "audio":"chapeau"
+                },{"path": require("language_therapy/ressources/mot-image/vetements/chaussettes.jpg"),
+                  "fr": "chaussettes",
+                  "ar": "جوارب",
+                  "audio":"chaussettes"
+                },{"path": require("language_therapy/ressources/mot-image/vetements/chaussure.jpg"),
+                  "fr": "chaussure",
+                  "ar": "حذاء",
+                  "audio":"chaussure"
+                },{"path": require("language_therapy/ressources/mot-image/vetements/chemise.jpg"),
+                  "fr": "chemise",
+                  "ar": "قميص",
+                  "audio":"chemise"
+                },{"path": require("language_therapy/ressources/mot-image/vetements/costume.jpg"),
+                  "fr": "costume",
+                  "ar": "بدلة",
+                  "audio":"costume"
+                },{"path": require("language_therapy/ressources/mot-image/vetements/echarpe.jpg"),
+                  "fr": "echarpe",
+                  "ar": "وشاح",
+                  "audio":"echarpe"
+                },{"path": require("language_therapy/ressources/mot-image/vetements/gant.jpg"),
+                  "fr": "gant",
+                  "ar": "قفاز",
+                  "audio":"gant"
+                },{"path": require("language_therapy/ressources/mot-image/vetements/jupe.jpg"),
+                  "fr": "jupe",
+                  "ar": "تنورة",
+                  "audio":"jupe"
+                },{"path": require("language_therapy/ressources/mot-image/vetements/pantalon.jpg"),
+                  "fr": "pantalon",
+                  "ar": "بنطلون",
+                  "audio":"pantalon"
+                },{"path": require("language_therapy/ressources/mot-image/vetements/pull.jpg"),
+                  "fr": "pull",
+                  "ar": "سترة",
+                  "audio":"pull"
+                },{"path": require("language_therapy/ressources/mot-image/vetements/robe.jpg"),
+                  "fr": "robe",
+                  "ar": "فستان",
+                  "audio":"robe"
+                },{"path": require("language_therapy/ressources/mot-image/vetements/shorts.jpg"),
+                  "fr": "shorts",
+                  "ar": "شورت",
+                  "audio":"shorts"
+                },{"path": require("language_therapy/ressources/mot-image/vetements/tshirt.jpg"),
+                  "fr": "tshirt",
+                  "ar": "تي شيرت",
+                  "audio":"tshirt"
+                },{"path": require("language_therapy/ressources/mot-image/vetements/veste.jpg"),
+                  "fr": "veste",
+                  "ar": "سترة",
+                  "audio":"veste"
                 },],}; export default {_IMAGES }
