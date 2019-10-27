@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  View,
-  Button,
-  Dimensions,
-  ScrollView,
-  StyleSheet,
-  Text
-} from "react-native";
+import { View, Button, ScrollView, StyleSheet, Text } from "react-native";
 
 import styles from "language_therapy/src/styles";
 import Config from "language_therapy/src/Config";
@@ -29,54 +22,24 @@ class Options extends React.Component {
             <View style={thisstyles.bloc}>
               <View style={thisstyles.viewButton}>
                 <Button
-                  color={
-                    this.props.options.level == Config._const.easy
-                      ? "green"
-                      : "grey"
-                  }
+                  color={this.props.options.level == Config._const.easy ? "green" : "grey"}
                   title="Facile"
-                  onPress={() =>
-                    this.props.action_optionUpdate(
-                      "level",
-                      null,
-                      Config._const.easy
-                    )
-                  }
+                  onPress={() => this.props.action_optionUpdate("level", null, Config._const.easy)}
                 />
               </View>
               <View style={thisstyles.viewButton}>
                 <Button
-                  color={
-                    this.props.options.level == Config._const.middle
-                      ? "green"
-                      : "grey"
-                  }
+                  color={this.props.options.level == Config._const.middle ? "green" : "grey"}
                   title="Moyen"
-                  onPress={() =>
-                    this.props.action_optionUpdate(
-                      "level",
-                      null,
-                      Config._const.middle
-                    )
-                  }
+                  onPress={() => this.props.action_optionUpdate("level", null, Config._const.middle)}
                 />
               </View>
 
               <View style={thisstyles.viewButton}>
                 <Button
-                  color={
-                    this.props.options.level == Config._const.hard
-                      ? "green"
-                      : "grey"
-                  }
+                  color={this.props.options.level == Config._const.hard ? "green" : "grey"}
                   title="Dur"
-                  onPress={() =>
-                    this.props.action_optionUpdate(
-                      "level",
-                      null,
-                      Config._const.hard
-                    )
-                  }
+                  onPress={() => this.props.action_optionUpdate("level", null, Config._const.hard)}
                 />
               </View>
             </View>
@@ -86,36 +49,16 @@ class Options extends React.Component {
             <View style={thisstyles.bloc}>
               <View style={thisstyles.viewButton}>
                 <Button
-                  color={
-                    this.props.options.displayLg == Config._const.fr
-                      ? "green"
-                      : "grey"
-                  }
+                  color={this.props.options.displayLg == Config._const.fr ? "green" : "grey"}
                   title={Config._const.fr}
-                  onPress={() =>
-                    this.props.action_optionUpdate(
-                      "displayLg",
-                      null,
-                      Config._const.fr
-                    )
-                  }
+                  onPress={() => this.props.action_optionUpdate("displayLg", null, Config._const.fr)}
                 />
               </View>
               <View style={thisstyles.viewButton}>
                 <Button
-                  color={
-                    this.props.options.displayLg == Config._const.ar
-                      ? "green"
-                      : "grey"
-                  }
+                  color={this.props.options.displayLg == Config._const.ar ? "green" : "grey"}
                   title={Config._const.ar}
-                  onPress={() =>
-                    this.props.action_optionUpdate(
-                      "displayLg",
-                      null,
-                      Config._const.ar
-                    )
-                  }
+                  onPress={() => this.props.action_optionUpdate("displayLg", null, Config._const.ar)}
                 />
               </View>
             </View>
@@ -126,32 +69,16 @@ class Options extends React.Component {
             <View style={thisstyles.bloc}>
               <View style={thisstyles.viewButton}>
                 <Button
-                  color={
-                    this.props.options.manualChooseImage ? "green" : "grey"
-                  }
+                  color={this.props.options.manualChooseImage ? "green" : "grey"}
                   title={"OUI"}
-                  onPress={() =>
-                    this.props.action_optionUpdate(
-                      "manualChooseImage",
-                      null,
-                      true
-                    )
-                  }
+                  onPress={() => this.props.action_optionUpdate("manualChooseImage", null, true)}
                 />
               </View>
               <View style={thisstyles.viewButton}>
                 <Button
-                  color={
-                    !this.props.options.manualChooseImage ? "green" : "grey"
-                  }
+                  color={!this.props.options.manualChooseImage ? "green" : "grey"}
                   title={"NON"}
-                  onPress={() =>
-                    this.props.action_optionUpdate(
-                      "manualChooseImage",
-                      null,
-                      false
-                    )
-                  }
+                  onPress={() => this.props.action_optionUpdate("manualChooseImage", null, false)}
                 />
               </View>
             </View>
@@ -160,9 +87,7 @@ class Options extends React.Component {
           <View style={thisstyles.bloc}>
             <View style={thisstyles.flex1rowcenter}>
               <View style={thisstyles.flex1stretchcenter}>
-                <Text style={thisstyles.title}>
-                  Nombre de series :{this.props.options.nbrOfQuestionPerSerie}
-                </Text>
+                <Text style={thisstyles.title}>Nombre de series :{this.props.options.nbrOfQuestionPerSerie}</Text>
               </View>
               <View style={thisstyles.flex1stretchcenter}>
                 <Slider
@@ -171,11 +96,7 @@ class Options extends React.Component {
                   maximumValue={20}
                   step={1}
                   onValueChange={value => {
-                    this.props.action_optionUpdate(
-                      "nbrOfQuestionPerSerie",
-                      null,
-                      value
-                    );
+                    this.props.action_optionUpdate("nbrOfQuestionPerSerie", null, value);
                   }}
                 />
               </View>
@@ -185,10 +106,7 @@ class Options extends React.Component {
           <View style={thisstyles.bloc}>
             <View style={thisstyles.flex1rowcenter}>
               <View style={thisstyles.flex1stretchcenter}>
-                <Text style={thisstyles.title}>
-                  Nombre d'images par serie :
-                  {this.props.options.nbrOfImagePerQuestion}
-                </Text>
+                <Text style={thisstyles.title}>Nombre d'images par serie :{this.props.options.nbrOfImagePerQuestion}</Text>
               </View>
               <View style={thisstyles.flex1stretchcenter}>
                 <Slider
@@ -197,11 +115,7 @@ class Options extends React.Component {
                   maximumValue={8}
                   step={1}
                   onValueChange={value => {
-                    this.props.action_optionUpdate(
-                      "nbrOfImagePerQuestion",
-                      null,
-                      value
-                    );
+                    this.props.action_optionUpdate("nbrOfImagePerQuestion", null, value);
                   }}
                 />
               </View>
@@ -227,11 +141,7 @@ class Options extends React.Component {
                   maximumValue={70}
                   step={1}
                   onValueChange={value => {
-                    this.props.action_optionUpdate(
-                      "interfaceSize",
-                      null,
-                      value
-                    );
+                    this.props.action_optionUpdate("interfaceSize", null, value);
                   }}
                 />
               </View>
@@ -240,11 +150,7 @@ class Options extends React.Component {
         </View>
 
         <View style={{ ...styles.center, padding: 30 }}>
-          <Button
-            color={"blue"}
-            title="Fermer"
-            onPress={() => this.props.navigation.goBack()}
-          />
+          <Button color={"blue"} title="Fermer" onPress={() => this.props.navigation.goBack()} />
         </View>
       </ScrollView>
     );

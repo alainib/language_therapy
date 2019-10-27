@@ -1,25 +1,12 @@
 import React from "react";
-import {
-  View,
-  Button,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  Image,
-  Modal,
-  Alert
-} from "react-native";
+import { View, Button, ScrollView, StyleSheet, Text, TouchableHighlight, Image, Modal, Alert } from "react-native";
 
 import styles from "language_therapy/src/styles";
 import Config from "language_therapy/src/Config";
 import IconFeather from "react-native-vector-icons/Feather";
 import * as tools from "language_therapy/src/tools";
 import { sound_play } from "language_therapy/src/services/sound";
-import {
-  image_AllSeriesNames,
-  image_allImagesFromSerie
-} from "language_therapy/src/services/image";
+import { image_AllSeriesNames, image_allImagesFromSerie } from "language_therapy/src/services/image";
 
 let _ImageWidth = 175;
 
@@ -30,7 +17,9 @@ export default class DataChecker extends React.Component {
       // tous les noms de series
       seriesNames: [],
       serieName: null,
-      images: null
+      images: null,
+      soundFr: true,
+      soundAr: true
     };
   }
 
@@ -67,6 +56,23 @@ export default class DataChecker extends React.Component {
     }
     return (
       <View style={{ flex: 1 }}>
+        <View style={{ flexDirection: "row", justifyContent: "flex-start", alignItems: "center" }}>
+          <Text style={thisstyles.title}>Lire les sons en :</Text>
+          <View style={{ margin: 10 }}>
+            <Button
+              color={this.state.soundFr ? "green" : "grey"}
+              title="  FR  "
+              onPress={() => this.setState({ soundFr: !this.state.soundFr })}
+            />
+          </View>
+          <View style={{ margin: 10 }}>
+            <Button
+              color={this.state.soundAr ? "green" : "grey"}
+              title="  AR  "
+              onPress={() => this.setState({ soundAr: !this.state.soundAr })}
+            />
+          </View>
+        </View>
         <Text style={thisstyles.title}>Series disponibles :</Text>
         <ScrollView
           contentContainerStyle={{
@@ -77,17 +83,28 @@ export default class DataChecker extends React.Component {
           {this.state.seriesNames.map((item, index) => {
             return (
               <View style={thisstyles.item} key={"ac" + index.toString()}>
-                <Button
-                  color={"green"}
-                  title={item}
-                  onPress={() => this.chooseSerie(item)}
-                />
+                <Button color={"green"} title={item} onPress={() => this.chooseSerie(item)} />
               </View>
             );
           })}
         </ScrollView>
       </View>
     );
+  }
+
+  play(audioName) {
+    if (this.state.soundFr && this.state.soundAr) {
+      sound_play(audioName);
+      setTimeout(() => {
+        sound_play(audioName + "_ar");
+      }, 2000);
+    } else {
+      if (this.state.soundFr) {
+        sound_play(audioName);
+      } else {
+        sound_play(audioName + "_ar");
+      }
+    }
   }
 
   renderSerie() {
@@ -107,10 +124,7 @@ export default class DataChecker extends React.Component {
             <TouchableHighlight
               key={"ac" + index.toString()}
               onPress={() => {
-                sound_play(item.audio);
-                setTimeout(() => {
-                  sound_play(item.audio + "_ar");
-                }, 2000);
+                this.play(item.audio);
               }}
               underlayColor="white"
             >
@@ -145,12 +159,7 @@ export default class DataChecker extends React.Component {
                     flex: 1
                   }}
                 >
-                  <IconFeather
-                    name="volume-2"
-                    style={styles.center}
-                    size={20}
-                    color="#000"
-                  />
+                  <IconFeather name="volume-2" style={styles.center} size={20} color="#000" />
                   <Text>{item.fr}</Text>
                   <Text>{item.ar}</Text>
                 </View>
@@ -170,8 +179,7 @@ const thisstyles = StyleSheet.create({
   },
 
   item: {
-    width: 175,
-    height: 75,
+    width: 200,
     margin: 5
   }
 });
