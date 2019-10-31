@@ -83,6 +83,17 @@ class Suivi extends Component {
 
           res.push(
             <View style={i == 0 ? thisstyles.item : thisstyles.itemBis} key={"id" + i + _test.id.toString()}>
+              <View style={{ ...styles.center, flex: 2 }}>
+                <IconFeather
+                  name="trash"
+                  style={styles.center}
+                  size={20}
+                  color="#000"
+                  onPress={() => {
+                    this.props.action_removeSerieFromUser({ testId: _test.id, testIndex: i });
+                  }}
+                />
+              </View>
               <View style={{ ...styles.center, flex: 5 }}>
                 <Text style={thisstyles.title}>
                   {i == 0 ? "-" : " "} {_test.date}
@@ -129,6 +140,9 @@ class Suivi extends Component {
     return (
       <View>
         <View style={thisstyles.column}>
+          <View style={{ ...styles.center, flex: 5 }}>
+            <Text style={thisstyles.title}>Supprimer</Text>
+          </View>
           <View style={{ ...styles.center, flex: 5 }}>
             <Text style={thisstyles.title}>Date</Text>
           </View>
@@ -184,6 +198,7 @@ const thisstyles = StyleSheet.create({
     backgroundColor: "skyblue"
   },
   itemBis: {
+    height: 50,
     margin: 5,
     flexDirection: "row",
     alignItems: "center",

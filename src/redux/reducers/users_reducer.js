@@ -69,13 +69,20 @@ export default function(state = { current: null, list: {} }, action) {
         results: action.payload.results
       });
       // return newstate ne declenche pas le refresh de <Suivi>, trop nested peut etre
-      console.log(newstate);
       return tools.clone(newstate);
 
     case REMOVE_SERIE_FROM_USER:
-      return newstate;
+      if (
+        state.list[state.current] &&
+        action.payload &&
+        state.list[state.current][action.payload.testId] &&
+        state.list[state.current][action.payload.testId][action.payload.testIndex]
+      ) {
+        state.list[state.current][action.payload.testId].splice(action.payload.testIndex, 1);
+      }
+      return tools.clone(state);
     case CLEAR_SERIES_FROM_USER:
-      return newstate;
+      return state;
 
     default:
       return state;

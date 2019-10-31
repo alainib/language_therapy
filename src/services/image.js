@@ -11,12 +11,9 @@ import Config from "language_therapy/src/Config";
  * @param {*} deleteItem efface ou non l'image choisi
  */
 function randomImageFromSerie(serieName, imagesSrc, deleteItem = false) {
-  if (
-    imagesSrc == null ||
-    imagesSrc == undefined ||
-    imagesSrc[serieName].length < 1
-  ) {
+  if (imagesSrc == null || imagesSrc == undefined || imagesSrc[serieName].length < 1) {
     console.error("wrong imagesSrc param data");
+    console.log({ serieName, imagesSrc, value: imagesSrc[serieName], length: imagesSrc[serieName].length });
     return null;
   }
 
@@ -59,6 +56,7 @@ function shuffleArray(a) {
   return a;
 }
 
+let _ignoredSeries = ["personnes-et-action"];
 //pour certaines series on ne prend que les images de la même serie
 let _unmixedSeries = ["nombres-fr", "nombres-ar"];
 // pour certaine series on ne prend pas les images de certaines autres series
@@ -78,7 +76,9 @@ export function image_AllSeriesNames() {
   } else {
     let _names = [];
     for (var cat in RawDatas._IMAGES) {
-      _names.push(cat);
+      if (!_ignoredSeries.includes(cat)) {
+        _names.push(cat);
+      }
     }
 
     _allSeriesName = _names;
@@ -151,9 +151,7 @@ export function image_randomSerie(
         if (_unmixedSeries.includes(serieName)) {
           catTmp = serieName;
         } else {
-          let excluded = _excludeFor[serieName]
-            ? [..._excludeFor[serieName]]
-            : [];
+          let excluded = _excludeFor[serieName] ? [..._excludeFor[serieName]] : [];
           if (level == Config._const.easy) {
             excluded.push(serieName);
           }
@@ -184,11 +182,7 @@ export function image_randomSerie(
       for (var i = 1; i < nbrOfImagePerQuestion; i++) {
         let repeat = 0;
         while (repeat < 10) {
-          let imgTmp = randomImageFromSerie(
-            serieName,
-            copyDatas._IMAGES,
-            false
-          );
+          let imgTmp = randomImageFromSerie(serieName, copyDatas._IMAGES, false);
           if (!tools.stringInArrayOfObject(imgTmp.fr, randomImages, "fr")) {
             randomImages.push(imgTmp);
             repeat = 10;
@@ -247,22 +241,8 @@ export function image_allImagesFromSerie(serieName) {
  * @param string serieName
  * @param array selectedImages
  */
-export function image_serieFromImages(
-  selectedImages,
-  serieName,
-  nbrQuestion,
-  nbrOfImagePerQuestion,
-  displayLg,
-  level
-) {
-  return image_randomSerie(
-    serieName,
-    nbrQuestion,
-    nbrOfImagePerQuestion,
-    displayLg,
-    level,
-    selectedImages
-  );
+export function image_serieFromImages(selectedImages, serieName, nbrQuestion, nbrOfImagePerQuestion, displayLg, level) {
+  return image_randomSerie(serieName, nbrQuestion, nbrOfImagePerQuestion, displayLg, level, selectedImages);
 }
 
 /*
