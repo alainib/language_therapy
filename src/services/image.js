@@ -230,10 +230,15 @@ export function image_randomSerie(
   return serie;
 }
 
-// retourne toutes les images d'une serie
-// utilisé pour choix images à la main
-export function image_allImagesFromSerie(serieName) {
-  return tools.clone(RawDatas._IMAGES[serieName]);
+/**
+ * retourne toutes les images d'une serie
+   utilisé pour choix images à la main
+   @param string serieName
+   @param bool sort
+*/
+export function image_allImagesFromSerie(serieName, sort = false) {
+  let imgs = tools.clone(RawDatas._IMAGES[serieName]);
+  return tools.arrayObjectSort(imgs, "audio");
 }
 
 /**

@@ -93,7 +93,7 @@ class Options extends React.Component {
                 <Slider
                   value={this.props.options.nbrOfQuestionPerSerie}
                   minimumValue={3}
-                  maximumValue={20}
+                  maximumValue={50}
                   step={1}
                   onValueChange={value => {
                     this.props.action_optionUpdate("nbrOfQuestionPerSerie", null, value);

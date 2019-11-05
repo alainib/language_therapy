@@ -8,8 +8,15 @@ export function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export function round(number) {
-  return Math.floor(number * Math.pow(10, 0)) / Math.pow(10, 0);
+/**
+ * ne pas utiliser pour faire un ceil / floor; il y a Math.floor() et Math.ceil() pour ca
+ * arondi un nombre décimal, ATTENTION il faut que ce soit avec virgule pas de point sinon il ne prend que l'entier
+ * @param {*} value
+ * @param {*} precision : 0 ,	1 chiffre apres la virgule, 2 etc
+ */
+export function round(value, precision) {
+  let multiplier = Math.pow(10, precision || 0);
+  return Math.round(value * multiplier) / multiplier;
 }
 
 export function clone(obj) {
@@ -33,6 +40,20 @@ export function stringInArrayOfObject(word, array, field) {
     if (array[i][field] && array[i][field].toLowerCase() == word) return true;
   }
   return false;
+}
+
+// trie un tableau d'object selon le champ fieldname
+export function arrayObjectSort(arr, fieldname) {
+  function compare(a, b) {
+    if (a[fieldname] && !b[fieldname]) return -1;
+    if (!a[fieldname] && b[fieldname]) return 1;
+
+    if (a[fieldname] < b[fieldname]) return -1;
+    if (a[fieldname] > b[fieldname]) return 1;
+
+    return 0;
+  }
+  return arr.sort(compare);
 }
 
 export function isdefined(myvar) {
