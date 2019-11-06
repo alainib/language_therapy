@@ -32,7 +32,6 @@ function replaceAll(str, find, replace) {
 }
 
 async function writeJs(fileName, data) {
-  fileName = "../ressources/" + fileName;
   /*jsonfile.writeFile(fileName, data).then(res => {
     console.log("Write complete " + fileName);
   }).catch(error => console.error(error));
@@ -114,21 +113,10 @@ function cleanName(entry) {
   return _.deburr(entry);
 }
 
-const destPathAudio = path.join(
-  __dirname,
-  "..",
-  "android",
-  "app",
-  "src",
-  "main",
-  "res",
-  "raw"
-);
-
 async function moveAudio(entry, sourcePath) {
   let s = path.join(sourcePath, entry);
 
-  let d = path.join(destPathAudio, cleanName(entry));
+  let d = path.join(mobileDestPathAudio, cleanName(entry));
   s = replaceAll(s, "\\", "/");
   d = replaceAll(d, "\\", "/");
   //console.log("s", { s, d });
@@ -145,40 +133,44 @@ async function moveAudio(entry, sourcePath) {
  * parse le dossier-source "mot-image" contenant les dossiers par catégories
  *       les noms de fichier sont en "fr-arabe.jpg"
  *
- * dans le dossier de sortie (pathDest), crée le dossier "mot-image" si n'existe pas, copie les sous dossiers avec les images en enlevant la partie en arabe car sinon le require echoue
+ * dans le dossier de sortie (mobilePathDest), crée le dossier "mot-image" si n'existe pas, copie les sous dossiers avec les images en enlevant la partie en arabe car sinon le require echoue
  *
- * crée un fichier data.json dans pathDest avec les noms de fichiers de pathDest
+ * crée un fichier data.json dans mobilePathDest avec les noms de fichiers de mobilePathDest
  */
-
 const pathSource = path.join(__dirname, "mot-image");
-const pathDest = path.join(__dirname, "..", "ressources", "mot-image");
+const mobilePathDest = path.join(__dirname, "..", "mobile", "ressources", "mot-image");
+const mobileDestPathAudio = path.join(__dirname, "..", "mobile", "android", "app", "src", "main", "res", "raw");
 
+const webPathDest = path.join(__dirname, "..", "web", "public", "mot-image");
 (async () => {
   try {
-    clj({ pathSource, pathDest, destPathAudio });
+    clj({ pathSource, mobilePathDest, mobileDestPathAudio, webPathDest });
 
     // vide le dossier de dest
-    fse.removeSync(pathDest);
-    fse.ensureDirSync(pathDest);
+    fse.removeSync(mobilePathDest);
+    fse.ensureDirSync(mobilePathDest);
+    fse.ensureDirSync(webPathDest);
 
     // parcour les sous dossiers
     const subFolders = await fs.readdir(pathSource);
 
     let output = "{";
+    let webOutput = "{";
+
     let missingMp3Output = "";
     for (var i = 0; i < subFolders.length; i++) {
       const sourcePathSubFolder = path.join(pathSource, subFolders[i]);
-
       res = await fs.stat(sourcePathSubFolder);
 
       if (res.isDirectory()) {
         // on crée le sous dossier dans le dossier de destination
-        const destPathSubFolder = path.join(pathDest, subFolders[i]);
+        const destPathSubFolder = path.join(mobilePathDest, subFolders[i]);
         fse.ensureDirSync(destPathSubFolder);
 
         missingMp3Output += subFolders[i] + "\n";
 
         output += '"' + subFolders[i] + '":[';
+        webOutput += '"' + subFolders[i] + '":[';
         // on parcours les fichiers dans le dossier courant
         const fileNames = await fs.readdir(sourcePathSubFolder);
 
@@ -186,16 +178,9 @@ const pathDest = path.join(__dirname, "..", "ressources", "mot-image");
           let extension = getExtension(fileNames[s]);
           if (extension == "jpg") {
             let entry = extractFileName(fileNames[s]);
-            let movedEntry = await moveEntry(
-              entry,
-              sourcePathSubFolder,
-              destPathSubFolder
-            );
+            let movedEntry = await moveEntry(entry, sourcePathSubFolder, destPathSubFolder);
 
-            let pathToMp3 = path.join(
-              sourcePathSubFolder,
-              replaceAll(movedEntry.originalText, " ", "_")
-            );
+            let pathToMp3 = path.join(sourcePathSubFolder, replaceAll(movedEntry.originalText, " ", "_"));
 
             // test que le fichier audio exist pour ce mot
             if (!fse.existsSync(pathToMp3 + ".mp3")) {
@@ -208,16 +193,19 @@ const pathDest = path.join(__dirname, "..", "ressources", "mot-image");
             if (!entry.translatedText) {
               console.warn("not translated :", entry);
             } else {
-              output += `{"path": require("${movedEntry.path.replace(
-                "C:/work/workspace/language_therapy",
-                "language_therapy"
-              )}"),
+              webOutput += `{"path": "${movedEntry.fileName}",
+              "fr": "${movedEntry.originalText}",
+              "ar": "${movedEntry.translatedText}",
+              "audio":"${movedEntry.audio}"
+            }`;
+              output += `{"path": require("${movedEntry.path.replace("C:/work/workspace/language_therapy/mobile/", "language_therapy/")}"),
                   "fr": "${movedEntry.originalText}",
                   "ar": "${movedEntry.translatedText}",
                   "audio":"${movedEntry.audio}"
                 }`;
               if (s + 1 < fileNames.length) {
                 output += ",";
+                webOutput += ",";
               }
             }
           } else {
@@ -225,11 +213,19 @@ const pathDest = path.join(__dirname, "..", "ressources", "mot-image");
           }
         }
         output += "],";
+        webOutput += "],";
       }
     }
     output += "}";
-    console.log("finish ALL ");
-    writeJs(`data.js`, output);
+    webOutput += "}";
+    console.log("finish parsing ");
+    console.log("copying...");
+    writeJs("../mobile/src/services/data.js", output);
+    // copie tout le dossier image mobile propre vers celui de web
+    fse.copySync(mobilePathDest, webPathDest);
+    fse.copySync(mobileDestPathAudio, webPathDest + "/mp3");
+
+    writeJs(webPathDest + "/../data.js", webOutput);
     writeTxt(`missingMp3Output.txt`, missingMp3Output);
     missingMp3Output;
   } catch (err) {

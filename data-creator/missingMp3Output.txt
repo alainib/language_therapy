@@ -1,6 +1,7 @@
 aliments
    قرنبيط
 animaux
+   جرذان
 autre
    oreiller
 nombres-ar
