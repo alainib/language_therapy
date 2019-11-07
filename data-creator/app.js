@@ -193,7 +193,10 @@ const webPathDest = path.join(__dirname, "..", "web", "public", "mot-image");
             if (!entry.translatedText) {
               console.warn("not translated :", entry);
             } else {
-              webOutput += `{"path": "${movedEntry.fileName}",
+              webOutput += `{"path": "${movedEntry.path.replace(
+                "C:/work/workspace/language_therapy/mobile/ressources/mot-image/",
+                "/mot-image/"
+              )}",
               "fr": "${movedEntry.originalText}",
               "ar": "${movedEntry.translatedText}",
               "audio":"${movedEntry.audio}"
@@ -224,8 +227,8 @@ const webPathDest = path.join(__dirname, "..", "web", "public", "mot-image");
     // copie tout le dossier image mobile propre vers celui de web
     fse.copySync(mobilePathDest, webPathDest);
     fse.copySync(mobileDestPathAudio, webPathDest + "/mp3");
+    writeJs(path.join(__dirname, "..", "web", "src", "services", "data.js"), webOutput);
 
-    writeJs(webPathDest + "/../data.js", webOutput);
     writeTxt(`missingMp3Output.txt`, missingMp3Output);
     missingMp3Output;
   } catch (err) {

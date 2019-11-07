@@ -2,7 +2,6 @@ import RawDatas from "./data";
 
 import * as tools from "../tools";
 import Config from "../Config";
-
 /**
  * retourne une image au hasard parmis une serie
  * @param {*} serieName nom de la serie
@@ -24,6 +23,7 @@ function randomImageFromSerie(serieName, imagesSrc, deleteItem = false) {
       delete imagesSrc[serieName];
     }
   }
+
   return img;
 }
 /**
@@ -182,6 +182,7 @@ export function image_randomSerie(
         let repeat = 0;
         while (repeat < 10) {
           let imgTmp = randomImageFromSerie(serieName, copyDatas._IMAGES, false);
+
           if (!tools.stringInArrayOfObject(imgTmp.fr, randomImages, "fr")) {
             randomImages.push(imgTmp);
             repeat = 10;

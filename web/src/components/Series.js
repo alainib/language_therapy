@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import "../App.css";
 
 import { image_AllSeriesNames } from "../services/image";
 
@@ -23,11 +24,13 @@ export default class Series extends Component {
       <h2>
         Choix de la serie
         <br />
-        <ul>
+        <ul className="flex-container wrap">
           {this.state.seriesNames.map((item, index) => {
             return (
-              <li key={"ac" + index.toString()}>
-                <Link to={`/trainserie/${item}`}>{item}</Link>
+              <li className="flex-item" key={"ac" + index.toString()}>
+                <Link className="flex-item-link" to={`/trainserie/${item}`}>
+                  {item}
+                </Link>
               </li>
             );
           })}
