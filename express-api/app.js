@@ -26,10 +26,9 @@ app.get("/", function(req, res) {
 });
 
 // starting the serveur
-let _port = process.env.PORT || 1234;
+let _port = process.env.PORT || 1111;
 app.listen(_port, function() {
-  console.log("App listening on port " + _port);
-  console.log(`http://88.190.14.12:${_port}/`);
+  console.log("App listening on port " + _port); 
 });
 
 // serving static files
