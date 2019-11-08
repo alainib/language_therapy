@@ -57,5 +57,13 @@
 
 .img-max {
   max-width: 100%;
-  margin: 20;
+  padding: 20px;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn-nooutline {
+  outline: none !important;
 }
