@@ -5,7 +5,9 @@ const _const = {
   fr: "fr",
   ar: "ar"
 };
-
+const trainOptions = {
+  playSoundAfterXWrong: 2
+};
 const colors = {
   // couleur du fond de l'application
   background: "#FFF",
@@ -30,5 +32,6 @@ const colors = {
 
 export default {
   colors,
-  _const
+  _const,
+  trainOptions
 };
