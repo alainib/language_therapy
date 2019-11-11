@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-d
 
 import ResultsStat from "./ResultsStat";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import FlexView from "react-flexview";
 import Config from "../Config";
 import { image_randomSerie } from "../services/image";
 import { FaVolumeUp, FaArrowRight, FaArrowLeft } from "react-icons/fa";
@@ -31,6 +32,7 @@ class Trainserie extends Component {
   }
 
   async componentDidMount() {
+    console.log("ss");
     let res = await image_randomSerie(this.state.serieName, 10, 4, "ar", Config._const.easy);
 
     this.setState({ questions: res.questions, index: 0, ready: true });
@@ -38,8 +40,7 @@ class Trainserie extends Component {
 
   chooseAnswer = imageIndex => {
     let now = this.timeStampSec();
-    if (now - _lastSecClicked > 2) {
-      console.log("ok");
+    if (now - _lastSecClicked > 1) {
       _lastSecClicked = now;
       try {
         let index = this.state.index;
@@ -114,7 +115,6 @@ class Trainserie extends Component {
       let question = this.state.questions[this.state.index];
 
       let borderStyle = { borderRadius: "20px" };
-
       if (question.answer.showBorder) {
         if (question.answer.correct) {
           borderStyle["border"] = "4px solid green";
@@ -124,105 +124,86 @@ class Trainserie extends Component {
       }
 
       return (
-        <div className="minHeight500">
+        <FlexView style={{ margin: 20, minHeight: 600 }} column>
+          <Row>
+            <Col xs={2} md={1} style={{ display: "flex", justifyContent: "flex-start" }}>
+              <Button
+                className="btn-nooutline"
+                variant="false"
+                onClick={() => {
+                  if (this.state.index > 0) {
+                    this.setState({ index: this.state.index - 1 });
+                  }
+                }}
+              >
+                <span style={{ color: "white" }}>{this.state.index > 0 && <FaArrowLeft size={32} />}</span>
+              </Button>
+            </Col>
+            <Col xs={8} md={10} style={{ display: "flex", justifyContent: "center" }}>
+              <Button
+                variant="false"
+                onClick={() => {
+                  this.playSound(question.audio);
+                }}
+              >
+                <div style={{ color: "white" }}>
+                  <FaVolumeUp size={32} />
+                </div>
+              </Button>
+              <span onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp} style={{ fontSize: "3em" }}>
+                {question.display}
+              </span>
+            </Col>
+            <Col xs={2} md={1} style={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button
+                variant="false"
+                onClick={() => {
+                  if (this.state.index < this.state.questions.length) {
+                    this.setState({ index: this.state.index + 1 });
+                  }
+                }}
+              >
+                <span style={{ color: "white" }}>
+                  <FaArrowRight size={32} />
+                </span>
+              </Button>
+            </Col>
+          </Row>
+          <div className="space50" />
+          <Row>
+            {question.images.map((item, index) => {
+              return (
+                <Col
+                  key={"im" + index.toString()}
+                  xs={3}
+                  style={question.answer.clickedIndex == index ? borderStyle : {}}
+                  onClick={() => {
+                    this.chooseAnswer(index);
+                  }}
+                >
+                  <img className="img-max" src={item} />
+                </Col>
+              );
+            })}
+          </Row>
+          <div className="space50" />
           <div
             style={{
-              backgroundColor: "yellow",
-              margin: 20,
               display: "flex",
-              flexDirection: "column",
-              alignItems: "space-around",
-              justifyContent: "space-around"
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              margin: 50
             }}
           >
-            <Row>
-              <Col xs={2} md={1} style={{ display: "flex", justifyContent: "flex-start" }}>
-                <Button
-                  className="btn-nooutline"
-                  variant="false"
-                  onClick={() => {
-                    if (this.state.index > 0) {
-                      this.setState({ index: this.state.index - 1 });
-                    }
-                  }}
-                >
-                  <span style={{ color: "white" }}>{this.state.index > 0 && <FaArrowLeft size={32} />}</span>
-                </Button>
-              </Col>
-              <Col xs={8} md={10} style={{ display: "flex", justifyContent: "center" }}>
-                <Button
-                  variant="false"
-                  onClick={() => {
-                    this.playSound(question.audio);
-                  }}
-                >
-                  <div style={{ color: "white" }}>
-                    <FaVolumeUp size={32} />
-                  </div>
-                </Button>
-                <span onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp} style={{ fontSize: "3em" }}>
-                  {question.display}
-                </span>
-              </Col>
-              <Col xs={2} md={1} style={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button
-                  variant="false"
-                  onClick={() => {
-                    if (this.state.index < this.state.questions.length) {
-                      this.setState({ index: this.state.index + 1 });
-                    }
-                  }}
-                >
-                  <span style={{ color: "white" }}>
-                    <FaArrowRight size={32} />
-                  </span>
-                </Button>
-              </Col>
-            </Row>
+            <h3>
+              {this.state.serieName + " : "}
+              {this.state.index + 1 + " / " + this.state.questions.length}
+            </h3>
 
-            <Row>
-              {question.images.map((item, index) => {
-                return (
-                  <Col
-                    key={"im" + index.toString()}
-                    xs={3}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center"
-                    }}
-                  >
-                    <div
-                      style={question.answer.clickedIndex == index ? borderStyle : {}}
-                      onClick={() => {
-                        this.chooseAnswer(index);
-                      }}
-                    >
-                      <img className="img-max" src={item} />
-                    </div>
-                  </Col>
-                );
-              })}
-            </Row>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                margin: 2,
-                marginHorizontal: 10
-              }}
-            >
-              <h3>
-                {this.state.serieName + " : "}
-                {this.state.index + 1 + " / " + this.state.questions.length}
-              </h3>
-
-              {this.state.questionClueVisible && <span>{question.clue}</span>}
-            </div>
+            {this.state.questionClueVisible && <span>{question.clue}</span>}
           </div>
-        </div>
+        </FlexView>
       );
     } else {
       return <div>{this.showResults()}</div>;

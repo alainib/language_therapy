@@ -4,7 +4,7 @@ import { Navbar, Nav } from "react-bootstrap";
 
 import Series from "./components/Series";
 import Trainserie from "./components/Trainserie";
-
+import FlexView from "react-flexview";
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -37,7 +37,6 @@ export default function App() {
             </Nav.Item>
           </Nav>
         </Navbar>
-
         <Switch>
           <Route path="/series">
             <Series />
@@ -57,7 +56,11 @@ export default function App() {
   );
 }
 function Home() {
-  return <h2>Bienvenue</h2>;
+  return (
+    <FlexView className="fullHeight" hAlignContent="center" vAlignContent="center">
+      <FlexView>Bienvenue sur 'Language therapy'</FlexView>
+    </FlexView>
+  );
 }
 
 function Settings() {
