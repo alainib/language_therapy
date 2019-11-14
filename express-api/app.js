@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
 var bodyParser = require("body-parser");
+const path = require('path');
 
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // to support URL-encoded bodies
 
+/*
 // home page
 app.get("/", function(req, res) {
   let html = ` <!DOCTYPE html>
@@ -24,7 +26,12 @@ app.get("/", function(req, res) {
 
   res.send(html);
 });
-
+*/
+app.use(express.static(path.join(__dirname, 'build')));
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+	
 // starting the serveur
 let _port = process.env.PORT || 1111;
 app.listen(_port, function() {
