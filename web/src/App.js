@@ -4,11 +4,13 @@ import { Navbar, Nav } from "react-bootstrap";
 
 import Series from "./components/Series";
 import Trainserie from "./components/Trainserie";
-import FlexView from "react-flexview";
-import React from "react";
+import Home from "./components/Home";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 export default function App() {
+  const [connected, setConnected] = useState(false);
+
   return (
     <Router>
       <div className="App">
@@ -16,7 +18,7 @@ export default function App() {
           <Nav className="mr-auto">
             <Navbar.Brand>
               <Link className="App-link" to="/">
-                Language therapy
+                Language therapy {connected ? "O" : "N"}
               </Link>
             </Navbar.Brand>
             <Nav.Item>
@@ -39,27 +41,20 @@ export default function App() {
         </Navbar>
         <Switch>
           <Route path="/series">
-            <Series />
+            <Series connected={connected} />
           </Route>
           <Route path="/trainserie/:id">
-            <Trainserie />
+            <Trainserie connected={connected} />
           </Route>
           <Route path="/settings">
             <Settings />
           </Route>
           <Route path="/">
-            <Home />
+            <Home connected={connected} setConnected={setConnected} />
           </Route>
         </Switch>
       </div>
     </Router>
-  );
-}
-function Home() {
-  return (
-    <FlexView className="fullHeight" hAlignContent="center" vAlignContent="center">
-      <FlexView>Bienvenue sur 'Language therapy'</FlexView>
-    </FlexView>
   );
 }
 

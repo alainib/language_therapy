@@ -1,40 +1,52 @@
 {
-  "name": "language_therapy",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "bootstrap": "^4.3.1",
-    "pm2": "^4.1.2",
-    "react": "^16.11.0",
-    "react-bootstrap": "^1.0.0-beta.14",
-    "react-dom": "^16.11.0",
-    "react-flexview": "^4.0.4",
-    "react-icons": "^3.8.0",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "3.2.0"
-  },
-  "scripts": {
-    "test": "react-scripts start",
-    "start": "pm2 start node_modules/react-scripts/scripts/start.js --name 'language_therapy'",
-    "build": "react-scripts build",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "dotenv": "^8.2.0"
-  }
+    "name": "language_therapy",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "axios": "^0.19.0",
+        "bootstrap": "^4.3.1",
+        "pm2": "^4.1.2",
+        "react": "^16.11.0",
+        "react-bootstrap": "^1.0.0-beta.14",
+        "react-dom": "^16.11.0",
+        "react-flexview": "^4.0.4",
+        "react-icons": "^3.8.0",
+        "react-router-dom": "^5.1.2",
+        "react-scripts": "3.2.0",
+        "sfcookies": "^1.0.2"
+    },
+    "oldscripts": {
+        "start": "react-scripts start"
+    },
+    "scripts": {
+        "test": "react-scripts test",
+        "start": "pm2 start node_modules/react-scripts/scripts/start.js --name 'language_therapy'",
+        "build": "react-scripts build",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "chai": "^4.2.0",
+        "chai-enzyme": "^1.0.0-beta.0",
+        "chai-jest-diff": "^1.0.2",
+        "dirty-chai": "^2.0.1",
+        "dotenv": "^8.2.0",
+        "enzyme": "^3.10.0",
+        "enzyme-adapter-react-16": "^1.15.1",
+        "react-test-renderer": "^16.11.0"
+    }
 }

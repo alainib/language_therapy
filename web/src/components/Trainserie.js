@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { useParams } from "react-router";
-import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 
 import ResultsStat from "./ResultsStat";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import FlexView from "react-flexview";
 import Config from "../Config";
 import { image_randomSerie } from "../services/image";
@@ -32,10 +31,10 @@ class Trainserie extends Component {
   }
 
   async componentDidMount() {
-    console.log("ss");
-    let res = await image_randomSerie(this.state.serieName, 10, 4, "ar", Config._const.easy);
-
-    this.setState({ questions: res.questions, index: 0, ready: true });
+    if (this.props.connected) {
+      let res = await image_randomSerie(this.state.serieName, 10, 4, "ar", Config._const.easy);
+      this.setState({ questions: res.questions, index: 0, ready: true });
+    }
   }
 
   chooseAnswer = imageIndex => {
@@ -52,7 +51,7 @@ class Trainserie extends Component {
         question.answer.clickedIndex = imageIndex;
 
         //bonne réponse
-        if (imageIndex == question.answer.rightIndex) {
+        if (imageIndex === question.answer.rightIndex) {
           question.answer.correct = true;
           question.answer.wrong = false;
 
@@ -107,6 +106,10 @@ class Trainserie extends Component {
   };
 
   render() {
+    if (!this.props.connected) {
+      return <Redirect to="/" />;
+    }
+
     if (!this.state.ready) {
       return <div>loading</div>;
     }
@@ -176,12 +179,12 @@ class Trainserie extends Component {
                 <Col
                   key={"im" + index.toString()}
                   xs={3}
-                  style={question.answer.clickedIndex == index ? borderStyle : {}}
+                  style={question.answer.clickedIndex === index ? borderStyle : {}}
                   onClick={() => {
                     this.chooseAnswer(index);
                   }}
                 >
-                  <img className="img-max" src={item} />
+                  <img className="img-max" src={item} alt={item} />
                 </Col>
               );
             })}

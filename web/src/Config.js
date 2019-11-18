@@ -1,3 +1,5 @@
+const api_path = "http://localhost:1111/api/";
+
 const _const = {
   easy: "easy",
   middle: "middle",
@@ -33,5 +35,6 @@ const colors = {
 export default {
   colors,
   _const,
+  api_path,
   trainOptions
 };
