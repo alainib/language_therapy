@@ -1,4 +1,7 @@
-const api_path = "http://localhost:1111/api/";
+const api_path_local = "http://localhost:1111/api/";
+const api_path_remote = "http://88.190.14.12:1112/api/";
+
+const api_path = "window.location.href".includes("localhost") ? api_path_remote : api_path_local;
 
 const _const = {
   easy: "easy",

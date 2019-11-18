@@ -62,6 +62,10 @@ app.get("/api/user/login", function(req, res) {
   }
 });
 
+
+app.get("/api/ping", function(req, res) {
+    return res.status(200).json({ success: true, data: "ping ok" });
+});
 /*
 app.get("/api/test/get/:para1", function(req, res) {
   console.log(req.params.para1);

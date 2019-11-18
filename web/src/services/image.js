@@ -210,7 +210,7 @@ export function image_randomSerie(
     let questionTmp = {
       answer: {
         // résultat de la dernière réponse, pour encadrer en rouge ou vert l'image cliquée
-        rightIndex: foundIndex, // index de la réponse correct
+        rightIndex: parseInt(foundIndex), // index de la réponse correct
         correct: false,
         attempt: 0
       },
