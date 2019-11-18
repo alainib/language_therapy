@@ -1,8 +1,14 @@
 const express = require("express");
 const app = express();
-var bodyParser = require("body-parser");
+let bodyParser = require("body-parser");
 const path = require("path");
+var cors = require('cors');
 
+console.log("/*****************************/");
+console.log("/*       starting API        */");
+console.log("/*****************************/");
+
+app.use(cors());
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // to support URL-encoded bodies
 
