@@ -18,7 +18,7 @@ export default function App() {
           <Nav className="mr-auto">
             <Navbar.Brand>
               <Link className="App-link" to="/">
-                Language therapy {connected ? "O" : "N"}
+                Language therapy
               </Link>
             </Navbar.Brand>
             <Nav.Item>
@@ -32,11 +32,13 @@ export default function App() {
                 Series
               </Link>
             </Nav.Item>
-            <Nav.Item>
-              <Link className="App-link" to="/settings">
-                Paramètres
-              </Link>
-            </Nav.Item>
+            {connected && (
+              <Nav.Item>
+                <Link className="App-link" to="/settings">
+                  Paramètres
+                </Link>
+              </Nav.Item>
+            )}
           </Nav>
         </Navbar>
         <Switch>

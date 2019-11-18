@@ -63,6 +63,14 @@ app.get("/api/user/login", function(req, res) {
 });
 
 /*
+app.get("/api/test/get/:para1", function(req, res) {
+  console.log(req.params.para1);
+  console.log(req.query);
+
+  return res.status(200).json({ success: true, data: true });
+});
+
+/*
 app.get("/api/test/get", function(req, res) {
   console.log(req.params);
 
