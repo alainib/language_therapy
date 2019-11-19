@@ -141,15 +141,15 @@ const pathSource = path.join(__dirname, "mot-image");
 const mobilePathDest = path.join(__dirname, "..", "mobile", "ressources", "mot-image");
 const mobileDestPathAudio = path.join(__dirname, "..", "mobile", "android", "app", "src", "main", "res", "raw");
 
-const webPathDest = path.join(__dirname, "..", "web", "public", "mot-image");
+const apiPathDest = path.join(__dirname, "..", "express-api", "public", "mot-image");
 (async () => {
   try {
-    clj({ pathSource, mobilePathDest, mobileDestPathAudio, webPathDest });
+    clj({ pathSource, mobilePathDest, mobileDestPathAudio, apiPathDest });
 
     // vide le dossier de dest
     fse.removeSync(mobilePathDest);
     fse.ensureDirSync(mobilePathDest);
-    fse.ensureDirSync(webPathDest);
+    fse.ensureDirSync(apiPathDest);
 
     // parcour les sous dossiers
     const subFolders = await fs.readdir(pathSource);
@@ -225,8 +225,8 @@ const webPathDest = path.join(__dirname, "..", "web", "public", "mot-image");
     console.log("copying...");
     writeJs("../mobile/src/services/data.js", output);
     // copie tout le dossier image mobile propre vers celui de web
-    fse.copySync(mobilePathDest, webPathDest);
-    fse.copySync(mobileDestPathAudio, webPathDest + "/mp3");
+    fse.copySync(mobilePathDest, apiPathDest);
+    fse.copySync(mobileDestPathAudio, apiPathDest + "/mp3");
     writeJs(path.join(__dirname, "..", "web", "src", "services", "data.js"), webOutput);
 
     writeTxt(`missingMp3Output.txt`, missingMp3Output);

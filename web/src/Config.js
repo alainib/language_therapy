@@ -1,7 +1,8 @@
-const api_path_local = "http://localhost:1111/api/";
-const api_path_remote = "http://88.190.14.12:1111/api/";
+const path_local = "http://localhost:1111/";
+const path_remote = "http://88.190.14.12:1111/";
 
-const api_path = "window.location.href".includes("localhost") ?  api_path_local : api_path_remote;
+const api_path = window.location.href.includes("localhost") ? path_local + "api/" : path_remote + "api/";
+const static_path = window.location.href.includes("localhost") ? path_local + "static/" : path_remote + "static/";
 
 const _const = {
   easy: "easy",
@@ -39,5 +40,6 @@ export default {
   colors,
   _const,
   api_path,
+  static_path,
   trainOptions
 };

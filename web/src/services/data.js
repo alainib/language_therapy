@@ -36,7 +36,7 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "audio":"carotte"
             },{"path": "/mot-image/aliments/cerise.jpg",
               "fr": "cerise",
-              "ar": "الكرز",
+              "ar": "كرز",
               "audio":"cerise"
             },{"path": "/mot-image/aliments/champignon.jpg",
               "fr": "champignon",
@@ -64,7 +64,7 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "audio":"citron"
             },{"path": "/mot-image/aliments/cola.jpg",
               "fr": "cola",
-              "ar": "الكولا",
+              "ar": "كولا",
               "audio":"cola"
             },{"path": "/mot-image/aliments/concombre.jpg",
               "fr": "concombre",
@@ -116,11 +116,11 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "audio":"haricot_vert"
             },{"path": "/mot-image/aliments/laitue.jpg",
               "fr": "laitue",
-              "ar": "الخس",
+              "ar": "خس",
               "audio":"laitue"
             },{"path": "/mot-image/aliments/mandarine.jpg",
               "fr": "mandarine",
-              "ar": "اليوسفي",
+              "ar": "يوسفي",
               "audio":"mandarine"
             },{"path": "/mot-image/aliments/maïs.jpg",
               "fr": "maïs",
@@ -200,7 +200,7 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "audio":"raisin"
             },{"path": "/mot-image/aliments/riz.jpg",
               "fr": "riz",
-              "ar": "الرز",
+              "ar": "رز",
               "audio":"riz"
             },{"path": "/mot-image/aliments/sel.jpg",
               "fr": "sel",
@@ -288,7 +288,7 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "audio":"escargot"
             },{"path": "/mot-image/animaux/fourmis.jpg",
               "fr": "fourmis",
-              "ar": "النمل",
+              "ar": "نمل",
               "audio":"fourmis"
             },{"path": "/mot-image/animaux/girafe.jpg",
               "fr": "girafe",
@@ -604,7 +604,7 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "audio":"drapeau"
             },{"path": "/mot-image/autre/dés.jpg",
               "fr": "dés",
-              "ar": "النرد",
+              "ar": "نرد",
               "audio":"des"
             },{"path": "/mot-image/autre/enveloppe.jpg",
               "fr": "enveloppe",
@@ -632,7 +632,7 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "audio":"guitare"
             },{"path": "/mot-image/autre/horloge.jpg",
               "fr": "horloge",
-              "ar": "الساعة",
+              "ar": "ساعة",
               "audio":"horloge"
             },{"path": "/mot-image/autre/imprimante.jpg",
               "fr": "imprimante",
@@ -684,7 +684,7 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "audio":"nuage"
             },{"path": "/mot-image/autre/ordinateur.jpg",
               "fr": "ordinateur",
-              "ar": "الكمبيوتر",
+              "ar": "كمبيوتر",
               "audio":"ordinateur"
             },{"path": "/mot-image/autre/oreiller.jpg",
               "fr": "oreiller",
@@ -824,7 +824,7 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "audio":"telephone"
             },{"path": "/mot-image/autre/télévision.jpg",
               "fr": "télévision",
-              "ar": "التلفزيون",
+              "ar": "تلفزيون",
               "audio":"television"
             },{"path": "/mot-image/autre/valise.jpg",
               "fr": "valise",
@@ -948,11 +948,11 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "audio":"cerveau"
             },{"path": "/mot-image/parties-du-corps/cheville.jpg",
               "fr": "cheville",
-              "ar": "الكاحل",
+              "ar": "كاحل",
               "audio":"cheville"
             },{"path": "/mot-image/parties-du-corps/cils.jpg",
               "fr": "cils",
-              "ar": "الرموش",
+              "ar": "رموش",
               "audio":"cils"
             },{"path": "/mot-image/parties-du-corps/coeur.jpg",
               "fr": "coeur",
@@ -984,7 +984,7 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "audio":"genou"
             },{"path": "/mot-image/parties-du-corps/joue.jpg",
               "fr": "joue",
-              "ar": "الخد",
+              "ar": "خد",
               "audio":"joue"
             },{"path": "/mot-image/parties-du-corps/lévre.jpg",
               "fr": "lévre",
@@ -1040,19 +1040,19 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "audio":"fatouche"
             },{"path": "/mot-image/recette-arabe/houmous.jpg",
               "fr": "houmous",
-              "ar": "الحمص",
+              "ar": "حمص",
               "audio":"houmous"
             },{"path": "/mot-image/recette-arabe/kebbeh_cru.jpg",
               "fr": "kebbeh cru",
-              "ar": "الكبة",
+              "ar": "الكبة نيئ",
               "audio":"kebbeh_cru"
             },{"path": "/mot-image/recette-arabe/kebbeh_frit.jpg",
               "fr": "kebbeh frit",
-              "ar": "الكبة",
+              "ar": "كبة المقلية",
               "audio":"kebbeh_frit"
             },{"path": "/mot-image/recette-arabe/kebbe_bel_fern.jpg",
               "fr": "kebbe bel fern",
-              "ar": "الكبة",
+              "ar": "الكبة في الفرن",
               "audio":"kebbe_bel_fern"
             },{"path": "/mot-image/recette-arabe/malfouf.jpg",
               "fr": "malfouf",
@@ -1084,7 +1084,7 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "audio":"bateau"
             },{"path": "/mot-image/vehicules/bus.jpg",
               "fr": "bus",
-              "ar": "الباص",
+              "ar": "باص",
               "audio":"bus"
             },{"path": "/mot-image/vehicules/camion.jpg",
               "fr": "camion",

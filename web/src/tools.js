@@ -19,10 +19,6 @@ export function round(value, precision) {
   return Math.round(value * multiplier) / multiplier;
 }
 
-export function clone(obj) {
-  return JSON.parse(JSON.stringify(obj));
-}
-
 /**
 * permet de tester si la propriété `field` d'un des element du tableau `array` vaut `word`
 * [{ "key": "de", "doc_count": 3 },

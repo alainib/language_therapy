@@ -162,6 +162,11 @@ body,
 .col-xl-auto {
   padding: 3 !important;
 }
+
+.alert {
+  margin: 0 auto;
+  max-width: 600px;
+}
 /*---------- home.js ----------*/
 
 @media all and (min-width: 480px) {

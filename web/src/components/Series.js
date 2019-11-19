@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Alert } from "react-bootstrap";
 import "../App.css";
 
 import { image_AllSeriesNames } from "../services/image";
@@ -9,33 +10,46 @@ export default class Series extends Component {
     super(props);
     this.state = {
       // tous les noms de series
-      seriesNames: []
+      seriesNames: [],
+      networkError: false
     };
   }
 
   async componentDidMount() {
-    let seriesNames = await image_AllSeriesNames();
-
-    this.setState({ seriesNames });
+    let res = await image_AllSeriesNames();
+    if (res) {
+      this.setState({ seriesNames: res, networkError: false });
+    } else {
+      this.setState({ networkError: true });
+    }
   }
 
   render() {
     return (
-      <h2>
-        Choix de la serie
+      <div>
+        <h2>Choix de la serie</h2>
         <br />
-        <ul className="flex-container wrap">
-          {this.state.seriesNames.map((item, index) => {
-            return (
-              <li className="flex-item" key={"ac" + index.toString()}>
-                <Link className="flex-item-link" to={`/trainserie/${item}`}>
-                  {item}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </h2>
+        {this.state.networkError ? (
+          <Alert variant="danger">
+            <p>
+              Une erreur est survenue lors du chargement des series. <br />
+              Essayer de rafraichir la page ( F5 )
+            </p>
+          </Alert>
+        ) : (
+          <ul className="flex-container wrap">
+            {this.state.seriesNames.map((item, index) => {
+              return (
+                <li className="flex-item" key={"ac" + index.toString()}>
+                  <Link className="flex-item-link" to={`/trainserie/${item}`}>
+                    {item}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
     );
   }
 }

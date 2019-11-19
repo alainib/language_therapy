@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { withRouter, Redirect } from "react-router-dom";
 
 import ResultsStat from "./ResultsStat";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, Alert } from "react-bootstrap";
+
 import FlexView from "react-flexview";
 import Config from "../Config";
 import { image_randomSerie } from "../services/image";
@@ -22,7 +23,8 @@ class Trainserie extends Component {
       // liste des questions
       questions: [],
       index: 0,
-      ready: false
+      ready: false,
+      networkError: false
     };
   }
 
@@ -33,7 +35,12 @@ class Trainserie extends Component {
   async componentDidMount() {
     if (this.props.connected) {
       let res = await image_randomSerie(this.state.serieName, 10, 4, "ar", Config._const.easy);
-      this.setState({ questions: res.questions, index: 0, ready: true });
+
+      if (res) {
+        this.setState({ questions: res.questions, index: 0, ready: true, networkError: false });
+      } else {
+        this.setState({ networkError: true });
+      }
     }
   }
 
@@ -88,7 +95,8 @@ class Trainserie extends Component {
   };
 
   playSound(name) {
-    let url = "/mot-image/mp3/" + name + "_ar.mp3";
+    let url = Config.static_path + "/mot-image/mp3/" + name + "_ar.mp3";
+    console.log(url);
     let sound = new Audio(url);
     sound.play();
   }
@@ -113,7 +121,16 @@ class Trainserie extends Component {
     if (!this.state.ready) {
       return <div>loading</div>;
     }
-
+    if (this.state.networkError) {
+      return (
+        <Alert variant="danger">
+          <p>
+            Une erreur est survenue lors du chargement de la serie. <br />
+            Essayer de rafraichir la page ( F5 )
+          </p>
+        </Alert>
+      );
+    }
     if (this.state.index < this.state.questions.length) {
       let question = this.state.questions[this.state.index];
 
@@ -184,7 +201,7 @@ class Trainserie extends Component {
                     this.chooseAnswer(index);
                   }}
                 >
-                  <img className="img-max" src={item} alt={item} />
+                  <img className="img-max" src={Config.static_path + item} alt={item} />
                 </Col>
               );
             })}
