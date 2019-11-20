@@ -237,7 +237,7 @@ function randomSerie(
  *          API
  */
 
-router.get("/api/ping", function(req, res) {
+router.get("/ping", function(req, res) {
   return res.status(200).json({ success: true, data: "ping ok" });
 });
 
@@ -245,7 +245,7 @@ const _logins = {
   louise: "loulou28",
   david: "david"
 };
-router.get("/api/user/login", function(req, res) {
+router.get("/user/login", function(req, res) {
   const { login, password } = req.query;
   if (_logins[login] && _logins[login] === password) {
     return res.status(200).json({ success: true });
@@ -253,7 +253,7 @@ router.get("/api/user/login", function(req, res) {
     return res.status(401).json({ success: false });
   }
 });
-router.post("/api/serie", function(req, res) {
+router.post("/serie", function(req, res) {
   console.log(req.body);
   let a = randomSerie(
     req.body.serieName,
@@ -266,13 +266,13 @@ router.post("/api/serie", function(req, res) {
   return res.status(200).json(a);
 });
 
-router.get("/api/series", function(req, res) {
+router.get("/series", function(req, res) {
   return res.status(200).json(allSeriesNames());
 });
 
 module.exports = router;
 /*
-router.get("/api/test/get/:para1", function(req, res) {
+router.get("/test/get/:para1", function(req, res) {
   console.log(req.params.para1);
   console.log(req.query);
 
@@ -280,13 +280,13 @@ router.get("/api/test/get/:para1", function(req, res) {
 });
 
 /*
-router.get("/api/test/get", function(req, res) {
+router.get("/test/get", function(req, res) {
   console.log(req.params);
 
   return res.status(200).json({ success: true, data: true });
 });
 
-router.post("/api/test/post", async function(req, res) {
+router.post("/test/post", async function(req, res) {
   console.log(req.body);
 
   return res.json(200);
