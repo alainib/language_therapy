@@ -21,7 +21,7 @@
     "scripts": {
         "test": "react-scripts test",
         "start": "pm2 start node_modules/react-scripts/scripts/start.js --name 'language_therapy'",
-        "build": "react-scripts build",
+        "build": "run-script build",
         "eject": "react-scripts eject"
     },
     "eslintConfig": {

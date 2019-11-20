@@ -3,33 +3,6 @@ import * as axios from "./axios";
 
 let _allSeriesName = null;
 /**
- * retourne la liste des noms de toutes les series disponibles
- */
-export async function image_AllSeriesNames() {
-  if (_allSeriesName) {
-    return _allSeriesName;
-  } else {
-    const url = "series";
-
-    let status, data;
-    try {
-      const response = await axios.instance.get(url);
-      status = response.status;
-      data = response.data;
-    } catch (error) {
-      console.error(error);
-      status = 404;
-    }
-    if (status == 200) {
-      _allSeriesName = data;
-      return data;
-    } else {
-      return false;
-    }
-  }
-}
-
-/**
  * crée une serie d'exercice depuis un nom de serie donnée
  * @param string serieName nom de la serie pour les réponses justes
  * @param int nbrQuestion : nombre de question
@@ -78,5 +51,31 @@ export async function image_randomSerie(
     return data;
   } else {
     return false;
+  }
+}
+/**
+ * retourne la liste des noms de toutes les series disponibles
+ */
+export async function image_AllSeriesNames() {
+  if (_allSeriesName) {
+    return _allSeriesName;
+  } else {
+    const url = "series";
+
+    let status, data;
+    try {
+      const response = await axios.instance.get(url);
+      status = response.status;
+      data = response.data;
+    } catch (error) {
+      console.error(error);
+      status = 404;
+    }
+    if (status == 200) {
+      _allSeriesName = data;
+      return data;
+    } else {
+      return false;
+    }
   }
 }
