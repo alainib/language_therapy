@@ -85,6 +85,26 @@ class Options extends React.Component {
           </View>
 
           <View style={thisstyles.bloc}>
+            <Text style={thisstyles.title}>Afficher l'indice du mot à l'envers :</Text>
+            <View style={thisstyles.bloc}>
+              <View style={thisstyles.viewButton}>
+                <Button
+                  color={this.props.options.showClueReversed ? "green" : "grey"}
+                  title={"OUI"}
+                  onPress={() => this.props.action_optionUpdate("showClueReversed", null, true)}
+                />
+              </View>
+              <View style={thisstyles.viewButton}>
+                <Button
+                  color={!this.props.options.showClueReversed ? "green" : "grey"}
+                  title={"NON"}
+                  onPress={() => this.props.action_optionUpdate("showClueReversed", null, false)}
+                />
+              </View>
+            </View>
+          </View>
+
+          <View style={thisstyles.bloc}>
             <View style={thisstyles.flex1rowcenter}>
               <View style={thisstyles.flex1stretchcenter}>
                 <Text style={thisstyles.title}>Nombre de series :{this.props.options.nbrOfQuestionPerSerie}</Text>
@@ -102,20 +122,66 @@ class Options extends React.Component {
               </View>
             </View>
           </View>
+          <View style={thisstyles.bloc}>
+            <Text style={thisstyles.title}>Mode image par image : </Text>
+            <View style={thisstyles.bloc}>
+              <View style={thisstyles.viewButton}>
+                <Button
+                  color={this.props.options.imageByImage ? "green" : "grey"}
+                  title={"OUI"}
+                  onPress={() => {
+                    this.props.action_optionUpdate("imageByImage", null, true);
+                    this.props.action_optionUpdate("nbrOfImagePerQuestion", null, 1);
+                  }}
+                />
+              </View>
+              <View style={thisstyles.viewButton}>
+                <Button
+                  color={!this.props.options.imageByImage ? "green" : "grey"}
+                  title={"NON"}
+                  onPress={() => {
+                    this.props.action_optionUpdate("imageByImage", null, false);
+                    this.props.action_optionUpdate("nbrOfImagePerQuestion", null, 4);
+                  }}
+                />
+              </View>
+            </View>
+          </View>
 
           <View style={thisstyles.bloc}>
             <View style={thisstyles.flex1rowcenter}>
               <View style={thisstyles.flex1stretchcenter}>
                 <Text style={thisstyles.title}>Nombre d'images par serie :{this.props.options.nbrOfImagePerQuestion}</Text>
               </View>
+              {!this.props.options.imageByImage && (
+                <View style={thisstyles.flex1stretchcenter}>
+                  <Slider
+                    value={this.props.options.nbrOfImagePerQuestion}
+                    minimumValue={2}
+                    maximumValue={8}
+                    step={1}
+                    onValueChange={value => {
+                      this.props.action_optionUpdate("nbrOfImagePerQuestion", null, value);
+                    }}
+                  />
+                </View>
+              )}
+            </View>
+          </View>
+
+          <View style={thisstyles.bloc}>
+            <View style={thisstyles.flex1rowcenter}>
+              <View style={thisstyles.flex1stretchcenter}>
+                <Text style={thisstyles.title}>Lire le mot après X réponses fausses :{this.props.options.playSoundAfterXWrong}</Text>
+              </View>
               <View style={thisstyles.flex1stretchcenter}>
                 <Slider
-                  value={this.props.options.nbrOfImagePerQuestion}
-                  minimumValue={2}
+                  value={this.props.options.playSoundAfterXWrong}
+                  minimumValue={1}
                   maximumValue={8}
                   step={1}
                   onValueChange={value => {
-                    this.props.action_optionUpdate("nbrOfImagePerQuestion", null, value);
+                    this.props.action_optionUpdate("playSoundAfterXWrong", null, value);
                   }}
                 />
               </View>
@@ -165,10 +231,7 @@ function mapStatetoProps(data) {
 
 import * as actions from "language_therapy/src/redux/actions";
 import { connect } from "react-redux";
-export default connect(
-  mapStatetoProps,
-  actions
-)(Options);
+export default connect(mapStatetoProps, actions)(Options);
 
 const thisstyles = StyleSheet.create({
   padding510: { padding: 5, paddingTop: 10, paddingBottom: 10 },

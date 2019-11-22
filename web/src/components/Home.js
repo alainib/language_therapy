@@ -5,6 +5,7 @@ import { user_login } from "../services/user";
 import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
 const cookie_id = "user_id";
 const cookie_pwd = "user_pwd";
+const cookie_token = "user_token";
 
 export default class Trainserie extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ export default class Trainserie extends Component {
     this.state = {
       identifiant: read_cookie(cookie_id) || "",
       password: read_cookie(cookie_pwd) || "",
+      token: read_cookie(cookie_token) || "",
       connected: this.props.connected || false
     };
   }
@@ -45,8 +47,10 @@ export default class Trainserie extends Component {
     if (res.status === 200) {
       bake_cookie(cookie_id, this.state.identifiant);
       bake_cookie(cookie_pwd, this.state.password);
-      this.setState({ connected: true });
+      bake_cookie(cookie_token, res.data.token);
+      this.setState({ connected: true, token: res.data.token });
       this.props.setConnected(true);
+      this.props.setToken(res.data.token);
     }
   };
 
@@ -61,43 +65,47 @@ export default class Trainserie extends Component {
     return (
       <div className="Login">
         {connected ? (
-          <Form>
+          <div>
             <h1>{identifiant}, bienvenue sur 'Language therapy'.</h1>
             <br />
             <br />
-            <Button variant="primary" type="submit" onClick={this.disconnect}>
-              Déconnexion
-            </Button>
-          </Form>
+            <Form>
+              <Button variant="primary" type="submit" onClick={this.disconnect}>
+                Déconnexion
+              </Button>
+            </Form>
+          </div>
         ) : (
-          <Form onSubmit={this.handleSubmit}>
+          <div>
             <h1>Bienvenue sur 'Language therapy'.</h1>
             <br />
             <br />
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Identifiant</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Entrez votre Identifiant"
-                onChange={e => this.setIdentifiant(e.target.value)}
-                value={identifiant}
-              />
-            </Form.Group>
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Group controlId="formBasicEmail">
+                <Form.Label>Identifiant</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Entrez votre Identifiant"
+                  onChange={e => this.setIdentifiant(e.target.value)}
+                  value={identifiant}
+                />
+              </Form.Group>
 
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Mot de passe</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Entrez votre mot de passe"
-                value={password}
-                onChange={e => this.setPassword(e.target.value)}
-              />
-            </Form.Group>
+              <Form.Group controlId="formBasicPassword">
+                <Form.Label>Mot de passe</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Entrez votre mot de passe"
+                  value={password}
+                  onChange={e => this.setPassword(e.target.value)}
+                />
+              </Form.Group>
 
-            <Button variant="primary" type="submit" disabled={!this.validateForm()}>
-              Connexion
-            </Button>
-          </Form>
+              <Button variant="primary" type="submit" disabled={!this.validateForm()}>
+                Connexion
+              </Button>
+            </Form>
+          </div>
         )}
       </div>
     );

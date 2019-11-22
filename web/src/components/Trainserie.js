@@ -15,6 +15,7 @@ let _lastSecClicked = 0;
 class Trainserie extends Component {
   constructor(props) {
     super(props);
+
     const serieName = this.props.match.params.id;
     this.state = {
       // permet d'afficher le nom en francais
@@ -34,7 +35,7 @@ class Trainserie extends Component {
 
   async componentDidMount() {
     if (this.props.connected) {
-      let res = await image_randomSerie(this.state.serieName, 10, 4, "ar", Config._const.easy);
+      let res = await image_randomSerie(this.props.token, this.state.serieName, 10, 4, "ar", Config._const.easy);
 
       if (res) {
         this.setState({ questions: res.questions, index: 0, ready: true, networkError: false });

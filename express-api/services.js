@@ -245,25 +245,31 @@ const _logins = {
   louise: "loulou28",
   david: "david"
 };
+const _token = "488484sdf84sd8f7s7ezr157705787878787";
 router.get("/user/login", function(req, res) {
   const { login, password } = req.query;
   if (_logins[login] && _logins[login] === password) {
-    return res.status(200).json({ success: true });
+    return res.status(200).json({ success: true, token: _token });
   } else {
     return res.status(401).json({ success: false });
   }
 });
+
 router.post("/serie", function(req, res) {
-  console.log(req.body);
-  let a = randomSerie(
-    req.body.serieName,
-    req.body.nbrQuestion,
-    req.body.nbrOfImagePerQuestion,
-    req.body.displayLg,
-    req.body.level,
-    req.body.selectedImages
-  );
-  return res.status(200).json(a);
+  const { token } = req.query;
+  if (token === _token) {
+    let a = randomSerie(
+      req.body.serieName,
+      req.body.nbrQuestion,
+      req.body.nbrOfImagePerQuestion,
+      req.body.displayLg,
+      req.body.level,
+      req.body.selectedImages
+    );
+    return res.status(200).json(a);
+  } else {
+    return res.status(401).json({ success: false });
+  }
 });
 
 router.get("/series", function(req, res) {

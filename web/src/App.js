@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 export default function App() {
   const [connected, setConnected] = useState(false);
+  const [token, setToken] = useState(false);
 
   return (
     <Router>
@@ -46,13 +47,13 @@ export default function App() {
             <Series connected={connected} />
           </Route>
           <Route path="/trainserie/:id">
-            <Trainserie connected={connected} />
+            <Trainserie token={token} connected={connected} />
           </Route>
           <Route path="/settings">
             <Settings />
           </Route>
           <Route path="/">
-            <Home connected={connected} setConnected={setConnected} />
+            <Home connected={connected} setToken={setToken} setConnected={setConnected} />
           </Route>
         </Switch>
       </div>

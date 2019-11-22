@@ -1,17 +1,6 @@
 import React from "react";
 
-import {
-  View,
-  Button,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  TouchableOpacity,
-  Image,
-  Modal,
-  Alert
-} from "react-native";
+import { View, Button, ScrollView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, Image, Modal, Alert } from "react-native";
 
 import IconIonic from "react-native-vector-icons/Ionicons";
 import styles from "language_therapy/src/styles";
@@ -39,11 +28,7 @@ class MotImage extends React.Component {
             navigation.navigate("MotImage");
           }}
         >
-          <IconIonic
-            name="md-images"
-            size={Config.iconSize.xxl}
-            color={tintColor}
-          />
+          <IconIonic name="md-images" size={Config.iconSize.xxl} color={tintColor} />
         </TouchableOpacity>
       )
     };
@@ -134,11 +119,7 @@ class MotImage extends React.Component {
             {this.state.seriesNames.map((item, index) => {
               return (
                 <View style={thisstyles.item} key={"ac" + index.toString()}>
-                  <Button
-                    color={"green"}
-                    title={item}
-                    onPress={() => this.chooseSerie(item)}
-                  />
+                  <Button color={"green"} title={item} onPress={() => this.chooseSerie(item)} />
                 </View>
               );
             })}
@@ -185,16 +166,25 @@ class MotImage extends React.Component {
     };
     let normalStyle = { margin: 9 };
 
+    const selectedImages = this.state.modal.images.filter(item => item.selected);
+
+    let disabledButton = selectedImages.length < 2;
+    let stillNeeded = selectedImages.length < 2 ? " -" + (2 - selectedImages.length) : "";
     return (
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={this.state.modal.show}
-        style={styles.flex1}
-        onRequestClose={() => {}}
-      >
+      <Modal animationType="slide" transparent={false} visible={this.state.modal.show} style={styles.flex1} onRequestClose={() => {}}>
         <View style={{ flex: 1, backgroundColor: "white" }}>
-          <Text style={thisstyles.title}>Choisir les images : </Text>
+          <View style={{ flexDirection: "row", justifyContent: "flex-start", alignItems: "center" }}>
+            <TouchableOpacity
+              style={{ padding: 5, paddingHorizontal: 20 }}
+              underlayColor={Config.colors.blue}
+              onPress={() => {
+                this.setState({ modal: { show: false, images: [] } });
+              }}
+            >
+              <IconFeather name="arrow-left" size={Config.iconSize.xxl} color={"grey"} />
+            </TouchableOpacity>
+            <Text style={thisstyles.title}>Choisir les images : </Text>
+          </View>
 
           <ScrollView
             contentContainerStyle={{
@@ -205,14 +195,8 @@ class MotImage extends React.Component {
           >
             {this.state.modal.images.map((item, index) => {
               return (
-                <View
-                  style={item.selected ? borderStyleSelected : normalStyle}
-                  key={"ac" + index.toString()}
-                >
-                  <TouchableHighlight
-                    onPress={() => this.clickImage(item.fr)}
-                    underlayColor="white"
-                  >
+                <View style={item.selected ? borderStyleSelected : normalStyle} key={"ac" + index.toString()}>
+                  <TouchableHighlight onPress={() => this.clickImage(item.fr)} underlayColor="white">
                     <Image
                       resizeMode={"stretch"}
                       source={item.path}
@@ -228,17 +212,10 @@ class MotImage extends React.Component {
           </ScrollView>
           <View style={thisstyles.absolute}>
             <Button
-              color={"blue"}
-              title="Valider"
+              color={"green"}
+              title={"Valider" + stillNeeded}
+              disabled={disabledButton}
               onPress={() => {
-                const selectedImages = this.state.modal.images.filter(
-                  item => item.selected
-                );
-
-                if (selectedImages.length < 2) {
-                  return null;
-                }
-
                 let _serie = image_serieFromImages(
                   selectedImages,
                   this.state.serieName,
@@ -278,10 +255,7 @@ function mapStatetoProps(data) {
 import * as actions from "language_therapy/src/redux/actions";
 import { connect } from "react-redux";
 
-export default connect(
-  mapStatetoProps,
-  actions
-)(MotImage);
+export default connect(mapStatetoProps, actions)(MotImage);
 
 const thisstyles = StyleSheet.create({
   title: {

@@ -18,6 +18,7 @@ let _allSeriesName = null;
  * si c'est niveau dur alors les images ne sont que de la serie choisie
  */
 export async function image_randomSerie(
+  token,
   serieName,
   nbrQuestion = 10,
   nbrOfImagePerQuestion = 4,
@@ -25,7 +26,7 @@ export async function image_randomSerie(
   level = Config._const.easy,
   selectedImages = null
 ) {
-  const url = "serie";
+  const url = `serie?token=${token}`;
 
   let status, data;
   try {
