@@ -26,13 +26,23 @@ export async function image_randomSerie(
   level = Config._const.easy,
   selectedImages = null
 ) {
-  const url = `serie?token=${token}`;
+  console.log("image randome", {
+    token,
+    serieName,
+    nbrQuestion,
+    nbrOfImagePerQuestion,
+    displayLg,
+    level,
+    selectedImages
+  });
+  const url = `serie`;
 
   let status, data;
   try {
     const response = await axios.instance.post(
       url,
       {
+        token,
         serieName,
         nbrQuestion,
         nbrOfImagePerQuestion,

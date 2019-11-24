@@ -23,7 +23,7 @@ app.use((request, res, next) => {
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client','build')));
-
+ 
 
 // api services
 // on prefixe tous les appels aux services par "api/", pas besoin de le rajouter des les get/post dans le fichier services

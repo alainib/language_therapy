@@ -256,7 +256,8 @@ router.get("/user/login", function(req, res) {
 });
 
 router.post("/serie", function(req, res) {
-  const { token } = req.query;
+  const { token } = req.body;
+
   if (token === _token) {
     let a = randomSerie(
       req.body.serieName,
@@ -273,6 +274,7 @@ router.post("/serie", function(req, res) {
 });
 
 router.get("/series", function(req, res) {
+  console.log("serieszzzzzzzz");
   return res.status(200).json(allSeriesNames());
 });
 

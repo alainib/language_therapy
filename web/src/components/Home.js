@@ -65,8 +65,13 @@ export default class Trainserie extends Component {
     return (
       <div className="Login">
         {connected ? (
-          <div>
+          <div className="textCenter">
             <h1>{identifiant}, bienvenue sur 'Language therapy'.</h1>
+            <br />
+            <br />
+            <h3>
+              Vous pouvez accéder aux <a href="series">series</a>.
+            </h3>
             <br />
             <br />
             <Form>
@@ -76,7 +81,7 @@ export default class Trainserie extends Component {
             </Form>
           </div>
         ) : (
-          <div>
+          <div className="textCenter">
             <h1>Bienvenue sur 'Language therapy'.</h1>
             <br />
             <br />
