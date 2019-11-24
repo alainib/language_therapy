@@ -10,7 +10,7 @@
       "ignore_watch": ["node_modules", ".git"],
       "env": {
         "NODE_ENV": "development",
-        "PORT": "1000"
+        "PORT": "1111"
       }
     }
   ]
