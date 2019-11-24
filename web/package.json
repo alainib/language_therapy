@@ -21,7 +21,7 @@
     "scripts": {
         "test": "react-scripts test",
         "start": "pm2 start node_modules/react-scripts/scripts/start.js --name web",
-		"build": "react-scripts build",
+        "build": "react-scripts build",
         "eject": "react-scripts eject"
     },
     "eslintConfig": {

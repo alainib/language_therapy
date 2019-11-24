@@ -33,6 +33,7 @@ export default function App() {
                 Series
               </Link>
             </Nav.Item>
+            {/* 
             {connected && (
               <Nav.Item>
                 <Link className="App-link" to="/settings">
@@ -40,6 +41,7 @@ export default function App() {
                 </Link>
               </Nav.Item>
             )}
+            */}
           </Nav>
         </Navbar>
         <Switch>
@@ -49,9 +51,11 @@ export default function App() {
           <Route path="/trainserie/:id">
             <Trainserie token={token} connected={connected} />
           </Route>
+
           <Route path="/settings">
             <Settings />
           </Route>
+
           <Route path="/">
             <Home connected={connected} setToken={setToken} setConnected={setConnected} />
           </Route>

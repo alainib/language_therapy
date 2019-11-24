@@ -27,7 +27,7 @@ export default class Series extends Component {
   render() {
     return (
       <div>
-        <h2>Choix de la serie</h2>
+        <h2 className="padding15">Series disponibles :</h2>
         <br />
         {this.state.networkError ? (
           <Alert variant="danger">

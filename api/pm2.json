@@ -1,0 +1,17 @@
+{
+  "start-command": "npm start",
+  "apps": [
+    {
+      "name": "api",
+      "script": "./app.js",
+      "instances": 1,
+      "exec_mode": "cluster",
+      "watch": ["app.js","services.js","tools.js"],
+      "ignore_watch": ["node_modules", ".git"],
+      "env": {
+        "NODE_ENV": "development",
+        "PORT": "1000"
+      }
+    }
+  ]
+}

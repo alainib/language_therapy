@@ -69,9 +69,7 @@ export default class Trainserie extends Component {
             <h1>{identifiant}, bienvenue sur 'Language therapy'.</h1>
             <br />
             <br />
-            <h3>
-              Vous pouvez accéder aux <a href="series">series</a>.
-            </h3>
+            <h3>Vous avez désormais accès aux series.</h3>
             <br />
             <br />
             <Form>

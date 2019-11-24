@@ -30,7 +30,7 @@ body,
   display: -webkit-flex;
 }
 .flex-container {
-  padding: 10;
+  padding: 10px;
   margin: 0;
   list-style: none;
   -ms-box-orient: horizontal;
@@ -47,6 +47,13 @@ body,
   flex-wrap: wrap;
 }
 
+.padding10 {
+  padding: 10px;
+}
+
+.padding15 {
+  padding: 15px;
+}
 .flex-item {
   background-color: rgba(9, 201, 140, 0.1);
   padding: 5px;
