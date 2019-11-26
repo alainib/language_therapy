@@ -7,7 +7,7 @@ const cookie_id = "user_id";
 const cookie_pwd = "user_pwd";
 const cookie_token = "user_token";
 
-export default class Trainserie extends Component {
+export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
