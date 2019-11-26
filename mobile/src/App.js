@@ -1,19 +1,7 @@
 import React, { Component } from "react";
-import {
-  Button,
-  YellowBox,
-  Text,
-  View,
-  ScrollView,
-  StyleSheet,
-  ActivityIndicator
-} from "react-native";
+import { Button, YellowBox, Text, View, ScrollView, StyleSheet, ActivityIndicator } from "react-native";
 
-import {
-  createAppContainer,
-  createBottomTabNavigator,
-  createStackNavigator
-} from "react-navigation";
+import { createAppContainer, createBottomTabNavigator, createStackNavigator } from "react-navigation";
 
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/es/integration/react";
@@ -25,7 +13,6 @@ import Suivi from "language_therapy/src/stacknavigator/Suivi";
 import DataChecker from "language_therapy/src/stacknavigator/DataChecker";
 import TrainSerie from "language_therapy/src/stacknavigator/TrainSerie";
 import Options from "language_therapy/src/stacknavigator/Options";
-import UpdateData from "language_therapy/src/stacknavigator/UpdateData";
 import Config from "language_therapy/src/Config";
 
 YellowBox.ignoreWarnings([]);
@@ -97,10 +84,6 @@ const StackNavigator = createStackNavigator(
     },
     DataChecker: {
       screen: DataChecker,
-      ...removeHeader
-    },
-    UpdateData: {
-      screen: UpdateData,
       ...removeHeader
     }
   },

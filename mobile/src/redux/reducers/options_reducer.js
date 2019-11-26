@@ -1,5 +1,5 @@
 import Config from "language_therapy/src/Config";
-import { UPDATE_OPTION } from "language_therapy/src/redux/types";
+import { UPDATE_OPTION, RESET_OPTION } from "language_therapy/src/redux/types";
 
 const initState = {
   nbrOfQuestionPerSerie: 10, // nombre de question par défaut par serie
@@ -10,7 +10,8 @@ const initState = {
   playSoundAfterXWrong: 2,
   displayLg: Config._const.ar,
   level: Config._const.easy,
-  manualChooseImage: false // choisi les images d'une serie à la main
+  manualChooseImage: false, // choisi les images d'une serie à la main
+  multiSeries: false // choisir les series soit meme
 };
 
 export default function(state = initState, action) {
@@ -23,6 +24,8 @@ export default function(state = initState, action) {
         newState[action.payload.key][action.payload.subkey] = action.payload.value;
       }
       return newState;
+    case RESET_OPTION:
+      return { ...initState };
     default:
       return state;
   }

@@ -226,6 +226,23 @@ class TrainSerie extends React.PureComponent {
               </View>
             </View>
 
+            {this.props.options.imageByImage && (
+              <TouchableOpacity
+                onPress={() => this.chooseAnswer(0)}
+                underlayColor="grey"
+                style={[
+                  {
+                    flex: 1,
+                    height,
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }
+                ]}
+              >
+                <IconFeather name="check" style={styles.center} size={this.props.options.interfaceSize} color="#000" />
+              </TouchableOpacity>
+            )}
+
             <TouchableOpacity
               onPress={this.nextSerie}
               underlayColor="grey"
@@ -261,7 +278,7 @@ class TrainSerie extends React.PureComponent {
               {question.images.map((item, index) => {
                 return (
                   <TouchableOpacity
-                    disabled={question.answer.showBorder}
+                    disabled={this.props.options.imageByImage || question.answer.showBorder}
                     key={"im" + index.toString()}
                     underlayColor={"grey"}
                     style={{

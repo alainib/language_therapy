@@ -65,13 +65,40 @@ class Options extends React.Component {
           </View>
 
           <View style={thisstyles.bloc}>
-            <Text style={thisstyles.title}>Choix des images manuel :</Text>
+            <Text style={thisstyles.title}>Choix de plusieurs series :</Text>
+            <View style={thisstyles.bloc}>
+              <View style={thisstyles.viewButton}>
+                <Button
+                  color={this.props.options.multiSeries ? "green" : "grey"}
+                  title={"OUI"}
+                  onPress={() => {
+                    this.props.action_optionUpdate("multiSeries", null, true);
+                    this.props.action_optionUpdate("manualChooseImage", null, false);
+                    this.props.action_optionUpdate("imageByImage", null, false);
+                  }}
+                />
+              </View>
+              <View style={thisstyles.viewButton}>
+                <Button
+                  color={!this.props.options.multiSeries ? "green" : "grey"}
+                  title={"NON"}
+                  onPress={() => this.props.action_optionUpdate("multiSeries", null, false)}
+                />
+              </View>
+            </View>
+          </View>
+
+          <View style={thisstyles.bloc}>
+            <Text style={thisstyles.title}>Choix des images manuel dans la serie choisie:</Text>
             <View style={thisstyles.bloc}>
               <View style={thisstyles.viewButton}>
                 <Button
                   color={this.props.options.manualChooseImage ? "green" : "grey"}
                   title={"OUI"}
-                  onPress={() => this.props.action_optionUpdate("manualChooseImage", null, true)}
+                  onPress={() => {
+                    this.props.action_optionUpdate("manualChooseImage", null, true);
+                    this.props.action_optionUpdate("multiSeries", null, false);
+                  }}
                 />
               </View>
               <View style={thisstyles.viewButton}>
@@ -214,8 +241,8 @@ class Options extends React.Component {
             </View>
           </View>
         </View>
-
-        <View style={{ ...styles.center, padding: 30 }}>
+        <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", padding: 30 }}>
+          <Button color={"orange"} title="Reset" onPress={() => this.props.action_optionReset()} />
           <Button color={"blue"} title="Fermer" onPress={() => this.props.navigation.goBack()} />
         </View>
       </ScrollView>

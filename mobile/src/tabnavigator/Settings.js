@@ -1,13 +1,6 @@
 import React from "react";
 
-import {
-  View,
-  Button,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  TouchableOpacity
-} from "react-native";
+import { View, Button, StyleSheet, Text, TouchableHighlight, TouchableOpacity } from "react-native";
 
 import IconIonic from "react-native-vector-icons/Ionicons";
 import styles from "language_therapy/src/styles";
@@ -25,11 +18,7 @@ class Settings extends React.Component {
             navigation.navigate("Settings");
           }}
         >
-          <IconIonic
-            name="md-settings"
-            size={Config.iconSize.xxl}
-            color={tintColor}
-          />
+          <IconIonic name="md-settings" size={Config.iconSize.xxl} color={tintColor} />
         </TouchableOpacity>
       )
     };
@@ -55,12 +44,6 @@ class Settings extends React.Component {
           title="Verification des données"
           onPress={() => this.props.navigation.navigate("DataChecker")}
         />
-
-        <Button
-          containerStyle={styles.margin10}
-          title="UpdateData"
-          onPress={() => this.props.navigation.navigate("UpdateData")}
-        />
       </View>
     );
   }
@@ -73,9 +56,6 @@ function mapStatetoProps(data) {
 import * as actions from "language_therapy/src/redux/actions";
 import { connect } from "react-redux";
 
-export default connect(
-  mapStatetoProps,
-  actions
-)(Settings);
+export default connect(mapStatetoProps, actions)(Settings);
 
 const thisstyles = StyleSheet.create({});

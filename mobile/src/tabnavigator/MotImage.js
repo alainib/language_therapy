@@ -108,23 +108,52 @@ class MotImage extends React.Component {
   renderSeries() {
     return (
       <View style={{ flex: 1, flexDirection: "row" }}>
-        <View style={{ flex: 9 }}>
-          <Text style={thisstyles.title}>Series disponibles :</Text>
-          <ScrollView
-            contentContainerStyle={{
-              flexDirection: "row",
-              flexWrap: "wrap"
-            }}
-          >
-            {this.state.seriesNames.map((item, index) => {
-              return (
-                <View style={thisstyles.item} key={"ac" + index.toString()}>
-                  <Button color={"green"} title={item} onPress={() => this.chooseSerie(item)} />
-                </View>
-              );
-            })}
-          </ScrollView>
-        </View>
+        {!this.props.options.multiSeries ? (
+          <View style={{ flex: 9 }}>
+            <Text style={thisstyles.title}>Series disponibles :</Text>
+            <ScrollView
+              contentContainerStyle={{
+                flexDirection: "row",
+                flexWrap: "wrap"
+              }}
+            >
+              {this.state.seriesNames.map((item, index) => {
+                return (
+                  <View style={thisstyles.item} key={"ac" + index.toString()}>
+                    <Button color={"green"} title={item} onPress={() => this.chooseSerie(item)} />
+                  </View>
+                );
+              })}
+            </ScrollView>
+          </View>
+        ) : (
+          <View style={{ flex: 9, flexDirection: "row" }}>
+            <View style={{ flex: 1 }}>
+              <Text style={thisstyles.title}>Serie(s) correcte(s) :</Text>
+              <ScrollView>
+                {this.state.seriesNames.map((item, index) => {
+                  return (
+                    <View style={thisstyles.item} key={"ac" + index.toString()}>
+                      <Button color={"green"} title={item} onPress={() => this.chooseSerie(item)} />
+                    </View>
+                  );
+                })}
+              </ScrollView>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={thisstyles.title}>Serie(s) correcte(s) :</Text>
+              <ScrollView>
+                {this.state.seriesNames.map((item, index) => {
+                  return (
+                    <View style={thisstyles.item} key={"ac" + index.toString()}>
+                      <Button color={"green"} title={item} onPress={() => this.chooseSerie(item)} />
+                    </View>
+                  );
+                })}
+              </ScrollView>
+            </View>
+          </View>
+        )}
 
         <View style={{ width: 50, height: 50 }}>
           <IconFeather

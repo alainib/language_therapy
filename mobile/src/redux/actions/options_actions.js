@@ -1,7 +1,7 @@
 /**
  * liste des utilisateurs
  */
-import { UPDATE_OPTION } from "language_therapy/src/redux/types";
+import { UPDATE_OPTION, RESET_OPTION } from "language_therapy/src/redux/types";
 
 /**
  * sauvegarde la nouvelle valeur pour une option 
@@ -17,5 +17,12 @@ export const action_optionUpdate = (key, subkey, value) => {
   return {
     payload: { key, subkey, value },
     type: UPDATE_OPTION
+  };
+};
+
+export const action_optionReset = () => {
+  return {
+    payload: null,
+    type: RESET_OPTION
   };
 };
