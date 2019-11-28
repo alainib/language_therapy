@@ -33,7 +33,7 @@ export default function App() {
                 Series
               </Link>
             </Nav.Item>
-            {/* 
+
             {connected && (
               <Nav.Item>
                 <Link className="App-link" to="/settings">
@@ -41,7 +41,6 @@ export default function App() {
                 </Link>
               </Nav.Item>
             )}
-            */}
           </Nav>
         </Navbar>
         <Switch>

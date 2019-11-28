@@ -1,8 +1,17 @@
-const path_local = "http://localhost:1111/";
-const path_remote = "http://88.190.14.12:1111/";
+const local_api_path = "http://localhost:1111";
 
-const api_path = window.location.href.includes("localhost") ? path_local + "api/" : path_remote + "api/";
-const static_path = window.location.href.includes("localhost") ? path_local + "static/" : path_remote + "static/";
+let api_path = "http://";
+let static_path = "http://";
+if (window.location.hostname == "localhost") {
+  api_path += local_api_path;
+  static_path += local_api_path;
+} else {
+  api_path += window.location.host;
+  static_path += window.location.host;
+}
+
+api_path += "/api";
+static_path += "/static";
 
 const _const = {
   easy: "easy",

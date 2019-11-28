@@ -35,7 +35,7 @@ export async function image_randomSerie(
     selectedImages,
     token
   });
-  const url = `serie`;
+  const url = `/serie`;
 
   let status, data;
   try {
@@ -71,7 +71,7 @@ export async function image_AllSeriesNames() {
   if (_allSeriesName) {
     return _allSeriesName;
   } else {
-    const url = "series";
+    const url = "/series";
 
     let status, data;
     try {
