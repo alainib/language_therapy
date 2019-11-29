@@ -1,6 +1,7 @@
 import { Dimensions } from "react-native";
 let { width, height } = Dimensions.get("window");
 
+const apiurl = "http://http://88.190.14.12:1110/api/";
 const _const = {
   easy: "easy",
   middle: "middle",
@@ -55,5 +56,6 @@ export default {
   textSize,
   height,
   width,
-  _const
+  _const,
+  apiurl
 };

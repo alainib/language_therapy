@@ -70,7 +70,10 @@ let _allSeriesName = null;
 /**
  * retourne la liste des noms de toutes les series disponibles
  */
-export function image_AllSeriesNames() {
+export async function image_AllSeriesNames() {
+  /*const connected = await tools.isConnectedToNetwork();
+  console.log(connected);*/
+
   if (_allSeriesName) {
     return _allSeriesName;
   } else {
@@ -88,7 +91,7 @@ export function image_AllSeriesNames() {
 
 /**
  * crée une serie d'exercice depuis un nom de serie donnée
- * @param string serieName nom de la serie pour les réponses justes
+ * @param array seriesName nom de la serie pour les réponses justes
  * @param int nbrQuestion : nombre de question
  * @param int nbrOfImagePerQuestion : nombre d'image par question
  * @param string displayLg : langue du mot à afficher pour chaque question ( FR ou AR )
@@ -102,22 +105,23 @@ export function image_AllSeriesNames() {
  * si c'est niveau dur alors les images ne sont que de la serie choisie
  */
 export function image_randomSerie(
-  serieName,
+  seriesName,
   nbrQuestion = 10,
   nbrOfImagePerQuestion = 4,
   displayLg = Config._const.ar,
   level = Config._const.easy,
   selectedImages = null
 ) {
-  // pour les series nombres-fr et nombres-ar on reste en mode easy
-  if (_unmixedSeries.includes(serieName)) {
-    level = Config._const.easy;
-  }
-
+  seriesName.forEach(serieName => {
+    // pour les series nombres-fr et nombres-ar on reste en mode easy
+    if (_unmixedSeries.includes(serieName)) {
+      level = Config._const.easy;
+    }
+  });
   let serie = {
     id: Date.now(),
-    serieName,
-    display: serieName,
+    serieName: seriesName.toString(),
+    display: seriesName.toString(),
     questions: []
   };
 
@@ -128,9 +132,16 @@ export function image_randomSerie(
     nbrQuestion = selectedImages.length;
   }
   for (var q = 0; q < nbrQuestion; q++) {
+    const serieName = seriesName[tools.getRandomInt(0, seriesName.length - 1)];
+    console.log("aaaaa", {
+      serieName,
+      seriesName
+    });
+
     // on commence par mettre les 4(ou nbrOfImagePerQuestion) images
     let randomImages = [];
-    // celle de la bonne serie
+
+    // on met celle de la bonne serie
     if (_useSelectedImages) {
       randomImages.push({
         ...selectedImages[q],
@@ -142,6 +153,7 @@ export function image_randomSerie(
         right: true
       });
     }
+
     if (level == Config._const.easy || level == Config._const.middle) {
       // et 3(ou nbrOfImagePerQuestion-1) autres images d'autres series
       for (var i = 1; i < nbrOfImagePerQuestion; i++) {
@@ -247,7 +259,7 @@ export function image_allImagesFromSerie(serieName, sort = false) {
  * @param array selectedImages
  */
 export function image_serieFromImages(selectedImages, serieName, nbrQuestion, nbrOfImagePerQuestion, displayLg, level) {
-  return image_randomSerie(serieName, nbrQuestion, nbrOfImagePerQuestion, displayLg, level, selectedImages);
+  return image_randomSerie([serieName], nbrQuestion, nbrOfImagePerQuestion, displayLg, level, selectedImages);
 }
 
 /*

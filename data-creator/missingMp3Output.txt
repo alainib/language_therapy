@@ -9,7 +9,6 @@ nombres-fr
    zero
    zero
 parties-du-corps
-   ظهر
 personnes-et-action
    actor
    null

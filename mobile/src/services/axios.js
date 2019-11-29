@@ -1,12 +1,9 @@
 import * as axios from "axios";
-
-
-
+import Config from "language_therapy/src/Config";
 var instance = axios.create();
 
-instance.defaults.baseURL = "apiurl";
+instance.defaults.baseURL = Config.apiurl;
 instance.defaults.timeout = 30000;
-
 
 /*
 instance.interceptors.request.use(request => {

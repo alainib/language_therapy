@@ -3,6 +3,7 @@ package com.language_therapy;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.netinfo.NetInfoPackage;
 import com.rnim.rn.audio.ReactNativeAudioPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
@@ -31,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(new MainReactPackage(),
+            new NetInfoPackage(),
             new ReactNativeAudioPackage(),
             new RNSoundPackage(), new AsyncStoragePackage(), new RNFSPackage(),
             new RNZipArchivePackage(), new SvgPackage(), new RNGestureHandlerPackage(),

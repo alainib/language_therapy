@@ -1,3 +1,15 @@
+/*
+//import NetInfo from "@react-native-community/netinfo";
+import NetInfo from "@react-native-community/netinfo/lib/commonjs";
+
+// check if connected to network
+// usage const c = await tools.isConnectedToNetwork();
+export async function isConnectedToNetwork() {
+  let s = await NetInfo.fetch();
+  return s.isConnected;
+  // return await NetInfo.isConnected.fetch();
+}
+*/
 /**
  * On renvoie un entier aléatoire entre une valeur min (incluse) et une valeur max (incluse).
  * @param min

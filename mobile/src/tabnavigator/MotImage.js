@@ -38,20 +38,45 @@ class MotImage extends React.Component {
     this.state = {
       // tous les noms de series
       seriesNames: [],
+      multiSeriesNames: {},
+      mode: "series",
       modal: { show: false, images: [] }
     };
   }
+
+  initMultiSeries = () => {
+    let multiSeriesNames = { main: {}, second: {} };
+    for (var i in this.state.seriesNames) {
+      multiSeriesNames.main[this.state.seriesNames[i]] = false;
+      multiSeriesNames.second[this.state.seriesNames[i]] = false;
+    }
+    this.setState({ multiSeriesNames, mode: "multiseries" });
+  };
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.options.multiSeries && nextProps.options.multiSeries) {
+      this.initMultiSeries();
+    } else if (this.props.options.multiSeries && !nextProps.options.multiSeries) {
+      this.setState({ mode: "series" });
+    }
+  }
+
   // pour encadrer en rouge ou vert la réponse sélectionner puis passer à la question suivante si juste
-
   _timeout = null;
-
   async componentDidMount() {
     this._timeout = null;
     let seriesNames = await image_AllSeriesNames();
 
-    this.setState({
-      seriesNames
-    });
+    this.setState(
+      {
+        seriesNames
+      },
+      () => {
+        if (this.props.options.multiSeries) {
+          this.initMultiSeries();
+        }
+      }
+    );
     if (this.props.currentUser == null) {
       Alert.alert(
         "STOP",
@@ -77,7 +102,7 @@ class MotImage extends React.Component {
     // image_randomSerie le fait automatiquement
     if (!this.props.options.manualChooseImage) {
       let res = await image_randomSerie(
-        serieName,
+        [serieName],
         this.props.options.nbrOfQuestionPerSerie,
         this.props.options.nbrOfImagePerQuestion,
         this.props.options.displayLg,
@@ -102,79 +127,139 @@ class MotImage extends React.Component {
     this.setState({ modal: { show: true, images: _images } });
   };
 
+  chooseMultiSerie(cat, seriename) {
+    let multiSeriesNames = { ...this.state.multiSeriesNames };
+
+    multiSeriesNames[cat][seriename] = !multiSeriesNames[cat][seriename];
+
+    this.setState({ multiSeriesNames });
+  }
+  resetMultiSeries = () => {
+    this.initMultiSeries();
+  };
+  goMultiSeries = async () => {
+    let seriesName = [];
+    for (var i in this.state.multiSeriesNames.main) {
+      if (this.state.multiSeriesNames.main[i]) {
+        seriesName.push(i);
+      }
+    }
+    let res = await image_randomSerie(
+      seriesName,
+      this.props.options.nbrOfQuestionPerSerie,
+      this.props.options.nbrOfImagePerQuestion,
+      this.props.options.displayLg,
+      this.props.options.level
+    );
+
+    this.props.navigation.navigate("TrainSerie", { serie: res });
+  };
+
   /**
    * affiche la liste des series thematiques disponibles
    */
   renderSeries() {
     return (
-      <View style={{ flex: 1, flexDirection: "row" }}>
-        {!this.props.options.multiSeries ? (
-          <View style={{ flex: 9 }}>
-            <Text style={thisstyles.title}>Series disponibles :</Text>
-            <ScrollView
-              contentContainerStyle={{
-                flexDirection: "row",
-                flexWrap: "wrap"
-              }}
-            >
-              {this.state.seriesNames.map((item, index) => {
-                return (
-                  <View style={thisstyles.item} key={"ac" + index.toString()}>
-                    <Button color={"green"} title={item} onPress={() => this.chooseSerie(item)} />
-                  </View>
-                );
-              })}
-            </ScrollView>
-          </View>
-        ) : (
-          <View style={{ flex: 9, flexDirection: "row" }}>
-            <View style={{ flex: 1 }}>
-              <Text style={thisstyles.title}>Serie(s) correcte(s) :</Text>
-              <ScrollView>
-                {this.state.seriesNames.map((item, index) => {
-                  return (
-                    <View style={thisstyles.item} key={"ac" + index.toString()}>
-                      <Button color={"green"} title={item} onPress={() => this.chooseSerie(item)} />
-                    </View>
-                  );
-                })}
-              </ScrollView>
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text style={thisstyles.title}>Serie(s) correcte(s) :</Text>
-              <ScrollView>
-                {this.state.seriesNames.map((item, index) => {
-                  return (
-                    <View style={thisstyles.item} key={"ac" + index.toString()}>
-                      <Button color={"green"} title={item} onPress={() => this.chooseSerie(item)} />
-                    </View>
-                  );
-                })}
-              </ScrollView>
-            </View>
-          </View>
-        )}
-
-        <View style={{ width: 50, height: 50 }}>
-          <IconFeather
-            name="settings"
-            style={styles.padding10center}
-            size={Config.iconSize.xl}
-            color="#000"
-            onPress={() => {
-              this.props.navigation.navigate("Options");
-            }}
-          />
-        </View>
+      <View style={{ flex: 9 }}>
+        <Text style={thisstyles.title}>Series disponibles :</Text>
+        <ScrollView
+          contentContainerStyle={{
+            flexDirection: "row",
+            flexWrap: "wrap"
+          }}
+        >
+          {this.state.seriesNames.map((item, index) => {
+            return (
+              <View style={thisstyles.item} key={"ac" + index.toString()}>
+                <Button color={"green"} title={item} onPress={() => this.chooseSerie(item)} />
+              </View>
+            );
+          })}
+        </ScrollView>
       </View>
     );
   }
 
+  renderMultiSeries() {
+    let main = tools.objectToArray(this.state.multiSeriesNames.main);
+    let second = tools.objectToArray(this.state.multiSeriesNames.second);
+    return (
+      <View style={{ flex: 9, flexDirection: "column" }}>
+        <View style={{ flex: 1 }}>
+          <Text style={[thisstyles.item, thisstyles.subtitle]}>Series disponibles :</Text>
+          <ScrollView
+            showsVerticalScrollIndicator
+            contentContainerStyle={{
+              flexDirection: "row",
+              flexWrap: "wrap"
+            }}
+          >
+            {main.map((item, index) => {
+              return (
+                <View style={thisstyles.item} key={"ac" + index.toString()}>
+                  <Button
+                    color={item.value ? "green" : "grey"}
+                    disabled={this.state.multiSeriesNames.second[item.key]}
+                    title={item.key}
+                    onPress={() => this.chooseMultiSerie("main", item.key)}
+                  />
+                </View>
+              );
+            })}
+          </ScrollView>
+        </View>
+        {/*
+        <View style={{ flex: 1 }}>
+          <Text style={[thisstyles.item, thisstyles.subtitle]}>Serie(s) secondaire(s) :</Text>
+          <ScrollView
+            showsVerticalScrollIndicator
+            contentContainerStyle={{
+              flexDirection: "row",
+              flexWrap: "wrap"
+            }}
+          >
+            {second.map((item, index) => {
+              return (
+                <View style={thisstyles.item} key={"ac" + index.toString()}>
+                  <Button
+                    color={item.value ? "green" : "grey"}
+                    disabled={this.state.multiSeriesNames.main[item.key]}
+                    title={item.key}
+                    onPress={() => this.chooseMultiSerie("second", item.key)}
+                  />
+                </View>
+              );
+            })}
+          </ScrollView>
+        </View>
+        */}
+        <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", padding: 30 }}>
+          <Button color={"orange"} title="Reset" onPress={() => this.resetMultiSeries()} />
+          <Button color={"blue"} title="Valider" onPress={() => this.goMultiSeries()} />
+        </View>
+      </View>
+    );
+  }
   render() {
     return (
       <View style={styles.flex1}>
         {this.renderModal()}
-        {this.renderSeries()}
+
+        <View style={{ flex: 1, flexDirection: "row" }}>
+          {this.state.mode == "multiseries" ? this.renderMultiSeries() : this.renderSeries()}
+
+          <View style={{ width: 50, height: 50 }}>
+            <IconFeather
+              name="settings"
+              style={styles.padding10center}
+              size={Config.iconSize.xl}
+              color="#000"
+              onPress={() => {
+                this.props.navigation.navigate("Options");
+              }}
+            />
+          </View>
+        </View>
       </View>
     );
   }
@@ -283,6 +368,7 @@ function mapStatetoProps(data) {
 
 import * as actions from "language_therapy/src/redux/actions";
 import { connect } from "react-redux";
+import { thisExpression } from "@babel/types";
 
 export default connect(mapStatetoProps, actions)(MotImage);
 
@@ -290,6 +376,9 @@ const thisstyles = StyleSheet.create({
   title: {
     fontSize: 23,
     margin: 5
+  },
+  subtitle: {
+    fontSize: 18
   },
   absolute: {
     zIndex: 99999,
@@ -301,9 +390,8 @@ const thisstyles = StyleSheet.create({
     right: 5,
     bottom: 5
   },
+
   item: {
-    width: 175,
-    height: 75,
     margin: 5
   }
 });

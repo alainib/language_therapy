@@ -141,7 +141,7 @@ const pathSource = path.join(__dirname, "mot-image");
 const mobilePathDest = path.join(__dirname, "..", "mobile", "ressources", "mot-image");
 const mobileDestPathAudio = path.join(__dirname, "..", "mobile", "android", "app", "src", "main", "res", "raw");
 
-const apiPathDest = path.join(__dirname, "..", "express-api", "public", "mot-image");
+const apiPathDest = path.join(__dirname, "..", "api", "public", "mot-image");
 (async () => {
   try {
     clj({ pathSource, mobilePathDest, mobileDestPathAudio, apiPathDest });
