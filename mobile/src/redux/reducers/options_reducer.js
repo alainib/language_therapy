@@ -2,8 +2,8 @@ import Config from "language_therapy/src/Config";
 import { UPDATE_OPTION, RESET_OPTION } from "language_therapy/src/redux/types";
 
 const initState = {
-  nbrOfQuestionPerSerie: 10, // nombre de question par défaut par serie
-  nbrOfImagePerQuestion: 4, // nombre d'image par question
+  nbrOfItemPerSerie: 10, // nombre d'item par défaut par serie
+  nbrOfImagePerItem: 4, // nombre d'image par item
   imageByImage: false, // on ne fait que un mot à la fois par test
   showClueReversed: true, // affiche la traduction du mot retourné à 90 degrés pour une lettre d'en face
   interfaceSize: Config.textSize.xxl,

@@ -93,21 +93,21 @@ export async function image_AllSeriesNames() {
  * crée une serie d'exercice depuis un nom de serie donnée
  * @param array seriesName nom de la serie pour les réponses justes
  * @param int nbrQuestion : nombre de question
- * @param int nbrOfImagePerQuestion : nombre d'image par question
- * @param string displayLg : langue du mot à afficher pour chaque question ( FR ou AR )
+ * @param int nbrOfImagePerItem : nombre d'image par item
+ * @param string displayLg : langue du mot à afficher pour chaque item ( FR ou AR )
  * @param string level : easy = on utilise des images que tu meme serie, middle = on prend tjrs la même serie pour l'image juste et random pour les autres
  * @param array selectedImages : array of images,
  *
  * si selectedImages not null alors ces images seront utilisées comme image à trouver
  *
  * si c'est niveau facile alors il ne faut pas que les images retournés soit de la meme serie du tout
- * si c'est niveau moyen alors les images sont un mélanges d'autres series et celle choisie
+ * si c'est niveau moyen alors les images sont un mélange d'autres series et celle choisie
  * si c'est niveau dur alors les images ne sont que de la serie choisie
  */
 export function image_randomSerie(
   seriesName,
   nbrQuestion = 10,
-  nbrOfImagePerQuestion = 4,
+  nbrOfImagePerItem = 4,
   displayLg = Config._const.ar,
   level = Config._const.easy,
   selectedImages = null
@@ -138,7 +138,7 @@ export function image_randomSerie(
       seriesName
     });
 
-    // on commence par mettre les 4(ou nbrOfImagePerQuestion) images
+    // on commence par mettre les 4(ou nbrOfImagePerItem) images
     let randomImages = [];
 
     // on met celle de la bonne serie
@@ -155,8 +155,8 @@ export function image_randomSerie(
     }
 
     if (level == Config._const.easy || level == Config._const.middle) {
-      // et 3(ou nbrOfImagePerQuestion-1) autres images d'autres series
-      for (var i = 1; i < nbrOfImagePerQuestion; i++) {
+      // et 3(ou nbrOfImagePerItem-1) autres images d'autres series
+      for (var i = 1; i < nbrOfImagePerItem; i++) {
         let catTmp = null;
 
         // si on est dans une serie a ne pas mélanger
@@ -190,8 +190,8 @@ export function image_randomSerie(
         }
       }
     } else {
-      // et 3(ou nbrOfImagePerQuestion) autres images de la même serie
-      for (var i = 1; i < nbrOfImagePerQuestion; i++) {
+      // et 3(ou nbrOfImagePerItem) autres images de la même serie
+      for (var i = 1; i < nbrOfImagePerItem; i++) {
         let repeat = 0;
         while (repeat < 10) {
           let imgTmp = randomImageFromSerie(serieName, copyDatas._IMAGES, false);
@@ -258,8 +258,8 @@ export function image_allImagesFromSerie(serieName, sort = false) {
  * @param string serieName
  * @param array selectedImages
  */
-export function image_serieFromImages(selectedImages, serieName, nbrQuestion, nbrOfImagePerQuestion, displayLg, level) {
-  return image_randomSerie([serieName], nbrQuestion, nbrOfImagePerQuestion, displayLg, level, selectedImages);
+export function image_serieFromImages(selectedImages, serieName, nbrQuestion, nbrOfImagePerItem, displayLg, level) {
+  return image_randomSerie([serieName], nbrQuestion, nbrOfImagePerItem, displayLg, level, selectedImages);
 }
 
 /*

@@ -103,8 +103,8 @@ class MotImage extends React.Component {
     if (!this.props.options.manualChooseImage) {
       let res = await image_randomSerie(
         [serieName],
-        this.props.options.nbrOfQuestionPerSerie,
-        this.props.options.nbrOfImagePerQuestion,
+        this.props.options.nbrOfItemPerSerie,
+        this.props.options.nbrOfImagePerItem,
         this.props.options.displayLg,
         this.props.options.level
       );
@@ -146,8 +146,8 @@ class MotImage extends React.Component {
     }
     let res = await image_randomSerie(
       seriesName,
-      this.props.options.nbrOfQuestionPerSerie,
-      this.props.options.nbrOfImagePerQuestion,
+      this.props.options.nbrOfItemPerSerie,
+      this.props.options.nbrOfImagePerItem,
       this.props.options.displayLg,
       this.props.options.level
     );
@@ -161,7 +161,7 @@ class MotImage extends React.Component {
   renderSeries() {
     return (
       <View style={{ flex: 9 }}>
-        <Text style={thisstyles.title}>Series disponibles :</Text>
+        <Text style={thisstyles.title}>Catégories disponibles :</Text>
         <ScrollView
           contentContainerStyle={{
             flexDirection: "row",
@@ -180,13 +180,21 @@ class MotImage extends React.Component {
     );
   }
 
+  testDisabled(obj) {
+    for (let i in obj) {
+      if (obj[i]) return true;
+    }
+    return false;
+  }
+
   renderMultiSeries() {
     let main = tools.objectToArray(this.state.multiSeriesNames.main);
-    let second = tools.objectToArray(this.state.multiSeriesNames.second);
+    let disabled = !this.testDisabled(this.state.multiSeriesNames.main);
+    // let second = tools.objectToArray(this.state.multiSeriesNames.second);
     return (
       <View style={{ flex: 9, flexDirection: "column" }}>
         <View style={{ flex: 1 }}>
-          <Text style={[thisstyles.item, thisstyles.subtitle]}>Series disponibles :</Text>
+          <Text style={thisstyles.title}>Catégories disponibles :</Text>
           <ScrollView
             showsVerticalScrollIndicator
             contentContainerStyle={{
@@ -210,7 +218,7 @@ class MotImage extends React.Component {
         </View>
         {/*
         <View style={{ flex: 1 }}>
-          <Text style={[thisstyles.item, thisstyles.subtitle]}>Serie(s) secondaire(s) :</Text>
+          <Text style={thisstyles.title}>Serie(s) secondaire(s) :</Text>
           <ScrollView
             showsVerticalScrollIndicator
             contentContainerStyle={{
@@ -233,9 +241,10 @@ class MotImage extends React.Component {
           </ScrollView>
         </View>
         */}
+
         <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", padding: 30 }}>
           <Button color={"orange"} title="Reset" onPress={() => this.resetMultiSeries()} />
-          <Button color={"blue"} title="Valider" onPress={() => this.goMultiSeries()} />
+          <Button color={"blue"} title="Valider" disabled={disabled} onPress={() => this.goMultiSeries()} />
         </View>
       </View>
     );
@@ -333,8 +342,8 @@ class MotImage extends React.Component {
                 let _serie = image_serieFromImages(
                   selectedImages,
                   this.state.serieName,
-                  this.props.options.nbrOfQuestionPerSerie,
-                  this.props.options.nbrOfImagePerQuestion,
+                  this.props.options.nbrOfItemPerSerie,
+                  this.props.options.nbrOfImagePerItem,
                   this.props.options.displayLg,
                   this.props.options.level
                 );
@@ -375,7 +384,8 @@ export default connect(mapStatetoProps, actions)(MotImage);
 const thisstyles = StyleSheet.create({
   title: {
     fontSize: 23,
-    margin: 5
+    margin: 5,
+    textAlign: "center"
   },
   subtitle: {
     fontSize: 18

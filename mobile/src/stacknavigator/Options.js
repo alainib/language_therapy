@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Button, ScrollView, StyleSheet, Text } from "react-native";
+import { View, Button, ScrollView, StyleSheet, Text, TouchableOpacity, Alert } from "react-native";
 
 import styles from "language_therapy/src/styles";
 import Config from "language_therapy/src/Config";
 import IconFeather from "react-native-vector-icons/Feather";
+import IconFA from "react-native-vector-icons/FontAwesome";
 import * as tools from "language_therapy/src/tools";
 import { Slider } from "react-native-elements";
 
@@ -42,6 +43,19 @@ class Options extends React.Component {
                   onPress={() => this.props.action_optionUpdate("level", null, Config._const.hard)}
                 />
               </View>
+              <TouchableOpacity
+                style={thisstyles.touchableQuestion}
+                onPress={() =>
+                  Alert.alert(
+                    "Niveau",
+                    "FACILE: il n'y a qu'une seule image de la catégorie choisie et c'est la juste.\n\n" +
+                      "MOYEN: les images sont un mélanges entre celle de la catégorie choisie et d'autres catégories.\n\n" +
+                      "DUR: toutes les images sont de la catégorie choisie."
+                  )
+                }
+              >
+                <IconFA name="question" size={18} color={"black"} margin={2} />
+              </TouchableOpacity>
             </View>
           </View>
           <View style={thisstyles.bloc}>
@@ -61,11 +75,17 @@ class Options extends React.Component {
                   onPress={() => this.props.action_optionUpdate("displayLg", null, Config._const.ar)}
                 />
               </View>
+              <TouchableOpacity
+                style={thisstyles.touchableQuestion}
+                onPress={() => Alert.alert("Langue", "Langue dans la quelle sont affichés le nom des items.")}
+              >
+                <IconFA name="question" size={18} color={"black"} margin={2} />
+              </TouchableOpacity>
             </View>
           </View>
 
           <View style={thisstyles.bloc}>
-            <Text style={thisstyles.title}>Choix de plusieurs series :</Text>
+            <Text style={thisstyles.title}>Choix de plusieurs catégories :</Text>
             <View style={thisstyles.bloc}>
               <View style={thisstyles.viewButton}>
                 <Button
@@ -85,11 +105,22 @@ class Options extends React.Component {
                   onPress={() => this.props.action_optionUpdate("multiSeries", null, false)}
                 />
               </View>
+              <TouchableOpacity
+                style={thisstyles.touchableQuestion}
+                onPress={() =>
+                  Alert.alert(
+                    "Choix de plusieurs catégories",
+                    "Permet de choisir plusieurs catégories. Les items seront piochés aléatoirement parmis elles."
+                  )
+                }
+              >
+                <IconFA name="question" size={18} color={"black"} margin={2} />
+              </TouchableOpacity>
             </View>
           </View>
 
           <View style={thisstyles.bloc}>
-            <Text style={thisstyles.title}>Choix des images manuel dans la serie choisie:</Text>
+            <Text style={thisstyles.title}>Choix des images manuel dans la catégorie choisie :</Text>
             <View style={thisstyles.bloc}>
               <View style={thisstyles.viewButton}>
                 <Button
@@ -108,11 +139,22 @@ class Options extends React.Component {
                   onPress={() => this.props.action_optionUpdate("manualChooseImage", null, false)}
                 />
               </View>
+              <TouchableOpacity
+                style={thisstyles.touchableQuestion}
+                onPress={() =>
+                  Alert.alert(
+                    "Choix manuel des images parmis une catégorie choisie",
+                    "Permet de choisir une catégorie puis manuellement les images une par une."
+                  )
+                }
+              >
+                <IconFA name="question" size={18} color={"black"} margin={2} />
+              </TouchableOpacity>
             </View>
           </View>
 
           <View style={thisstyles.bloc}>
-            <Text style={thisstyles.title}>Afficher l'indice du mot à l'envers :</Text>
+            <Text style={thisstyles.title}>Afficher la traduction du mot à l'envers :</Text>
             <View style={thisstyles.bloc}>
               <View style={thisstyles.viewButton}>
                 <Button
@@ -128,25 +170,39 @@ class Options extends React.Component {
                   onPress={() => this.props.action_optionUpdate("showClueReversed", null, false)}
                 />
               </View>
+              <TouchableOpacity
+                style={thisstyles.touchableQuestion}
+                onPress={() =>
+                  Alert.alert(
+                    "Afficher la traduction du mot à l'envers",
+                    "Affiche la traduction du mot (si en arabe) à l'envers dans le coin droit de l'écran pour une utilisation face à face avec le patient."
+                  )
+                }
+              >
+                <IconFA name="question" size={18} color={"black"} margin={2} />
+              </TouchableOpacity>
             </View>
           </View>
 
           <View style={thisstyles.bloc}>
             <View style={thisstyles.flex1rowcenter}>
               <View style={thisstyles.flex1stretchcenter}>
-                <Text style={thisstyles.title}>Nombre de series :{this.props.options.nbrOfQuestionPerSerie}</Text>
+                <Text style={thisstyles.title}>Nombre d'items par serie : {this.props.options.nbrOfItemPerSerie}</Text>
               </View>
               <View style={thisstyles.flex1stretchcenter}>
                 <Slider
-                  value={this.props.options.nbrOfQuestionPerSerie}
+                  value={this.props.options.nbrOfItemPerSerie}
                   minimumValue={3}
                   maximumValue={50}
                   step={1}
                   onValueChange={value => {
-                    this.props.action_optionUpdate("nbrOfQuestionPerSerie", null, value);
+                    this.props.action_optionUpdate("nbrOfItemPerSerie", null, value);
                   }}
                 />
               </View>
+              <TouchableOpacity style={thisstyles.touchableQuestion} onPress={() => Alert.alert("Nombre d'item par serie")}>
+                <IconFA name="question" size={18} color={"black"} margin={2} />
+              </TouchableOpacity>
             </View>
           </View>
           <View style={thisstyles.bloc}>
@@ -158,7 +214,7 @@ class Options extends React.Component {
                   title={"OUI"}
                   onPress={() => {
                     this.props.action_optionUpdate("imageByImage", null, true);
-                    this.props.action_optionUpdate("nbrOfImagePerQuestion", null, 1);
+                    this.props.action_optionUpdate("nbrOfImagePerItem", null, 1);
                   }}
                 />
               </View>
@@ -168,38 +224,55 @@ class Options extends React.Component {
                   title={"NON"}
                   onPress={() => {
                     this.props.action_optionUpdate("imageByImage", null, false);
-                    this.props.action_optionUpdate("nbrOfImagePerQuestion", null, 4);
+                    this.props.action_optionUpdate("nbrOfImagePerItem", null, 4);
                   }}
                 />
               </View>
+              <TouchableOpacity
+                style={thisstyles.touchableQuestion}
+                onPress={() =>
+                  Alert.alert(
+                    "Mode image par image",
+                    "Affiche une seule image par item, en remplacant le nom de l'item par des underscore. L'image n'est plus clickable et la réponse juste doit être validée avec le signe ✓"
+                  )
+                }
+              >
+                <IconFA name="question" size={18} color={"black"} margin={2} />
+              </TouchableOpacity>
             </View>
           </View>
 
           <View style={thisstyles.bloc}>
             <View style={thisstyles.flex1rowcenter}>
               <View style={thisstyles.flex1stretchcenter}>
-                <Text style={thisstyles.title}>Nombre d'images par serie :{this.props.options.nbrOfImagePerQuestion}</Text>
+                <Text style={thisstyles.title}>Nombre d'images par item : {this.props.options.nbrOfImagePerItem}</Text>
               </View>
               {!this.props.options.imageByImage && (
                 <View style={thisstyles.flex1stretchcenter}>
                   <Slider
-                    value={this.props.options.nbrOfImagePerQuestion}
+                    value={this.props.options.nbrOfImagePerItem}
                     minimumValue={2}
                     maximumValue={8}
                     step={1}
                     onValueChange={value => {
-                      this.props.action_optionUpdate("nbrOfImagePerQuestion", null, value);
+                      this.props.action_optionUpdate("nbrOfImagePerItem", null, value);
                     }}
                   />
                 </View>
               )}
+              <TouchableOpacity
+                style={thisstyles.touchableQuestion}
+                onPress={() => Alert.alert("Nombre d'images par item", "Nombre d'images affichées pour chaque item.")}
+              >
+                <IconFA name="question" size={18} color={"black"} margin={2} />
+              </TouchableOpacity>
             </View>
           </View>
 
           <View style={thisstyles.bloc}>
             <View style={thisstyles.flex1rowcenter}>
               <View style={thisstyles.flex1stretchcenter}>
-                <Text style={thisstyles.title}>Lire le mot après X réponses fausses :{this.props.options.playSoundAfterXWrong}</Text>
+                <Text style={thisstyles.title}>Lire le mot après X réponses fausses : {this.props.options.playSoundAfterXWrong}</Text>
               </View>
               <View style={thisstyles.flex1stretchcenter}>
                 <Slider
@@ -212,6 +285,17 @@ class Options extends React.Component {
                   }}
                 />
               </View>
+              <TouchableOpacity
+                style={thisstyles.touchableQuestion}
+                onPress={() =>
+                  Alert.alert(
+                    "Lire le mot après X réponses fausses ",
+                    "Après X fausses réponses le nom de l'item est automatiquement lu à chaque nouvelle mauvaise réponse."
+                  )
+                }
+              >
+                <IconFA name="question" size={18} color={"black"} margin={2} />
+              </TouchableOpacity>
             </View>
           </View>
 
@@ -224,7 +308,7 @@ class Options extends React.Component {
                     fontSize: this.props.options.interfaceSize
                   }}
                 >
-                  Taille de police :{this.props.options.interfaceSize}
+                  Taille de police : {this.props.options.interfaceSize}
                 </Text>
               </View>
               <View style={thisstyles.flex1stretchcenter}>
@@ -238,6 +322,12 @@ class Options extends React.Component {
                   }}
                 />
               </View>
+              <TouchableOpacity
+                style={thisstyles.touchableQuestion}
+                onPress={() => Alert.alert("Taille de police", "Permet de changer la taille du nom des items.")}
+              >
+                <IconFA name="question" size={18} color={"black"} margin={2} />
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -261,9 +351,18 @@ import { connect } from "react-redux";
 export default connect(mapStatetoProps, actions)(Options);
 
 const thisstyles = StyleSheet.create({
+  touchableQuestion: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: 38,
+    width: 30
+  },
   padding510: { padding: 5, paddingTop: 10, paddingBottom: 10 },
   m5: { margin: 5, backgroundColor: "green" },
   title: {
+    flex: 1,
+    flexWrap: "wrap",
+
     fontSize: 23,
     margin: 5
   },
