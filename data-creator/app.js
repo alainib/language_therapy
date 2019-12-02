@@ -135,7 +135,7 @@ async function moveAudio(entry, sourcePath) {
  *
  * dans le dossier de sortie (mobilePathDest), crée le dossier "mot-image" si n'existe pas, copie les sous dossiers avec les images en enlevant la partie en arabe car sinon le require echoue
  *
- * crée un fichier data.json dans mobilePathDest avec les noms de fichiers de mobilePathDest
+ * crée un fichier data.js dans mobilePathDest avec les noms de fichiers de mobilePathDest
  */
 const pathSource = path.join(__dirname, "mot-image");
 const mobilePathDest = path.join(__dirname, "..", "mobile", "ressources", "mot-image");
@@ -223,7 +223,7 @@ const apiPathDest = path.join(__dirname, "..", "api", "public", "mot-image");
     webOutput += "}";
     console.log("finish parsing ");
     console.log("copying...");
-    writeJs("../mobile/src/services/data.js", output);
+    writeJs("../mobile/ressources/data.js", output);
     // copie tout le dossier image mobile propre vers celui de web
     fse.copySync(mobilePathDest, apiPathDest);
     fse.copySync(mobileDestPathAudio, apiPathDest + "/mp3");

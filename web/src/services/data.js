@@ -106,10 +106,10 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "fr": "hamburger",
               "ar": "هامبورجر",
               "audio":"hamburger"
-            },{"path": "/mot-image/aliments/haricots_verts.jpg",
-              "fr": "haricots verts",
+            },{"path": "/mot-image/aliments/haricot_vert.jpg",
+              "fr": "haricot vert",
               "ar": "فاصوليا خضراء",
-              "audio":"haricots_verts"
+              "audio":"haricot_vert"
             },{"path": "/mot-image/aliments/laitue.jpg",
               "fr": "laitue",
               "ar": "خس",
