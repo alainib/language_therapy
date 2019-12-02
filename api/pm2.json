@@ -9,8 +9,7 @@
       "watch": ["app.js","services.js","tools.js"],
       "ignore_watch": ["node_modules", ".git"],
       "env": {
-        "NODE_ENV": "development",
-        "PORT": "1111"
+        "NODE_ENV": "development"     
       }
     }
   ]

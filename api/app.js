@@ -3,6 +3,8 @@ const app = express();
 let bodyParser = require("body-parser");
 const path = require("path");
 var cors = require("cors");
+const portconfig = require('./port.json');
+ 
 
 console.log("/*****************************/");
 console.log("/*       starting API        */");
@@ -38,7 +40,7 @@ app.get("*", function(req, res) {
 });
 
 // starting the serveur
-let _port = process.env.PORT || 1111;
+let _port = portconfig.node_port;
 app.listen(_port, function() {
   console.log("App listening on port " + _port);
 });

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<script>
+ 
+window.addEventListener("load", function () {
+  function sendData() {
+   
+
+    var XHR = new XMLHttpRequest();
+
+    // Liez l'objet FormData et l'élément form
+    var logme = document.getElementById("logID").value;
+ 
+    // Définissez ce qui se passe si la soumission s'est opérée avec succès
+    XHR.addEventListener("load", function(event) {
+      alert(event.target.responseText);
+    });
+
+    // Definissez ce qui se passe en cas d'erreur
+    XHR.addEventListener("error", function(event) {
+       console.log(event);
+    });
+
+    const url= 'http://'+window.location.host+'/api/log';
+	console.log(url);
+    XHR.open("POST", url);
+	XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	XHR.send('data='+encodeURIComponent(logme));
+ 
+  }
+ 
+  // Accédez à l'élément form …
+  var form = document.getElementById("myForm");
+
+  // … et prenez en charge l'événement submit.
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    sendData();
+  });
+});
+</script>
+</head>
+<body>
+
+ 
+ 
+<form id="myForm">
+  <label for="myName">Log me:</label>
+  <input id="logID" name="name" value="newlog">
+  <input type="submit" value="Envoyer !">
+</form>
+
+</body>
+</html>

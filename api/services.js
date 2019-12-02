@@ -238,7 +238,7 @@ function randomSerie(
  */
 
 router.get("/ping", function(req, res) {
-  return res.status(200).json({ success: true, data: "ping 2ok" });
+  return res.status(200).json({ success: true, data: "ping ok"  });
 });
 
 const _logins = {
@@ -248,6 +248,7 @@ const _logins = {
 const _token = "488484sdf84sd8f7s7ezr157705787878787";
 router.get("/user/login", function(req, res) {
   const { login, password } = req.query;
+  console.log("try to login",login,password);
   if (_logins[login] && _logins[login] === password) {
     return res.status(200).json({ success: true, token: _token });
   } else {
@@ -277,12 +278,41 @@ router.post("/serie", function(req, res) {
 });
 
 router.get("/series", function(req, res) {
-  console.log("serieszzzzzzzz");
   return res.status(200).json(allSeriesNames());
+});
+
+ 
+router.get('/input',function(req,res) {
+  res.sendFile(  path.join(__dirname, 'log','index.html')  );
+});
+
+router.post("/log", function(req, res) {
+  console.log("should write",req.body);
+  writeLog( req.body.data);
+  
+  return res.status(200).json({ success: true, data: "log success : "+  req.body.data});
+});
+router.get("/log", function(req, res) {
+ 	console.log("should write",req.query);
+  writeLog( req.query.data);
+  
+  return res.status(200).json({ success: true, data: "log success : "+  req.query.data});
+});
+
+router.get("/*", function(req, res) {
+  console.log("unknow call");
 });
 
 module.exports = router;
 /*
+	
+/user/login?login=mylog&password=paswd
+router.get("/user/login", function(req, res) {
+  const { login, password } = req.query;
+   
+});
+
+
 router.get("/test/get/:para1", function(req, res) {
   console.log(req.params.para1);
   console.log(req.query);
