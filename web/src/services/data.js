@@ -84,7 +84,7 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "audio":"figue"
             },{"path": "/mot-image/aliments/fraise.jpg",
               "fr": "fraise",
-              "ar": "فراولة",
+              "ar": "فريز",
               "audio":"fraise"
             },{"path": "/mot-image/aliments/framboises.jpg",
               "fr": "framboises",
@@ -110,10 +110,6 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "fr": "haricots verts",
               "ar": "فاصوليا خضراء",
               "audio":"haricots_verts"
-            },{"path": "/mot-image/aliments/haricot_vert.jpg",
-              "fr": "haricot vert",
-              "ar": "الفاصوليا",
-              "audio":"haricot_vert"
             },{"path": "/mot-image/aliments/laitue.jpg",
               "fr": "laitue",
               "ar": "خس",
@@ -732,7 +728,7 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "audio":"plume"
             },{"path": "/mot-image/autre/poele.jpg",
               "fr": "poele",
-              "ar": "موقد",
+              "ar": "تقلاية",
               "audio":"poele"
             },{"path": "/mot-image/autre/porte.jpg",
               "fr": "porte",
@@ -1026,7 +1022,7 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "fr": "épaule",
               "ar": "كتف",
               "audio":"epaule"
-            },],"personnes-et-action":[],"recette-arabe":[{"path": "/mot-image/recette-arabe/bami.jpg",
+            },],"recette-arabe":[{"path": "/mot-image/recette-arabe/bami.jpg",
               "fr": "bami",
               "ar": "بامية",
               "audio":"bami"

@@ -84,7 +84,7 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "audio":"figue"
                 },{"path": require("language_therapy/ressources/mot-image/aliments/fraise.jpg"),
                   "fr": "fraise",
-                  "ar": "فراولة",
+                  "ar": "فريز",
                   "audio":"fraise"
                 },{"path": require("language_therapy/ressources/mot-image/aliments/framboises.jpg"),
                   "fr": "framboises",
@@ -110,10 +110,6 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "haricots verts",
                   "ar": "فاصوليا خضراء",
                   "audio":"haricots_verts"
-                },{"path": require("language_therapy/ressources/mot-image/aliments/haricot_vert.jpg"),
-                  "fr": "haricot vert",
-                  "ar": "الفاصوليا",
-                  "audio":"haricot_vert"
                 },{"path": require("language_therapy/ressources/mot-image/aliments/laitue.jpg"),
                   "fr": "laitue",
                   "ar": "خس",
@@ -732,7 +728,7 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "audio":"plume"
                 },{"path": require("language_therapy/ressources/mot-image/autre/poele.jpg"),
                   "fr": "poele",
-                  "ar": "موقد",
+                  "ar": "تقلاية",
                   "audio":"poele"
                 },{"path": require("language_therapy/ressources/mot-image/autre/porte.jpg"),
                   "fr": "porte",
@@ -1026,7 +1022,7 @@ let _IMAGES ={"aliments":[{"path": require("language_therapy/ressources/mot-imag
                   "fr": "épaule",
                   "ar": "كتف",
                   "audio":"epaule"
-                },],"personnes-et-action":[],"recette-arabe":[{"path": require("language_therapy/ressources/mot-image/recette-arabe/bami.jpg"),
+                },],"recette-arabe":[{"path": require("language_therapy/ressources/mot-image/recette-arabe/bami.jpg"),
                   "fr": "bami",
                   "ar": "بامية",
                   "audio":"bami"

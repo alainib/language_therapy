@@ -1,109 +1,11 @@
 aliments
-   قرنبيط
 animaux
-   جرذان
 autre
-   oreiller
 nombres-ar
 nombres-fr
    zero
    zero
 parties-du-corps
-personnes-et-action
-   actor
-   null
-   afraid
-   null
-   angry
-   null
-   arguing
-   null
-   artist
-   null
-   baby
-   null
-   barber
-   null
-   baseball
-   null
-   basketball
-   null
-   biking
-   null
-   birth
-   null
-   birthday
-   null
-   blowing
-   null
-   bored
-   null
-   boxing
-   null
-   brushing
-   null
-   calling
-   null
-   calm
-   null
-   camping
-   null
-   carpenter
-   null
-   cashier
-   null
-   catching
-   null
-   chasing
-   null
-   chef
-   null
-   choking
-   null
-   cleaning
-   null
-   climbing
-   null
-   confused
-   null
-   cooking
-   null
-   counting
-   null
-   couple
-   null
-   crying
-   null
-   cutting
-   null
-   dentist
-   null
-   drinking
-   null
-   driving
-   null
-   eating
-   null
-   fireman
-   null
-   fishing
-   null
-   hiking
-   null
-   hitting
-   null
-   kicking
-   null
-   musician
-   null
-   sewing
-   null
-   shaving
-   null
-   soccer
-   null
-   soldier
-   null
 recette-arabe
 vehicules
 vetements
