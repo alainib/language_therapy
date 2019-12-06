@@ -32,13 +32,7 @@ function replaceAll(str, find, replace) {
 }
 
 async function writeJs(fileName, data) {
-  /*jsonfile.writeFile(fileName, data).then(res => {
-    console.log("Write complete " + fileName);
-  }).catch(error => console.error(error));
-  */
-  let writeMe = "let _IMAGES =" + data + "; export default {_IMAGES }";
-
-  await fse.writeFile(fileName, writeMe, "utf8");
+  await fse.writeFile(fileName, data, "utf8");
   console.log("Write complete " + fileName);
 }
 
@@ -154,7 +148,7 @@ const apiPathDest = path.join(__dirname, "..", "api", "public", "mot-image");
     // parcour les sous dossiers
     const subFolders = await fs.readdir(pathSource);
 
-    let output = "{";
+    let mobileOutput = "{";
     let webOutput = "{";
 
     let missingMp3Output = "";
@@ -169,7 +163,7 @@ const apiPathDest = path.join(__dirname, "..", "api", "public", "mot-image");
 
         missingMp3Output += subFolders[i] + "\n";
 
-        output += '"' + subFolders[i] + '":[';
+        mobileOutput += '"' + subFolders[i] + '":[';
         webOutput += '"' + subFolders[i] + '":[';
         // on parcours les fichiers dans le dossier courant
         const fileNames = await fs.readdir(sourcePathSubFolder);
@@ -201,13 +195,13 @@ const apiPathDest = path.join(__dirname, "..", "api", "public", "mot-image");
               "ar": "${movedEntry.translatedText}",
               "audio":"${movedEntry.audio}"
             }`;
-              output += `{"path": require("${movedEntry.path.replace("C:/work/workspace/language_therapy/mobile/", "language_therapy/")}"),
+              mobileOutput += `{"path": require("${movedEntry.path.replace("C:/work/workspace/language_therapy/mobile/", "language_therapy/")}"),
                   "fr": "${movedEntry.originalText}",
                   "ar": "${movedEntry.translatedText}",
                   "audio":"${movedEntry.audio}"
                 }`;
               if (s + 1 < fileNames.length) {
-                output += ",";
+                mobileOutput += ",";
                 webOutput += ",";
               }
             }
@@ -215,19 +209,25 @@ const apiPathDest = path.join(__dirname, "..", "api", "public", "mot-image");
             moveAudio(fileNames[s], sourcePathSubFolder);
           }
         }
-        output += "],";
+        mobileOutput += "],";
         webOutput += "],";
       }
     }
-    output += "}";
+    mobileOutput += "}";
     webOutput += "}";
     console.log("finish parsing ");
     console.log("copying...");
-    writeJs("../mobile/ressources/data.js", output);
+	   
+	let writeMeMobile = "let _IMAGES =" + mobileOutput + "; export default {_IMAGES }";
+    writeJs("../mobile/ressources/data.js", writeMeMobile);
     // copie tout le dossier image mobile propre vers celui de web
     fse.copySync(mobilePathDest, apiPathDest);
     fse.copySync(mobileDestPathAudio, apiPathDest + "/mp3");
-    writeJs(path.join(__dirname, "..", "web", "src", "services", "data.js"), webOutput);
+	
+	webOutput = webOutput.replace("},],}" ,"}]}");	
+  
+	let writeMeWeb = "let _IMAGES =" + webOutput +";module.exports = function () {this._IMAGES  =_IMAGES ;}"
+    writeJs(path.join(__dirname, "..", "api", "data.js"), writeMeWeb);
 
     writeTxt(`missingMp3Output.txt`, missingMp3Output);
     missingMp3Output;

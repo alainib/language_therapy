@@ -8,6 +8,10 @@ export function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+export function clone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
 /**
  * ne pas utiliser pour faire un ceil / floor; il y a Math.floor() et Math.ceil() pour ca
  * arondi un nombre décimal, ATTENTION il faut que ce soit avec virgule pas de point sinon il ne prend que l'entier

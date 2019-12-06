@@ -58,7 +58,7 @@ export async function image_randomSerie(
     console.error(error);
     status = 404;
   }
-  if (status == 200) {
+  if (status === 200) {
     return data;
   } else {
     return false;
@@ -82,7 +82,7 @@ export async function image_AllSeriesNames() {
       console.error(error);
       status = 404;
     }
-    if (status == 200) {
+    if (status === 200) {
       _allSeriesName = data;
       return data;
     } else {

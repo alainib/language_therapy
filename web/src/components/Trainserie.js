@@ -2,12 +2,17 @@ import React, { Component } from "react";
 import { withRouter, Redirect } from "react-router-dom";
 
 import ResultsStat from "./ResultsStat";
-import { Row, Col, Button, Alert } from "react-bootstrap";
+import { Row as RowBootstrap, Col as ColBootstrap, Button, Alert } from "react-bootstrap";
+import { Column, Row } from "simple-flexbox";
 
 import FlexView from "react-flexview";
 import Config from "../Config";
 import { image_randomSerie } from "../services/image";
-import { FaVolumeUp, FaArrowRight, FaArrowLeft } from "react-icons/fa";
+import { FaVolumeUp, FaArrowRight, FaArrowLeft, FaCheck } from "react-icons/fa";
+
+import * as actions from "../redux/actions";
+import { connect } from "react-redux";
+import { compose } from "redux";
 
 // pour éviter les multi click successif sur la bonne réponse qui feraient avancer de plusieurs questions d'un coup
 let _lastSecClicked = 0;
@@ -25,7 +30,11 @@ class Trainserie extends Component {
       questions: [],
       index: 0,
       ready: false,
-      networkError: false
+      networkError: false,
+      /* pour les series d'imageByImage il ne faut pas afficher le nom en haut directement
+        on peut afficher des . par lettres et a chaque click sur question.display on affiche une lettre de plus
+      */
+      imageByImageShowHowMuchLetters: 0
     };
   }
 
@@ -35,7 +44,14 @@ class Trainserie extends Component {
 
   async componentDidMount() {
     if (this.props.connected) {
-      let res = await image_randomSerie(this.props.token, this.state.serieName, 10, 4, "ar", Config._const.easy);
+      let res = await image_randomSerie(
+        this.props.token,
+        this.state.serieName,
+        this.props.options.nbrOfItemPerSerie,
+        this.props.options.nbrOfImagePerItem,
+        this.props.options.displayLg,
+        this.props.options.level
+      );
 
       if (res) {
         this.setState({ questions: res.questions, index: 0, ready: true, networkError: false });
@@ -113,6 +129,26 @@ class Trainserie extends Component {
       questionClueVisible: false
     });
   };
+  previousSerie() {
+    if (this.state.index > 0) {
+      this.setState({ index: this.state.index - 1, imageByImageShowHowMuchLetters: 0 });
+    }
+  }
+
+  nextSerie() {
+    if (this.state.index < this.state.questions.length) {
+      this.setState({ index: this.state.index + 1, imageByImageShowHowMuchLetters: 0 });
+    }
+  }
+
+  imageByImageDisplay(name) {
+    let res = name.slice(0, this.state.imageByImageShowHowMuchLetters);
+    let rest = name.length - this.state.imageByImageShowHowMuchLetters;
+    for (let i = 0; i < rest; i++) {
+      res += " _";
+    }
+    return res;
+  }
 
   render() {
     if (!this.props.connected) {
@@ -143,24 +179,54 @@ class Trainserie extends Component {
           borderStyle["border"] = "4px solid red";
         }
       }
-
+      /*
+      let fu2 = [];
+      for (var i = 0; i < question.images.length; i++) {
+        fu2.push(
+          <Column
+            key={"im" + i.toString()}
+            style={{
+              backgroundColor: "#3F4B3B",
+              padding: 12,
+              color: "#E0E0E0"
+            }}
+            flexGrow={1}
+            horizontal="center"
+            style={question.answer.clickedIndex === i ? borderStyle : {}}
+            onClick={() => {
+              !this.props.options.imageByImage && this.chooseAnswer(i);
+            }}
+          >
+            <img src={Config.static_path + question.images[i]} alt={question.images[i]} />
+          </Column>
+        );
+      }
+      */
+      const xsSize = [10, 10, 6, 4, 3, 3, 3, 3, 3, 3][question.images.length];
+      console.log(xsSize);
       return (
         <FlexView style={{ margin: 20, minHeight: 600 }} column>
-          <Row>
-            <Col xs={2} md={1} style={{ display: "flex", justifyContent: "flex-start" }}>
-              <Button
-                className="btn-nooutline"
-                variant="false"
-                onClick={() => {
-                  if (this.state.index > 0) {
-                    this.setState({ index: this.state.index - 1 });
-                  }
-                }}
-              >
-                <span style={{ color: "white" }}>{this.state.index > 0 && <FaArrowLeft size={32} />}</span>
-              </Button>
-            </Col>
-            <Col xs={8} md={10} style={{ display: "flex", justifyContent: "center" }}>
+          <RowBootstrap>
+            <ColBootstrap xs={2} md={1} style={{ display: "flex", justifyContent: "flex-start" }}>
+              {this.state.index > 0 && (
+                <Button
+                  className="btn-nooutline"
+                  variant="false"
+                  onClick={() => {
+                    this.previousSerie();
+                  }}
+                >
+                  <span style={{ color: "white" }}>
+                    <FaArrowLeft size={32} />
+                  </span>
+                </Button>
+              )}
+            </ColBootstrap>
+            <ColBootstrap
+              xs={this.props.options.imageByImage ? 6 : 8}
+              md={this.props.options.imageByImage ? 8 : 10}
+              style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+            >
               <Button
                 variant="false"
                 onClick={() => {
@@ -171,42 +237,70 @@ class Trainserie extends Component {
                   <FaVolumeUp size={32} />
                 </div>
               </Button>
-              <span onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp} style={{ fontSize: "3em" }}>
-                {question.display}
-              </span>
-            </Col>
-            <Col xs={2} md={1} style={{ display: "flex", justifyContent: "flex-end" }}>
+
+              {this.props.options.imageByImage && !this.props.options.imageByImageDisplayName ? (
+                <div
+                  onClick={() =>
+                    this.setState({
+                      imageByImageShowHowMuchLetters: this.state.imageByImageShowHowMuchLetters + 1
+                    })
+                  }
+                  style={{ fontSize: this.props.options.interfaceSize + "em" }}
+                >
+                  {this.imageByImageDisplay(question.display)}
+                </div>
+              ) : (
+                <div
+                  onMouseDown={this.onMouseDown}
+                  onMouseUp={this.onMouseUp}
+                  style={{ fontSize: this.props.options.interfaceSize + "em" }}
+                >
+                  {question.display}
+                </div>
+              )}
+            </ColBootstrap>
+            {this.props.options.imageByImage && (
+              <ColBootstrap xs={2} md={1} style={{ display: "flex", justifyContent: "flex-end" }}>
+                <span style={{ color: "white" }}>
+                  <FaCheck size={32} />
+                </span>
+              </ColBootstrap>
+            )}
+            <ColBootstrap xs={2} md={1} style={{ display: "flex", justifyContent: "flex-end" }}>
               <Button
                 variant="false"
                 onClick={() => {
-                  if (this.state.index < this.state.questions.length) {
-                    this.setState({ index: this.state.index + 1 });
-                  }
+                  this.nextSerie();
                 }}
               >
                 <span style={{ color: "white" }}>
                   <FaArrowRight size={32} />
                 </span>
               </Button>
-            </Col>
-          </Row>
+            </ColBootstrap>
+          </RowBootstrap>
           <div className="space50" />
-          <Row>
+
+          <RowBootstrap className="justify-content-md-center">
             {question.images.map((item, index) => {
               return (
-                <Col
+                <ColBootstrap
                   key={"im" + index.toString()}
-                  xs={3}
+                  xs={xsSize}
                   style={question.answer.clickedIndex === index ? borderStyle : {}}
                   onClick={() => {
-                    this.chooseAnswer(index);
+                    !this.props.options.imageByImage && this.chooseAnswer(index);
                   }}
                 >
-                  <img className="img-max" src={Config.static_path + item} alt={item} />
-                </Col>
+                  <img className="responsive centered img-max" src={Config.static_path + item} alt={item} />
+                </ColBootstrap>
               );
             })}
-          </Row>
+          </RowBootstrap>
+          {/*
+          <Row horizontal="space-around">{fu2}</Row>
+          */}
+
           <div className="space50" />
           <div
             style={{
@@ -281,4 +375,13 @@ class Trainserie extends Component {
   }
 }
 
-export default withRouter(Trainserie);
+//export default withRouter(Trainserie);
+
+function mapStatetoProps(data) {
+  console.log(data);
+  return {
+    options: data["options"]
+  };
+}
+
+export default compose(withRouter, connect(mapStatetoProps, actions))(Trainserie);

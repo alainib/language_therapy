@@ -1,9 +1,7 @@
 import React from "react";
 import { View, Button, ScrollView, StyleSheet, Text, TouchableOpacity, Alert } from "react-native";
 
-import styles from "language_therapy/src/styles";
 import Config from "language_therapy/src/Config";
-import IconFeather from "react-native-vector-icons/Feather";
 import IconFA from "react-native-vector-icons/FontAwesome";
 import * as tools from "language_therapy/src/tools";
 import { Slider } from "react-native-elements";
@@ -89,10 +87,10 @@ class Options extends React.Component {
             <View style={thisstyles.bloc}>
               <View style={thisstyles.viewButton}>
                 <Button
-                  color={this.props.options.multiSeries ? "green" : "grey"}
+                  color={this.props.options.multiCategories ? "green" : "grey"}
                   title={"OUI"}
                   onPress={() => {
-                    this.props.action_optionUpdate("multiSeries", null, true);
+                    this.props.action_optionUpdate("multiCategories", null, true);
                     this.props.action_optionUpdate("manualChooseImage", null, false);
                     this.props.action_optionUpdate("imageByImage", null, false);
                   }}
@@ -100,9 +98,9 @@ class Options extends React.Component {
               </View>
               <View style={thisstyles.viewButton}>
                 <Button
-                  color={!this.props.options.multiSeries ? "green" : "grey"}
+                  color={!this.props.options.multiCategories ? "green" : "grey"}
                   title={"NON"}
-                  onPress={() => this.props.action_optionUpdate("multiSeries", null, false)}
+                  onPress={() => this.props.action_optionUpdate("multiCategories", null, false)}
                 />
               </View>
               <TouchableOpacity
@@ -128,7 +126,7 @@ class Options extends React.Component {
                   title={"OUI"}
                   onPress={() => {
                     this.props.action_optionUpdate("manualChooseImage", null, true);
-                    this.props.action_optionUpdate("multiSeries", null, false);
+                    this.props.action_optionUpdate("multiCategories", null, false);
                   }}
                 />
               </View>
@@ -233,7 +231,7 @@ class Options extends React.Component {
                 onPress={() =>
                   Alert.alert(
                     "Mode image par image",
-                    "Affiche une seule image par item, en remplacant le nom de l'item par des underscore. L'image n'est plus clickable et la réponse juste doit être validée avec le signe ✓"
+                    "Affiche une seule image par item. L'image n'est plus clickable et la réponse juste doit être validée avec le signe ✓"
                   )
                 }
               >
@@ -241,7 +239,39 @@ class Options extends React.Component {
               </TouchableOpacity>
             </View>
           </View>
-
+          {this.props.options.imageByImage && (
+            <View style={thisstyles.bloc}>
+              <Text style={thisstyles.title}>{"     "}- Afficher le nom de l'item : </Text>
+              <View style={thisstyles.bloc}>
+                <View style={thisstyles.viewButton}>
+                  <Button
+                    color={this.props.options.imageByImageDisplayName ? "green" : "grey"}
+                    title={"OUI"}
+                    onPress={() => {
+                      this.props.action_optionUpdate("imageByImageDisplayName", null, true);
+                    }}
+                  />
+                </View>
+                <View style={thisstyles.viewButton}>
+                  <Button
+                    color={!this.props.options.imageByImageDisplayName ? "green" : "grey"}
+                    title={"NON"}
+                    onPress={() => {
+                      this.props.action_optionUpdate("imageByImage", null, false);
+                    }}
+                  />
+                </View>
+                <TouchableOpacity
+                  style={thisstyles.touchableQuestion}
+                  onPress={() =>
+                    Alert.alert("Mode image par image", "Affiche le nom de l'item ou remplace le nom de l'item par des underscores.")
+                  }
+                >
+                  <IconFA name="question" size={18} color={"black"} margin={2} />
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
           <View style={thisstyles.bloc}>
             <View style={thisstyles.flex1rowcenter}>
               <View style={thisstyles.flex1stretchcenter}>

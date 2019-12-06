@@ -5,6 +5,7 @@ import { Navbar, Nav } from "react-bootstrap";
 import Series from "./components/Series";
 import Trainserie from "./components/Trainserie";
 import Home from "./components/Home";
+import Settings from "./components/Settings";
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -19,7 +20,7 @@ export default function App() {
           <Nav className="mr-auto">
             <Navbar.Brand>
               <Link className="App-link" to="/">
-                Language therapy
+                Arabaphasie
               </Link>
             </Navbar.Brand>
             <Nav.Item>
@@ -63,43 +64,3 @@ export default function App() {
     </Router>
   );
 }
-
-function Settings() {
-  return <h2>Settings</h2>;
-}
-
-/*
-function Topics() {
-  let match = useRouteMatch();
-
-  return (
-    <div>
-      <h2>Topics</h2>
-
-      <ul>
-        <li>
-          <Link to={`${match.url}/components`}>Components</Link>
-        </li>
-        <li>
-          <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
-        </li>
-      </ul>
-
-      
-      <Switch>
-        <Route path={`${match.path}/:topicId`}>
-          <Topic />
-        </Route>
-        <Route path={match.path}>
-          <h3>Please select a topic.</h3>
-        </Route>
-      </Switch>
-    </div>
-  );
-}
-
-function Topic() {
-  let { topicId } = useParams();
-  return <h3>Requested topic ID: {topicId}</h3>;
-}
-*/

@@ -30,7 +30,7 @@ export default class ResultsStat extends Component {
       ]
     };
     return (
-      <div style={{ padding: 50 }}>
+      <div className="container">
         <CanvasJSChart
           options={options}
           /* onRef = {ref => this.chart = ref} */

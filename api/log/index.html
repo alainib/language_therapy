@@ -2,56 +2,99 @@
 <html>
 
 <head>
-<script>
- 
-window.addEventListener("load", function () {
-  function sendData() {
-   
+  <style type="text/css">
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+    }
 
-    var XHR = new XMLHttpRequest();
+    body {
+      display: flex;
+    }
 
-    // Liez l'objet FormData et l'élément form
-    var logme = document.getElementById("logID").value;
- 
-    // Définissez ce qui se passe si la soumission s'est opérée avec succès
-    XHR.addEventListener("load", function(event) {
-      alert(event.target.responseText);
+    form {
+      margin: auto;
+      /* nice thing of auto margin if display:flex; it center both horizontal and vertical :) */
+    }
+
+    label,
+    textarea {
+      font-size: .8rem;
+      letter-spacing: 1px;
+    }
+
+    textarea {
+      padding: 10px;
+      line-height: 1.5;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-shadow: 1px 1px 1px #999;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+  </style>
+  <script>
+
+    window.addEventListener("load", function () {
+      function sendData() {
+
+
+        var XHR = new XMLHttpRequest();
+
+        // Liez l'objet FormData et l'élément form
+        var logme = document.getElementById("logID").value;
+
+        console.log(logme)
+
+        // Définissez ce qui se passe si la soumission s'est opérée avec succès
+        XHR.addEventListener("load", function (event) {
+          alert(event.target.responseText);
+        });
+
+        // Definissez ce qui se passe en cas d'erreur
+        XHR.addEventListener("error", function (event) {
+          console.log(event);
+        });
+
+        const url = 'http://' + window.location.host + '/api/log';
+        console.log(url);
+        XHR.open("POST", url);
+
+        XHR.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        XHR.send(JSON.stringify({ "data": logme }));
+
+      }
+
+      // Accédez à l'élément form …
+      var form = document.getElementById("myForm");
+
+      // … et prenez en charge l'événement submit.
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        sendData();
+      });
     });
-
-    // Definissez ce qui se passe en cas d'erreur
-    XHR.addEventListener("error", function(event) {
-       console.log(event);
-    });
-
-    const url= 'http://'+window.location.host+'/api/log';
-	console.log(url);
-    XHR.open("POST", url);
-	XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	XHR.send('data='+encodeURIComponent(logme));
- 
-  }
- 
-  // Accédez à l'élément form …
-  var form = document.getElementById("myForm");
-
-  // … et prenez en charge l'événement submit.
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    sendData();
-  });
-});
-</script>
+  </script>
 </head>
+
 <body>
 
- 
- 
-<form id="myForm">
-  <label for="myName">Log me:</label>
-  <input id="logID" name="name" value="newlog">
-  <input type="submit" value="Envoyer !">
-</form>
+
+
+  <form id="myForm">
+    <label for="logID">Data to log:</label>
+    <textarea id="logID" name="logID" rows="5" cols="33"></textarea>
+    <br />
+    <input type="submit" value="Envoyer !" />
+  </form>
 
 </body>
+
 </html>

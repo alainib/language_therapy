@@ -1,8 +1,8 @@
-const local_api_path = "http://localhost:1111";
+const local_api_path = "localhost:1111";
 
 let api_path = "http://";
 let static_path = "http://";
-if (window.location.hostname == "localhost") {
+if (window.location.hostname === "localhost") {
   api_path += local_api_path;
   static_path += local_api_path;
 } else {
@@ -45,10 +45,20 @@ const colors = {
   whiteOverlay: "rgba( 246, 246, 246, 0.9)"
 };
 
+const textSize = {
+  s: 2,
+  sm: 3,
+  md: 4,
+  l: 5,
+  xl: 6,
+  xxl: 10
+};
+
 export default {
   colors,
   _const,
   api_path,
   static_path,
-  trainOptions
+  trainOptions,
+  textSize
 };

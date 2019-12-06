@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Alert } from "react-bootstrap";
+
+import * as actions from "../redux/actions";
+import { connect } from "react-redux";
+
 import "../App.css";
 
 import { image_AllSeriesNames } from "../services/image";
 
-export default class Series extends Component {
+class Series extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,7 +30,7 @@ export default class Series extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <h2 className="padding15">Series disponibles :</h2>
         <br />
         {this.state.networkError ? (
@@ -53,3 +57,11 @@ export default class Series extends Component {
     );
   }
 }
+
+function mapStatetoProps(data) {
+  return {
+    options: data["options"]
+  };
+}
+
+export default connect(mapStatetoProps, actions)(Series);

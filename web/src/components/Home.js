@@ -63,10 +63,10 @@ export default class Home extends Component {
   render() {
     let { connected, identifiant, password } = this.state;
     return (
-      <div className="Login">
+      <div className="container Login">
         {connected ? (
           <div className="textCenter">
-            <h1>{identifiant}, bienvenue sur 'Language therapy'.</h1>
+            <h1>{identifiant}, bienvenue sur 'Arabaphasie'.</h1>
             <br />
             <br />
             <h3>Vous avez désormais accès aux series.</h3>
@@ -80,7 +80,7 @@ export default class Home extends Component {
           </div>
         ) : (
           <div className="textCenter">
-            <h1>Bienvenue sur 'Language therapy'.</h1>
+            <h1>Bienvenue sur 'Arabaphasie'.</h1>
             <br />
             <br />
             <Form onSubmit={this.handleSubmit}>
