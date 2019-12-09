@@ -7,7 +7,7 @@ const initState = {
   imageByImage: false, // on ne fait que un mot à la fois par test
   imageByImageDisplayName: true, // si on est en mode image par image on peut soit afficher le nom soit des _ _ _ à la place
   showClueReversed: true, // affiche la traduction du mot retourné à 90 degrés pour une lettre d'en face
-  interfaceSize: Config.textSize.l,
+  interfaceSize: Config.textSize.md,
   playSoundAfterXWrong: 2,
   displayLg: Config._const.ar,
   level: Config._const.easy,

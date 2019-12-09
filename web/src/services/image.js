@@ -26,7 +26,7 @@ export async function image_randomSerie(
   level = Config._const.easy,
   selectedImages = null
 ) {
-  console.log("image randome", {
+  /* console.log("image randome", {
     serieName,
     nbrQuestion,
     nbrOfImagePerQuestion,
@@ -34,7 +34,7 @@ export async function image_randomSerie(
     level,
     selectedImages,
     token
-  });
+  });*/
   const url = `/serie`;
 
   let status, data;

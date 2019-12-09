@@ -115,3 +115,7 @@ export function getTodayDate(hm = false) {
     return `${day}/${month}/${year}`;
   }
 }
+export function upperFirstLetter(s) {
+  if (typeof s !== "string") return "";
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}

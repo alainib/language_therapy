@@ -63,7 +63,7 @@ export default class Home extends Component {
   render() {
     let { connected, identifiant, password } = this.state;
     return (
-      <div className="container Login">
+      <div className="Login">
         {connected ? (
           <div className="textCenter">
             <h1>{identifiant}, bienvenue sur 'Arabaphasie'.</h1>

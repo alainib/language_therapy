@@ -3,7 +3,6 @@ import { withRouter, Redirect } from "react-router-dom";
 
 import ResultsStat from "./ResultsStat";
 import { Row as RowBootstrap, Col as ColBootstrap, Button, Alert } from "react-bootstrap";
-import { Column, Row } from "simple-flexbox";
 
 import FlexView from "react-flexview";
 import Config from "../Config";
@@ -81,7 +80,8 @@ class Trainserie extends Component {
 
           this.setState({ questions }, () => {
             this._timeout = setTimeout(() => {
-              this.setState({ index: this.state.index + 1 });
+              //this.setState({ index: this.state.index + 1 });
+              this.nextSerie();
             }, 500);
           });
         } else {
@@ -171,7 +171,8 @@ class Trainserie extends Component {
     if (this.state.index < this.state.questions.length) {
       let question = this.state.questions[this.state.index];
 
-      let borderStyle = { borderRadius: "20px" };
+      let borderStyle = { borderRadius: "20px", padding: "10px" };
+      let borderStyleUnclicked = { ...borderStyle };
       if (question.answer.showBorder) {
         if (question.answer.correct) {
           borderStyle["border"] = "4px solid green";
@@ -179,29 +180,7 @@ class Trainserie extends Component {
           borderStyle["border"] = "4px solid red";
         }
       }
-      /*
-      let fu2 = [];
-      for (var i = 0; i < question.images.length; i++) {
-        fu2.push(
-          <Column
-            key={"im" + i.toString()}
-            style={{
-              backgroundColor: "#3F4B3B",
-              padding: 12,
-              color: "#E0E0E0"
-            }}
-            flexGrow={1}
-            horizontal="center"
-            style={question.answer.clickedIndex === i ? borderStyle : {}}
-            onClick={() => {
-              !this.props.options.imageByImage && this.chooseAnswer(i);
-            }}
-          >
-            <img src={Config.static_path + question.images[i]} alt={question.images[i]} />
-          </Column>
-        );
-      }
-      */
+
       const xsSize = [10, 10, 6, 4, 3, 3, 3, 3, 3, 3][question.images.length];
       console.log(xsSize);
       return (
@@ -260,10 +239,17 @@ class Trainserie extends Component {
               )}
             </ColBootstrap>
             {this.props.options.imageByImage && (
-              <ColBootstrap xs={2} md={1} style={{ display: "flex", justifyContent: "flex-end" }}>
-                <span style={{ color: "white" }}>
-                  <FaCheck size={32} />
-                </span>
+              <ColBootstrap xs={2} md={1} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Button
+                  variant="false"
+                  onClick={() => {
+                    this.chooseAnswer(0);
+                  }}
+                >
+                  <span style={{ color: "white" }}>
+                    <FaCheck size={32} />
+                  </span>
+                </Button>
               </ColBootstrap>
             )}
             <ColBootstrap xs={2} md={1} style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -287,12 +273,16 @@ class Trainserie extends Component {
                 <ColBootstrap
                   key={"im" + index.toString()}
                   xs={xsSize}
-                  style={question.answer.clickedIndex === index ? borderStyle : {}}
                   onClick={() => {
                     !this.props.options.imageByImage && this.chooseAnswer(index);
                   }}
                 >
-                  <img className="responsive centered img-max" src={Config.static_path + item} alt={item} />
+                  <img
+                    style={question.answer.clickedIndex === index ? borderStyle : borderStyleUnclicked}
+                    className="responsive centered img-max"
+                    src={Config.static_path + item}
+                    alt={item}
+                  />
                 </ColBootstrap>
               );
             })}
@@ -378,7 +368,6 @@ class Trainserie extends Component {
 //export default withRouter(Trainserie);
 
 function mapStatetoProps(data) {
-  console.log(data);
   return {
     options: data["options"]
   };

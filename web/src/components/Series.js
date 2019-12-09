@@ -4,7 +4,7 @@ import { Alert } from "react-bootstrap";
 
 import * as actions from "../redux/actions";
 import { connect } from "react-redux";
-
+import * as tools from "../tools";
 import "../App.css";
 
 import { image_AllSeriesNames } from "../services/image";
@@ -30,7 +30,7 @@ class Series extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div>
         <h2 className="padding15">Series disponibles :</h2>
         <br />
         {this.state.networkError ? (
@@ -44,11 +44,12 @@ class Series extends Component {
           <ul className="flex-container wrap">
             {this.state.seriesNames.map((item, index) => {
               return (
-                <li className="flex-item" key={"ac" + index.toString()}>
-                  <Link className="flex-item-link" to={`/trainserie/${item}`}>
-                    {item}
-                  </Link>
-                </li>
+                <Link className="flex-item" to={`/trainserie/${item}`}>
+                  <li className="flex-item-link" key={"ac" + index.toString()}>
+                    {tools.upperFirstLetter(item)}
+                    {/*   <LinkButton to={`/trainserie/${item}`}>{tools.upperFirstLetter(item)}</LinkButton> */}
+                  </li>
+                </Link>
               );
             })}
           </ul>

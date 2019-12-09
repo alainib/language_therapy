@@ -30,7 +30,7 @@ export default class ResultsStat extends Component {
       ]
     };
     return (
-      <div className="container">
+      <div style={{ minWidth: 500, minHeight: 500 }}>
         <CanvasJSChart
           options={options}
           /* onRef = {ref => this.chart = ref} */

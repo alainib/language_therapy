@@ -19,8 +19,12 @@ body,
   color: #09d3ac;
   padding-left: 1em;
 }
-.container {
-  margin: 50;
+
+.fwcontainer {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .flex {
@@ -57,19 +61,23 @@ body,
   padding: 15px;
 }
 .flex-item {
+  border-radius: 20px;
   background-color: rgba(9, 201, 140, 0.1);
   padding: 5px;
   width: 250px;
-  min-height: 100px;
-  margin: 10px;
 
+  margin: 10px;
   color: white;
   font-weight: bold;
   font-size: 1.2em;
+
+  line-height: 100px;
+  display: block;
   text-align: center;
 }
 .flex-item-link {
   color: white;
+  text-decoration: none;
 }
 .flexGrow {
   flex-grow: 1;
@@ -185,7 +193,7 @@ img.centered {
 .col-xl-8,
 .col-xl-9,
 .col-xl-auto {
-  padding: 3 !important;
+  padding: 3px !important;
 }
 
 .alert {

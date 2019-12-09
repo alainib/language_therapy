@@ -44,22 +44,25 @@ export default function App() {
             )}
           </Nav>
         </Navbar>
-        <Switch>
-          <Route path="/series">
-            <Series connected={connected} />
-          </Route>
-          <Route path="/trainserie/:id">
-            <Trainserie token={token} connected={connected} />
-          </Route>
+        <div style={{ margin: 50 }}>
+          {/*className="fwcontainer"*/}
+          <Switch>
+            <Route path="/series">
+              <Series connected={connected} />
+            </Route>
+            <Route path="/trainserie/:id">
+              <Trainserie token={token} connected={connected} />
+            </Route>
 
-          <Route path="/settings">
-            <Settings />
-          </Route>
+            <Route path="/settings">
+              <Settings />
+            </Route>
 
-          <Route path="/">
-            <Home connected={connected} setToken={setToken} setConnected={setConnected} />
-          </Route>
-        </Switch>
+            <Route path="/">
+              <Home connected={connected} setToken={setToken} setConnected={setConnected} />
+            </Route>
+          </Switch>
+        </div>
       </div>
     </Router>
   );
