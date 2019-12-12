@@ -1,6 +1,6 @@
-import { SETCURRENT_USER, ADD_USER, REMOVE_USER, ADD_SERIE_TO_USER, REMOVE_SERIE_FROM_USER, CLEAR_SERIES_FROM_USER } from "../types";
+import { SETCURRENT_USER, ADD_USER, REMOVE_USER, ADD_SERIE_TO_USER, REMOVE_SERIE_FROM_USER, CLEAR_SERIES_FROM_USER } from "redux/types";
 
-import * as tools from "../../tools";
+import * as tools from "tools";
 
 /**
  * pour stocker la liste des observations locales

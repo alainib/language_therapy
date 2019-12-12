@@ -1,5 +1,5 @@
-import Config from "../../Config";
-import { UPDATE_OPTION, RESET_OPTION } from "../types";
+import Config from "Config";
+import { UPDATE_OPTION, RESET_OPTION } from "redux/types";
 
 const initState = {
   nbrOfItemPerSerie: 10, // nombre d'item par défaut par serie

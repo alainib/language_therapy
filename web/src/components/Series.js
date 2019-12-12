@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 
-import * as actions from "../redux/actions";
+import * as actions from "redux/actions";
 import { connect } from "react-redux";
-import * as tools from "../tools";
-import "../App.css";
+import * as tools from "tools";
+import "App.css";
 
 import { image_AllSeriesNames } from "../services/image";
 

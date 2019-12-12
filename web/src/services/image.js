@@ -1,5 +1,5 @@
-import Config from "../Config";
-import * as axios from "./axios";
+import Config from "Config";
+import * as axios from "services/axios";
 
 let _allSeriesName = null;
 /**

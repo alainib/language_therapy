@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, Form } from "react-bootstrap";
-import "../App.css";
-import { user_login } from "../services/user";
+import "App.css";
+import { user_login } from "services/user";
 import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
 const cookie_id = "user_id";
 const cookie_pwd = "user_pwd";

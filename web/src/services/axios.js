@@ -1,5 +1,5 @@
 import * as axios from "axios";
-import Config from "../Config";
+import Config from "Config";
 let instance = axios.create();
 
 instance.defaults.baseURL = Config.api_path;

@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { StyleSheet, css } from "aphrodite";
-import "../App.css";
-import Config from "../Config";
+import "App.css";
+import Config from "Config";
 import { FaQuestion } from "react-icons/fa";
 import ReactTooltip from "react-tooltip";
 
-import * as actions from "../redux/actions";
+import * as actions from "redux/actions";
 import { connect } from "react-redux";
 
 class Settings extends Component {

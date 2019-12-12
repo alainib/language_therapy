@@ -1,7 +1,7 @@
 /**
  * liste des utilisateurs
  */
-import { UPDATE_OPTION, RESET_OPTION } from "../types";
+import { UPDATE_OPTION, RESET_OPTION } from "redux/types";
 
 /**
  * sauvegarde la nouvelle valeur pour une option 

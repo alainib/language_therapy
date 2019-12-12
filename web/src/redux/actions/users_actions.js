@@ -1,7 +1,7 @@
 /**
  * liste des utilisateurs
  */
-import { ADD_USER, REMOVE_USER, SETCURRENT_USER, ADD_SERIE_TO_USER, REMOVE_SERIE_FROM_USER, CLEAR_SERIES_FROM_USER } from "../types";
+import { ADD_USER, REMOVE_USER, SETCURRENT_USER, ADD_SERIE_TO_USER, REMOVE_SERIE_FROM_USER, CLEAR_SERIES_FROM_USER } from "redux/types";
 
 export const action_addUser = username => {
   return {

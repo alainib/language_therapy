@@ -5,11 +5,11 @@ import ResultsStat from "./ResultsStat";
 import { Row as RowBootstrap, Col as ColBootstrap, Button, Alert } from "react-bootstrap";
 
 import FlexView from "react-flexview";
-import Config from "../Config";
-import { image_randomSerie } from "../services/image";
+import Config from "Config";
+import { image_randomSerie } from "services/image";
 import { FaVolumeUp, FaArrowRight, FaArrowLeft, FaCheck } from "react-icons/fa";
 
-import * as actions from "../redux/actions";
+import * as actions from "redux/actions";
 import { connect } from "react-redux";
 import { compose } from "redux";
 

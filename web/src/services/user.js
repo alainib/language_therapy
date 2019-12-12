@@ -1,4 +1,4 @@
-import * as axios from "./axios";
+import * as axios from "services/axios";
 
 // service de login
 export async function user_login(login, password) {

@@ -2,10 +2,10 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Navbar, Nav } from "react-bootstrap";
 
-import Series from "./components/Series";
-import Trainserie from "./components/Trainserie";
-import Home from "./components/Home";
-import Settings from "./components/Settings";
+import Series from "components/Series";
+import Trainserie from "components/Trainserie";
+import Home from "components/Home";
+import Settings from "components/Settings";
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 

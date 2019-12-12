@@ -1,5 +1,5 @@
-import users from "./users_reducer";
-import options from "./options_reducer";
+import users from "redux/reducers/users_reducer";
+import options from "redux/reducers/options_reducer";
 
 export default {
   users,

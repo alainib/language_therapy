@@ -1,7 +1,7 @@
 import { createStore, compose, applyMiddleware } from "redux";
 import { persistStore, persistCombineReducers } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import rootReducers from "../reducers";
+import rootReducers from "redux/reducers";
 
 const config = {
   key: "root",
