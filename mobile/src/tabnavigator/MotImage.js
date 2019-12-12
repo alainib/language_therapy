@@ -9,10 +9,10 @@ import IconFeather from "react-native-vector-icons/Feather";
 import * as tools from "language_therapy/src/tools";
 
 import {
-  image_AllSeriesNames,
-  image_randomSerie,
-  image_allImagesFromSerie,
-  image_serieFromImages
+  image_AllCategoriesNames,
+  image_randomCategorie,
+  image_allImagesFromCategorie,
+  image_categorieFromImages
 } from "language_therapy/src/services/image";
 
 let _ImageWidth = 175;
@@ -36,28 +36,28 @@ class MotImage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // tous les noms de series
-      seriesNames: [],
-      multiSeriesNames: {},
-      mode: "series",
+      // tous les noms de categories
+      categoriesNames: [],
+      multiCategoriesNames: {},
+      mode: "categories",
       modal: { show: false, images: [] }
     };
   }
 
-  initMultiSeries = () => {
-    let multiSeriesNames = { main: {}, second: {} };
-    for (var i in this.state.seriesNames) {
-      multiSeriesNames.main[this.state.seriesNames[i]] = false;
-      multiSeriesNames.second[this.state.seriesNames[i]] = false;
+  initMultiCategories = () => {
+    let multiCategoriesNames = { main: {}, second: {} };
+    for (var i in this.state.categoriesNames) {
+      multiCategoriesNames.main[this.state.categoriesNames[i]] = false;
+      multiCategoriesNames.second[this.state.categoriesNames[i]] = false;
     }
-    this.setState({ multiSeriesNames, mode: "multiseries" });
+    this.setState({ multiCategoriesNames, mode: "multicategories" });
   };
 
   componentWillReceiveProps(nextProps) {
-    if (!this.props.options.multiSeries && nextProps.options.multiSeries) {
-      this.initMultiSeries();
-    } else if (this.props.options.multiSeries && !nextProps.options.multiSeries) {
-      this.setState({ mode: "series" });
+    if (!this.props.options.multiCategories && nextProps.options.multiCategories) {
+      this.initMultiCategories();
+    } else if (this.props.options.multiCategories && !nextProps.options.multiCategories) {
+      this.setState({ mode: "categories" });
     }
   }
 
@@ -65,15 +65,15 @@ class MotImage extends React.Component {
   _timeout = null;
   async componentDidMount() {
     this._timeout = null;
-    let seriesNames = await image_AllSeriesNames();
+    let categoriesNames = await image_AllCategoriesNames();
 
     this.setState(
       {
-        seriesNames
+        categoriesNames
       },
       () => {
-        if (this.props.options.multiSeries) {
-          this.initMultiSeries();
+        if (this.props.options.multiCategories) {
+          this.initMultiCategories();
         }
       }
     );
@@ -96,24 +96,24 @@ class MotImage extends React.Component {
     clearTimeout(this._timeout);
   };
 
-  /** choix de la serie thèmatique */
-  chooseSerie = async serieName => {
+  /** choix de la categorie thèmatique */
+  chooseCategorie = async categorieName => {
     // si les images ne sont pas choisie à la main le service
-    // image_randomSerie le fait automatiquement
+    // image_randomCategorie le fait automatiquement
     if (!this.props.options.manualChooseImage) {
-      let res = await image_randomSerie(
-        [serieName],
-        this.props.options.nbrOfItemPerSerie,
+      let res = await image_randomCategorie(
+        [categorieName],
+        this.props.options.nbrOfItemPerCategorie,
         this.props.options.nbrOfImagePerItem,
         this.props.options.displayLg,
         this.props.options.level
       );
 
-      this.props.navigation.navigate("TrainSerie", { serie: res });
+      this.props.navigation.navigate("TrainCategorie", { categorie: res });
     } else {
-      let images = image_allImagesFromSerie(serieName);
-      // si les images sont choisie à la main on ouvre la modal pour afficher celles de la serie choisie
-      this.setState({ serieName, modal: { show: true, images } });
+      let images = image_allImagesFromCategorie(categorieName);
+      // si les images sont choisie à la main on ouvre la modal pour afficher celles de la categorie choisie
+      this.setState({ categorieName, modal: { show: true, images } });
     }
   };
 
@@ -127,38 +127,38 @@ class MotImage extends React.Component {
     this.setState({ modal: { show: true, images: _images } });
   };
 
-  chooseMultiSerie(cat, seriename) {
-    let multiSeriesNames = { ...this.state.multiSeriesNames };
+  chooseMultiCategorie(cat, categoriename) {
+    let multiCategoriesNames = { ...this.state.multiCategoriesNames };
 
-    multiSeriesNames[cat][seriename] = !multiSeriesNames[cat][seriename];
+    multiCategoriesNames[cat][categoriename] = !multiCategoriesNames[cat][categoriename];
 
-    this.setState({ multiSeriesNames });
+    this.setState({ multiCategoriesNames });
   }
-  resetMultiSeries = () => {
-    this.initMultiSeries();
+  resetMultiCategories = () => {
+    this.initMultiCategories();
   };
-  goMultiSeries = async () => {
-    let seriesName = [];
-    for (var i in this.state.multiSeriesNames.main) {
-      if (this.state.multiSeriesNames.main[i]) {
-        seriesName.push(i);
+  goMultiCategories = async () => {
+    let categoriesName = [];
+    for (var i in this.state.multiCategoriesNames.main) {
+      if (this.state.multiCategoriesNames.main[i]) {
+        categoriesName.push(i);
       }
     }
-    let res = await image_randomSerie(
-      seriesName,
-      this.props.options.nbrOfItemPerSerie,
+    let res = await image_randomCategorie(
+      categoriesName,
+      this.props.options.nbrOfItemPerCategorie,
       this.props.options.nbrOfImagePerItem,
       this.props.options.displayLg,
       this.props.options.level
     );
 
-    this.props.navigation.navigate("TrainSerie", { serie: res });
+    this.props.navigation.navigate("TrainCategorie", { categorie: res });
   };
 
   /**
-   * affiche la liste des series thematiques disponibles
+   * affiche la liste des categories thematiques disponibles
    */
-  renderSeries() {
+  renderCategories() {
     return (
       <View style={{ flex: 9 }}>
         <Text style={thisstyles.title}>Catégories disponibles :</Text>
@@ -168,10 +168,10 @@ class MotImage extends React.Component {
             flexWrap: "wrap"
           }}
         >
-          {this.state.seriesNames.map((item, index) => {
+          {this.state.categoriesNames.map((item, index) => {
             return (
               <View style={thisstyles.item} key={"ac" + index.toString()}>
-                <Button color={"green"} title={item} onPress={() => this.chooseSerie(item)} />
+                <Button color={"green"} title={item} onPress={() => this.chooseCategorie(item)} />
               </View>
             );
           })}
@@ -187,10 +187,10 @@ class MotImage extends React.Component {
     return false;
   }
 
-  renderMultiSeries() {
-    let main = tools.objectToArray(this.state.multiSeriesNames.main);
-    let disabled = !this.testDisabled(this.state.multiSeriesNames.main);
-    // let second = tools.objectToArray(this.state.multiSeriesNames.second);
+  renderMultiCategories() {
+    let main = tools.objectToArray(this.state.multiCategoriesNames.main);
+    let disabled = !this.testDisabled(this.state.multiCategoriesNames.main);
+    // let second = tools.objectToArray(this.state.multiCategoriesNames.second);
     return (
       <View style={{ flex: 9, flexDirection: "column" }}>
         <View style={{ flex: 1 }}>
@@ -207,9 +207,9 @@ class MotImage extends React.Component {
                 <View style={thisstyles.item} key={"ac" + index.toString()}>
                   <Button
                     color={item.value ? "green" : "grey"}
-                    disabled={this.state.multiSeriesNames.second[item.key]}
+                    disabled={this.state.multiCategoriesNames.second[item.key]}
                     title={item.key}
-                    onPress={() => this.chooseMultiSerie("main", item.key)}
+                    onPress={() => this.chooseMultiCategorie("main", item.key)}
                   />
                 </View>
               );
@@ -218,7 +218,7 @@ class MotImage extends React.Component {
         </View>
         {/*
         <View style={{ flex: 1 }}>
-          <Text style={thisstyles.title}>Serie(s) secondaire(s) :</Text>
+          <Text style={thisstyles.title}>Categorie(s) secondaire(s) :</Text>
           <ScrollView
             showsVerticalScrollIndicator
             contentContainerStyle={{
@@ -231,9 +231,9 @@ class MotImage extends React.Component {
                 <View style={thisstyles.item} key={"ac" + index.toString()}>
                   <Button
                     color={item.value ? "green" : "grey"}
-                    disabled={this.state.multiSeriesNames.main[item.key]}
+                    disabled={this.state.multiCategoriesNames.main[item.key]}
                     title={item.key}
-                    onPress={() => this.chooseMultiSerie("second", item.key)}
+                    onPress={() => this.chooseMultiCategorie("second", item.key)}
                   />
                 </View>
               );
@@ -243,8 +243,8 @@ class MotImage extends React.Component {
         */}
 
         <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", padding: 30 }}>
-          <Button color={"orange"} title="Reset" onPress={() => this.resetMultiSeries()} />
-          <Button color={"blue"} title="Valider" disabled={disabled} onPress={() => this.goMultiSeries()} />
+          <Button color={"orange"} title="Reset" onPress={() => this.resetMultiCategories()} />
+          <Button color={"blue"} title="Valider" disabled={disabled} onPress={() => this.goMultiCategories()} />
         </View>
       </View>
     );
@@ -255,7 +255,7 @@ class MotImage extends React.Component {
         {this.renderModal()}
 
         <View style={{ flex: 1, flexDirection: "row" }}>
-          {this.state.mode == "multiseries" ? this.renderMultiSeries() : this.renderSeries()}
+          {this.state.mode == "multicategories" ? this.renderMultiCategories() : this.renderCategories()}
 
           <View style={{ width: 50, height: 50 }}>
             <IconFeather
@@ -339,10 +339,10 @@ class MotImage extends React.Component {
               title={"Valider" + stillNeeded}
               disabled={disabledButton}
               onPress={() => {
-                let _serie = image_serieFromImages(
+                let _categorie = image_categorieFromImages(
                   selectedImages,
-                  this.state.serieName,
-                  this.props.options.nbrOfItemPerSerie,
+                  this.state.categorieName,
+                  this.props.options.nbrOfItemPerCategorie,
                   this.props.options.nbrOfImagePerItem,
                   this.props.options.displayLg,
                   this.props.options.level
@@ -350,12 +350,12 @@ class MotImage extends React.Component {
 
                 this.setState(
                   {
-                    serieName: null,
+                    categorieName: null,
                     modal: { show: false, images: null }
                   },
                   () => {
-                    this.props.navigation.navigate("TrainSerie", {
-                      serie: _serie
+                    this.props.navigation.navigate("TrainCategorie", {
+                      categorie: _categorie
                     });
                   }
                 );

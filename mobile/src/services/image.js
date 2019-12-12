@@ -5,39 +5,39 @@ import * as tools from "language_therapy/src/tools";
 import Config from "language_therapy/src/Config";
 
 /**
- * retourne une image au hasard parmis une serie
- * @param {*} serieName nom de la serie
+ * retourne une image au hasard parmis une categorie
+ * @param {*} categorieName nom de la categorie
  * @param {*} imagesSrc  images à piocher parmis
  * @param {*} deleteItem efface ou non l'image choisi
  */
-function randomImageFromSerie(serieName, imagesSrc, deleteItem = false) {
-  if (imagesSrc == null || imagesSrc == undefined || imagesSrc[serieName].length < 1) {
+function randomImageFromCategorie(categorieName, imagesSrc, deleteItem = false) {
+  if (imagesSrc == null || imagesSrc == undefined || imagesSrc[categorieName].length < 1) {
     console.error("wrong imagesSrc param data");
-    console.log({ serieName, imagesSrc, value: imagesSrc[serieName], length: imagesSrc[serieName].length });
+    console.log({ categorieName, imagesSrc, value: imagesSrc[categorieName], length: imagesSrc[categorieName].length });
     return null;
   }
 
-  let l = tools.getRandomInt(0, imagesSrc[serieName].length - 1);
-  let img = imagesSrc[serieName][l];
+  let l = tools.getRandomInt(0, imagesSrc[categorieName].length - 1);
+  let img = imagesSrc[categorieName][l];
   if (deleteItem) {
-    imagesSrc[serieName].splice(l, 1);
-    if (imagesSrc[serieName].length < 1) {
-      delete imagesSrc[serieName];
+    imagesSrc[categorieName].splice(l, 1);
+    if (imagesSrc[categorieName].length < 1) {
+      delete imagesSrc[categorieName];
     }
   }
   return img;
 }
 
 /**
- * retourne un nom de serie au hasard différent de ceux passées en parametre
- * @param array of string, excluded series
+ * retourne un nom de categorie au hasard différent de ceux passées en parametre
+ * @param array of string, excluded categories
  */
-function randomSerieName(excluded = []) {
+function randomCategorieName(excluded = []) {
   let _names = [];
 
-  for (var i in _allSeriesName) {
-    if (!excluded.includes(_allSeriesName[i])) {
-      _names.push(_allSeriesName[i]);
+  for (var i in _allCategoriesName) {
+    if (!excluded.includes(_allCategoriesName[i])) {
+      _names.push(_allCategoriesName[i]);
     }
   }
 
@@ -56,72 +56,72 @@ function shuffleArray(a) {
   return a;
 }
 
-let _ignoredSeries = ["personnes-et-action"];
-//pour certaines series on ne prend que les images de la même serie
-let _unmixedSeries = ["nombres-fr", "nombres-ar"];
-// pour certaine series on ne prend pas les images de certaines autres series
+let _ignoredCategories = ["personnes-et-action"];
+//pour certaines categories on ne prend que les images de la même categorie
+let _unmixedCategories = ["nombres-fr", "nombres-ar"];
+// pour certaine categories on ne prend pas les images de certaines autres categories
 // par exemple aliments et recette-arabe
 let _excludeFor = {
   aliments: ["recette-arabe"],
   "recette-arabe": ["aliments"]
 };
 
-let _allSeriesName = null;
+let _allCategoriesName = null;
 /**
- * retourne la liste des noms de toutes les series disponibles
+ * retourne la liste des noms de toutes les categories disponibles
  */
-export async function image_AllSeriesNames() {
+export async function image_AllCategoriesNames() {
   /*const connected = await tools.isConnectedToNetwork();
   console.log(connected);*/
 
-  if (_allSeriesName) {
-    return _allSeriesName;
+  if (_allCategoriesName) {
+    return _allCategoriesName;
   } else {
     let _names = [];
     for (var cat in RawDatas._IMAGES) {
-      if (!_ignoredSeries.includes(cat)) {
+      if (!_ignoredCategories.includes(cat)) {
         _names.push(cat);
       }
     }
 
-    _allSeriesName = _names;
-    return _allSeriesName;
+    _allCategoriesName = _names;
+    return _allCategoriesName;
   }
 }
 
 /**
- * crée une serie d'exercice depuis un nom de serie donnée
- * @param array seriesName nom de la serie pour les réponses justes
+ * crée une categorie d'exercice depuis un nom de categorie donnée
+ * @param array categoriesName nom de la categorie pour les réponses justes
  * @param int nbrQuestion : nombre de question
  * @param int nbrOfImagePerItem : nombre d'image par item
  * @param string displayLg : langue du mot à afficher pour chaque item ( FR ou AR )
- * @param string level : easy = on utilise des images que tu meme serie, middle = on prend tjrs la même serie pour l'image juste et random pour les autres
+ * @param string level : easy = on utilise des images que tu meme categorie, middle = on prend tjrs la même categorie pour l'image juste et random pour les autres
  * @param array selectedImages : array of images,
  *
  * si selectedImages not null alors ces images seront utilisées comme image à trouver
  *
- * si c'est niveau facile alors il ne faut pas que les images retournés soit de la meme serie du tout
- * si c'est niveau moyen alors les images sont un mélange d'autres series et celle choisie
- * si c'est niveau dur alors les images ne sont que de la serie choisie
+ * si c'est niveau facile alors il ne faut pas que les images retournés soit de la meme categorie du tout
+ * si c'est niveau moyen alors les images sont un mélange d'autres categories et celle choisie
+ * si c'est niveau dur alors les images ne sont que de la categorie choisie
  */
-export function image_randomSerie(
-  seriesName,
+export function image_randomCategorie(
+  categoriesName,
   nbrQuestion = 10,
   nbrOfImagePerItem = 4,
   displayLg = Config._const.ar,
   level = Config._const.easy,
   selectedImages = null
 ) {
-  seriesName.forEach(serieName => {
-    // pour les series nombres-fr et nombres-ar on reste en mode easy
-    if (_unmixedSeries.includes(serieName)) {
+  categoriesName.forEach(categorieName => {
+    // pour les categories nombres-fr et nombres-ar on reste en mode easy
+    if (_unmixedCategories.includes(categorieName)) {
       level = Config._const.easy;
     }
   });
-  let serie = {
+  let categorie = {
     id: Date.now(),
-    serieName: seriesName.toString(),
-    display: seriesName.toString(),
+    categorieName: categoriesName.toString(),
+    display: categoriesName.toString(),
     questions: []
   };
 
@@ -132,16 +132,16 @@ export function image_randomSerie(
     nbrQuestion = selectedImages.length;
   }
   for (var q = 0; q < nbrQuestion; q++) {
-    const serieName = seriesName[tools.getRandomInt(0, seriesName.length - 1)];
+    const categorieName = categoriesName[tools.getRandomInt(0, categoriesName.length - 1)];
     console.log("aaaaa", {
-      serieName,
-      seriesName
+      categorieName,
+      categoriesName
     });
 
     // on commence par mettre les 4(ou nbrOfImagePerItem) images
     let randomImages = [];
 
-    // on met celle de la bonne serie
+    // on met celle de la bonne categorie
     if (_useSelectedImages) {
       randomImages.push({
         ...selectedImages[q],
@@ -149,36 +149,36 @@ export function image_randomSerie(
       });
     } else {
       randomImages.push({
-        ...randomImageFromSerie(serieName, copyDatas._IMAGES, true),
+        ...randomImageFromCategorie(categorieName, copyDatas._IMAGES, true),
         right: true
       });
     }
 
     if (level == Config._const.easy || level == Config._const.middle) {
-      // et 3(ou nbrOfImagePerItem-1) autres images d'autres series
+      // et 3(ou nbrOfImagePerItem-1) autres images d'autres categories
       for (var i = 1; i < nbrOfImagePerItem; i++) {
         let catTmp = null;
 
-        // si on est dans une serie a ne pas mélanger
-        if (_unmixedSeries.includes(serieName)) {
-          catTmp = serieName;
+        // si on est dans une categorie a ne pas mélanger
+        if (_unmixedCategories.includes(categorieName)) {
+          catTmp = categorieName;
         } else {
-          let excluded = _excludeFor[serieName] ? [..._excludeFor[serieName]] : [];
+          let excluded = _excludeFor[categorieName] ? [..._excludeFor[categorieName]] : [];
           if (level == Config._const.easy) {
-            excluded.push(serieName);
+            excluded.push(categorieName);
           }
-          catTmp = randomSerieName([...excluded, ..._unmixedSeries]);
+          catTmp = randomCategorieName([...excluded, ..._unmixedCategories]);
         }
 
         let repeat = 0;
 
         while (repeat < 10) {
           let imgTmp;
-          if (_unmixedSeries.includes(serieName)) {
+          if (_unmixedCategories.includes(categorieName)) {
             let copyDatasTmp = tools.clone(RawDatas);
-            imgTmp = randomImageFromSerie(catTmp, copyDatasTmp._IMAGES, false);
+            imgTmp = randomImageFromCategorie(catTmp, copyDatasTmp._IMAGES, false);
           } else {
-            imgTmp = randomImageFromSerie(catTmp, copyDatas._IMAGES, false);
+            imgTmp = randomImageFromCategorie(catTmp, copyDatas._IMAGES, false);
           }
 
           if (!tools.stringInArrayOfObject(imgTmp.fr, randomImages, "fr")) {
@@ -190,11 +190,11 @@ export function image_randomSerie(
         }
       }
     } else {
-      // et 3(ou nbrOfImagePerItem) autres images de la même serie
+      // et 3(ou nbrOfImagePerItem) autres images de la même categorie
       for (var i = 1; i < nbrOfImagePerItem; i++) {
         let repeat = 0;
         while (repeat < 10) {
-          let imgTmp = randomImageFromSerie(serieName, copyDatas._IMAGES, false);
+          let imgTmp = randomImageFromCategorie(categorieName, copyDatas._IMAGES, false);
           if (!tools.stringInArrayOfObject(imgTmp.fr, randomImages, "fr")) {
             randomImages.push(imgTmp);
             repeat = 10;
@@ -236,42 +236,42 @@ export function image_randomSerie(
       questionTmp["display"] = randomImages[foundIndex]["ar"];
       questionTmp["clue"] = randomImages[foundIndex]["fr"];
     }
-    serie.questions.push(questionTmp);
+    categorie.questions.push(questionTmp);
   }
 
-  return serie;
+  return categorie;
 }
 
 /**
- * retourne toutes les images d'une serie
+ * retourne toutes les images d'une categorie
    utilisé pour choix images à la main
-   @param string serieName
+   @param string categorieName
    @param bool sort
 */
-export function image_allImagesFromSerie(serieName, sort = false) {
-  let imgs = tools.clone(RawDatas._IMAGES[serieName]);
+export function image_allImagesFromCategorie(categorieName, sort = false) {
+  let imgs = tools.clone(RawDatas._IMAGES[categorieName]);
   return tools.arrayObjectSort(imgs, "audio");
 }
 
 /**
- * creée une serie pour trainSerie à partir d'images selectionnées à la main
- * @param string serieName
+ * creée une categorie pour trainCategorie à partir d'images selectionnées à la main
+ * @param string categorieName
  * @param array selectedImages
  */
-export function image_serieFromImages(selectedImages, serieName, nbrQuestion, nbrOfImagePerItem, displayLg, level) {
-  return image_randomSerie([serieName], nbrQuestion, nbrOfImagePerItem, displayLg, level, selectedImages);
+export function image_categorieFromImages(selectedImages, categorieName, nbrQuestion, nbrOfImagePerItem, displayLg, level) {
+  return image_randomCategorie([categorieName], nbrQuestion, nbrOfImagePerItem, displayLg, level, selectedImages);
 }
 
 /*
 /////////////   unused
-// random depuis tt les series
-export function createMotImageSerie(nbrQuestion = 10) {
-    let serie = {
+// random depuis tt les categories
+export function createMotImageCategorie(nbrQuestion = 10) {
+    let categorie = {
         "display": "random",
         "questions": []
     }
     //
-    //  pour créer une serie de questions,
+    //  pour créer une categorie de questions,
     //    il faut pour chaque question choisir 4 images aux hasard
     //    et en définir une comme celle à trouver
     //
@@ -289,7 +289,7 @@ export function createMotImageSerie(nbrQuestion = 10) {
         }
         // image à trouver !
         let foundIndex = tools.getRandomInt(0, 3);
-        serie.questions.push(
+        categorie.questions.push(
             {
                 "display": randomImages[foundIndex]["ar"],
                 "clue": randomImages[foundIndex]["fr"],
@@ -302,8 +302,8 @@ export function createMotImageSerie(nbrQuestion = 10) {
     }
 
 
-    for (var q in serie.questions) {
-        let question = serie.questions[q];
+    for (var q in categorie.questions) {
+        let question = categorie.questions[q];
         question.answer = {
             ...question.answer,
             "clickedIndex": null, // indice de l'image cliquée
@@ -314,7 +314,7 @@ export function createMotImageSerie(nbrQuestion = 10) {
         }
     }
 
-    return serie;
+    return categorie;
 }
 
 */

@@ -6,7 +6,7 @@ import Config from "language_therapy/src/Config";
 import IconFeather from "react-native-vector-icons/Feather";
 import * as tools from "language_therapy/src/tools";
 import { sound_play } from "language_therapy/src/services/sound";
-import { image_AllSeriesNames, image_allImagesFromSerie } from "language_therapy/src/services/image";
+import { image_AllCategoriesNames, image_allImagesFromCategorie } from "language_therapy/src/services/image";
 
 const _ImageWidth = 175;
 const _ItemWidth = _ImageWidth + 100;
@@ -16,9 +16,9 @@ export default class DataChecker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // tous les noms de series
-      seriesNames: [],
-      serieName: null,
+      // tous les noms de categories
+      categoriesNames: [],
+      categorieName: null,
       images: null,
       soundFr: true,
       soundAr: true
@@ -26,49 +26,49 @@ export default class DataChecker extends React.Component {
   }
 
   async componentDidMount() {
-    let seriesNames = await image_AllSeriesNames();
+    let categoriesNames = await image_AllCategoriesNames();
 
     this.setState({
-      seriesNames
+      categoriesNames
     });
   }
 
-  /** choix de la serie thèmatique */
-  chooseSerie = serieName => {
-    let images = image_allImagesFromSerie(serieName, true);
-    // si les images sont choisie à la main on ouvre la modal pour afficher celles de la serie choisie
-    this.setState({ serieName, images });
+  /** choix de la categorie thèmatique */
+  chooseCategorie = categorieName => {
+    let images = image_allImagesFromCategorie(categorieName, true);
+    // si les images sont choisie à la main on ouvre la modal pour afficher celles de la categorie choisie
+    this.setState({ categorieName, images });
   };
 
   render() {
     return (
       <View style={styles.flex1}>
-        {this.renderSeries()}
-        {this.renderSerie()}
+        {this.renderCategories()}
+        {this.renderCategorie()}
       </View>
     );
   }
 
   /**
-   * affiche la liste des series thematiques disponibles
+   * affiche la liste des categories thematiques disponibles
    */
-  renderSeries() {
-    if (this.state.serieName != null) {
+  renderCategories() {
+    if (this.state.categorieName != null) {
       return null;
     }
     return (
       <View style={{ flex: 1 }}>
-        <Text style={thisstyles.title}>Series disponibles :</Text>
+        <Text style={thisstyles.title}>Categories disponibles :</Text>
         <ScrollView
           contentContainerStyle={{
             flexDirection: "row",
             flexWrap: "wrap"
           }}
         >
-          {this.state.seriesNames.map((item, index) => {
+          {this.state.categoriesNames.map((item, index) => {
             return (
               <View style={thisstyles.item} key={"ac" + index.toString()}>
-                <Button color={"green"} title={item} onPress={() => this.chooseSerie(item)} />
+                <Button color={"green"} title={item} onPress={() => this.chooseCategorie(item)} />
               </View>
             );
           })}
@@ -92,8 +92,8 @@ export default class DataChecker extends React.Component {
     }
   }
 
-  renderSerie() {
-    if (this.state.serieName == null) {
+  renderCategorie() {
+    if (this.state.categorieName == null) {
       return null;
     }
     return (
@@ -202,8 +202,8 @@ const thisstyles = StyleSheet.create({
 /*
 old render with flatlist
 
-  renderSerieSV() {
-    if (this.state.serieName == null) {
+  renderCategorieSV() {
+    if (this.state.categorieName == null) {
       return null;
     }
     return (

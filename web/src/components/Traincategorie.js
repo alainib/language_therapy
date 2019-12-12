@@ -6,7 +6,7 @@ import { Row as RowBootstrap, Col as ColBootstrap, Button, Alert } from "react-b
 
 import FlexView from "react-flexview";
 import Config from "Config";
-import { image_randomSerie } from "services/image";
+import { image_randomCategorie } from "services/image";
 import { FaVolumeUp, FaArrowRight, FaArrowLeft, FaCheck } from "react-icons/fa";
 
 import * as actions from "redux/actions";
@@ -16,21 +16,21 @@ import { compose } from "redux";
 // pour éviter les multi click successif sur la bonne réponse qui feraient avancer de plusieurs questions d'un coup
 let _lastSecClicked = 0;
 
-class Trainserie extends Component {
+class Traincategorie extends Component {
   constructor(props) {
     super(props);
 
-    const serieName = this.props.match.params.id;
+    const categorieName = this.props.match.params.id;
     this.state = {
       // permet d'afficher le nom en francais
       questionClueVisible: false,
-      serieName,
+      categorieName,
       // liste des questions
       questions: [],
       index: 0,
       ready: false,
       networkError: false,
-      /* pour les series d'imageByImage il ne faut pas afficher le nom en haut directement
+      /* pour les categories d'imageByImage il ne faut pas afficher le nom en haut directement
         on peut afficher des . par lettres et a chaque click sur question.display on affiche une lettre de plus
       */
       imageByImageShowHowMuchLetters: 0
@@ -43,10 +43,10 @@ class Trainserie extends Component {
 
   async componentDidMount() {
     if (this.props.connected) {
-      let res = await image_randomSerie(
+      let res = await image_randomCategorie(
         this.props.token,
-        this.state.serieName,
-        this.props.options.nbrOfItemPerSerie,
+        this.state.categorieName,
+        this.props.options.nbrOfItemPerCategorie,
         this.props.options.nbrOfImagePerItem,
         this.props.options.displayLg,
         this.props.options.level
@@ -81,7 +81,7 @@ class Trainserie extends Component {
           this.setState({ questions }, () => {
             this._timeout = setTimeout(() => {
               //this.setState({ index: this.state.index + 1 });
-              this.nextSerie();
+              this.nextCategorie();
             }, 500);
           });
         } else {
@@ -129,13 +129,13 @@ class Trainserie extends Component {
       questionClueVisible: false
     });
   };
-  previousSerie() {
+  previousCategorie() {
     if (this.state.index > 0) {
       this.setState({ index: this.state.index - 1, imageByImageShowHowMuchLetters: 0 });
     }
   }
 
-  nextSerie() {
+  nextCategorie() {
     if (this.state.index < this.state.questions.length) {
       this.setState({ index: this.state.index + 1, imageByImageShowHowMuchLetters: 0 });
     }
@@ -162,7 +162,7 @@ class Trainserie extends Component {
       return (
         <Alert variant="danger">
           <p>
-            Une erreur est survenue lors du chargement de la serie. <br />
+            Une erreur est survenue lors du chargement de la categorie. <br />
             Essayer de rafraichir la page ( F5 )
           </p>
         </Alert>
@@ -192,7 +192,7 @@ class Trainserie extends Component {
                   className="btn-nooutline"
                   variant="false"
                   onClick={() => {
-                    this.previousSerie();
+                    this.previousCategorie();
                   }}
                 >
                   <span style={{ color: "white" }}>
@@ -256,7 +256,7 @@ class Trainserie extends Component {
               <Button
                 variant="false"
                 onClick={() => {
-                  this.nextSerie();
+                  this.nextCategorie();
                 }}
               >
                 <span style={{ color: "white" }}>
@@ -302,7 +302,7 @@ class Trainserie extends Component {
             }}
           >
             <h3>
-              {this.state.serieName + " : "}
+              {this.state.categorieName + " : "}
               {this.state.index + 1 + " / " + this.state.questions.length}
             </h3>
 
@@ -365,7 +365,7 @@ class Trainserie extends Component {
   }
 }
 
-//export default withRouter(Trainserie);
+//export default withRouter(Traincategorie);
 
 function mapStatetoProps(data) {
   return {
@@ -373,4 +373,4 @@ function mapStatetoProps(data) {
   };
 }
 
-export default compose(withRouter, connect(mapStatetoProps, actions))(Trainserie);
+export default compose(withRouter, connect(mapStatetoProps, actions))(Traincategorie);

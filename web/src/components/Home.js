@@ -69,7 +69,7 @@ export default class Home extends Component {
             <h1>{identifiant}, bienvenue sur 'Arabaphasie'.</h1>
             <br />
             <br />
-            <h3>Vous avez désormais accès aux series.</h3>
+            <h3>Vous avez désormais accès aux categories.</h3>
             <br />
             <br />
             <Form>

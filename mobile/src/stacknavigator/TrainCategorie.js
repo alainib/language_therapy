@@ -12,22 +12,22 @@ import FlexSize from "language_therapy/src/components/FlexSize";
 import { sound_play } from "language_therapy/src/services/sound";
 
 /**
- * permet de jouer une serie de question deja crée
+ * permet de jouer une categorie de question deja crée
  *
  */
-class TrainSerie extends React.PureComponent {
+class TrainCategorie extends React.PureComponent {
   constructor(props) {
     super(props);
-    // console.log(props.navigation.state.params.serie);
+    // console.log(props.navigation.state.params.categorie);
     this.state = {
       // permet d'afficher le nom en francais
       questionClueVisible: false,
       // liste des questions
-      questions: props.navigation.state.params.serie.questions,
+      questions: props.navigation.state.params.categorie.questions,
       index: 0, // indice de la question courante
-      // display: props.navigation.state.params.serie.display,
-      // serieName: props.navigation.state.params.serie.serieName,
-      /* pour les series d'imageByImage il ne faut pas afficher le nom en haut directement
+      // display: props.navigation.state.params.categorie.display,
+      // categorieName: props.navigation.state.params.categorie.categorieName,
+      /* pour les categories d'imageByImage il ne faut pas afficher le nom en haut directement
         on peut afficher des . par lettres et a chaque click sur question.display on affiche une lettre de plus
       */
       imageByImageShowHowMuchLetters: 0
@@ -54,12 +54,12 @@ class TrainSerie extends React.PureComponent {
     });
   };
 
-  previousSerie = () => {
+  previousCategorie = () => {
     if (this.state.index > 0) {
       this.setState({ index: this.state.index - 1, imageByImageShowHowMuchLetters: 0 });
     }
   };
-  nextSerie = () => {
+  nextCategorie = () => {
     this.setState({ index: this.state.index + 1, imageByImageShowHowMuchLetters: 0 });
   };
 
@@ -121,7 +121,7 @@ class TrainSerie extends React.PureComponent {
             }}
           >
             <TouchableOpacity
-              onPress={this.previousSerie}
+              onPress={this.previousCategorie}
               underlayColor="grey"
               style={[
                 {
@@ -244,7 +244,7 @@ class TrainSerie extends React.PureComponent {
             )}
 
             <TouchableOpacity
-              onPress={this.nextSerie}
+              onPress={this.nextCategorie}
               underlayColor="grey"
               style={[
                 {
@@ -391,10 +391,10 @@ class TrainSerie extends React.PureComponent {
         }
       }
 
-      this.props.action_addSerieToUser({
-        id: this.props.navigation.state.params.serie.id,
+      this.props.action_addCategorieToUser({
+        id: this.props.navigation.state.params.categorie.id,
         user: this.props.currentUser,
-        serie: this.props.navigation.state.params.serie,
+        categorie: this.props.navigation.state.params.categorie,
 
         results
       });
@@ -419,10 +419,10 @@ class TrainSerie extends React.PureComponent {
                         "attempt": -1, // nombre de tentative 
                     },
                     "images": [
-                        require(_PATH + "mot-image/serie-a/09.jpg"),
-                        require(_PATH + "mot-image/serie-a/10.jpg"),
-                        require(_PATH + "mot-image/serie-a/11.jpg"),
-                        require(_PATH + "mot-image/serie-a/12.jpg")
+                        require(_PATH + "mot-image/categorie-a/09.jpg"),
+                        require(_PATH + "mot-image/categorie-a/10.jpg"),
+                        require(_PATH + "mot-image/categorie-a/11.jpg"),
+                        require(_PATH + "mot-image/categorie-a/12.jpg")
                     ]
                 }
         */
@@ -443,7 +443,7 @@ class TrainSerie extends React.PureComponent {
 
         this.setState({ questions }, () => {
           this._timeout = setTimeout(() => {
-            this.nextSerie();
+            this.nextCategorie();
           }, 500);
         });
       } else {
@@ -484,6 +484,6 @@ function mapToStateProps(data) {
 import { connect } from "react-redux";
 import * as actions from "language_therapy/src/redux/actions";
 
-export default connect(mapToStateProps, actions)(TrainSerie);
+export default connect(mapToStateProps, actions)(TrainCategorie);
 
 const thisstyles = StyleSheet.create({});

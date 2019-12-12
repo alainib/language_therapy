@@ -185,20 +185,20 @@ class Options extends React.Component {
           <View style={thisstyles.bloc}>
             <View style={thisstyles.flex1rowcenter}>
               <View style={thisstyles.flex1stretchcenter}>
-                <Text style={thisstyles.title}>Nombre d'items par serie : {this.props.options.nbrOfItemPerSerie}</Text>
+                <Text style={thisstyles.title}>Nombre d'items par categorie : {this.props.options.nbrOfItemPerCategorie}</Text>
               </View>
               <View style={thisstyles.flex1stretchcenter}>
                 <Slider
-                  value={this.props.options.nbrOfItemPerSerie}
+                  value={this.props.options.nbrOfItemPerCategorie}
                   minimumValue={3}
                   maximumValue={50}
                   step={1}
                   onValueChange={value => {
-                    this.props.action_optionUpdate("nbrOfItemPerSerie", null, value);
+                    this.props.action_optionUpdate("nbrOfItemPerCategorie", null, value);
                   }}
                 />
               </View>
-              <TouchableOpacity style={thisstyles.touchableQuestion} onPress={() => Alert.alert("Nombre d'item par serie")}>
+              <TouchableOpacity style={thisstyles.touchableQuestion} onPress={() => Alert.alert("Nombre d'item par categorie")}>
                 <IconFA name="question" size={18} color={"black"} margin={2} />
               </TouchableOpacity>
             </View>

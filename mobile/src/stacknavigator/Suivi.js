@@ -10,7 +10,7 @@ class Suivi extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // tous les noms de series
+      // tous les noms de categories
       current: props.current,
       userTestList: props.userTestList,
       showModal: false,
@@ -90,7 +90,7 @@ class Suivi extends Component {
                   size={20}
                   color="#000"
                   onPress={() => {
-                    this.props.action_removeSerieFromUser({ testId: _test.id, testIndex: i });
+                    this.props.action_removeCategorieFromUser({ testId: _test.id, testIndex: i });
                   }}
                 />
               </View>
@@ -100,7 +100,7 @@ class Suivi extends Component {
                 </Text>
               </View>
               <View style={{ ...styles.center, flex: 3 }}>
-                <Text style={thisstyles.title}>{_test.serie.serieName}</Text>
+                <Text style={thisstyles.title}>{_test.categorie.categorieName}</Text>
               </View>
 
               <TouchableHighlight
@@ -124,8 +124,8 @@ class Suivi extends Component {
                     size={20}
                     color="#000"
                     onPress={() => {
-                      this.props.navigation.navigate("TrainSerie", {
-                        serie: _test.serie
+                      this.props.navigation.navigate("TrainCategorie", {
+                        categorie: _test.categorie
                       });
                     }}
                   />
@@ -172,10 +172,7 @@ function mapStatetoProps(data) {
     userTestList
   };
 }
-export default connect(
-  mapStatetoProps,
-  actions
-)(Suivi);
+export default connect(mapStatetoProps, actions)(Suivi);
 
 const thisstyles = StyleSheet.create({
   title: {

@@ -7,22 +7,22 @@ import { connect } from "react-redux";
 import * as tools from "tools";
 import "App.css";
 
-import { image_AllSeriesNames } from "../services/image";
+import { image_AllCategoriesNames } from "../services/image";
 
-class Series extends Component {
+class Categories extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // tous les noms de series
-      seriesNames: [],
+      // tous les noms de categories
+      categoriesNames: [],
       networkError: false
     };
   }
 
   async componentDidMount() {
-    let res = await image_AllSeriesNames();
+    let res = await image_AllCategoriesNames();
     if (res) {
-      this.setState({ seriesNames: res, networkError: false });
+      this.setState({ categoriesNames: res, networkError: false });
     } else {
       this.setState({ networkError: true });
     }
@@ -31,23 +31,23 @@ class Series extends Component {
   render() {
     return (
       <div>
-        <h2 className="padding15">Series disponibles :</h2>
+        <h2 className="padding15">Categories disponibles :</h2>
         <br />
         {this.state.networkError ? (
           <Alert variant="danger">
             <p>
-              Une erreur est survenue lors du chargement des series. <br />
+              Une erreur est survenue lors du chargement des categories. <br />
               Essayer de rafraichir la page ( F5 )
             </p>
           </Alert>
         ) : (
           <ul className="flex-container wrap">
-            {this.state.seriesNames.map((item, index) => {
+            {this.state.categoriesNames.map((item, index) => {
               return (
-                <Link className="flex-item" to={`/trainserie/${item}`}>
+                <Link className="flex-item" to={`/traincategorie/${item}`}>
                   <li className="flex-item-link" key={"ac" + index.toString()}>
                     {tools.upperFirstLetter(item)}
-                    {/*   <LinkButton to={`/trainserie/${item}`}>{tools.upperFirstLetter(item)}</LinkButton> */}
+                    {/*   <LinkButton to={`/traincategorie/${item}`}>{tools.upperFirstLetter(item)}</LinkButton> */}
                   </li>
                 </Link>
               );
@@ -65,4 +65,4 @@ function mapStatetoProps(data) {
   };
 }
 
-export default connect(mapStatetoProps, actions)(Series);
+export default connect(mapStatetoProps, actions)(Categories);

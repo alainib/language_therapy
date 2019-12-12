@@ -5,9 +5,9 @@ import {
   ADD_USER,
   REMOVE_USER,
   SETCURRENT_USER,
-  ADD_SERIE_TO_USER,
-  REMOVE_SERIE_FROM_USER,
-  CLEAR_SERIES_FROM_USER
+  ADD_CATEGORIE_TO_USER,
+  REMOVE_CATEGORIE_FROM_USER,
+  CLEAR_CATEGORIES_FROM_USER
 } from "language_therapy/src/redux/types";
 
 export const action_addUser = username => {
@@ -31,23 +31,23 @@ export const action_removeUser = username => {
   };
 };
 
-export const action_addSerieToUser = data => {
+export const action_addCategorieToUser = data => {
   return {
     payload: data,
-    type: ADD_SERIE_TO_USER
+    type: ADD_CATEGORIE_TO_USER
   };
 };
 
-export const action_removeSerieFromUser = data => {
+export const action_removeCategorieFromUser = data => {
   return {
     payload: data,
-    type: REMOVE_SERIE_FROM_USER
+    type: REMOVE_CATEGORIE_FROM_USER
   };
 };
 
-export const action_clearSeriesFromUser = username => {
+export const action_clearCategoriesFromUser = username => {
   return {
     payload: username,
-    type: CLEAR_SERIES_FROM_USER
+    type: CLEAR_CATEGORIES_FROM_USER
   };
 };

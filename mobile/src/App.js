@@ -11,7 +11,7 @@ const { persistor, store } = configureStore();
 import styles from "language_therapy/src/styles";
 import Suivi from "language_therapy/src/stacknavigator/Suivi";
 import DataChecker from "language_therapy/src/stacknavigator/DataChecker";
-import TrainSerie from "language_therapy/src/stacknavigator/TrainSerie";
+import TrainCategorie from "language_therapy/src/stacknavigator/TrainCategorie";
 import Options from "language_therapy/src/stacknavigator/Options";
 import Config from "language_therapy/src/Config";
 
@@ -78,8 +78,8 @@ const StackNavigator = createStackNavigator(
       screen: Options,
       ...removeHeader
     },
-    TrainSerie: {
-      screen: TrainSerie,
+    TrainCategorie: {
+      screen: TrainCategorie,
       ...removeHeader
     },
     DataChecker: {

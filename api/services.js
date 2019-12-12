@@ -19,54 +19,54 @@ const Config = {
   }
 };
 
-let _ignoredSeries = ["personnes-et-action"];
-//pour certaines series on ne prend que les images de la même serie
-let _unmixedSeries = ["nombres-fr", "nombres-ar"];
-// pour certaine series on ne prend pas les images de certaines autres series
+let _ignoredCategories = ["personnes-et-action"];
+//pour certaines categories on ne prend que les images de la même categorie
+let _unmixedCategories = ["nombres-fr", "nombres-ar"];
+// pour certaine categories on ne prend pas les images de certaines autres categories
 // par exemple aliments et recette-arabe
 let _excludeFor = {
   aliments: ["recette-arabe"],
   "recette-arabe": ["aliments"]
 };
-let _allSeriesName = null;
+let _allCategoriesName = null;
 /**
- * retourne la liste des noms de toutes les series disponibles
+ * retourne la liste des noms de toutes les categories disponibles
  */
-function allSeriesNames() {
-  if (_allSeriesName) {
-    return _allSeriesName;
+function allCategoriesNames() {
+  if (_allCategoriesName) {
+    return _allCategoriesName;
   } else {
     let _names = [];
     for (var cat in _IMAGES) {
-      if (!_ignoredSeries.includes(cat)) {
+      if (!_ignoredCategories.includes(cat)) {
         _names.push(cat);
       }
     }
 
-    _allSeriesName = _names;
-    return _allSeriesName;
+    _allCategoriesName = _names;
+    return _allCategoriesName;
   }
 }
 
 /**
- * retourne une image au hasard parmis une serie
- * @param {*} serieName nom de la serie
+ * retourne une image au hasard parmis une categorie
+ * @param {*} categorieName nom de la categorie
  * @param {*} imagesSrc  images à piocher parmis
  * @param {*} deleteItem efface ou non l'image choisi
  */
-function randomImageFromSerie(serieName, imagesSrc, deleteItem = false) {
-  if (imagesSrc === null || imagesSrc === undefined || imagesSrc[serieName].length < 1) {
+function randomImageFromCategorie(categorieName, imagesSrc, deleteItem = false) {
+  if (imagesSrc === null || imagesSrc === undefined || imagesSrc[categorieName].length < 1) {
     console.error("wrong imagesSrc param data");
-    console.log({ serieName, imagesSrc, value: imagesSrc[serieName], length: imagesSrc[serieName].length });
+    console.log({ categorieName, imagesSrc, value: imagesSrc[categorieName], length: imagesSrc[categorieName].length });
     return null;
   }
 
-  let l = getRandomInt(0, imagesSrc[serieName].length - 1);
-  let img = imagesSrc[serieName][l];
+  let l = getRandomInt(0, imagesSrc[categorieName].length - 1);
+  let img = imagesSrc[categorieName][l];
   if (deleteItem) {
-    imagesSrc[serieName].splice(l, 1);
-    if (imagesSrc[serieName].length < 1) {
-      delete imagesSrc[serieName];
+    imagesSrc[categorieName].splice(l, 1);
+    if (imagesSrc[categorieName].length < 1) {
+      delete imagesSrc[categorieName];
     }
   }
 
@@ -74,17 +74,17 @@ function randomImageFromSerie(serieName, imagesSrc, deleteItem = false) {
 }
 
 /**
- * retourne un nom de serie au hasard différent de ceux passées en parametre
- * @param array of string, excluded series
+ * retourne un nom de categorie au hasard différent de ceux passées en parametre
+ * @param array of string, excluded categories
  */
-function randomSerieName(excluded = []) {
+function randomCategorieName(excluded = []) {
   let _names = [];
-  if (_allSeriesName === null) {
-    _allSeriesName = allSeriesNames();
+  if (_allCategoriesName === null) {
+    _allCategoriesName = allCategoriesNames();
   }
-  for (var i in _allSeriesName) {
-    if (!excluded.includes(_allSeriesName[i])) {
-      _names.push(_allSeriesName[i]);
+  for (var i in _allCategoriesName) {
+    if (!excluded.includes(_allCategoriesName[i])) {
+      _names.push(_allCategoriesName[i]);
     }
   }
 
@@ -104,23 +104,23 @@ function shuffleArray(a) {
   return a;
 }
 
-function randomSerie(
-  serieName,
+function randomCategorie(
+  categorieName,
   nbrQuestion = 10,
   nbrOfImagePerQuestion = 4,
   displayLg = Config._const.ar,
   level = Config._const.easy,
   selectedImages = null
 ) {
-  // pour les series nombres-fr et nombres-ar on reste en mode easy
-  if (_unmixedSeries.includes(serieName)) {
+  // pour les categories nombres-fr et nombres-ar on reste en mode easy
+  if (_unmixedCategories.includes(categorieName)) {
     level = Config._const.easy;
   }
 
-  let serie = {
+  let categorie = {
     id: Date.now(),
-    serieName,
-    display: serieName,
+    categorieName,
+    display: categorieName,
     questions: []
   };
 
@@ -133,7 +133,7 @@ function randomSerie(
   for (var q = 0; q < nbrQuestion; q++) {
     // on commence par mettre les 4(ou nbrOfImagePerQuestion) images
     let randomImages = [];
-    // celle de la bonne serie
+    // celle de la bonne categorie
     if (_useSelectedImages) {
       randomImages.push({
         ...selectedImages[q],
@@ -141,34 +141,34 @@ function randomSerie(
       });
     } else {
       randomImages.push({
-        ...randomImageFromSerie(serieName, copyIMAGES, true),
+        ...randomImageFromCategorie(categorieName, copyIMAGES, true),
         right: true
       });
     }
     if (level === Config._const.easy || level === Config._const.middle) {
-      // et 3(ou nbrOfImagePerQuestion-1) autres images d'autres series
+      // et 3(ou nbrOfImagePerQuestion-1) autres images d'autres categories
       for (var i = 1; i < nbrOfImagePerQuestion; i++) {
         let catTmp = null;
 
-        // si on est dans une serie a ne pas mélanger
-        if (_unmixedSeries.includes(serieName)) {
-          catTmp = serieName;
+        // si on est dans une categorie a ne pas mélanger
+        if (_unmixedCategories.includes(categorieName)) {
+          catTmp = categorieName;
         } else {
-          let excluded = _excludeFor[serieName] ? [..._excludeFor[serieName]] : [];
+          let excluded = _excludeFor[categorieName] ? [..._excludeFor[categorieName]] : [];
           if (level === Config._const.easy) {
-            excluded.push(serieName);
+            excluded.push(categorieName);
           }
-          catTmp = randomSerieName([...excluded, ..._unmixedSeries]);
+          catTmp = randomCategorieName([...excluded, ..._unmixedCategories]);
         }
         let repeat = 0;
 
         while (repeat < 10) {
           let imgTmp;
-          if (_unmixedSeries.includes(serieName)) {
+          if (_unmixedCategories.includes(categorieName)) {
             let copyDatasTmp = clone(_IMAGES);
-            imgTmp = randomImageFromSerie(catTmp, copyDatasTmp, false);
+            imgTmp = randomImageFromCategorie(catTmp, copyDatasTmp, false);
           } else {
-            imgTmp = randomImageFromSerie(catTmp, copyIMAGES, false);
+            imgTmp = randomImageFromCategorie(catTmp, copyIMAGES, false);
           }
 
           if (!stringInArrayOfObject(imgTmp.fr, randomImages, "fr")) {
@@ -180,11 +180,11 @@ function randomSerie(
         }
       }
     } else {
-      // et 3(ou nbrOfImagePerQuestion) autres images de la même serie
+      // et 3(ou nbrOfImagePerQuestion) autres images de la même categorie
       for (i = 1; i < nbrOfImagePerQuestion; i++) {
         let repeat = 0;
         while (repeat < 10) {
-          let imgTmp = randomImageFromSerie(serieName, copyIMAGES, false);
+          let imgTmp = randomImageFromCategorie(categorieName, copyIMAGES, false);
 
           if (!stringInArrayOfObject(imgTmp.fr, randomImages, "fr")) {
             randomImages.push(imgTmp);
@@ -227,10 +227,10 @@ function randomSerie(
       questionTmp["display"] = randomImages[foundIndex]["ar"];
       questionTmp["clue"] = randomImages[foundIndex]["fr"];
     }
-    serie.questions.push(questionTmp);
+    categorie.questions.push(questionTmp);
   }
 
-  return serie;
+  return categorie;
 }
 
 /**
@@ -238,7 +238,7 @@ function randomSerie(
  */
 
 router.get("/ping", function(req, res) {
-  return res.status(200).json({ success: true, data: "ping ok"  });
+  return res.status(200).json({ success: true, data: "ping ok" });
 });
 
 const _logins = {
@@ -248,7 +248,7 @@ const _logins = {
 const _token = "488484sdf84sd8f7s7ezr157705787878787";
 router.get("/user/login", function(req, res) {
   const { login, password } = req.query;
-  console.log("try to login",login,password);
+  console.log("try to login", login, password);
   if (_logins[login] && _logins[login] === password) {
     return res.status(200).json({ success: true, token: _token });
   } else {
@@ -256,15 +256,15 @@ router.get("/user/login", function(req, res) {
   }
 });
 
-router.post("/serie", function(req, res) {
+router.post("/categorie", function(req, res) {
   const { token } = req.body;
   console.log(req.params);
   console.log(req.query);
   console.log(req.body);
 
   if (token === _token) {
-    let a = randomSerie(
-      req.body.serieName,
+    let a = randomCategorie(
+      req.body.categorieName,
       req.body.nbrQuestion,
       req.body.nbrOfImagePerQuestion,
       req.body.displayLg,
@@ -277,26 +277,25 @@ router.post("/serie", function(req, res) {
   }
 });
 
-router.get("/series", function(req, res) {
-  return res.status(200).json(allSeriesNames());
+router.get("/categories", function(req, res) {
+  return res.status(200).json(allCategoriesNames());
 });
 
- 
-router.get('/input',function(req,res) {
-  res.sendFile(  path.join(__dirname, 'log','index.html')  );
+router.get("/input", function(req, res) {
+  res.sendFile(path.join(__dirname, "log", "index.html"));
 });
 
 router.post("/log", function(req, res) {
-  console.log("should write",req.body);
-  writeLog( req.body.data);
-  
-  return res.status(200).json({ success: true, data: "log success : "+  req.body.data});
+  console.log("should write", req.body);
+  writeLog(req.body.data);
+
+  return res.status(200).json({ success: true, data: "log success : " + req.body.data });
 });
 router.get("/log", function(req, res) {
- 	console.log("should write",req.query);
-  writeLog( req.query.data);
-  
-  return res.status(200).json({ success: true, data: "log success : "+  req.query.data});
+  console.log("should write", req.query);
+  writeLog(req.query.data);
+
+  return res.status(200).json({ success: true, data: "log success : " + req.query.data });
 });
 
 router.get("/*", function(req, res) {

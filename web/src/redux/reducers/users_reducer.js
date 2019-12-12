@@ -1,4 +1,4 @@
-import { SETCURRENT_USER, ADD_USER, REMOVE_USER, ADD_SERIE_TO_USER, REMOVE_SERIE_FROM_USER, CLEAR_SERIES_FROM_USER } from "redux/types";
+import { SETCURRENT_USER, ADD_USER, REMOVE_USER, ADD_SERIE_TO_USER, REMOVE_SERIE_FROM_USER, CLEAR_CATEGORIES_FROM_USER } from "redux/types";
 
 import * as tools from "tools";
 
@@ -41,10 +41,10 @@ export default function(state = { current: null, list: {} }, action) {
       }
 
       // on enlever de chaques réponses attempt,clickedIndex,correct,wrong,showBorder
-      let serieCleaned = action.payload.serie;
-      for (var q in serieCleaned.questions) {
-        serieCleaned.questions[q].answer = {
-          rightIndex: serieCleaned.questions[q].answer.rightIndex,
+      let categorieCleaned = action.payload.categorie;
+      for (var q in categorieCleaned.questions) {
+        categorieCleaned.questions[q].answer = {
+          rightIndex: categorieCleaned.questions[q].answer.rightIndex,
           attempt: 0,
           clickedIndex: null,
           correct: false,
@@ -56,7 +56,7 @@ export default function(state = { current: null, list: {} }, action) {
       newstate.list[action.payload.user][id].push({
         id: id,
         date: tools.getTodayDate(true),
-        serie: serieCleaned,
+        categorie: categorieCleaned,
         results: action.payload.results
       });
       // return newstate ne declenche pas le refresh de <Suivi>, trop nested peut etre
@@ -72,7 +72,7 @@ export default function(state = { current: null, list: {} }, action) {
         state.list[state.current][action.payload.testId].splice(action.payload.testIndex, 1);
       }
       return tools.clone(state);
-    case CLEAR_SERIES_FROM_USER:
+    case CLEAR_CATEGORIES_FROM_USER:
       return state;
 
     default:

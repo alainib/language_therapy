@@ -2,8 +2,8 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Navbar, Nav } from "react-bootstrap";
 
-import Series from "components/Series";
-import Trainserie from "components/Trainserie";
+import Categories from "components/Categories";
+import Traincategorie from "components/Traincategorie";
 import Home from "components/Home";
 import Settings from "components/Settings";
 import React, { useState } from "react";
@@ -30,8 +30,8 @@ export default function App() {
             </Nav.Item>
 
             <Nav.Item>
-              <Link className="App-link" to="/series">
-                Series
+              <Link className="App-link" to="/categories">
+                Categories
               </Link>
             </Nav.Item>
 
@@ -47,11 +47,11 @@ export default function App() {
         <div style={{ margin: 50 }}>
           {/*className="fwcontainer"*/}
           <Switch>
-            <Route path="/series">
-              <Series connected={connected} />
+            <Route path="/categories">
+              <Categories connected={connected} />
             </Route>
-            <Route path="/trainserie/:id">
-              <Trainserie token={token} connected={connected} />
+            <Route path="/traincategorie/:id">
+              <Traincategorie token={token} connected={connected} />
             </Route>
 
             <Route path="/settings">

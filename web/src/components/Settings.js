@@ -145,7 +145,7 @@ class Settings extends Component {
                 variant={this.props.options.manualChooseImage ? "success" : "secondary"}
                 onClick={() => {
                   this.props.action_optionUpdate("manualChooseImage", null, true);
-                  this.props.action_optionUpdate("multiSeries", null, false);
+                  this.props.action_optionUpdate("multiCategories", null, false);
                 }}
               >
                 Oui
@@ -206,26 +206,26 @@ class Settings extends Component {
           </div>
         </div>
         <div className={css(styles.bloc)}>
-          <span className={css(styles.title)}>Nombre d'items par serie : {this.props.options.nbrOfItemPerSerie}</span>
+          <span className={css(styles.title)}>Nombre d'items par categorie : {this.props.options.nbrOfItemPerCategorie}</span>
           <input
             type="range"
             min="3"
             max="50"
             step="1"
-            value={this.props.options.nbrOfItemPerSerie}
+            value={this.props.options.nbrOfItemPerCategorie}
             onChange={event => {
-              this.props.action_optionUpdate("nbrOfItemPerSerie", null, event.target.value);
+              this.props.action_optionUpdate("nbrOfItemPerCategorie", null, event.target.value);
             }}
             className="slider"
             id="myRange"
           ></input>
 
           <div className={css(styles.viewButton)}>
-            <a data-tip data-for="h-nbrOfItemPerSerie">
+            <a data-tip data-for="h-nbrOfItemPerCategorie">
               <FaQuestion name="question" size={18} color={"white"} margin={2} />
             </a>
-            <ReactTooltip className="opaque" id="h-nbrOfItemPerSerie" place="left" type="light" effect="solid">
-              <div className={css(styles.helpinfo)}>Nombre d'item par serie.</div>
+            <ReactTooltip className="opaque" id="h-nbrOfItemPerCategorie" place="left" type="light" effect="solid">
+              <div className={css(styles.helpinfo)}>Nombre d'item par categorie.</div>
             </ReactTooltip>
           </div>
         </div>
