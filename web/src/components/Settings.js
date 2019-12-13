@@ -71,7 +71,7 @@ class Settings extends Component {
             <div className={css(styles.viewButton)}>
               <Button
                 block
-                variant={this.props.options.displayLg == Config._const.fr ? "success" : "secondary"}
+                variant={this.props.options.displayLg === Config._const.fr ? "success" : "secondary"}
                 onClick={() => this.props.action_optionUpdate("displayLg", null, Config._const.fr)}
               >
                 Francais
@@ -80,7 +80,7 @@ class Settings extends Component {
             <div className={css(styles.viewButton)}>
               <Button
                 block
-                variant={this.props.options.displayLg == Config._const.ar ? "success" : "secondary"}
+                variant={this.props.options.displayLg === Config._const.ar ? "success" : "secondary"}
                 onClick={() => this.props.action_optionUpdate("displayLg", null, Config._const.ar)}
               >
                 Arabe
@@ -206,26 +206,26 @@ class Settings extends Component {
           </div>
         </div>
         <div className={css(styles.bloc)}>
-          <span className={css(styles.title)}>Nombre d'items par categorie : {this.props.options.nbrOfItemPerCategorie}</span>
+          <span className={css(styles.title)}>Nombre d'items par serie : {this.props.options.nbrOfItemPerSerie}</span>
           <input
             type="range"
             min="3"
             max="50"
             step="1"
-            value={this.props.options.nbrOfItemPerCategorie}
+            value={this.props.options.nbrOfItemPerSerie}
             onChange={event => {
-              this.props.action_optionUpdate("nbrOfItemPerCategorie", null, event.target.value);
+              this.props.action_optionUpdate("nbrOfItemPerSerie", null, event.target.value);
             }}
             className="slider"
             id="myRange"
           ></input>
 
           <div className={css(styles.viewButton)}>
-            <a data-tip data-for="h-nbrOfItemPerCategorie">
+            <a data-tip data-for="h-nbrOfItemPerSerie">
               <FaQuestion name="question" size={18} color={"white"} margin={2} />
             </a>
-            <ReactTooltip className="opaque" id="h-nbrOfItemPerCategorie" place="left" type="light" effect="solid">
-              <div className={css(styles.helpinfo)}>Nombre d'item par categorie.</div>
+            <ReactTooltip className="opaque" id="h-nbrOfItemPerSerie" place="left" type="light" effect="solid">
+              <div className={css(styles.helpinfo)}>Nombre d'item par serie.</div>
             </ReactTooltip>
           </div>
         </div>

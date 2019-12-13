@@ -6,7 +6,7 @@ import { Row as RowBootstrap, Col as ColBootstrap, Button, Alert } from "react-b
 
 import FlexView from "react-flexview";
 import Config from "Config";
-import { image_randomCategorie } from "services/image";
+import { image_randomSerie } from "services/image";
 import { FaVolumeUp, FaArrowRight, FaArrowLeft, FaCheck } from "react-icons/fa";
 
 import * as actions from "redux/actions";
@@ -43,10 +43,10 @@ class Traincategorie extends Component {
 
   async componentDidMount() {
     if (this.props.connected) {
-      let res = await image_randomCategorie(
+      let res = await image_randomSerie(
         this.props.token,
         this.state.categorieName,
-        this.props.options.nbrOfItemPerCategorie,
+        this.props.options.nbrOfItemPerSerie,
         this.props.options.nbrOfImagePerItem,
         this.props.options.displayLg,
         this.props.options.level

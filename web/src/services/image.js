@@ -13,11 +13,11 @@ let _allCategoriesName = null;
  *
  * si selectedImages not null alors ces images seront utilisées comme image à trouver
  *
- * si c'est niveau facile alors il ne faut pas que les images retournés soit de la meme categorie du tout
- * si c'est niveau moyen alors les images sont un mélanges d'autres categories et celle choisie
- * si c'est niveau dur alors les images ne sont que de la categorie choisie
+ * si c'est niveau facile alors il y a 1 seule image de la catégorie choisie
+ * si c'est niveau moyen alors il y a la moitié des images de la catégorie choisie
+ * si c'est niveau dur alors toutes les images sont de la catégories choisie
  */
-export async function image_randomCategorie(
+export async function image_randomSerie(
   token,
   categorieName,
   nbrQuestion = 10,
@@ -64,6 +64,7 @@ export async function image_randomCategorie(
     return false;
   }
 }
+
 /**
  * retourne la liste des noms de toutes les categories disponibles
  */

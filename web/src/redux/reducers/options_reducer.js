@@ -2,7 +2,7 @@ import Config from "Config";
 import { UPDATE_OPTION, RESET_OPTION } from "redux/types";
 
 const initState = {
-  nbrOfItemPerCategorie: 10, // nombre d'item par défaut par categorie
+  nbrOfItemPerSerie: 10, // nombre d'item par défaut par categorie
   nbrOfImagePerItem: 4, // nombre d'image par item
   imageByImage: false, // on ne fait que un mot à la fois par test
   imageByImageDisplayName: true, // si on est en mode image par image on peut soit afficher le nom soit des _ _ _ à la place

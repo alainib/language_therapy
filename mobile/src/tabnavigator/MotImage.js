@@ -10,7 +10,7 @@ import * as tools from "language_therapy/src/tools";
 
 import {
   image_AllCategoriesNames,
-  image_randomCategorie,
+  image_randomSerie,
   image_allImagesFromCategorie,
   image_categorieFromImages
 } from "language_therapy/src/services/image";
@@ -99,9 +99,9 @@ class MotImage extends React.Component {
   /** choix de la categorie thèmatique */
   chooseCategorie = async categorieName => {
     // si les images ne sont pas choisie à la main le service
-    // image_randomCategorie le fait automatiquement
+    // image_randomSerie le fait automatiquement
     if (!this.props.options.manualChooseImage) {
-      let res = await image_randomCategorie(
+      let res = await image_randomSerie(
         [categorieName],
         this.props.options.nbrOfItemPerCategorie,
         this.props.options.nbrOfImagePerItem,
@@ -144,7 +144,7 @@ class MotImage extends React.Component {
         categoriesName.push(i);
       }
     }
-    let res = await image_randomCategorie(
+    let res = await image_randomSerie(
       categoriesName,
       this.props.options.nbrOfItemPerCategorie,
       this.props.options.nbrOfImagePerItem,
