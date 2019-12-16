@@ -5,8 +5,8 @@ let _allCategoriesName = null;
 /**
  * crée une categorie d'exercice depuis un nom de categorie donnée
  * @param string categorieName nom de la categorie pour les réponses justes
- * @param int nbrQuestion : nombre de question
- * @param int nbrOfImagePerQuestion : nombre d'image par question
+ * @param int nbrItem : nombre de question
+ * @param int nbrOfImagePerItem : nombre d'image par question
  * @param string displayLg : langue du mot à afficher pour chaque question ( FR ou AR )
  * @param string level : easy = on utilise des images que tu meme categorie, middle = on prend tjrs la même categorie pour l'image juste et random pour les autres
  * @param array selectedImages : array of images,
@@ -20,21 +20,12 @@ let _allCategoriesName = null;
 export async function image_randomSerie(
   token,
   categorieName,
-  nbrQuestion = 10,
-  nbrOfImagePerQuestion = 4,
+  nbrItem = 10,
+  nbrOfImagePerItem = 4,
   displayLg = Config._const.ar,
   level = Config._const.easy,
   selectedImages = null
 ) {
-  /* console.log("image randome", {
-    categorieName,
-    nbrQuestion,
-    nbrOfImagePerQuestion,
-    displayLg,
-    level,
-    selectedImages,
-    token
-  });*/
   const url = `/categorie`;
 
   let status, data;
@@ -44,8 +35,8 @@ export async function image_randomSerie(
       {
         token: token,
         categorieName,
-        nbrQuestion,
-        nbrOfImagePerQuestion,
+        nbrItem,
+        nbrOfImagePerItem,
         displayLg,
         level,
         selectedImages

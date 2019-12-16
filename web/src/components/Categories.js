@@ -44,7 +44,7 @@ class Categories extends Component {
           <ul className="flex-container wrap">
             {this.state.categoriesNames.map((item, index) => {
               return (
-                <Link className="flex-item" to={`/traincategorie/${item}`}>
+                <Link className="flex-item" to={`/traincategorie/${item}`} key={item}>
                   <li className="flex-item-link" key={"ac" + index.toString()}>
                     {tools.upperFirstLetter(item)}
                     {/*   <LinkButton to={`/traincategorie/${item}`}>{tools.upperFirstLetter(item)}</LinkButton> */}

@@ -248,3 +248,14 @@ img.centered {
   background: #4caf50;
   cursor: pointer;
 }
+
+.reverse {
+  display: inline-block;
+  transform: scaleX(1) rotate(180deg);
+}
+
+/*-moz-transform: scaleX(-1) rotate(180deg);  
+-o-transform: scaleX(-1) rotate(180deg);  
+-webkit-transform: scaleX(-1) rotate(180deg);  
+transform: scaleX(-1) rotate(180deg); 
+*/

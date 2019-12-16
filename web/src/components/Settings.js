@@ -50,9 +50,9 @@ class Settings extends Component {
               </Button>
             </div>
             <div className={css(styles.viewButton)}>
-              <a data-tip data-for="h-niveau">
+              <span data-tip data-for="h-niveau">
                 <FaQuestion name="question" size={18} color={"white"} margin={2} />
-              </a>
+              </span>
               <ReactTooltip multiline={true} className="opaque" id="h-niveau" place="bottom" type="light" effect="solid">
                 <div className={css(styles.helpinfo)}>
                   FACILE: il n'y a qu'une seule image de la catégorie choisie et c'est la juste.
@@ -87,9 +87,9 @@ class Settings extends Component {
               </Button>
             </div>
             <div className={css(styles.viewButton)}>
-              <a data-tip data-for="h-langue">
+              <span data-tip data-for="h-langue">
                 <FaQuestion name="question" size={18} color={"white"} margin={2} />
-              </a>
+              </span>
               <ReactTooltip multiline={true} className="opaque" id="h-langue" place="bottom" type="light" effect="solid">
                 <div className={css(styles.helpinfo)}>Langue dans la quelle sont affichés le nom des items.</div>
               </ReactTooltip>
@@ -123,9 +123,9 @@ class Settings extends Component {
               </Button>
             </div>
             <div className={css(styles.viewButton)}>
-              <a data-tip data-for="h-multicategories">
+              <span data-tip data-for="h-multicategories">
                 <FaQuestion name="question" size={18} color={"white"} margin={2} />
-              </a>
+              </span >
               <ReactTooltip multiline={true} className="opaque" id="h-multicategories" place="bottom" type="light" effect="solid">
                 <div className={css(styles.helpinfo)}>
                   Permet de choisir plusieurs catégories. Les items seront piochés aléatoirement parmis elles.
@@ -161,9 +161,9 @@ class Settings extends Component {
               </Button>
             </div>
             <div className={css(styles.viewButton)}>
-              <a data-tip data-for="h-manualChooseImage">
+              <span data-tip data-for="h-manualChooseImage">
                 <FaQuestion name="question" size={18} color={"white"} margin={2} />
-              </a>
+              </span >
               <ReactTooltip multiline={true} className="opaque" id="h-manualChooseImage" place="bottom" type="light" effect="solid">
                 <div className={css(styles.helpinfo)}>Permet de choisir une catégorie puis manuellement les images une par une.</div>
               </ReactTooltip>
@@ -193,9 +193,9 @@ class Settings extends Component {
               </Button>
             </div>
             <div className={css(styles.viewButton)}>
-              <a data-tip data-for="h-showClueReversed">
+              <span data-tip data-for="h-showClueReversed">
                 <FaQuestion name="question" size={18} color={"white"} margin={2} />
-              </a>
+              </span>
               <ReactTooltip multiline={true} className="opaque" id="h-showClueReversed" place="bottom" type="light" effect="solid">
                 <div className={css(styles.helpinfo)}>
                   Affiche la traduction du mot (si en arabe) à l'envers dans le coin droit de l'écran pour une utilisation face à face avec
@@ -221,9 +221,9 @@ class Settings extends Component {
           ></input>
 
           <div className={css(styles.viewButton)}>
-            <a data-tip data-for="h-nbrOfItemPerSerie">
+            <span data-tip data-for="h-nbrOfItemPerSerie">
               <FaQuestion name="question" size={18} color={"white"} margin={2} />
-            </a>
+            </span>
             <ReactTooltip className="opaque" id="h-nbrOfItemPerSerie" place="left" type="light" effect="solid">
               <div className={css(styles.helpinfo)}>Nombre d'item par serie.</div>
             </ReactTooltip>
@@ -257,9 +257,9 @@ class Settings extends Component {
               </Button>
             </div>
             <div className={css(styles.viewButton)}>
-              <a data-tip data-for="h-multicategories">
+              <span data-tip data-for="h-multicategories">
                 <FaQuestion name="question" size={18} color={"white"} margin={2} />
-              </a>
+              </span>
               <ReactTooltip className="opaque" id="h-multicategories" place="left" type="light" effect="solid">
                 <div className={css(styles.helpinfo)}>
                   Affiche une seule image par item. L'image n'est plus cliquable et la réponse juste doit être validée avec le signe ✓.
@@ -295,9 +295,9 @@ class Settings extends Component {
                 </Button>
               </div>
               <div className={css(styles.viewButton)}>
-                <a data-tip data-for="h-imageByImageDisplayName">
+                <span data-tip data-for="h-imageByImageDisplayName">
                   <FaQuestion name="question" size={18} color={"white"} margin={2} />
-                </a>
+                </span>
                 <ReactTooltip className="opaque" id="h-imageByImageDisplayName" place="left" type="light" effect="solid">
                   <div className={css(styles.helpinfo)}>Affiche le nom de l'item ou remplace le nom de l'item par des underscores</div>
                 </ReactTooltip>
@@ -323,9 +323,9 @@ class Settings extends Component {
             ></input>
 
             <div className={css(styles.viewButton)}>
-              <a data-tip data-for="h-nbrOfImagePerItem">
+              <span data-tip data-for="h-nbrOfImagePerItem">
                 <FaQuestion name="question" size={18} color={"white"} margin={2} />
-              </a>
+              </span>
               <ReactTooltip className="opaque" id="h-nbrOfImagePerItem" place="left" type="light" effect="solid">
                 <div className={css(styles.helpinfo)}> Nombre d'images affichées pour chaque item.</div>
               </ReactTooltip>
@@ -349,9 +349,9 @@ class Settings extends Component {
           ></input>
 
           <div className={css(styles.viewButton)}>
-            <a data-tip data-for="h-playSoundAfterXWrong">
+            <span data-tip data-for="h-playSoundAfterXWrong">
               <FaQuestion name="question" size={18} color={"white"} margin={2} />
-            </a>
+            </span>
             <ReactTooltip className="opaque" id="h-playSoundAfterXWrong" place="left" type="light" effect="solid">
               <div className={css(styles.helpinfo)}>
                 Après X fausses réponses le nom de l'item est automatiquement lu à chaque nouvelle mauvaise réponse.
@@ -376,9 +376,9 @@ class Settings extends Component {
           ></input>
 
           <div className={css(styles.viewButton)}>
-            <a data-tip data-for="h-interfaceSize">
+            <span data-tip data-for="h-interfaceSize">
               <FaQuestion name="question" size={18} color={"white"} margin={2} />
-            </a>
+            </span>
             <ReactTooltip className="opaque" id="h-interfaceSize" place="left" type="light" effect="solid">
               <div className={css(styles.helpinfo)}>Permet de changer la taille du nom des items.</div>
             </ReactTooltip>
@@ -397,7 +397,6 @@ class Settings extends Component {
 }
 
 function mapStatetoProps(data) {
-  console.log(data);
   return {
     options: data["options"]
   };

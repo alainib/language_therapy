@@ -1174,4 +1174,6 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "fr": "veste",
               "ar": "سترة",
               "audio":"veste"
-            }]};module.exports = function () {this._IMAGES  =_IMAGES ;}
+            }]};
+  
+module.exports = function () {this._IMAGES  =_IMAGES ;}

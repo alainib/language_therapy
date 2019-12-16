@@ -182,6 +182,9 @@ export function randomSerie(
   level = Config._const.easy,
   selectedImages = null
 ) {
+  if (!Array.isArray(categoriesName)) {
+    categoriesName = [categoriesName];
+  }
   let serie = {
     id: Date.now(),
     categorieName: categoriesName.toString(),
@@ -227,6 +230,7 @@ export function randomSerie(
     } else {
       let nbrOfImageFromCategories = 0;
       let nbrOfImageFromOthersCategories = 0;
+
       switch (level) {
         case Config._const.easy:
           nbrOfImageFromCategories = 1;
@@ -244,15 +248,21 @@ export function randomSerie(
       }
 
       // on met la première qui est juste
-      randomImages.push({
-        ...randomImageFromCategorie(copyDatas[categorieName], true, randomImages),
-        right: true
-      });
+      let ni = randomImageFromCategorie(copyDatas[categorieName], true, randomImages);
+      if (ni) {
+        randomImages.push({
+          ...ni,
+          right: true
+        });
+      }
 
       // on met les autres de la meme catégorie
       for (i = 0; i < nbrOfImageFromCategories - 1; i++) {
         let imgTmp = randomImageFromCategorie(copyDatas[categorieName], false, randomImages);
-        randomImages.push(imgTmp);
+
+        if (imgTmp) {
+          randomImages.push(imgTmp);
+        }
       }
 
       // et on ajoute nbrOfImagePerItem-1 d'images d'autres categories
@@ -273,7 +283,9 @@ export function randomSerie(
         } else {
           imgTmp = randomImageFromCategorie(copyDatas[catTmp], false, randomImages);
         }
-        randomImages.push(imgTmp);
+        if (imgTmp) {
+          randomImages.push(imgTmp);
+        }
       }
     }
 

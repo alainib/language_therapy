@@ -62,7 +62,7 @@ class Traincategorie extends Component {
 
   chooseAnswer = imageIndex => {
     let now = this.timeStampSec();
-    if (now - _lastSecClicked > 1) {
+    if (now - _lastSecClicked >= 1) {
       _lastSecClicked = now;
       try {
         let index = this.state.index;
@@ -74,7 +74,7 @@ class Traincategorie extends Component {
         question.answer.clickedIndex = imageIndex;
 
         //bonne réponse
-        if (imageIndex === question.answer.rightIndex) {
+        if (imageIndex === parseInt(question.answer.rightIndex)) {
           question.answer.correct = true;
           question.answer.wrong = false;
 
@@ -112,8 +112,13 @@ class Traincategorie extends Component {
   };
 
   playSound(name) {
-    let url = Config.static_path + "/mot-image/mp3/" + name + "_ar.mp3";
-    console.log(url);
+    let url = Config.static_path + "/mot-image/mp3/" + name;
+
+    if (this.props.options.displayLg === Config._const.ar) {
+      url += "_ar.mp3";
+    } else {
+      url += ".mp3";
+    }
     let sound = new Audio(url);
     sound.play();
   }
@@ -143,9 +148,19 @@ class Traincategorie extends Component {
 
   imageByImageDisplay(name) {
     let res = name.slice(0, this.state.imageByImageShowHowMuchLetters);
-    let rest = name.length - this.state.imageByImageShowHowMuchLetters;
-    for (let i = 0; i < rest; i++) {
-      res += " _";
+
+    let underscores = "";
+    let nu = name.length - this.state.imageByImageShowHowMuchLetters;
+    for (let i = 0; i < nu; i++) {
+      underscores += " _";
+    }
+
+    // si c'est en arabe il faut mettre les tirets avant les lettres
+    // et en fr après
+    if (this.props.options.displayLg === Config._const.ar) {
+      res = underscores + res;
+    } else {
+      res = res + underscores;
     }
     return res;
   }
@@ -182,7 +197,7 @@ class Traincategorie extends Component {
       }
 
       const xsSize = [10, 10, 6, 4, 3, 3, 3, 3, 3, 3][question.images.length];
-      console.log(xsSize);
+
       return (
         <FlexView style={{ margin: 20, minHeight: 600 }} column>
           <RowBootstrap>
@@ -305,8 +320,9 @@ class Traincategorie extends Component {
               {this.state.categorieName + " : "}
               {this.state.index + 1 + " / " + this.state.questions.length}
             </h3>
-
-            {this.state.questionClueVisible && <span>{question.clue}</span>}
+            {this.state.questionClueVisible && (
+              <span className={this.props.options.showClueReversed ? "reverse" : ""}>{question.clue}</span>
+            )}
           </div>
         </FlexView>
       );
@@ -364,8 +380,6 @@ class Traincategorie extends Component {
     }
   }
 }
-
-//export default withRouter(Traincategorie);
 
 function mapStatetoProps(data) {
   return {
