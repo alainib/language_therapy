@@ -4,7 +4,10 @@ import * as tools from "language_therapy/src/tools";
 
 import Config from "language_therapy/src/Config";
 
-import { allCategoriesNames, randomSerie } from "./serieHelper";
+import { allCategoriesNames, randomSerie, checkGoodImagesMobile } from "./serieHelper";
+import { action_adderrorlog } from "language_therapy/src/redux/actions";
+import configureStore from "language_therapy/src/redux/store";
+const { store } = configureStore();
 
 /**
  * retourne la liste des noms de toutes les categories disponibles
@@ -21,7 +24,29 @@ export function image_randomSerie(
   level = Config._const.easy,
   selectedImages = null
 ) {
-  return randomSerie(RawDatas._IMAGES, categoriesName, nbrQuestion, nbrOfImagePerItem, displayLg, level, selectedImages);
+  let res = randomSerie(RawDatas._IMAGES, categoriesName, nbrQuestion, nbrOfImagePerItem, displayLg, level, selectedImages);
+
+  if (categoriesName.length === 1 && !selectedImages) {
+    try {
+      const errors = checkGoodImagesMobile(level, nbrOfImagePerItem, res.questions, categoriesName, RawDatas._IMAGES);
+
+      if (errors.length > 0) {
+        let logme = {
+          categoriesName,
+          nbrQuestion,
+          nbrOfImagePerItem,
+          displayLg,
+          level,
+          selectedImages,
+          results: res,
+          errors
+        };
+        store.dispatch(action_adderrorlog(logme));
+      }
+    } catch (error) {}
+  }
+
+  return res;
 }
 
 /**

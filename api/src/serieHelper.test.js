@@ -31,40 +31,7 @@ describe("allCategoriesNames", () => {
   });
 });
 
-// retourne le nombre d'image attendu pour la catégorie choisie
-function nbrOfImageForCategorie(level, nbrOfImagePerItem) {
-  let nbr = 0;
-  switch (level) {
-    case Config._const.easy:
-      nbr = 1;
-      break;
-    case Config._const.middle:
-      let middle = Math.ceil(nbrOfImagePerItem / 2);
-      nbr = middle;
-      break;
-    case Config._const.hard:
-      nbr = nbrOfImagePerItem;
-      break;
-  }
-  return nbr;
-}
-
-// verifie que images contient le bon nombre d'image de la catégorie
-function checkGoodCategorie(images, categorie, nbr, nbrOfImagePerItem) {
-  let howMuchFromCategorie = 0;
-  if (images.length !== nbrOfImagePerItem) {
-    console.log("invalid images length ");
-    return false;
-  }
-  for (let i in images) {
-    if (images[i].includes(categorie)) {
-      howMuchFromCategorie++;
-    }
-  }
-  return nbr === howMuchFromCategorie;
-}
-
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 10; i++) {
   for (let c in _allCategories) {
     for (let l in _levels) {
       const level = _levels[l];
@@ -73,14 +40,17 @@ for (let i = 0; i < 50; i++) {
         const nbrItem = getRandomInt(1, 50);
         const nbrOfImagePerItem = getRandomInt(2, 6);
 
-        const nbr = nbrOfImageForCategorie(level, nbrOfImagePerItem);
-
         test("randomSerie " + categoriesName + " " + level + " " + nbrItem + " " + nbrOfImagePerItem, () => {
           const res = randomSerie(_IMAGES, categoriesName, nbrItem, nbrOfImagePerItem, Config._const.ar, level, null);
+          /*
+          const nbr = nbrOfImageForCategorie(level, nbrOfImagePerItem);
+          
           let goodCategorie = true;
           for (let q in res.questions) {
             goodCategorie = goodCategorie && checkGoodCategorie(res.questions[q].images, categoriesName, nbr, nbrOfImagePerItem);
           }
+          */
+          const goodCategorie = checkGoodImages(level, nbrOfImagePerItem, res.questions, categoriesName);
           expect(goodCategorie).toBe(true);
           expect(res.questions.length === nbrItem || res.questions.length === _IMAGES[categoriesName].length).toBe(true);
         });

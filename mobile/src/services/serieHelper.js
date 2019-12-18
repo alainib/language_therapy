@@ -79,6 +79,83 @@ function clone(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
 
+// retourne le nombre d'image attendu pour la catégorie choisie
+function nbrOfImageForCategorie(level, nbrOfImagePerItem) {
+  let nbr = 0;
+  switch (level) {
+    case Config._const.easy:
+      nbr = 1;
+      break;
+    case Config._const.middle:
+      let middle = Math.ceil(nbrOfImagePerItem / 2);
+      nbr = middle;
+      break;
+    case Config._const.hard:
+      nbr = nbrOfImagePerItem;
+      break;
+  }
+  return nbr;
+}
+
+// verifie que images contient le bon nombre d'image de la catégorie
+function checkGoodCategorieWeb(images, categorie, nbr, nbrOfImagePerItem) {
+  let howMuchFromCategorie = 0;
+  if (images.length !== nbrOfImagePerItem) {
+    console.log("invalid images length ");
+    return false;
+  }
+  for (let i in images) {
+    if (images[i].includes(categorie)) {
+      howMuchFromCategorie++;
+    }
+  }
+  return nbr === howMuchFromCategorie;
+}
+export function checkGoodImagesWeb(level, nbrOfImagePerItem, questions, categoriesName) {
+  const nbr = nbrOfImageForCategorie(level, nbrOfImagePerItem);
+
+  let goodCategorie = true;
+  for (let q in questions) {
+    goodCategorie = goodCategorie && checkGoodCategorieWeb(questions[q].images, categoriesName, nbr, nbrOfImagePerItem);
+  }
+  return goodCategorie;
+}
+
+// verifie que images contient le bon nombre d'image de la catégorie
+function checkGoodCategorieMobile(images, categoriePaths, categorie, nbr, nbrOfImagePerItem) {
+  let howMuchFromCategorie = 0;
+  if (images.length !== nbrOfImagePerItem) {
+    console.log("invalid images length ");
+    return false;
+  }
+  for (let i in images) {
+    if (categoriePaths.includes(parseInt(images[i]))) {
+      howMuchFromCategorie++;
+    }
+  }
+  return nbr === howMuchFromCategorie;
+}
+
+export function checkGoodImagesMobile(level, nbrOfImagePerItem, questions, categoriesName, _images) {
+  let categorie = Array.isArray(categoriesName) ? categoriesName[0] : categoriesName;
+
+  const nbr = nbrOfImageForCategorie(level, nbrOfImagePerItem);
+
+  let categoriePaths = [];
+  for (var i in _images[categorie]) {
+    categoriePaths.push(parseInt(_images[categorie][i].path));
+  }
+
+  let errors = [];
+  for (let q in questions) {
+    let res = checkGoodCategorieMobile(questions[q].images, categoriePaths, categorie, nbr, nbrOfImagePerItem);
+    if (!res) {
+      errors.push(q);
+    }
+  }
+  return errors;
+}
+
 /**
  * retourne une image au hasard parmis une categorie
  * 
@@ -182,8 +259,6 @@ export function randomSerie(
   level = Config._const.easy,
   selectedImages = null
 ) {
-  console.log("random sere", level);
-
   if (!Array.isArray(categoriesName)) {
     categoriesName = [categoriesName];
   }
@@ -248,6 +323,13 @@ export function randomSerie(
           nbrOfImageFromOthersCategories = 0;
           break;
       }
+
+      /*
+      if (getRandomInt(0, 10) > 5) {
+        nbrOfImageFromCategories = nbrOfImageFromCategories - 1;
+        nbrOfImageFromOthersCategories = nbrOfImageFromOthersCategories + 1;
+      }
+      */
 
       // on met la première qui est juste
       let ni = randomImageFromCategorie(copyDatas[categorieName], true, randomImages);

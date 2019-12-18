@@ -216,31 +216,6 @@ class MotImage extends React.Component {
             })}
           </ScrollView>
         </View>
-        {/*
-        <View style={{ flex: 1 }}>
-          <Text style={thisstyles.title}>Categorie(s) secondaire(s) :</Text>
-          <ScrollView
-            showsVerticalScrollIndicator
-            contentContainerStyle={{
-              flexDirection: "row",
-              flexWrap: "wrap"
-            }}
-          >
-            {second.map((item, index) => {
-              return (
-                <View style={thisstyles.item} key={"ac" + index.toString()}>
-                  <Button
-                    color={item.value ? "green" : "grey"}
-                    disabled={this.state.multiCategoriesNames.main[item.key]}
-                    title={item.key}
-                    onPress={() => this.chooseMultiCategorie("second", item.key)}
-                  />
-                </View>
-              );
-            })}
-          </ScrollView>
-        </View>
-        */}
 
         <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", padding: 30 }}>
           <Button color={"orange"} title="Reset" onPress={() => this.resetMultiCategories()} />

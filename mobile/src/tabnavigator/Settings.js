@@ -39,7 +39,11 @@ class Settings extends React.Component {
           ...styles.BG
         }}
       >
-        <Text>Settings ...</Text>
+        <Button
+          containerStyle={styles.margin10}
+          title="Verification des erreurs"
+          onPress={() => this.props.navigation.navigate("ErrorChecker")}
+        />
         <Button
           containerStyle={styles.margin10}
           title="Verification des données"
