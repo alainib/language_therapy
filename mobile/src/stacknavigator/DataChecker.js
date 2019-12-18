@@ -42,7 +42,7 @@ export default class DataChecker extends React.Component {
 
   render() {
     return (
-      <View style={styles.flex1}>
+      <View style={styles.flex1BG}>
         {this.renderCategories()}
         {this.renderCategorie()}
       </View>

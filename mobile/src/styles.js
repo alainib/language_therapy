@@ -5,11 +5,17 @@ const styles = StyleSheet.create({
   flex1: {
     flex: 1
   },
+  flex1BG: {
+    flex: 1,
+    backgroundColor: Config.colors.background
+  },
+  BG: {
+    backgroundColor: Config.colors.background
+  },
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
+    alignItems: "center"
   },
   textInput: {
     textAlign: "left",

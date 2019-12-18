@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  ScrollView,
-  View,
-  StyleSheet,
-  Text,
-  Button,
-  TextInput,
-  Alert,
-  TouchableOpacity
-} from "react-native";
+import { ScrollView, View, StyleSheet, Text, Button, TextInput, Alert, TouchableOpacity } from "react-native";
 import styles from "language_therapy/src/styles";
 import * as tools from "language_therapy/src/tools";
 import IconFeather from "react-native-vector-icons/Feather";
@@ -26,11 +17,7 @@ class Users extends React.PureComponent {
             navigation.navigate("Users");
           }}
         >
-          <IconIonic
-            name="md-person"
-            size={Config.iconSize.xxl}
-            color={tintColor}
-          />
+          <IconIonic name="md-person" size={Config.iconSize.xxl} color={tintColor} />
         </TouchableOpacity>
       )
     };
@@ -59,7 +46,7 @@ class Users extends React.PureComponent {
 
     if (listLength == 0 && !this.state.showAddUser) {
       return (
-        <View style={styles.container}>
+        <View style={styles.flex1BG}>
           <Button
             title="Ajouter un utilisateur"
             onPress={() => {
@@ -83,9 +70,7 @@ class Users extends React.PureComponent {
           >
             {this.state.users.current != null ? (
               <View style={styles.flexRowSpaceBetween}>
-                <Text style={thisstyles.title}>
-                  Utilisateur courant : {this.state.users.current}
-                </Text>
+                <Text style={thisstyles.title}>Utilisateur courant : {this.state.users.current}</Text>
 
                 <View
                   style={{
@@ -94,11 +79,7 @@ class Users extends React.PureComponent {
                     justifyContent: "flex-start"
                   }}
                 >
-                  <Button
-                    containerStyle={{ margin: 10 }}
-                    title="Suivi"
-                    onPress={() => this.props.navigation.navigate("Suivi")}
-                  />
+                  <Button containerStyle={{ margin: 10 }} title="Suivi" onPress={() => this.props.navigation.navigate("Suivi")} />
                 </View>
               </View>
             ) : (
@@ -215,11 +196,7 @@ class Users extends React.PureComponent {
                 >
                   <Text style={thisstyles.title}>Autres</Text>
                   <IconIonic
-                    name={
-                      this.state.showUsersList
-                        ? "md-arrow-dropup-circle"
-                        : "md-arrow-dropdown-circle"
-                    }
+                    name={this.state.showUsersList ? "md-arrow-dropup-circle" : "md-arrow-dropdown-circle"}
                     size={Config.iconSize.xl}
                   />
                 </View>
@@ -229,14 +206,7 @@ class Users extends React.PureComponent {
               <ScrollView>
                 {usersListArray.map((item, index) => {
                   return (
-                    <View
-                      key={index.toString()}
-                      style={
-                        index % 2 == 0
-                          ? thisstyles.listeItem
-                          : thisstyles.listeItemBis
-                      }
-                    >
+                    <View key={index.toString()} style={index % 2 == 0 ? thisstyles.listeItem : thisstyles.listeItemBis}>
                       <TouchableOpacity
                         onPress={() => {
                           this.props.action_setCurrentUser(item.key);
@@ -258,8 +228,7 @@ class Users extends React.PureComponent {
                             [
                               {
                                 text: "Oui",
-                                onPress: () =>
-                                  this.props.action_removeUser(item.key)
+                                onPress: () => this.props.action_removeUser(item.key)
                               },
                               {
                                 text: "Non"
@@ -297,10 +266,7 @@ function mapToStateProps(data) {
 import { connect } from "react-redux";
 import * as actions from "language_therapy/src/redux/actions";
 
-export default connect(
-  mapToStateProps,
-  actions
-)(Users);
+export default connect(mapToStateProps, actions)(Users);
 
 const thisstyles = StyleSheet.create({
   centerp20: {

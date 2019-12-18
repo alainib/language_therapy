@@ -35,15 +35,11 @@ const MyTabView = createBottomTabNavigator(
       activeTintColor: Config.colors.blue,
       pressColor: Config.colors.blue,
       inactiveTintColor: "#373738",
+
       showIcon: true,
       style: {
         backgroundColor: Config.colors.background
       },
-      /*tabStyle: {
-        flexDirection: "row",
-        alignItems: "space-around",
-        justifyContent: "center"
-      },*/
       indicatorStyle: {
         backgroundColor: Config.colors.blue
       }

@@ -35,7 +35,8 @@ class Settings extends React.Component {
         style={{
           flex: 1,
           justifyContent: "space-around",
-          alignItems: "center"
+          alignItems: "center",
+          ...styles.BG
         }}
       >
         <Text>Settings ...</Text>

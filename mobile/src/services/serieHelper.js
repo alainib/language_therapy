@@ -182,6 +182,8 @@ export function randomSerie(
   level = Config._const.easy,
   selectedImages = null
 ) {
+  console.log("random sere", level);
+
   if (!Array.isArray(categoriesName)) {
     categoriesName = [categoriesName];
   }

@@ -6,6 +6,8 @@ import IconFA from "react-native-vector-icons/FontAwesome";
 import * as tools from "language_therapy/src/tools";
 import { Slider } from "react-native-elements";
 
+import styles from "language_therapy/src/styles";
+
 class Options extends React.Component {
   constructor(props) {
     super(props);
@@ -14,7 +16,7 @@ class Options extends React.Component {
 
   render() {
     return (
-      <ScrollView contentContainerStyle={{ justifyContent: "space-around" }}>
+      <ScrollView contentContainerStyle={{ justifyContent: "space-around", ...styles.BG }}>
         <View>
           <View style={thisstyles.bloc}>
             <Text style={thisstyles.title}>Niveau :</Text>

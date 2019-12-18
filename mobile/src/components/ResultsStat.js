@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, Dimensions, StyleSheet } from "react-native";
+import styles from "language_therapy/src/styles";
 
 // import { LineChart, BarChart } from "react-native-chart-kit";
 
@@ -42,7 +43,7 @@ export default class ResultsStat extends React.PureComponent {
     let radius = this.props.minimizedDisplay ? 5 : 15;
 
     return (
-      <View style={{ flex: 1, margin: this.props.minimizedDisplay ? 1 : 10 }}>
+      <View style={{ ...styles.flex1BG, flex: 1, margin: this.props.minimizedDisplay ? 1 : 10 }}>
         {!this.props.minimizedDisplay && <Text style={thisstyles.text}>Résultat des {total} items </Text>}
         <View
           style={{

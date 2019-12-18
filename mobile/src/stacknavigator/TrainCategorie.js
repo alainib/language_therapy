@@ -109,7 +109,7 @@ class TrainCategorie extends React.PureComponent {
       }
 
       return (
-        <View style={styles.flex1}>
+        <View style={styles.flex1BG}>
           <View
             style={{
               margin: 20,

@@ -251,7 +251,7 @@ class MotImage extends React.Component {
   }
   render() {
     return (
-      <View style={styles.flex1}>
+      <View style={styles.flex1BG}>
         {this.renderModal()}
 
         <View style={{ flex: 1, flexDirection: "row" }}>

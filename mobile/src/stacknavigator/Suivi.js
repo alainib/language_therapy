@@ -30,7 +30,7 @@ class Suivi extends Component {
 
   render() {
     return (
-      <View style={styles.flex1}>
+      <View style={styles.flex1BG}>
         <Modal animationType="slide" transparent={false} visible={this.state.showModal} style={styles.flex1} onRequestClose={() => {}}>
           <View style={{ flex: 1, backgroundColor: "white" }}>
             <TouchableHighlight
