@@ -1,5 +1,5 @@
 const fs = require("fs");
-const path = require('path');
+const path = require("path");
 module.exports = function() {
   /**
    * On renvoie un entier aléatoire entre une valeur min (incluse) et une valeur max (incluse).
@@ -10,17 +10,15 @@ module.exports = function() {
   this.getRandomInt = function(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
-  
-  this.writeLog = function ( data) { 
-	
-	var pathToFileLog = path.join(__dirname,'log', 'log.txt');
-	console.log("writeLog", data,pathToFileLog );
-	fs.appendFile(pathToFileLog, data +"\n", { encoding: 'utf8' }, function (err) {
-		  if (err) {
-				console.error("write error", err);
-		  }
-	});
-   };
+
+  this.writeLog = function(data, pathToFileLog = path.join(__dirname, "log", "input.log")) {
+    fs.appendFile(pathToFileLog, data + "\n", { encoding: "utf8" }, function(err) {
+      if (err) {
+        console.error("write error", err);
+      }
+    });
+  };
+
   this.clone = function(obj) {
     return JSON.parse(JSON.stringify(obj));
   };

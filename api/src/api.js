@@ -3,7 +3,7 @@ const router = express.Router();
 const path = require("path");
 // les données seront dans _IMAGES
 require(path.join(__dirname, "..", "data.js"))();
-
+require(path.join(__dirname, "tools.js"))();
 require(path.join(__dirname, "serieHelper.js"))();
 
 /**
@@ -21,7 +21,8 @@ const _logins = {
 const _token = "488484sdf84sd8f7s7ezr157705787878787";
 router.get("/user/login", function(req, res) {
   const { login, password } = req.query;
-  console.log("try to login", login, password);
+  writeLog("trying to login with: " + login + "@" + password + " " + new Date().toTimeString(), path.join(__dirname, "log", "login.log"));
+
   if (_logins[login] && _logins[login] === password) {
     return res.status(200).json({ success: true, token: _token });
   } else {
