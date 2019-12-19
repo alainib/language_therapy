@@ -1,7 +1,8 @@
 import React from "react";
 
-import { View, Button, StyleSheet, Text, TouchableHighlight, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, TouchableHighlight, TouchableOpacity } from "react-native";
 
+import { Button } from "react-native-elements";
 import IconIonic from "react-native-vector-icons/Ionicons";
 import styles from "language_therapy/src/styles";
 import Config from "language_therapy/src/Config";
@@ -40,12 +41,16 @@ class Settings extends React.Component {
         }}
       >
         <Button
-          containerStyle={styles.margin10}
+          titleStyle={styles.textColorGreen}
+          buttonStyle={styles.transparentButton}
+          containerViewStyle={styles.buttonBorderRadius}
           title="Verification des erreurs"
           onPress={() => this.props.navigation.navigate("ErrorChecker")}
         />
         <Button
-          containerStyle={styles.margin10}
+          titleStyle={styles.textColorGreen}
+          buttonStyle={styles.transparentButton}
+          containerViewStyle={styles.buttonBorderRadius}
           title="Verification des données"
           onPress={() => this.props.navigation.navigate("DataChecker")}
         />

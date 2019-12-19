@@ -8,8 +8,6 @@ var Sound = require("react-native-sound");
  * @param {*}  filename (located in android/app/src/main/res/raw)
  */
 export function sound_play(filename) {
-  console.log("sound_play(", filename);
-
   // filename est un path ou un require directmeent
   if (tools.isString(filename) && filename.indexOf(".mp3") < 0) {
     filename += ".mp3";

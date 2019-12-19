@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Button, ScrollView, StyleSheet, Text, TouchableHighlight, Image, Modal, FlatList } from "react-native";
-
+import { View, ScrollView, StyleSheet, Text, TouchableHighlight, Image, Modal, FlatList } from "react-native";
+import { Button } from "react-native-elements";
 import styles from "language_therapy/src/styles";
 import Config from "language_therapy/src/Config";
 import IconFeather from "react-native-vector-icons/Feather";
@@ -68,7 +68,13 @@ export default class DataChecker extends React.Component {
           {this.state.categoriesNames.map((item, index) => {
             return (
               <View style={thisstyles.item} key={"ac" + index.toString()}>
-                <Button color={"green"} title={item} onPress={() => this.chooseCategorie(item)} />
+                <Button
+                  titleStyle={styles.textColorGreen}
+                  buttonStyle={styles.transparentButton}
+                  containerViewStyle={styles.buttonBorderRadius}
+                  title={item}
+                  onPress={() => this.chooseCategorie(item)}
+                />
               </View>
             );
           })}
@@ -104,14 +110,16 @@ export default class DataChecker extends React.Component {
               <Text style={thisstyles.title}>Lire les sons en :</Text>
               <View style={{ margin: 10 }}>
                 <Button
-                  color={this.state.soundFr ? "green" : "grey"}
+                  titleStyle={this.state.soundFr ? styles.textColorGreen : styles.textColorGrey}
+                  containerViewStyle={styles.buttonBorderRadius}
                   title="  FR  "
                   onPress={() => this.setState({ soundFr: !this.state.soundFr })}
                 />
               </View>
               <View style={{ margin: 10 }}>
                 <Button
-                  color={this.state.soundAr ? "green" : "grey"}
+                  titleStyle={this.state.soundAr ? styles.textColorGreen : styles.textColorGrey}
+                  containerViewStyle={styles.buttonBorderRadius}
                   title="  AR  "
                   onPress={() => this.setState({ soundAr: !this.state.soundAr })}
                 />

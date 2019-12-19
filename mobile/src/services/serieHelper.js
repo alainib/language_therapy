@@ -150,7 +150,7 @@ export function checkGoodImagesMobile(level, nbrOfImagePerItem, questions, categ
   for (let q in questions) {
     let res = checkGoodCategorieMobile(questions[q].images, categoriePaths, categorie, nbr, nbrOfImagePerItem);
     if (!res) {
-      errors.push(q);
+      errors.push(q + 1);
     }
   }
   return errors;
@@ -323,13 +323,11 @@ export function randomSerie(
           nbrOfImageFromOthersCategories = 0;
           break;
       }
-
       /*
       if (getRandomInt(0, 10) > 5) {
         nbrOfImageFromCategories = nbrOfImageFromCategories - 1;
         nbrOfImageFromOthersCategories = nbrOfImageFromOthersCategories + 1;
-      }
-      */
+      }*/
 
       // on met la première qui est juste
       let ni = randomImageFromCategorie(copyDatas[categorieName], true, randomImages);

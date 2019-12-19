@@ -9,6 +9,15 @@ const _const = {
   fr: "fr",
   ar: "ar"
 };
+const customHeaderHeight = 55;
+const button = {
+  minHeight: 25,
+  minWidth: 75,
+  maxWidth: width / 3,
+  borderRadius: 25,
+  pf: 15,
+  pr: 15
+};
 
 const iconSize = {
   s: 10,
@@ -40,7 +49,7 @@ const colors = {
   blue: "#04b09a",
   bluegrad: "#F4FFFF",
   green: "#04b09a",
-  grey: "#BFBEBE",
+  grey: "#666363",
   red: "#c1272d",
   black: "#535559",
   white: "white",
@@ -52,10 +61,12 @@ const colors = {
 
 export default {
   iconSize,
+  button,
   colors,
   textSize,
   height,
   width,
   _const,
-  apiurl
+  apiurl,
+  customHeaderHeight
 };

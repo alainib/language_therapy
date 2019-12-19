@@ -1,7 +1,8 @@
 import React from "react";
 
-import { View, Button, ScrollView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, Image, Modal, Alert } from "react-native";
+import { View, ScrollView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, Image, Modal, Alert } from "react-native";
 
+import { Button } from "react-native-elements";
 import IconIonic from "react-native-vector-icons/Ionicons";
 import styles from "language_therapy/src/styles";
 import Config from "language_therapy/src/Config";
@@ -171,7 +172,13 @@ class MotImage extends React.Component {
           {this.state.categoriesNames.map((item, index) => {
             return (
               <View style={thisstyles.item} key={"ac" + index.toString()}>
-                <Button color={"green"} title={item} onPress={() => this.chooseCategorie(item)} />
+                <Button
+                  titleStyle={styles.textColorGreen}
+                  buttonStyle={styles.transparentButton}
+                  containerViewStyle={styles.buttonBorderRadius}
+                  title={tools.upperFirstLetter(item)}
+                  onPress={() => this.chooseCategorie(item)}
+                />
               </View>
             );
           })}
@@ -206,9 +213,11 @@ class MotImage extends React.Component {
               return (
                 <View style={thisstyles.item} key={"ac" + index.toString()}>
                   <Button
-                    color={item.value ? "green" : "grey"}
+                    titleStyle={item.value ? styles.textColorGreen : styles.textColorGrey}
+                    buttonStyle={styles.transparentButton}
+                    containerViewStyle={styles.buttonBorderRadius}
                     disabled={this.state.multiCategoriesNames.second[item.key]}
-                    title={item.key}
+                    title={tools.upperFirstLetter(item.key)}
                     onPress={() => this.chooseMultiCategorie("main", item.key)}
                   />
                 </View>
@@ -216,10 +225,22 @@ class MotImage extends React.Component {
             })}
           </ScrollView>
         </View>
+        <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", padding: 5 }}>
+          <Button
+            titleStyle={styles.textColorOrange}
+            buttonStyle={styles.transparentButton}
+            containerViewStyle={styles.buttonBorderRadius}
+            title="Reset"
+            onPress={() => this.resetMultiCategories()}
+          />
 
-        <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", padding: 30 }}>
-          <Button color={"orange"} title="Reset" onPress={() => this.resetMultiCategories()} />
-          <Button color={"blue"} title="Valider" disabled={disabled} onPress={() => this.goMultiCategories()} />
+          <Button
+            titleStyle={disabled ? styles.textColorGrey : styles.textColorGreen}
+            buttonStyle={styles.transparentButton}
+            containerViewStyle={styles.buttonBorderRadius}
+            title="Valider"
+            onPress={() => !disabled && this.goMultiCategories()}
+          />
         </View>
       </View>
     );

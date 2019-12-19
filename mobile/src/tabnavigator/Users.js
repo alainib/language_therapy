@@ -1,5 +1,6 @@
 import React from "react";
-import { ScrollView, View, StyleSheet, Text, Button, TextInput, Alert, TouchableOpacity } from "react-native";
+import { ScrollView, View, StyleSheet, Text, TextInput, Alert, TouchableOpacity } from "react-native";
+import { Button } from "react-native-elements";
 import styles from "language_therapy/src/styles";
 import * as tools from "language_therapy/src/tools";
 import IconFeather from "react-native-vector-icons/Feather";
@@ -46,15 +47,75 @@ class Users extends React.PureComponent {
 
     if (listLength == 0 && !this.state.showAddUser) {
       return (
-        <View style={styles.flex1BG}>
+        <View style={[styles.flex1BG, styles.container]}>
           <Button
             title="Ajouter un utilisateur"
+            titleStyle={styles.textColorGreen}
+            buttonStyle={styles.transparentButton}
+            containerViewStyle={styles.buttonBorderRadius}
             onPress={() => {
               this.setState({
                 showAddUser: !this.state.showAddUser
               });
             }}
           />
+        </View>
+      );
+    }
+
+    if (this.state.showAddUser) {
+      return (
+        <View style={{ flex: 1, flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+          <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+            <TextInput
+              autoFocus={true}
+              autoCorrect={false}
+              ref={input => {
+                this.txtInput = input;
+              }}
+              value={this.state.newUserName}
+              style={styles.textInput}
+              placeholder={"nom - prénom"}
+              onChangeText={newUserName => {
+                this.setState({ newUserName }, () => {
+                  this.checkUniqueUserName();
+                });
+              }}
+            />
+          </View>
+
+          <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-around", alignItems: "flex-start" }}>
+            <View style={{ flex: 1, alignItems: "center" }}>
+              <Button
+                title="Annuler"
+                titleStyle={styles.textColorGrey}
+                buttonStyle={styles.transparentButton}
+                containerViewStyle={styles.buttonBorderRadius}
+                onPress={() => {
+                  this.setState({
+                    showAddUser: false,
+                    newUserName: null
+                  });
+                }}
+              />
+            </View>
+            <View style={{ flex: 1, alignItems: "center" }}>
+              <Button
+                disabled={!this.state.uniqueUserName}
+                title="Ok"
+                titleStyle={styles.textColorGreen}
+                buttonStyle={styles.transparentButton}
+                containerViewStyle={styles.buttonBorderRadius}
+                onPress={() => {
+                  this.props.action_addUser(this.state.newUserName);
+                  this.setState({
+                    showAddUser: false,
+                    newUserName: null
+                  });
+                }}
+              />
+            </View>
+          </View>
         </View>
       );
     }
@@ -69,80 +130,39 @@ class Users extends React.PureComponent {
             }}
           >
             {this.state.users.current != null ? (
-              <View style={styles.flexRowSpaceBetween}>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: 10,
+                  paddingTop: 20
+                }}
+              >
                 <Text style={thisstyles.title}>Utilisateur courant : {this.state.users.current}</Text>
 
-                <View
-                  style={{
-                    marginRight: 40,
-                    width: 100,
-                    justifyContent: "flex-start"
-                  }}
-                >
-                  <Button containerStyle={{ margin: 10 }} title="Suivi" onPress={() => this.props.navigation.navigate("Suivi")} />
-                </View>
+                <TouchableOpacity underlayColor={Config.colors.touchOpacity} onPress={() => this.props.navigation.navigate("Suivi")}>
+                  <Text style={styles.textColorGreen}>Suivi</Text>
+                </TouchableOpacity>
               </View>
             ) : (
-              <View style={styles.container}>
-                <Button
-                  title="Ajouter un utilisateur"
-                  onPress={() => {
-                    this.setState({
-                      showAddUser: !this.state.showAddUser
-                    });
-                  }}
-                />
-              </View>
+              !this.state.showAddUser && (
+                <View style={[styles.flex1BG, styles.container]}>
+                  <Button
+                    title="Ajouter un utilisateur"
+                    titleStyle={styles.textColorGreen}
+                    buttonStyle={styles.transparentButton}
+                    containerViewStyle={styles.buttonBorderRadius}
+                    onPress={() => {
+                      this.setState({
+                        showAddUser: !this.state.showAddUser
+                      });
+                    }}
+                  />
+                </View>
+              )
             )}
-          </View>
-        )}
-
-        {this.state.showAddUser && (
-          <View style={styles.flexRowSpaceAround}>
-            <TextInput
-              autoFocus={true}
-              autoCorrect={false}
-              ref={input => {
-                this.txtInput = input;
-              }}
-              value={this.state.newUserName}
-              style={styles.acSearchSectionInput}
-              placeholder={"nom - prénom"}
-              onChangeText={newUserName => {
-                this.setState({ newUserName }, () => {
-                  this.checkUniqueUserName();
-                });
-              }}
-            />
-
-            <View style={{ flexDirection: "row" }}>
-              <View style={{ width: 100, margin: 10 }}>
-                <Button
-                  title="Annuler"
-                  color="grey"
-                  onPress={() => {
-                    this.setState({
-                      showAddUser: false,
-                      newUserName: null
-                    });
-                  }}
-                />
-              </View>
-              <View style={{ width: 100, margin: 10 }}>
-                <Button
-                  disabled={!this.state.uniqueUserName}
-                  title="Ok"
-                  color="green"
-                  onPress={() => {
-                    this.props.action_addUser(this.state.newUserName);
-                    this.setState({
-                      showAddUser: false,
-                      newUserName: null
-                    });
-                  }}
-                />
-              </View>
-            </View>
           </View>
         )}
 
@@ -269,6 +289,12 @@ import * as actions from "language_therapy/src/redux/actions";
 export default connect(mapToStateProps, actions)(Users);
 
 const thisstyles = StyleSheet.create({
+  flexSpaceAround10: {
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center"
+  },
   centerp20: {
     justifyContent: "center",
     alignItems: "center",

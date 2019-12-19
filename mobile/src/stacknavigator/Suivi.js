@@ -80,7 +80,6 @@ class Suivi extends Component {
         let _tests = _list[key];
         for (var i in _tests) {
           let _test = _tests[i];
-
           res.push(
             <View style={i == 0 ? thisstyles.item : thisstyles.itemBis} key={"id" + i + _test.id.toString()}>
               <View style={{ ...styles.center, flex: 2 }}>

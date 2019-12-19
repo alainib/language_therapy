@@ -10,7 +10,10 @@ export async function isConnectedToNetwork() {
   // return await NetInfo.isConnected.fetch();
 }
 */
-
+export function upperFirstLetter(s) {
+  if (typeof s !== "string") return "";
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
 /**
  * ne pas utiliser pour faire un ceil / floor; il y a Math.floor() et Math.ceil() pour ca
  * arondi un nombre décimal, ATTENTION il faut que ce soit avec virgule pas de point sinon il ne prend que l'entier

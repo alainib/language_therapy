@@ -1,10 +1,7 @@
 import React from "react";
-import { View, Button, ScrollView, StyleSheet, Text, TouchableOpacity, Alert } from "react-native";
+import { View, Button, ScrollView, StyleSheet, Text } from "react-native";
 
-import Config from "language_therapy/src/Config";
-
-import * as tools from "language_therapy/src/tools";
-
+import IconFeather from "react-native-vector-icons/Feather";
 import styles from "language_therapy/src/styles";
 
 class ErrorChecker extends React.Component {
@@ -39,6 +36,19 @@ class ErrorChecker extends React.Component {
           <View style={{ ...styles.center, flex: 10 }}>
             <Text style={thisstyles.title}>{item.errors}</Text>
           </View>
+          <View style={{ ...styles.center, flex: 3 }}>
+            <IconFeather
+              name="play"
+              style={styles.center}
+              size={20}
+              color="#000"
+              onPress={() => {
+                this.props.navigation.navigate("TrainCategorie", {
+                  categorie: item.results
+                });
+              }}
+            />
+          </View>
         </View>
       );
     }
@@ -54,6 +64,9 @@ class ErrorChecker extends React.Component {
           </View>
           <View style={{ ...styles.center, flex: 10 }}>
             <Text style={thisstyles.title}>Erreurs </Text>
+          </View>
+          <View style={{ ...styles.center, flex: 3 }}>
+            <Text style={thisstyles.title}>Replay </Text>
           </View>
         </View>
         {res}
