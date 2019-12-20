@@ -43,7 +43,6 @@ class Options extends React.Component {
                   <ButtonRNE
                     titleStyle={this.props.options.level == Config._const.middle ? styles.textColorGreen : styles.textColorGrey}
                     buttonStyle={styles.transparentButton}
-                    RNE
                     titleStyle={this.props.options.level == Config._const.easy ? styles.textColorGreen : styles.textColorGrey}
                     buttonStyle={styles.transparentButton}
                     title="Facile"
@@ -54,7 +53,6 @@ class Options extends React.Component {
                   <ButtonRNE
                     titleStyle={this.props.options.level == Config._const.middle ? styles.textColorGreen : styles.textColorGrey}
                     buttonStyle={styles.transparentButton}
-                    RNE
                     titleStyle={this.props.options.level == Config._const.middle ? styles.textColorGreen : styles.textColorGrey}
                     buttonStyle={styles.transparentButton}
                     title="Moyen"
@@ -66,7 +64,6 @@ class Options extends React.Component {
                   <ButtonRNE
                     titleStyle={this.props.options.level == Config._const.middle ? styles.textColorGreen : styles.textColorGrey}
                     buttonStyle={styles.transparentButton}
-                    RNE
                     titleStyle={this.props.options.level == Config._const.hard ? styles.textColorGreen : styles.textColorGrey}
                     buttonStyle={styles.transparentButton}
                     title="Dur"

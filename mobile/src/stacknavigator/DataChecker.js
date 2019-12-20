@@ -111,7 +111,7 @@ export default class DataChecker extends React.Component {
               <View style={{ margin: 10 }}>
                 <Button
                   titleStyle={this.state.soundFr ? styles.textColorGreen : styles.textColorGrey}
-                  containerViewStyle={styles.buttonBorderRadius}
+                  buttonStyle={styles.transparentButton}
                   title="  FR  "
                   onPress={() => this.setState({ soundFr: !this.state.soundFr })}
                 />
@@ -119,7 +119,7 @@ export default class DataChecker extends React.Component {
               <View style={{ margin: 10 }}>
                 <Button
                   titleStyle={this.state.soundAr ? styles.textColorGreen : styles.textColorGrey}
-                  containerViewStyle={styles.buttonBorderRadius}
+                  buttonStyle={styles.transparentButton}
                   title="  AR  "
                   onPress={() => this.setState({ soundAr: !this.state.soundAr })}
                 />

@@ -32,6 +32,7 @@ export function image_randomSerie(
 
       if (errors.length > 0) {
         let logme = {
+          date: tools.getTodayDate(),
           categoriesName,
           nbrQuestion,
           nbrOfImagePerItem,

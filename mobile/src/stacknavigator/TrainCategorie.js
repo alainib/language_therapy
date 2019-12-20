@@ -5,7 +5,7 @@ import styles from "language_therapy/src/styles";
 import Config from "language_therapy/src/Config";
 import IconFeather from "react-native-vector-icons/Feather";
 import * as tools from "language_therapy/src/tools";
-
+import ModalHeader from "language_therapy/src/components/ModalHeader";
 import ResultsStat from "language_therapy/src/components/ResultsStat";
 import FlexSize from "language_therapy/src/components/FlexSize";
 
@@ -341,7 +341,12 @@ class TrainCategorie extends React.PureComponent {
         </View>
       );
     } else {
-      return <View style={styles.flex1}>{this.showResults()}</View>;
+      return (
+        <View style={styles.flex1BG}>
+          <ModalHeader title="Résultats" callbackClickBackButton={this.props.navigation.goBack} />
+          {this.showResults()}
+        </View>
+      );
     }
   }
 
@@ -395,7 +400,6 @@ class TrainCategorie extends React.PureComponent {
         id: this.props.navigation.state.params.categorie.id,
         user: this.props.currentUser,
         categorie: this.props.navigation.state.params.categorie,
-
         results
       });
 

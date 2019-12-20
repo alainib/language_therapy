@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Button, ScrollView, StyleSheet, Text } from "react-native";
 
+import { Separator } from "language_therapy/src/components/Separator";
 import IconFeather from "react-native-vector-icons/Feather";
 import styles from "language_therapy/src/styles";
 
@@ -26,29 +27,35 @@ class ErrorChecker extends React.Component {
     for (let i in _list) {
       const item = _list[i];
       res.push(
-        <View key={i} style={thisstyles.item}>
-          <View style={{ ...styles.center, flex: 5 }}>
-            <Text style={thisstyles.title}>{item.categoriesName.toString()}</Text>
+        <View key={i}>
+          <View style={thisstyles.item}>
+            <View style={{ ...styles.center, flex: 3 }}>
+              <Text style={thisstyles.title}>{item.date}</Text>
+            </View>
+            <View style={{ ...styles.center, flex: 3 }}>
+              <Text style={thisstyles.title}>{item.categoriesName.toString()}</Text>
+            </View>
+            <View style={{ ...styles.center, flex: 3 }}>
+              <Text style={thisstyles.title}>{item.level}</Text>
+            </View>
+            <View style={{ ...styles.center, flex: 7 }}>
+              <Text style={thisstyles.title}>{item.errors}</Text>
+            </View>
+            <View style={{ ...styles.center, flex: 3 }}>
+              <IconFeather
+                name="play"
+                style={styles.center}
+                size={20}
+                color="#000"
+                onPress={() => {
+                  this.props.navigation.navigate("TrainCategorie", {
+                    categorie: item.results
+                  });
+                }}
+              />
+            </View>
           </View>
-          <View style={{ ...styles.center, flex: 3 }}>
-            <Text style={thisstyles.title}>{item.level}</Text>
-          </View>
-          <View style={{ ...styles.center, flex: 10 }}>
-            <Text style={thisstyles.title}>{item.errors}</Text>
-          </View>
-          <View style={{ ...styles.center, flex: 3 }}>
-            <IconFeather
-              name="play"
-              style={styles.center}
-              size={20}
-              color="#000"
-              onPress={() => {
-                this.props.navigation.navigate("TrainCategorie", {
-                  categorie: item.results
-                });
-              }}
-            />
-          </View>
+          <Separator />
         </View>
       );
     }
@@ -56,7 +63,10 @@ class ErrorChecker extends React.Component {
     return (
       <View>
         <View style={thisstyles.column}>
-          <View style={{ ...styles.center, flex: 5 }}>
+          <View style={{ ...styles.center, flex: 3 }}>
+            <Text style={thisstyles.title}>Date</Text>
+          </View>
+          <View style={{ ...styles.center, flex: 3 }}>
             <Text style={thisstyles.title}>Categorie</Text>
           </View>
           <View style={{ ...styles.center, flex: 3 }}>
@@ -87,12 +97,11 @@ export default connect(mapStatetoProps, actions)(ErrorChecker);
 
 const thisstyles = StyleSheet.create({
   item: {
-    height: 50,
+    height: 55,
     margin: 5,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "skyblue"
+    justifyContent: "space-between"
   },
   title: {
     fontSize: 16

@@ -54,7 +54,7 @@ export default class ModalHeader extends React.PureComponent {
                 this.props.callbackClickBackButton();
               }}
             >
-              <IconFeather name="arrow-left" size={Config.iconSize.xl} color={Config.colors.black} />
+              <IconFeather name="arrow-left" size={Config.iconSize.xxl} color={Config.colors.black} />
             </TouchableOpacity>
           </Col>
           <Col sm={getSize(1)} />

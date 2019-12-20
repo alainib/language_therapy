@@ -6,21 +6,6 @@ import styles from "language_therapy/src/styles";
 
 export default class ResultsStat extends React.PureComponent {
   render() {
-    /*
-    let lineChartData = {
-      labels: ["total", "1 rép", "2 rép", "3 rép", "4 rép", "5 ou +", "sautée"],
-      datasets: [
-        {
-          data: [this.props.results.total, this.props.results.oneRep,
-            this.props.results.twoRep,
-            this.props.results.threeRep,
-            this.props.results.fourRep,
-            this.props.results.fiveAndMoreRep,
-            this.props.results.skiped]
-        }
-      ]
-    };*/
-
     let total = this.props.results.total;
     let nums = [
       this.props.results.oneRep,
@@ -43,8 +28,8 @@ export default class ResultsStat extends React.PureComponent {
     let radius = this.props.minimizedDisplay ? 5 : 15;
 
     return (
-      <View style={{ ...styles.flex1BG, flex: 1, margin: this.props.minimizedDisplay ? 1 : 10 }}>
-        {!this.props.minimizedDisplay && <Text style={thisstyles.text}>Résultat des {total} items </Text>}
+      <View style={{ ...styles.flex1BG, margin: this.props.minimizedDisplay ? 1 : 10 }}>
+        {!this.props.minimizedDisplay && <Text style={thisstyles.text}>Série avec {total} items </Text>}
         <View
           style={{
             flex: 1,
@@ -83,7 +68,32 @@ export default class ResultsStat extends React.PureComponent {
             );
           })}
         </View>
-        {/* <BarChart
+      </View>
+    );
+  }
+}
+const thisstyles = StyleSheet.create({
+  center: { justifyContent: "center", alignItems: "center" },
+
+  text: {
+    fontSize: 20
+  }
+});
+/*
+    let lineChartData = {
+      labels: ["total", "1 rép", "2 rép", "3 rép", "4 rép", "5 ou +", "sautée"],
+      datasets: [
+        {
+          data: [this.props.results.total, this.props.results.oneRep,
+            this.props.results.twoRep,
+            this.props.results.threeRep,
+            this.props.results.fourRep,
+            this.props.results.fiveAndMoreRep,
+            this.props.results.skiped]
+        }
+      ]
+    };*/
+/* <BarChart
           style={{
             borderRadius: 16
           }}
@@ -102,17 +112,8 @@ export default class ResultsStat extends React.PureComponent {
               borderRadius: 16
             }
           }}
-        />*/}
-      </View>
-    );
-  }
-}
-const thisstyles = StyleSheet.create({
-  text: {
-    fontSize: 20
-  },
-  center: { justifyContent: "center", alignItems: "center" }
-});
+        />*/
+
 /*
         <LineChart
           data={lineChartData}
