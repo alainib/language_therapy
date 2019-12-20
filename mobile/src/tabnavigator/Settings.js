@@ -40,6 +40,7 @@ class Settings extends React.Component {
           ...styles.BG
         }}
       >
+        <Text>Version :{Config.version} </Text>
         <Button
           titleStyle={styles.textColorGreen}
           buttonStyle={styles.transparentButton}
