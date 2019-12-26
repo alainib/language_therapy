@@ -16,12 +16,13 @@ router.get("/ping", function(req, res) {
 
 const _logins = {
   louise: "loulou28",
-  david: "david"
+  david: "david",
+  alain:"alain"
 };
 const _token = "488484sdf84sd8f7s7ezr157705787878787";
 router.get("/user/login", function(req, res) {
   const { login, password } = req.query;
-  writeLog("trying to login with: " + login + "@" + password + " " + new Date().toTimeString(), path.join(__dirname, "log", "login.log"));
+  writeLog("trying to login with: " + login + "@" + password + " " + getJMYMH(), path.join(__dirname, "log", "login.log"));
 
   if (_logins[login] && _logins[login] === password) {
     return res.status(200).json({ success: true, token: _token });
