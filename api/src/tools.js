@@ -19,6 +19,11 @@ module.exports = function() {
     });
   };
 
+	this.getJMYMH = function(){
+		let d =  new Date().toJSON().slice(0,19).split("T") ;
+		let j =d[0].split('-').reverse().join('/');
+		return ( j + " à " +d[1])
+	}					
   this.clone = function(obj) {
     return JSON.parse(JSON.stringify(obj));
   };

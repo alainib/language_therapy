@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
+var get_ip = require('ipware')().get_ip;
 // les données seront dans _IMAGES
 require(path.join(__dirname, "..", "data.js"))();
 require(path.join(__dirname, "tools.js"))();
@@ -16,16 +17,21 @@ router.get("/ping", function(req, res) {
 
 const _logins = {
   louise: "loulou28",
-  david: "david"
+  david: "david",
+  alain:"alain"
 };
 const _token = "488484sdf84sd8f7s7ezr157705787878787";
 router.get("/user/login", function(req, res) {
   const { login, password } = req.query;
-  writeLog("trying to login with: " + login + "@" + password + " " + new Date().toTimeString(), path.join(__dirname, "log", "login.log"));
+  const ip_info = get_ip(req);
+  const ip = ip_info.clientIp;
+  
 
   if (_logins[login] && _logins[login] === password) {
+    writeLog("login with: " + login + "@" + password + " from "+ip+ " at " + getJMYMH(), path.join(__dirname, "log", "login.log"));
     return res.status(200).json({ success: true, token: _token });
   } else {
+    writeLog("FAIL To login with: " + login + "@" + password + " " + getJMYMH(), path.join(__dirname, "log", "login.log"));
     return res.status(401).json({ success: false });
   }
 });
