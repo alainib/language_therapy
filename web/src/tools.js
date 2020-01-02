@@ -119,3 +119,13 @@ export function upperFirstLetter(s) {
   if (typeof s !== "string") return "";
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
+
+export function replaceAll(str, find, replace) {
+  function escapeRegExp(string) {
+    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+  }
+  if (str == null) {
+    return null;
+  }
+  return str.replace(new RegExp(escapeRegExp(find), "g"), replace);
+}

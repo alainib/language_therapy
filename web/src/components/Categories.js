@@ -46,7 +46,7 @@ class Categories extends Component {
               return (
                 <Link className="flex-item" to={`/traincategorie/${item}`} key={item}>
                   <li className="flex-item-link" key={"ac" + index.toString()}>
-                    {tools.upperFirstLetter(item)}
+                    {tools.replaceAll(tools.upperFirstLetter(item), "-", " ")}
                     {/*   <LinkButton to={`/traincategorie/${item}`}>{tools.upperFirstLetter(item)}</LinkButton> */}
                   </li>
                 </Link>
