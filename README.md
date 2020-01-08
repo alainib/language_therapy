@@ -11,19 +11,25 @@ Il sert de support pour la rééducation de patients aphasiques bilingues franç
 
 
  - Neuf catégories sémantiques pour le moment
-![Alt text](readme/web-categories.png?raw=true "Categories")
+![Alt text](readme/web-categories.jpg?raw=true "Categories")
  - Création de test en choisissant une ou plusieurs catégories
- ![Alt text](readme/web-testa.png?raw=true "Test exemple")
+ ![Alt text](readme/web-testa.jpg?raw=true "Test exemple")
 - Paramétrage du niveau de difficulté et d'autres options
- ![Alt text](readme/web-parametres.png?raw=true "parametres")
+ ![Alt text](readme/web-parametres.jpg?raw=true "parametres")
  - Mode image par image sans nom d'item affiché
-![Alt text](readme/web-imageparimage.PNG?raw=true "imageparimage")
+![Alt text](readme/web-imageparimage.jpg?raw=true "imageparimage")
 
 
-http://88.190.14.12:1110/
+La version web est disponible ici http://88.190.14.12:1110/ ( authentification nécessaire )
 
 
+### Sous projets
  
+ * data-creator  
+ * api
+ * web
+ * mobile
+
  
 ### Tech
 
@@ -36,9 +42,8 @@ http://88.190.14.12:1110/
 
 ### Installation
 
-Dillinger requires [Node.js](https://nodejs.org/) v4+ to run.
-
-Install the dependencies and devDependencies and start the server.
+NodeJs is required
+Clone this repo
 
 ```sh
 $ cd dillinger
@@ -48,13 +53,8 @@ $ node app
 
 For production environments...
 
-```sh
-$ npm install --production
-$ NODE_ENV=production node app
 ```
-
-### Plugins
-
-Dillinger is currently extended with the following plugins. Instructions on how to use them in your own application are linked below.
-
+$ cd web
+$ 
+```
 
