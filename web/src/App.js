@@ -2,10 +2,11 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import Fullscreen from "react-full-screen";
-import Categories from "components/Categories";
-import Traincategorie from "components/Traincategorie";
-import Home from "components/Home";
-import Settings from "components/Settings";
+import Categories from "pages/Categories";
+import Traincategorie from "pages/Traincategorie";
+import Home from "pages/Home";
+import Settings from "pages/Settings";
+import Androidapp from "pages/Androidapp";
 
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -73,6 +74,11 @@ export default class App extends Component {
                   </Link>
                 </Nav.Item>
               )}
+              <Nav.Item>
+                <Link className="App-link" to="/androidapp">
+                  Android
+                </Link>
+              </Nav.Item>
             </Nav>
 
             <Nav.Item>
@@ -99,6 +105,9 @@ export default class App extends Component {
 
               <Route path="/settings">
                 <Settings />
+              </Route>
+              <Route path="/androidapp">
+                <Androidapp />
               </Route>
 
               <Route path="/">

@@ -9,6 +9,7 @@ body,
   background-color: #282c34;
   min-height: 100vh;
   font-size: calc(10px + 2vmin);
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   color: white;
 }
 .App-logo {
@@ -19,7 +20,9 @@ body,
   color: #09d3ac;
   padding-left: 1em;
 }
-
+.smallText {
+  font-size: calc(2vmin);
+}
 .fwcontainer {
   margin-top: 50px;
   display: flex;
@@ -105,7 +108,10 @@ img.centered {
   max-width: 500px;
   padding: 2px;
 }
-
+.img-max-1000 {
+  max-width: 1000px;
+  padding: 10px;
+}
 .img-min {
   min-width: 10%;
   padding: 2px;
@@ -121,6 +127,11 @@ img.centered {
 
 .space50 {
   height: 50px;
+}
+.e-mail:before {
+  content: attr(data-website) "\0040"attr(data-user);
+  unicode-bidi: bidi-override;
+  direction: rtl;
 }
 
 .col,

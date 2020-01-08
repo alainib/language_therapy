@@ -66,7 +66,7 @@ export default class Home extends Component {
       <div className="Login">
         {connected ? (
           <div className="textCenter">
-            <h1>{identifiant}, bienvenue sur 'Arabaphasie'.</h1>
+            <h1>{identifiant}, bienvenue sur 'Arabaphasie'</h1>
             <br />
             <br />
             <h3>Vous avez désormais accès aux categories.</h3>
@@ -80,7 +80,7 @@ export default class Home extends Component {
           </div>
         ) : (
           <div className="textCenter">
-            <h1>Bienvenue sur 'Arabaphasie'.</h1>
+            <h1>Bienvenue sur 'Arabaphasie'</h1>
             <br />
             <br />
             <Form onSubmit={this.handleSubmit}>
@@ -103,7 +103,11 @@ export default class Home extends Component {
                   onChange={e => this.setPassword(e.target.value)}
                 />
               </Form.Group>
-
+              <i className="smallText">
+                Vous n'avez pas de compte ? contactez moi sur{" "}
+                <span class="e-mail" data-user="nialamiharbi " data-website="moc.liamg"></span>
+              </i>
+              <br />
               <Button variant="primary" type="submit" disabled={!this.validateForm()}>
                 Connexion
               </Button>

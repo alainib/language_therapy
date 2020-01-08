@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter, Redirect } from "react-router-dom";
 
-import ResultsStat from "./ResultsStat";
+import ResultsStat from "components/ResultsStat";
 import { Row as RowBootstrap, Col as ColBootstrap, Button, Alert } from "react-bootstrap";
 
 import FlexView from "react-flexview";

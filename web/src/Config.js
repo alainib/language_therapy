@@ -1,4 +1,4 @@
-const local_api_path = "localhost:1111";
+const local_api_path = "localhost:1110";
 
 let api_path = "http://";
 let static_path = "http://";
