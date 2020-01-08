@@ -446,16 +446,5 @@ const styles = StyleSheet.create({
     width: 175,
     height: 75,
     margin: 5
-  },
-  flex1stretchcenter: {
-    flex: 1,
-    alignItems: "stretch",
-    justifyContent: "center"
-  },
-  flex1rowcenter: {
-    flex: 1,
-    "flex-direction": "row",
-    alignItems: "center",
-    justifyContent: "center"
-  }
+  } 
 });
