@@ -37,13 +37,51 @@ le script `app.js` :
 
 #### api
 
-L'API sert les services, les fichiers static et le site web en production
+Api développée NodeJS
 
-`cd api npm start`
+L'API sert les services, les fichiers static et le site web en production.
+
+```
+$ cd api
+$ npm install
+$ node app.js  // or use npm start with PM2
+écoute sur  localhost:1110 ( port défini dans api/src/port.json )
+```
+
+Il n'y a pas de base données. Les services utilisent des fonctions déclarées dans le fichier `src/serieHelper.js` pour récupérer les données adéquates  (ce fichier est identique à 99% de celui de la partie mobile ) .
+Pour lancer les test sur `serieHelper`
+```
+$ npm test // test si les series de test sont correctement formés ( bon nombre d'image en fonction de la difficulté ect)
+```
+
+
 
 #### web
 
+Site web développé avec ReactJS
+
+```
+$ cd web
+$ npm install
+$ npm start // ouvre chrome sur localhost:3000
+```
+Pour créer une version de production du site web (servable par n'importe quel serveur de fichier statique)
+```
+$ cd web
+$ npm run build
+
+
+```
+
+
+
 #### mobile
+
+L'application mobile a été developpée avec React-Native, testé uniquement sous Android
+```
+$ cd mobile
+$ npm install
+```
 
 ### Tech
 
