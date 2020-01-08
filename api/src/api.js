@@ -18,6 +18,7 @@ router.get("/ping", function(req, res) {
 const _logins = {
   louise: "loulou28",
   david: "david",
+  test:"test",
   alain: "alain"
 };
 const _token = "488484sdf84sd8f7s7ezr157705787878787";
