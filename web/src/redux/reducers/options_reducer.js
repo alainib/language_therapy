@@ -2,7 +2,7 @@ import Config from "Config";
 import { UPDATE_OPTION, RESET_OPTION } from "redux/types";
 
 const initState = {
-  nbrOfItemPerSerie: 10, // nombre d'item par défaut par categorie
+  nbrOfItemPerSerie: 10, // nombre d'item par défaut par catégorie
   nbrOfImagePerItem: 4, // nombre d'image par item
   imageByImage: false, // on ne fait que un mot à la fois par test
   imageByImageDisplayName: true, // si on est en mode image par image on peut soit afficher le nom soit des _ _ _ à la place
@@ -11,8 +11,8 @@ const initState = {
   playSoundAfterXWrong: 2,
   displayLg: Config._const.ar,
   level: Config._const.easy,
-  manualChooseImage: false, // choisi les images d'une categorie à la main
-  multiCategories: false // choisir les categories soit meme
+  manualChooseImage: false, // choisi les images d'une catégorie à la main
+  multiCategories: false // choisir les catégories soit meme
 };
 
 export default function(state = initState, action) {

@@ -57,7 +57,7 @@ class Settings extends Component {
                 <div className={css(styles.helpinfo)}>
                   FACILE: il n'y a qu'une seule image de la catégorie choisie et c'est la juste.
                   <br />
-                  MOYEN: les images sont un mélanges entre celle de la catégorie choisie et d'autres catégories.
+                  MOYEN: la moitié des images sont de la catégorie choisie et l'autre moitié d'autres catégories.
                   <br />
                   DUR: toutes les images sont de la catégorie choisie.
                 </div>
@@ -446,5 +446,5 @@ const styles = StyleSheet.create({
     width: 175,
     height: 75,
     margin: 5
-  } 
+  }
 });

@@ -63,7 +63,7 @@ export default class App extends Component {
 
               <Nav.Item>
                 <Link className="App-link" to="/categories">
-                  Categories
+                  Catégories
                 </Link>
               </Nav.Item>
 
@@ -96,23 +96,27 @@ export default class App extends Component {
 
           <div style={{ margin: 50 }}>
             <Switch>
-              <Route path="/categories">
-                <Categories connected={this.state.connected} />
-              </Route>
-              <Route path="/traincategorie/:id">
-                <Traincategorie token={this.state.token} connected={this.state.connected} />
-              </Route>
+              <Route path="/categories" render={props => <Categories connected={this.state.connected} />} />
 
-              <Route path="/settings">
-                <Settings />
-              </Route>
-              <Route path="/androidapp">
-                <Androidapp />
-              </Route>
+              <Route
+                path="/traincategorie/:id"
+                render={props => <Traincategorie token={this.state.token} connected={this.state.connected} />}
+              />
 
-              <Route path="/">
-                <Home connected={this.state.connected} setToken={this.setToken} setConnected={this.setConnected} />
-              </Route>
+              <Route path="/settings" component={Settings}></Route>
+              <Route path="/androidapp" component={Androidapp}></Route>
+
+              <Route
+                path="/"
+                render={props => (
+                  <Home
+                    location={props.location}
+                    connected={this.state.connected}
+                    setToken={this.setToken}
+                    setConnected={this.setConnected}
+                  />
+                )}
+              />
             </Switch>
           </div>
         </div>

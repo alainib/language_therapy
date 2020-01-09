@@ -3,6 +3,8 @@ import { Button, Form } from "react-bootstrap";
 import "App.css";
 import { user_login } from "services/user";
 import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
+import * as tools from "tools";
+
 const cookie_id = "user_id";
 const cookie_pwd = "user_pwd";
 const cookie_token = "user_token";
@@ -22,6 +24,22 @@ export default class Home extends Component {
     // si on re ouvre le navigateur this.props.connected == false mais on peut avoir cookie session precedente, on re connecte auto
     if (!this.props.connected && this.validateForm()) {
       this.connect();
+    }
+
+    if (this.props.location && this.props.location.pathname === "/login") {
+      let params = tools.getJsonFromUrl(this.props.location.search);
+
+      if (params.user && params.password) {
+        this.setState(
+          {
+            identifiant: params.user,
+            password: params.password
+          },
+          () => {
+            this.connect();
+          }
+        );
+      }
     }
   }
 
@@ -66,10 +84,12 @@ export default class Home extends Component {
       <div className="Login">
         {connected ? (
           <div className="textCenter">
-            <h1>{identifiant}, bienvenue sur 'Arabaphasie'</h1>
+            <div className="bigText">
+              {identifiant}, bienvenue sur <i>Arabaphasie</i>
+            </div>
             <br />
             <br />
-            <h3>Vous avez désormais accès aux categories.</h3>
+            <h3>Vous avez désormais accès aux catégories.</h3>
             <br />
             <br />
             <Form>
@@ -80,7 +100,9 @@ export default class Home extends Component {
           </div>
         ) : (
           <div className="textCenter">
-            <h1>Bienvenue sur 'Arabaphasie'</h1>
+            <div className="bigText">
+              Bienvenue sur <i>Arabaphasie</i>
+            </div>
             <br />
             <br />
             <Form onSubmit={this.handleSubmit}>
@@ -105,7 +127,7 @@ export default class Home extends Component {
               </Form.Group>
               <i className="smallText">
                 Vous n'avez pas de compte ? contactez moi sur{" "}
-                <span class="e-mail" data-user="nialamiharbi " data-website="moc.liamg"></span>
+                <span className="e-mail" data-user="nialamiharbi " data-website="moc.liamg"></span>
               </i>
               <br />
               <Button variant="primary" type="submit" disabled={!this.validateForm()}>

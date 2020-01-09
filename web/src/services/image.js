@@ -3,12 +3,12 @@ import * as axios from "services/axios";
 
 let _allCategoriesName = null;
 /**
- * crée une categorie d'exercice depuis un nom de categorie donnée
- * @param string categorieName nom de la categorie pour les réponses justes
+ * crée une catégorie d'exercice depuis un nom donnée
+ * @param string categorieName nom de la catégorie pour les réponses justes
  * @param int nbrItem : nombre de question
  * @param int nbrOfImagePerItem : nombre d'image par question
  * @param string displayLg : langue du mot à afficher pour chaque question ( FR ou AR )
- * @param string level : easy = on utilise des images que tu meme categorie, middle = on prend tjrs la même categorie pour l'image juste et random pour les autres
+ * @param string level : easy = on utilise des images que tu meme catégorie, middle = on prend tjrs la même catégorie pour l'image juste et random pour les autres
  * @param array selectedImages : array of images,
  *
  * si selectedImages not null alors ces images seront utilisées comme image à trouver
@@ -57,7 +57,7 @@ export async function image_randomSerie(
 }
 
 /**
- * retourne la liste des noms de toutes les categories disponibles
+ * retourne la liste des noms de toutes les catégories disponibles
  */
 export async function image_AllCategoriesNames() {
   if (_allCategoriesName) {

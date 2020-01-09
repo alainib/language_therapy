@@ -1,11 +1,9 @@
-aliments
-animaux
-autre
-nombres-ar
-nombres-fr
-   zero
-   zero
-parties-du-corps
-recette-arabe
-vehicules
-vetements
+<li>Aliments           ( items ) </li>
+<li>Animaux            ( items ) </li>
+<li>Autre              ( items ) </li>
+<li>Nombres ar         ( items ) </li>
+<li>Nombres fr         ( items ) </li>
+<li>Parties du corps   ( items ) </li>
+<li>Recette arabe      ( items ) </li>
+<li>Vehicules          ( items ) </li>
+<li>Vetements          ( items ) </li>

@@ -30,7 +30,7 @@ class Traincategorie extends Component {
       index: 0,
       ready: false,
       networkError: false,
-      /* pour les categories d'imageByImage il ne faut pas afficher le nom en haut directement
+      /* pour les catégories d'imageByImage il ne faut pas afficher le nom en haut directement
         on peut afficher des . par lettres et a chaque click sur question.display on affiche une lettre de plus
       */
       imageByImageShowHowMuchLetters: 0
@@ -177,7 +177,7 @@ class Traincategorie extends Component {
       return (
         <Alert variant="danger">
           <p>
-            Une erreur est survenue lors du chargement de la categorie. <br />
+            Une erreur est survenue lors du chargement de la catégorie. <br />
             Essayer de rafraichir la page ( F5 )
           </p>
         </Alert>

@@ -13,7 +13,7 @@ class Categories extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // tous les noms de categories
+      // tous les noms de catégories
       categoriesNames: [],
       networkError: false
     };
@@ -31,12 +31,12 @@ class Categories extends Component {
   render() {
     return (
       <div>
-        <h2 className="padding15">Categories disponibles :</h2>
+        <div className="padding15">Catégories disponibles :</div>
         <br />
         {this.state.networkError ? (
           <Alert variant="danger">
             <p>
-              Une erreur est survenue lors du chargement des categories. <br />
+              Une erreur est survenue lors du chargement des catégories. <br />
               Essayer de rafraichir la page ( F5 )
             </p>
           </Alert>
