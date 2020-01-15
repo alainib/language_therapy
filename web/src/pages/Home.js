@@ -88,6 +88,11 @@ export default class Home extends Component {
               {identifiant}, bienvenue sur <i>Arabaphasie</i>
             </div>
             <br />
+            <div className="mediumText">
+              Plateforme gratuite de rééducation pour patients aphasiques bilingues franco-arabes à destination des orthophonistes non
+              arabophone.
+            </div>
+            <br />
             <br />
             <h3>Vous avez désormais accès aux catégories.</h3>
             <br />
@@ -102,6 +107,11 @@ export default class Home extends Component {
           <div className="textCenter">
             <div className="bigText">
               Bienvenue sur <i>Arabaphasie</i>
+            </div>
+            <br />
+            <div className="mediumText">
+              Plateforme gratuite de rééducation pour patients aphasiques bilingues franco-arabes à destination des orthophonistes non
+              arabophone.
             </div>
             <br />
             <br />

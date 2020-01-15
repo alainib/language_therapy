@@ -1,14 +1,13 @@
 html,
 body,
 #root {
-  min-height: 100vh;
+  height: 99vh;
+  background-color: #282c34;
 }
 
 .App {
   margin: 50;
-  background-color: #282c34;
-  min-height: 100vh;
-
+  margin-bottom: 0;
   font-size: calc(18px + 6 * ((100vw - 320px) / 680));
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   color: white;
@@ -22,7 +21,10 @@ body,
   padding-left: 1em;
 }
 .smallText {
-  font-size: calc(12px + 6 * ((100vw - 320px) / 680));
+  font-size: calc(12px + 6 * ((100vw - 520px) / 680));
+}
+.mediumText {
+  font-size: calc(24px + 6 * ((100vw - 420px) / 680));
 }
 .bigText {
   font-size: calc(30px + 6 * ((100vw - 320px) / 680));
@@ -62,6 +64,10 @@ body,
 
 .padding10 {
   padding: 10px;
+}
+.margin25 {
+  margin: 25px;
+  margin-top: 100px;
 }
 
 .padding15 {
@@ -270,3 +276,28 @@ img.centered {
 -webkit-transform: scaleX(-1) rotate(180deg);  
 transform: scaleX(-1) rotate(180deg); 
 */
+.twocolsgrid {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+}
+
+.cadre {
+  /* width: calc(100% * (1 / 2) - 10px - 1px);*/
+  border-color: #1c1c1c;
+  background-color: #32363d;
+  border-radius: 20px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 15px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  min-width: 500px;
+}
+
+.text {
+  padding-bottom: 15px;
+}

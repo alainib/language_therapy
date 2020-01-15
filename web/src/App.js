@@ -6,7 +6,7 @@ import Categories from "pages/Categories";
 import Traincategorie from "pages/Traincategorie";
 import Home from "pages/Home";
 import Settings from "pages/Settings";
-import Androidapp from "pages/Androidapp";
+import Apropos from "pages/Apropos";
 
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -75,8 +75,8 @@ export default class App extends Component {
                 </Nav.Item>
               )}
               <Nav.Item>
-                <Link className="App-link" to="/androidapp">
-                  Android
+                <Link className="App-link" to="/Apropos">
+                  Informations
                 </Link>
               </Nav.Item>
             </Nav>
@@ -104,7 +104,7 @@ export default class App extends Component {
               />
 
               <Route path="/settings" component={Settings}></Route>
-              <Route path="/androidapp" component={Androidapp}></Route>
+              <Route path="/Apropos" component={Apropos}></Route>
 
               <Route
                 path="/"

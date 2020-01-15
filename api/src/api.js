@@ -19,6 +19,7 @@ const _logins = {
   louise: "loulou28",
   david: "david",
   Guest:"f7s7ezr1577",
+  Guest2:"f7s7ezr1577",
   alain: "alain"
 };
 const _token = "488484sdf84sd8f7s7ezr157705787878787";
@@ -67,12 +68,7 @@ router.get("/input", function(req, res) {
   res.sendFile(path.join(__dirname, "log", "index.html"));
 });
 
-router.post("/log", function(req, res) {
-  console.log("should write", req.body);
-  writeLog(req.body.data);
-
-  return res.status(200).json({ success: true, data: "log success : " + req.body.data });
-});
+ 
 router.get("/log", function(req, res) {
   console.log("should write", req.query);
   writeLog(req.query.data);
