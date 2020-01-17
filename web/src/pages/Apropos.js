@@ -50,7 +50,7 @@ export default class Home extends Component {
                 <li>Vetements ( 16 items ) </li>
                 <li>Autre ( 108 items ) </li>
               </ul>
-              <i className="smallText">Avec enregistrements sonores en Français et en Arabe pour chaque items</i>
+              <i className="smallText">Avec enregistrements sonores en français et en arabe pour chaque items</i>
             </div>
           </div>
           <div className="cadre">

@@ -292,12 +292,9 @@ class Traincategorie extends Component {
                     !this.props.options.imageByImage && this.chooseAnswer(index);
                   }}
                 >
-                  <img
-                    style={question.answer.clickedIndex === index ? borderStyle : borderStyleUnclicked}
-                    className="responsive centered img-max"
-                    src={Config.static_path + item}
-                    alt={item}
-                  />
+                  <div style={question.answer.clickedIndex === index ? borderStyle : borderStyleUnclicked}>
+                    <img className="responsive centered img-max500  roundBorder  boxShadow" src={Config.static_path + item} alt={item} />
+                  </div>
                 </ColBootstrap>
               );
             })}

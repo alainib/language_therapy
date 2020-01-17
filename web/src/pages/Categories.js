@@ -6,7 +6,6 @@ import * as actions from "redux/actions";
 import { connect } from "react-redux";
 import * as tools from "tools";
 import "App.css";
-
 import { image_AllCategoriesNames } from "../services/image";
 
 class Categories extends Component {
@@ -44,11 +43,11 @@ class Categories extends Component {
           <ul className="flex-container wrap">
             {this.state.categoriesNames.map((item, index) => {
               return (
-                <Link className="flex-item" to={`/traincategorie/${item}`} key={item}>
-                  <li className="flex-item-link" key={"ac" + index.toString()}>
+                <Link className="flex-item whiteBGBlackText" to={`/traincategorie/${item}`} key={item}>
+                  <div className="noTextDeco" key={"ac" + index.toString()}>
                     {tools.replaceAll(tools.upperFirstLetter(item), "-", " ")}
-                    {/*   <LinkButton to={`/traincategorie/${item}`}>{tools.upperFirstLetter(item)}</LinkButton> */}
-                  </li>
+                    <img src={`/illustrations/${item}.jpg`} className="responsive centered img-max-200 roundBorder" alt="suivi" />
+                  </div>
                 </Link>
               );
             })}
