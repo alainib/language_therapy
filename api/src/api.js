@@ -81,32 +81,4 @@ router.get("/*", function(req, res) {
 });
 
 module.exports = router;
-/*
-	
-/user/login?login=mylog&password=paswd
-router.get("/user/login", function(req, res) {
-  const { login, password } = req.query;
-   
-});
-
-
-router.get("/test/get/:para1", function(req, res) {
-  console.log(req.params.para1);
-  console.log(req.query);
-
-  return res.status(200).json({ success: true, data: true });
-});
-
-/*
-router.get("/test/get", function(req, res) {
-  console.log(req.params);
-
-  return res.status(200).json({ success: true, data: true });
-});
-
-router.post("/test/post", async function(req, res) {
-  console.log(req.body);
-
-  return res.json(200);
-});
-*/
+ 
