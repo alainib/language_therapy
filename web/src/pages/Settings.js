@@ -207,26 +207,27 @@ class Settings extends Component {
         </div>
         <div className={css(styles.bloc)}>
           <span className={css(styles.title)}>Nombre d'items par serie : {this.props.options.nbrOfItemPerSerie}</span>
-          <input
-            type="range"
-            min="3"
-            max="50"
-            step="1"
-            value={this.props.options.nbrOfItemPerSerie}
-            onChange={event => {
-              this.props.action_optionUpdate("nbrOfItemPerSerie", null, event.target.value);
-            }}
-            className="slider"
-            id="myRange"
-          ></input>
-
-          <div className={css(styles.viewButton)}>
-            <span data-tip data-for="h-nbrOfItemPerSerie">
-              <FaQuestion name="question" size={18} color={"white"} margin={2} />
-            </span>
-            <ReactTooltip className="opaque" id="h-nbrOfItemPerSerie" place="left" type="light" effect="solid">
-              <div className={css(styles.helpinfo)}>Nombre d'item par serie.</div>
-            </ReactTooltip>
+          <div className={css(styles.blocSB)}>
+            <input
+              type="range"
+              min="3"
+              max="50"
+              step="1"
+              value={this.props.options.nbrOfItemPerSerie}
+              onChange={event => {
+                this.props.action_optionUpdate("nbrOfItemPerSerie", null, event.target.value);
+              }}
+              className="slider"
+              id="myRange"
+            ></input>
+            <div className={css(styles.viewButton)}>
+              <span data-tip data-for="h-nbrOfItemPerSerie">
+                <FaQuestion name="question" size={18} color={"white"} margin={2} />
+              </span>
+              <ReactTooltip className="opaque" id="h-nbrOfItemPerSerie" place="left" type="light" effect="solid">
+                <div className={css(styles.helpinfo)}>Nombre d'item par serie.</div>
+              </ReactTooltip>
+            </div>{" "}
           </div>
         </div>
         <div className={css(styles.bloc)}>
@@ -308,80 +309,83 @@ class Settings extends Component {
         {!this.props.options.imageByImage && (
           <div className={css(styles.bloc)}>
             <span className={css(styles.title)}>Nombre d'images par item : {this.props.options.nbrOfImagePerItem}</span>
+            <div className={css(styles.blocSB)}>
+              <input
+                type="range"
+                min="2"
+                max="8"
+                step="1"
+                value={this.props.options.nbrOfImagePerItem}
+                onChange={event => {
+                  this.props.action_optionUpdate("nbrOfImagePerItem", null, event.target.value);
+                }}
+                className="slider"
+                id="myRange"
+              ></input>
 
+              <div className={css(styles.viewButton)}>
+                <span data-tip data-for="h-nbrOfImagePerItem">
+                  <FaQuestion name="question" size={18} color={"white"} margin={2} />
+                </span>
+                <ReactTooltip className="opaque" id="h-nbrOfImagePerItem" place="left" type="light" effect="solid">
+                  <div className={css(styles.helpinfo)}> Nombre d'images affichées pour chaque item.</div>
+                </ReactTooltip>
+              </div>
+            </div>
+          </div>
+        )}
+        <div className={css(styles.bloc)}>
+          <span className={css(styles.title)}>Lire le mot après X réponses fausses : {this.props.options.playSoundAfterXWrong}</span>
+          <div className={css(styles.blocSB)}>
             <input
               type="range"
-              min="2"
+              min="1"
               max="8"
               step="1"
-              value={this.props.options.nbrOfImagePerItem}
+              value={this.props.options.playSoundAfterXWrong}
               onChange={event => {
-                this.props.action_optionUpdate("nbrOfImagePerItem", null, event.target.value);
+                this.props.action_optionUpdate("playSoundAfterXWrong", null, event.target.value);
               }}
               className="slider"
               id="myRange"
             ></input>
 
             <div className={css(styles.viewButton)}>
-              <span data-tip data-for="h-nbrOfImagePerItem">
+              <span data-tip data-for="h-playSoundAfterXWrong">
                 <FaQuestion name="question" size={18} color={"white"} margin={2} />
               </span>
-              <ReactTooltip className="opaque" id="h-nbrOfImagePerItem" place="left" type="light" effect="solid">
-                <div className={css(styles.helpinfo)}> Nombre d'images affichées pour chaque item.</div>
+              <ReactTooltip className="opaque" id="h-playSoundAfterXWrong" place="left" type="light" effect="solid">
+                <div className={css(styles.helpinfo)}>
+                  Après X fausses réponses le nom de l'item est automatiquement lu à chaque nouvelle mauvaise réponse.
+                </div>
               </ReactTooltip>
             </div>
-          </div>
-        )}
-        <div className={css(styles.bloc)}>
-          <span className={css(styles.title)}>Lire le mot après X réponses fausses : {this.props.options.playSoundAfterXWrong}</span>
-
-          <input
-            type="range"
-            min="1"
-            max="8"
-            step="1"
-            value={this.props.options.playSoundAfterXWrong}
-            onChange={event => {
-              this.props.action_optionUpdate("playSoundAfterXWrong", null, event.target.value);
-            }}
-            className="slider"
-            id="myRange"
-          ></input>
-
-          <div className={css(styles.viewButton)}>
-            <span data-tip data-for="h-playSoundAfterXWrong">
-              <FaQuestion name="question" size={18} color={"white"} margin={2} />
-            </span>
-            <ReactTooltip className="opaque" id="h-playSoundAfterXWrong" place="left" type="light" effect="solid">
-              <div className={css(styles.helpinfo)}>
-                Après X fausses réponses le nom de l'item est automatiquement lu à chaque nouvelle mauvaise réponse.
-              </div>
-            </ReactTooltip>
           </div>
         </div>
         <div className={css(styles.bloc)}>
           <span className={css(styles.title)}> Taille de police : {this.props.options.interfaceSize}</span>
+          <div className={css(styles.blocSB)}>
+            <input
+              type="range"
+              min="3"
+              max="10"
+              step="1"
+              value={this.props.options.interfaceSize}
+              onChange={event => {
+                this.props.action_optionUpdate("interfaceSize", null, event.target.value);
+              }}
+              className="slider"
+              id="myRange"
+            ></input>
 
-          <input
-            type="range"
-            min="3"
-            max="10"
-            step="1"
-            value={this.props.options.interfaceSize}
-            onChange={event => {
-              this.props.action_optionUpdate("interfaceSize", null, event.target.value);
-            }}
-            className="slider"
-            id="myRange"
-          ></input>
-
-          <div className={css(styles.viewButton)}>
-            <span data-tip data-for="h-interfaceSize">
-              <FaQuestion name="question" size={18} color={"white"} margin={2} />
-            </span>
-            <ReactTooltip className="opaque" id="h-interfaceSize" place="left" type="light" effect="solid">
-              <div className={css(styles.helpinfo)}>Permet de changer la taille du nom des items.</div>
-            </ReactTooltip>
+            <div className={css(styles.viewButton)}>
+              <span data-tip data-for="h-interfaceSize">
+                <FaQuestion name="question" size={18} color={"white"} margin={2} />
+              </span>
+              <ReactTooltip className="opaque" id="h-interfaceSize" place="left" type="light" effect="solid">
+                <div className={css(styles.helpinfo)}>Permet de changer la taille du nom des items.</div>
+              </ReactTooltip>
+            </div>
           </div>
         </div>
         <div className="flex" style={{ justifyContent: "center", alignItems: "center", padding: 50 }}>

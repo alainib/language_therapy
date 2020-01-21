@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const path = require("path");
 var get_ip = require("ipware")().get_ip;
+
+const _logins = require( "./logins.json" );
 // les données seront dans _IMAGES
 require(path.join(__dirname, "..", "data.js"))();
 require(path.join(__dirname, "tools.js"))();
@@ -14,15 +16,11 @@ require(path.join(__dirname, "serieHelper.js"))();
 router.get("/ping", function(req, res) {
   return res.status(200).json({ success: true, data: "ping ok" });
 });
+ 
 
-const _logins = {
-  louise: "loulou28",
-  david: "david",
-  Guest:"f7s7ezr1577",
-  Guest2:"f7s7ezr1577",
-  alain: "alain"
-};
+
 const _token = "488484sdf84sd8f7s7ezr157705787878787";
+
 router.get("/user/login", function(req, res) {
   const { login, password } = req.query;
   const ip_info = get_ip(req);

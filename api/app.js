@@ -3,7 +3,7 @@ const app = express();
 let bodyParser = require("body-parser");
 const path = require("path");
 var cors = require("cors");
-const portconfig = require( path.join(__dirname,  "src","./port.json") );
+const portconfig = require( path.join(__dirname,  "src","port.json") );
 
 console.log("/*****************************/");
 console.log("/*       starting API        */");

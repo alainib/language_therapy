@@ -240,7 +240,7 @@ img.centered {
 
 .slider {
   -webkit-appearance: none;
-  width: 50%;
+  min-width: 500px;
   height: 13px;
   background: #d3d3d3;
   outline: none;

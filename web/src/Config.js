@@ -1,8 +1,16 @@
 const local_api_path = "localhost:1110";
+const remote_api_path = "88.190.14.12:1110";
 
 let api_path = "http://";
 let static_path = "http://";
-if (window.location.hostname === "localhost") {
+
+// utilise l'adresse distante pour l'api
+const useRemote = true;
+
+if (useRemote) {
+  api_path += remote_api_path;
+  static_path += remote_api_path;
+} else if (window.location.hostname === "localhost") {
   api_path += local_api_path;
   static_path += local_api_path;
 } else {
