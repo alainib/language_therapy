@@ -43,7 +43,7 @@ class Categories extends Component {
           <ul className="flex-container wrap">
             {this.state.categoriesNames.map((item, index) => {
               return (
-                <Link className="flex-item whiteBGBlackText" to={`/traincategorie/${item}`} key={item}>
+                <Link className="flex-item whiteBGBlackText" to={`/${this.props.link}/${item}`} key={item}>
                   <div className="noTextDeco" key={"ac" + index.toString()}>
                     {tools.replaceAll(tools.upperFirstLetter(item), "-", " ")}
                     <img src={`/illustrations/${item}.jpg`} className="responsive centered img-max-200 roundBorder" alt="suivi" />

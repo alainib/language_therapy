@@ -7,6 +7,7 @@ import Traincategorie from "pages/Traincategorie";
 import Home from "pages/Home";
 import Settings from "pages/Settings";
 import Apropos from "pages/Apropos";
+import Explorer from "pages/Explorer";
 
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -48,7 +49,7 @@ export default class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Navbar bg="dark" variant="dark" className="bg-light justify-content-between">
+          <Navbar bg="dark" variant="dark" className="bg-light  ">
             <Nav className="mr-auto">
               <Navbar.Brand>
                 <Link className="App-link" to="/">
@@ -62,8 +63,8 @@ export default class App extends Component {
               </Nav.Item>
 
               <Nav.Item>
-                <Link className="App-link" to="/categories">
-                  Catégories
+                <Link className="App-link" to="/categories/train">
+                  Entrainement
                 </Link>
               </Nav.Item>
 
@@ -74,6 +75,12 @@ export default class App extends Component {
                   </Link>
                 </Nav.Item>
               )}
+              <Nav.Item>
+                <Link className="App-link" to="/categories/explorer">
+                  Explorateur
+                </Link>
+              </Nav.Item>
+
               <Nav.Item>
                 <Link className="App-link" to="/Apropos">
                   Informations
@@ -96,13 +103,13 @@ export default class App extends Component {
 
           <div style={{ margin: 50 }}>
             <Switch>
-              <Route path="/categories" render={props => <Categories connected={this.state.connected} />} />
-
+              <Route path="/categories/train" render={props => <Categories link="traincategorie" connected={this.state.connected} />} />
               <Route
                 path="/traincategorie/:id"
                 render={props => <Traincategorie token={this.state.token} connected={this.state.connected} />}
               />
-
+              <Route path="/categories/explorer" render={props => <Categories link="explorer" connected={this.state.connected} />} />
+              <Route path="/explorer/:id" render={props => <Explorer categorieName={props.match.params.id} />} />
               <Route path="/settings" component={Settings}></Route>
               <Route path="/Apropos" component={Apropos}></Route>
 

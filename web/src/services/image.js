@@ -82,3 +82,25 @@ export async function image_AllCategoriesNames() {
     }
   }
 }
+
+/**
+ * retourne toute les images d'une categorie
+ */
+export async function allImagesFromCategorie(categorie) {
+  const url = "/allimagesfromcategories/" + categorie;
+
+  let status, data;
+  try {
+    const response = await axios.instance.get(url);
+    status = response.status;
+    data = response.data;
+  } catch (error) {
+    console.error(error);
+    status = 404;
+  }
+  if (status === 200) {
+    return data;
+  } else {
+    return false;
+  }
+}

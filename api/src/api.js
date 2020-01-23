@@ -3,7 +3,7 @@ const router = express.Router();
 const path = require("path");
 var get_ip = require("ipware")().get_ip;
 
-const _logins = require( "./logins.json" );
+const _logins = require("./logins.json");
 // les données seront dans _IMAGES
 require(path.join(__dirname, "..", "data.js"))();
 require(path.join(__dirname, "tools.js"))();
@@ -16,8 +16,6 @@ require(path.join(__dirname, "serieHelper.js"))();
 router.get("/ping", function(req, res) {
   return res.status(200).json({ success: true, data: "ping ok" });
 });
- 
-
 
 const _token = "488484sdf84sd8f7s7ezr157705787878787";
 
@@ -62,11 +60,16 @@ router.get("/categories", function(req, res) {
   return res.status(200).json(a);
 });
 
+router.get("/allimagesfromcategories/:categorie", function(req, res) {
+  const a = allImagesFromCategorie(_IMAGES, req.params.categorie);
+  console.log("get categories", a, allImagesFromCategorie);
+  return res.status(200).json(a);
+});
+
 router.get("/input", function(req, res) {
   res.sendFile(path.join(__dirname, "log", "index.html"));
 });
 
- 
 router.get("/log", function(req, res) {
   console.log("should write", req.query);
   writeLog(req.query.data);
@@ -79,4 +82,3 @@ router.get("/*", function(req, res) {
 });
 
 module.exports = router;
- 

@@ -79,6 +79,20 @@ function clone(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
 
+// trie un tableau d'object selon le champ fieldname
+function arrayObjectSort(arr, fieldname) {
+  function compare(a, b) {
+    if (a[fieldname] && !b[fieldname]) return -1;
+    if (!a[fieldname] && b[fieldname]) return 1;
+
+    if (a[fieldname] < b[fieldname]) return -1;
+    if (a[fieldname] > b[fieldname]) return 1;
+
+    return 0;
+  }
+  return arr.sort(compare);
+}
+
 // retourne le nombre d'image attendu pour la catégorie choisie
 function nbrOfImageForCategorie(level, nbrOfImagePerItem) {
   let nbr = 0;
@@ -121,6 +135,17 @@ module.exports = function() {
       goodCategorie = goodCategorie && checkGoodCategorie(questions[q].images, categoriesName, nbr, nbrOfImagePerItem);
     }
     return goodCategorie;
+  };
+
+  /**
+ * retourne toutes les images d'une categorie
+   utilisé pour choix images à la main
+   @param {array} images  images à piocher parmis
+   @param string categorieName
+*/
+  this.allImagesFromCategorie = function(images, categorieName) {
+    let imgs = clone(images[categorieName]);
+    return arrayObjectSort(imgs, "audio");
   };
 
   /**

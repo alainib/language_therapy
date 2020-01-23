@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Alert } from "react-bootstrap";
 import "App.css";
 import { user_login } from "services/user";
 import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
@@ -16,7 +16,8 @@ export default class Home extends Component {
       identifiant: read_cookie(cookie_id) || "",
       password: read_cookie(cookie_pwd) || "",
       token: read_cookie(cookie_token) || "",
-      connected: this.props.connected || false
+      connected: this.props.connected || false,
+      loginError: false
     };
   }
 
@@ -66,9 +67,11 @@ export default class Home extends Component {
       bake_cookie(cookie_id, this.state.identifiant);
       bake_cookie(cookie_pwd, this.state.password);
       bake_cookie(cookie_token, res.data.token);
-      this.setState({ connected: true, token: res.data.token });
+      this.setState({ connected: true, token: res.data.token, loginError: false });
       this.props.setConnected(true);
       this.props.setToken(res.data.token);
+    } else {
+      this.setState({ loginError: true });
     }
   };
 
@@ -90,7 +93,7 @@ export default class Home extends Component {
             <br />
             <div className="mediumText">
               Plateforme gratuite de rééducation pour patients aphasiques bilingues franco-arabes à destination des orthophonistes non
-              arabophone.
+              arabophones.
             </div>
             <br />
             <br />
@@ -143,6 +146,14 @@ export default class Home extends Component {
               <Button variant="primary" type="submit" disabled={!this.validateForm()}>
                 Connexion
               </Button>
+              {this.state.loginError && (
+                <div>
+                  <br />
+                  <Alert variant="danger">
+                    <i>Identifiant</i> ou <i>Mot de passe</i> erroné
+                  </Alert>
+                </div>
+              )}
             </Form>
           </div>
         )}

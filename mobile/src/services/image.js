@@ -4,7 +4,7 @@ import * as tools from "language_therapy/src/tools";
 
 import Config from "language_therapy/src/Config";
 
-import { allCategoriesNames, randomSerie, checkGoodImagesMobile } from "./serieHelper";
+import { allCategoriesNames, randomSerie, checkGoodImagesMobile, allImagesFromCategorie } from "./serieHelper";
 import { action_adderrorlog } from "language_therapy/src/redux/actions";
 import configureStore from "language_therapy/src/redux/store";
 const { store } = configureStore();
@@ -56,9 +56,8 @@ export function image_randomSerie(
    @param string categorieName
    @param bool sort
 */
-export function image_allImagesFromCategorie(categorieName, sort = false) {
-  let imgs = tools.clone(RawDatas._IMAGES[categorieName]);
-  return tools.arrayObjectSort(imgs, "audio");
+export function image_allImagesFromCategorie(categorieName) {
+  return allImagesFromCategorie(RawDatas._IMAGES, categorieName);
 }
 
 /**
