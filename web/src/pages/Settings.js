@@ -17,7 +17,7 @@ class Settings extends Component {
 
   render() {
     return (
-      <div>
+      <div className="marginPage">
         Settings
         <div className={css(styles.bloc)}>
           <div className={css(styles.title)}>Niveau :</div>

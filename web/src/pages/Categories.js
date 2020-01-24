@@ -29,7 +29,7 @@ class Categories extends Component {
 
   render() {
     return (
-      <div>
+      <div className="marginPage">
         <div className="padding15">Catégories disponibles :</div>
         <br />
         {this.state.networkError ? (

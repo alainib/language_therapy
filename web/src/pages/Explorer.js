@@ -29,42 +29,40 @@ export default class Explorer extends Component {
 
   render() {
     return (
-      <div>
-        <div className="threecolsgrid ">
-          {this.state.data &&
-            this.state.data.map((item, index) => {
-              return (
-                <div className="cadreBlanc whiteBGBlackText" key={index}>
-                  <img className="responsive centered img-max300" src={Config.static_path + item.path} />
+      <div className="marginPage100 threecolsgrid">
+        {this.state.data &&
+          this.state.data.map((item, index) => {
+            return (
+              <div className="cadreBlanc whiteBGBlackText" key={index}>
+                <img alt={item.path} className="responsive centered img-max300" src={Config.static_path + item.path} />
+                <div
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    display: "flex"
+                  }}
+                >
                   <div
-                    style={{
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      display: "flex"
+                    className="pointer"
+                    onClick={() => {
+                      this.playSound(item.audio + ".mp3");
                     }}
                   >
-                    <div
-                      className="pointer"
-                      onClick={() => {
-                        this.playSound(item.audio + ".mp3");
-                      }}
-                    >
-                      {item.fr}
-                    </div>
-                    <div
-                      className="pointer"
-                      onClick={() => {
-                        this.playSound(item.audio + "_ar.mp3");
-                      }}
-                    >
-                      {item.ar}
-                    </div>
+                    {item.fr}
+                  </div>
+                  <div
+                    className="pointer"
+                    onClick={() => {
+                      this.playSound(item.audio + "_ar.mp3");
+                    }}
+                  >
+                    {item.ar}
                   </div>
                 </div>
-              );
-            })}
-        </div>
+              </div>
+            );
+          })}
       </div>
     );
   }

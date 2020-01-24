@@ -5,6 +5,10 @@ body,
   background-color: #282c34;
 }
 
+.navbarHeight {
+  height: 10vh;
+}
+
 .App {
   margin: 50;
   margin-bottom: 0;
@@ -34,6 +38,14 @@ body,
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.marginPage {
+  margin: 50px;
+}
+
+.marginPage100 {
+  margin: 100px;
 }
 
 .wrap {

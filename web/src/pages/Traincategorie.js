@@ -199,7 +199,7 @@ class Traincategorie extends Component {
       const xsSize = [10, 10, 6, 4, 3, 3, 3, 3, 3, 3][question.images.length];
 
       return (
-        <FlexView style={{ margin: 20, minHeight: 600 }} column>
+        <FlexView style={{ margin: 20, minHeight: 600, height: "90vh" }} column>
           <RowBootstrap>
             <ColBootstrap xs={2} md={1} style={{ display: "flex", justifyContent: "flex-start" }}>
               {this.state.index > 0 && (

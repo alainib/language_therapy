@@ -13,6 +13,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import { GoScreenFull, GoScreenNormal } from "react-icons/go";
+import FlexView from "react-flexview/lib";
 
 export default class App extends Component {
   constructor(props) {
@@ -49,7 +50,7 @@ export default class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Navbar bg="dark" variant="dark" className="bg-light  ">
+          <Navbar bg="dark" variant="dark" className="bg-light navbarHeight">
             <Nav className="mr-auto">
               <Navbar.Brand>
                 <Link className="App-link" to="/">
@@ -101,31 +102,29 @@ export default class App extends Component {
             </Nav.Item>
           </Navbar>
 
-          <div style={{ margin: 50 }}>
-            <Switch>
-              <Route path="/categories/train" render={props => <Categories link="traincategorie" connected={this.state.connected} />} />
-              <Route
-                path="/traincategorie/:id"
-                render={props => <Traincategorie token={this.state.token} connected={this.state.connected} />}
-              />
-              <Route path="/categories/explorer" render={props => <Categories link="explorer" connected={this.state.connected} />} />
-              <Route path="/explorer/:id" render={props => <Explorer categorieName={props.match.params.id} />} />
-              <Route path="/settings" component={Settings}></Route>
-              <Route path="/Apropos" component={Apropos}></Route>
+          <Switch>
+            <Route path="/categories/train" render={props => <Categories link="traincategorie" connected={this.state.connected} />} />
+            <Route
+              path="/traincategorie/:id"
+              render={props => <Traincategorie token={this.state.token} connected={this.state.connected} />}
+            />
+            <Route path="/categories/explorer" render={props => <Categories link="explorer" connected={this.state.connected} />} />
+            <Route path="/explorer/:id" render={props => <Explorer categorieName={props.match.params.id} />} />
+            <Route path="/settings" component={Settings}></Route>
+            <Route path="/Apropos" component={Apropos}></Route>
 
-              <Route
-                path="/"
-                render={props => (
-                  <Home
-                    location={props.location}
-                    connected={this.state.connected}
-                    setToken={this.setToken}
-                    setConnected={this.setConnected}
-                  />
-                )}
-              />
-            </Switch>
-          </div>
+            <Route
+              path="/"
+              render={props => (
+                <Home
+                  location={props.location}
+                  connected={this.state.connected}
+                  setToken={this.setToken}
+                  setConnected={this.setConnected}
+                />
+              )}
+            />
+          </Switch>
         </div>
       </Router>
     );

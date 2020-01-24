@@ -84,7 +84,7 @@ export default class Home extends Component {
   render() {
     let { connected, identifiant, password } = this.state;
     return (
-      <div className="Login">
+      <div className="Login marginPage">
         {connected ? (
           <div className="textCenter">
             <div className="bigText">

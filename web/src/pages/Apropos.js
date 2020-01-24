@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "App.css";
 
-import { StyleSheet, css } from "aphrodite";
 export default class Home extends Component {
   constructor(props) {
     super(props);
@@ -10,7 +9,7 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div>
+      <div className="marginPage">
         <div className="textCenter margin25">
           Cette plateforme gratuite a été concu, par et pour les orthophonistes non arabophone, pour la rééducation de patients aphasiques
           bilingues franco-arabes.
@@ -114,7 +113,7 @@ export default class Home extends Component {
             <img
               src={"/screenshots/mobile/serieimageparimage.jpg"}
               className="responsive centered img-max-1000"
-              alt="planche avec 1 image"
+              alt="planche avec 1 imag e"
             />
             <span className="smallText">
               Initialement les lettres du nom sont remplacées par des tirets, on peut les révéler une par une pour l'aider, comme au jeu du
@@ -126,6 +125,7 @@ export default class Home extends Component {
             <img src={"/screenshots/mobile/browser.jpg"} className="responsive centered img-max-1000" alt="browser" />
           </div>
         </div>
+        <div className="textCenter margin25 smallText">Dernière mise à jour : Le 24/01/2020</div>
       </div>
     );
   }
