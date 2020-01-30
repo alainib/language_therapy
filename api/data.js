@@ -934,7 +934,7 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "fr": "zero",
               "ar": "zero",
               "audio":"zero"
-            }],"parties-du-corps":[{"path": "/mot-image/parties-du-corps/bouche.jpg",
+            },],"parties-du-corps":[{"path": "/mot-image/parties-du-corps/bouche.jpg",
               "fr": "bouche",
               "ar": "فم",
               "audio":"bouche"
@@ -956,7 +956,7 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "audio":"coeur"
             },{"path": "/mot-image/parties-du-corps/cou.jpg",
               "fr": "cou",
-              "ar": "رئة",
+              "ar": "عنق",
               "audio":"cou"
             },{"path": "/mot-image/parties-du-corps/coude.jpg",
               "fr": "coude",
@@ -1174,6 +1174,4 @@ let _IMAGES ={"aliments":[{"path": "/mot-image/aliments/abricot.jpg",
               "fr": "veste",
               "ar": "سترة",
               "audio":"veste"
-            }]};
-  
-module.exports = function () {this._IMAGES  =_IMAGES ;}
+            }]};module.exports = function () {this._IMAGES  =_IMAGES ;}

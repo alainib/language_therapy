@@ -56,8 +56,10 @@ export function image_randomSerie(
    @param string categorieName
    @param bool sort
 */
+
 export function image_allImagesFromCategorie(categorieName) {
-  return allImagesFromCategorie(RawDatas._IMAGES, categorieName);
+  let imgs = tools.clone(RawDatas._IMAGES[categorieName]);
+  return tools.arrayObjectSort(imgs, "audio");
 }
 
 /**

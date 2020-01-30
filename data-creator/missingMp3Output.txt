@@ -1,9 +1,29 @@
-<li>Aliments           ( items ) </li>
-<li>Animaux            ( items ) </li>
-<li>Autre              ( items ) </li>
-<li>Nombres ar         ( items ) </li>
-<li>Nombres fr         ( items ) </li>
-<li>Parties du corps   ( items ) </li>
-<li>Recette arabe      ( items ) </li>
-<li>Vehicules          ( items ) </li>
-<li>Vetements          ( items ) </li>
+aliments
+animaux
+autre
+nombres-ar
+   cinq
+   deux
+   huit
+   neuf
+   quatre
+   sept
+   six
+   trois
+   un
+   zero
+nombres-fr
+   cinq
+   deux
+   huit
+   neuf
+   quatre
+   sept
+   six
+   trois
+   un
+   zero
+parties-du-corps
+recette-arabe
+vehicules
+vetements

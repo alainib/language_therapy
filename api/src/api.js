@@ -3,6 +3,13 @@ const router = express.Router();
 const path = require("path");
 var get_ip = require("ipware")().get_ip;
 
+/*https://blog.cloudboost.io/adding-swagger-to-existing-node-js-project-92a6624b855b
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+*/
+
 const _logins = require("./logins.json");
 // les données seront dans _IMAGES
 require(path.join(__dirname, "..", "data.js"))();

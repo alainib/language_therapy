@@ -3,7 +3,11 @@ const app = express();
 let bodyParser = require("body-parser");
 const path = require("path");
 var cors = require("cors");
-const portconfig = require( path.join(__dirname,  "src","port.json") );
+const portconfig = require(path.join(__dirname, "src", "port.json"));
+
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 console.log("/*****************************/");
 console.log("/*       starting API        */");
@@ -22,29 +26,25 @@ app.use((request, res, next) => {
   next();
 });
 
-
-
 // api services
 // on prefixe tous les appels aux services par "api/", pas besoin de le rajouter des les get/post dans le fichier services
-var api_services = require(path.join(__dirname,  "src", "api.js"));
+var api_services = require(path.join(__dirname, "src", "api.js"));
 app.use("/api/", api_services);
 
 // serving static files
-app.use("/static", express.static(path.join(__dirname,   "public")));
-
+app.use("/static", express.static(path.join(__dirname, "public")));
 
 // Serve the static files from the React app
-app.use(express.static(path.join(__dirname,  "client", "build")));
+app.use(express.static(path.join(__dirname, "client", "build")));
 // et pour tout le reste on renvoi l'index du site web
 app.get("*", function(req, res) {
-  res.sendFile(path.join(__dirname,   "client", "build", "index.html"));
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 /*
  res.sendFile(path.join(__dirname,   "client", "build", "index.html")); permet de renvoyer  l'index par défaut
  il faut quand meme les autres fichiers static (js,css ...)
  qui ne sont servi que avec `app.use(express.static(path.join(__dirname,  "client", "build")));`
  */
-
 
 // starting the serveur
 let _port = portconfig.node_port;

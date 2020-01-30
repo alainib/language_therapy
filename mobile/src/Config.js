@@ -59,7 +59,7 @@ const colors = {
   whiteOverlay: "rgba( 246, 246, 246, 0.9)"
 };
 
-const version = "19/12/2019";
+const version = "30/01/2020";
 export default {
   version,
   iconSize,

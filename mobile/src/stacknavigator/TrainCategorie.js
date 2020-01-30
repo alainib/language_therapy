@@ -7,7 +7,6 @@ import IconFeather from "react-native-vector-icons/Feather";
 import * as tools from "language_therapy/src/tools";
 import ModalHeader from "language_therapy/src/components/ModalHeader";
 import ResultsStat from "language_therapy/src/components/ResultsStat";
-import FlexSize from "language_therapy/src/components/FlexSize";
 
 import { sound_play } from "language_therapy/src/services/sound";
 
@@ -35,10 +34,21 @@ class TrainCategorie extends React.PureComponent {
   }
 
   playSound(name) {
-    if (this.props.options.displayLg == Config._const.ar) {
-      sound_play(name + "_" + this.props.options.displayLg);
-    } else {
-      sound_play(name);
+    switch (this.props.navigation.state.params.categorie.categorieName) {
+      // categories ou il faut lire uniquement en arabe ou francais
+      case "nombres-ar":
+        sound_play(name + "_ar");
+        break;
+      case "nombres-fr":
+        sound_play(name);
+        break;
+      default:
+        if (this.props.options.displayLg == Config._const.ar) {
+          sound_play(name + "_" + this.props.options.displayLg);
+        } else {
+          sound_play(name);
+        }
+        break;
     }
   }
 
