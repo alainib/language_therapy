@@ -12,6 +12,7 @@ import { FaVolumeUp, FaArrowRight, FaArrowLeft, FaCheck } from "react-icons/fa";
 import * as actions from "redux/actions";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import PropTypes from "prop-types";
 
 // pour éviter les multi click successif sur la bonne réponse qui feraient avancer de plusieurs questions d'un coup
 let _lastSecClicked = 0;
@@ -199,129 +200,132 @@ class Traincategorie extends Component {
       const xsSize = [10, 10, 6, 4, 3, 3, 3, 3, 3, 3][question.images.length];
 
       return (
-        <FlexView style={{ margin: 20, minHeight: 600, height: "90vh" }} column>
-          <RowBootstrap>
-            <ColBootstrap xs={2} md={1} style={{ display: "flex", justifyContent: "flex-start" }}>
-              {this.state.index > 0 && (
-                <Button
-                  className="btn-nooutline"
-                  variant="false"
-                  onClick={() => {
-                    this.previousCategorie();
-                  }}
-                >
-                  <span style={{ color: "white" }}>
-                    <FaArrowLeft size={32} />
-                  </span>
-                </Button>
-              )}
-            </ColBootstrap>
-            <ColBootstrap
-              xs={this.props.options.imageByImage ? 6 : 8}
-              md={this.props.options.imageByImage ? 8 : 10}
-              style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-            >
-              <Button
-                variant="false"
-                onClick={() => {
-                  this.playSound(question.audio);
-                }}
+        <div>
+          <FlexView style={{ margin: 20, minHeight: 600, height: "90vh" }} column>
+            <RowBootstrap>
+              <ColBootstrap xs={2} md={1} style={{ display: "flex", justifyContent: "flex-start" }}>
+                {this.state.index > 0 && (
+                  <Button
+                    className="btn-nooutline"
+                    variant="false"
+                    onClick={() => {
+                      this.previousCategorie();
+                    }}
+                  >
+                    <span style={{ color: "white" }}>
+                      <FaArrowLeft size={32} />
+                    </span>
+                  </Button>
+                )}
+              </ColBootstrap>
+              <ColBootstrap
+                xs={this.props.options.imageByImage ? 6 : 8}
+                md={this.props.options.imageByImage ? 8 : 10}
+                style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
               >
-                <div style={{ color: "white" }}>
-                  <FaVolumeUp size={32} />
-                </div>
-              </Button>
-
-              {this.props.options.imageByImage && !this.props.options.imageByImageDisplayName ? (
-                <div
-                  onClick={() =>
-                    this.setState({
-                      imageByImageShowHowMuchLetters: this.state.imageByImageShowHowMuchLetters + 1
-                    })
-                  }
-                  style={{ fontSize: this.props.options.interfaceSize + "em" }}
-                >
-                  {this.imageByImageDisplay(question.display)}
-                </div>
-              ) : (
-                <div
-                  onMouseDown={this.onMouseDown}
-                  onMouseUp={this.onMouseUp}
-                  style={{ fontSize: this.props.options.interfaceSize + "em" }}
-                >
-                  {question.display}
-                </div>
-              )}
-            </ColBootstrap>
-            {this.props.options.imageByImage && (
-              <ColBootstrap xs={2} md={1} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <Button
                   variant="false"
                   onClick={() => {
-                    this.chooseAnswer(0);
+                    this.playSound(question.audio);
+                  }}
+                >
+                  <div style={{ color: "white" }}>
+                    <FaVolumeUp size={32} />
+                  </div>
+                </Button>
+
+                {this.props.options.imageByImage && !this.props.options.imageByImageDisplayName ? (
+                  <div
+                    onClick={() =>
+                      this.setState({
+                        imageByImageShowHowMuchLetters: this.state.imageByImageShowHowMuchLetters + 1
+                      })
+                    }
+                    style={{ fontSize: this.props.options.interfaceSize + "em" }}
+                  >
+                    {this.imageByImageDisplay(question.display)}
+                  </div>
+                ) : (
+                  <div
+                    onMouseDown={this.onMouseDown}
+                    onMouseUp={this.onMouseUp}
+                    style={{ fontSize: this.props.options.interfaceSize + "em" }}
+                  >
+                    {question.display}
+                  </div>
+                )}
+              </ColBootstrap>
+              {this.props.options.imageByImage && (
+                <ColBootstrap xs={2} md={1} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <Button
+                    variant="false"
+                    onClick={() => {
+                      this.chooseAnswer(0);
+                    }}
+                  >
+                    <span style={{ color: "white" }}>
+                      <FaCheck size={32} />
+                    </span>
+                  </Button>
+                </ColBootstrap>
+              )}
+              <ColBootstrap xs={2} md={1} style={{ display: "flex", justifyContent: "flex-end" }}>
+                <Button
+                  variant="false"
+                  onClick={() => {
+                    this.nextCategorie();
                   }}
                 >
                   <span style={{ color: "white" }}>
-                    <FaCheck size={32} />
+                    <FaArrowRight size={32} />
                   </span>
                 </Button>
               </ColBootstrap>
-            )}
-            <ColBootstrap xs={2} md={1} style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button
-                variant="false"
-                onClick={() => {
-                  this.nextCategorie();
-                }}
-              >
-                <span style={{ color: "white" }}>
-                  <FaArrowRight size={32} />
-                </span>
-              </Button>
-            </ColBootstrap>
-          </RowBootstrap>
-          <div className="space50" />
+            </RowBootstrap>
+            <div className="space50" />
 
-          <RowBootstrap className="justify-content-md-center">
-            {question.images.map((item, index) => {
-              return (
-                <ColBootstrap
-                  key={"im" + index.toString()}
-                  xs={xsSize}
-                  onClick={() => {
-                    !this.props.options.imageByImage && this.chooseAnswer(index);
-                  }}
-                >
-                  <div style={question.answer.clickedIndex === index ? borderStyle : borderStyleUnclicked}>
-                    <img className="responsive centered img-max500  roundBorder  boxShadow" src={Config.static_path + item} alt={item} />
-                  </div>
-                </ColBootstrap>
-              );
-            })}
-          </RowBootstrap>
-          {/*
+            <RowBootstrap className="justify-content-md-center">
+              {question.images.map((item, index) => {
+                return (
+                  <ColBootstrap
+                    key={"im" + index.toString()}
+                    xs={xsSize}
+                    onClick={() => {
+                      !this.props.options.imageByImage && this.chooseAnswer(index);
+                    }}
+                    className=" animated zoomIn"
+                  >
+                    <div style={question.answer.clickedIndex === index ? borderStyle : borderStyleUnclicked}>
+                      <img className="responsive centered img-max500 roundBorder boxShadow" src={Config.static_path + item} alt={item} />
+                    </div>
+                  </ColBootstrap>
+                );
+              })}
+            </RowBootstrap>
+            {/*
           <Row horizontal="space-around">{fu2}</Row>
           */}
 
-          <div className="space50" />
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              margin: 50
-            }}
-          >
-            <h3>
-              {this.state.categorieName + " : "}
-              {this.state.index + 1 + " / " + this.state.questions.length}
-            </h3>
-            {this.state.questionClueVisible && (
-              <span className={this.props.options.showClueReversed ? "reverse" : ""}>{question.clue}</span>
-            )}
-          </div>
-        </FlexView>
+            <div className="space50" />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+                margin: 50
+              }}
+            >
+              <h3>
+                {this.state.categorieName + " : "}
+                {this.state.index + 1 + " / " + this.state.questions.length}
+              </h3>
+              {this.state.questionClueVisible && (
+                <span className={this.props.options.showClueReversed ? "reverse" : ""}>{question.clue}</span>
+              )}
+            </div>
+          </FlexView>
+        </div>
       );
     } else {
       return <div>{this.showResults()}</div>;
@@ -378,6 +382,26 @@ class Traincategorie extends Component {
   }
 }
 
+Traincategorie.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired
+    })
+  }),
+  connected: PropTypes.bool.isRequired,
+
+  token: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.bool.isRequired]),
+
+  options: PropTypes.shape({
+    nbrOfImagePerItem: PropTypes.number.isRequired,
+    imageByImage: PropTypes.bool.isRequired,
+    interfaceSize: PropTypes.number.isRequired,
+    showClueReversed: PropTypes.bool.isRequired,
+    imageByImageDisplayName: PropTypes.bool.isRequired,
+    displayLg: PropTypes.string,
+    level: PropTypes.string.isRequired
+  })
+};
 function mapStatetoProps(data) {
   return {
     options: data["options"]

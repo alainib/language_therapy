@@ -13,7 +13,6 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import { GoScreenFull, GoScreenNormal } from "react-icons/go";
-import FlexView from "react-flexview/lib";
 
 export default class App extends Component {
   constructor(props) {

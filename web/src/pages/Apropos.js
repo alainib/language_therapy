@@ -22,7 +22,7 @@ export default class Home extends Component {
 
         <br />
         <div className="twocolsgrid">
-          <div className="cadre">
+          <div className="cadre animated zoomIn">
             <div className="text">
               Elle permet la création de série d'entrainement aléatoire par catégorie sémantique avec différents niveaux de difficulté. Elle
               affiche en arabe la partie destinée au patient et en français celle à l'orthophoniste.
@@ -35,7 +35,7 @@ export default class Home extends Component {
               sa signification en français en bas à droite en cliquant sur le premier.
             </i>
           </div>
-          <div className="cadre">
+          <div className="cadre animated zoomIn">
             <div className="text">
               Elle intégre les 9 catégories suivantes :<br />
               <ul style={{ listStyleType: "circle" }}>
@@ -52,7 +52,7 @@ export default class Home extends Component {
               <i className="smallText">Avec enregistrements sonores en français et en arabe pour chaque items</i>
             </div>
           </div>
-          <div className="cadre">
+          <div className="cadre animated zoomIn">
             <div className="text">
               Elle est paramètrable notamment pour :<br />
               <ul style={{ listStyleType: "circle" }}>
@@ -79,12 +79,12 @@ export default class Home extends Component {
         <br />
         <br />
         <div className="twocolsgrid">
-          <div className="cadre">
+          <div className="cadre animated zoomIn">
             <div className="text">Elle est complétement hors ligne donc pas besoin d'internet pour fonctionner.</div>
             <img src={"/screenshots/mobile/both.jpg"} className="responsive centered img-max-1000" alt="both" />
           </div>
 
-          <div className="cadre">
+          <div className="cadre animated zoomIn">
             <div className="text">
               Elle permet la gestion des utilisateurs ainsi que de leur suivi avec la possibilité de rejouer les séries effectuées pour voir
               la progression :
@@ -93,20 +93,20 @@ export default class Home extends Component {
             <img src={"/screenshots/mobile/suivi.jpg"} className="responsive centered img-max-1000" alt="suivi" />
           </div>
 
-          <div className="cadre">
+          <div className="cadre animated zoomIn">
             <div className="">
               Elle possède plus d'options comme le choix multicatégories ou le choix manuel des images à trouver pour une série :
             </div>
             <img src={"/screenshots/mobile/options.jpg"} className="responsive centered img-max-1000" alt="options" />
           </div>
 
-          <div className="cadre">
+          <div className="cadre animated zoomIn">
             <div className="text">
               Exemple avec 3 images par planche <span className="smallText">(paramètrable de 2 à 8 pour varier la complexité)</span>
             </div>
             <img src={"/screenshots/mobile/serie3.jpg"} className="responsive centered img-max-1000" alt="planche avec 3 images" />
           </div>
-          <div className="cadre">
+          <div className="cadre animated zoomIn">
             <div className="text">
               Exemple avec une seule image par planche, ici le nom de l'item-cible n'est pas affiché et c'est au patient de le trouver{" "}
             </div>
@@ -120,7 +120,7 @@ export default class Home extends Component {
               pendu.
             </span>
           </div>
-          <div className="cadre">
+          <div className="cadre animated zoomIn">
             <div className="text">Il y a également un explorateur d'items par catégorie pour voir tout ce que l'application contient</div>
             <img src={"/screenshots/mobile/browser.jpg"} className="responsive centered img-max-1000" alt="browser" />
           </div>

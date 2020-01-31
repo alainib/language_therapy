@@ -5,7 +5,7 @@ let api_path = "http://";
 let static_path = "http://";
 
 // utilise l'adresse distante pour l'api
-const useRemote = false;
+const useRemote = true;
 
 if (useRemote) {
   api_path += remote_api_path;
