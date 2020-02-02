@@ -5,10 +5,6 @@ const path = require("path");
 var cors = require("cors");
 const portconfig = require(path.join(__dirname, "src", "port.json"));
 
-const swaggerUi = require("swagger-ui-express");
-const swaggerDocument = require("./swagger.json");
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
 console.log("/*****************************/");
 console.log("/*       starting API        */");
 console.log("/*****************************/");

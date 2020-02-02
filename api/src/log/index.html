@@ -45,24 +45,19 @@
 
 
         var XHR = new XMLHttpRequest();
-
         // Liez l'objet FormData et l'élément form
         var logme = document.getElementById("logID").value;
-
-        console.log(logme)
 
         // Définissez ce qui se passe si la soumission s'est opérée avec succès
         XHR.addEventListener("load", function (event) {
           alert(event.target.responseText);
         });
-
         // Definissez ce qui se passe en cas d'erreur
         XHR.addEventListener("error", function (event) {
           console.log(event);
         });
-
         const url = 'http://' + window.location.host + '/api/log';
-        console.log(url);
+        console.log("url", url);
         XHR.open("POST", url);
 
         XHR.setRequestHeader("Content-Type", "application/json;charset=UTF-8");

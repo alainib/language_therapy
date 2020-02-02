@@ -3,8 +3,8 @@ const router = express.Router();
 const path = require("path");
 var get_ip = require("ipware")().get_ip;
 
-/*https://blog.cloudboost.io/adding-swagger-to-existing-node-js-project-92a6624b855b
-
+/*
+https://blog.cloudboost.io/adding-swagger-to-existing-node-js-project-92a6624b855b
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
@@ -77,11 +77,11 @@ router.get("/input", function(req, res) {
   res.sendFile(path.join(__dirname, "log", "index.html"));
 });
 
-router.get("/log", function(req, res) {
-  console.log("should write", req.query);
+router.post("/log", function(req, res) {
+  console.log("should write", req.body.data);
   writeLog(req.query.data);
 
-  return res.status(200).json({ success: true, data: "log success : " + req.query.data });
+  return res.status(200).json({ success: true, data: "log success : " + req.body.data });
 });
 
 router.get("/*", function(req, res) {
