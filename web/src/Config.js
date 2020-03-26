@@ -1,5 +1,5 @@
 const local_api_path = "localhost:1110";
-const remote_api_path = "88.190.14.12:1110";
+const remote_api_path = "82.66.14.12:1110";
 
 let api_path = "http://";
 let static_path = "http://";

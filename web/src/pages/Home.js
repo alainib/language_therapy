@@ -53,7 +53,12 @@ export default class Home extends Component {
   }
 
   validateForm() {
-    return this.state.identifiant && this.state.password && this.state.identifiant.length > 0 && this.state.password.length > 0;
+    return (
+      this.state.identifiant &&
+      this.state.password &&
+      this.state.identifiant.length > 0 &&
+      this.state.password.length > 0
+    );
   }
 
   handleSubmit = event => {
@@ -67,7 +72,11 @@ export default class Home extends Component {
       bake_cookie(cookie_id, this.state.identifiant);
       bake_cookie(cookie_pwd, this.state.password);
       bake_cookie(cookie_token, res.data.token);
-      this.setState({ connected: true, token: res.data.token, loginError: false });
+      this.setState({
+        connected: true,
+        token: res.data.token,
+        loginError: false
+      });
       this.props.setConnected(true);
       this.props.setToken(res.data.token);
     } else {
@@ -83,6 +92,7 @@ export default class Home extends Component {
 
   render() {
     let { connected, identifiant, password } = this.state;
+    identifiant = tools.upperFirstLetter(identifiant);
     return (
       <div className="Login marginPage  animated zoomIn">
         {connected ? (
@@ -92,7 +102,8 @@ export default class Home extends Component {
             </div>
             <br />
             <div className="mediumText">
-              Plateforme gratuite de rééducation pour patients aphasiques bilingues franco-arabes à destination des orthophonistes non
+              Plateforme gratuite de rééducation pour patients aphasiques
+              bilingues franco-arabes à destination des orthophonistes non
               arabophones.
             </div>
             <br />
@@ -113,7 +124,8 @@ export default class Home extends Component {
             </div>
             <br />
             <div className="mediumText">
-              Plateforme gratuite de rééducation pour patients aphasiques bilingues franco-arabes à destination des orthophonistes non
+              Plateforme gratuite de rééducation pour patients aphasiques
+              bilingues franco-arabes à destination des orthophonistes non
               arabophone.
             </div>
             <br />
@@ -140,10 +152,18 @@ export default class Home extends Component {
               </Form.Group>
               <i className="smallText">
                 Vous n'avez pas de compte ? contactez moi sur{" "}
-                <span className="e-mail" data-user="nialamiharbi " data-website="moc.liamg"></span>
+                <span
+                  className="e-mail"
+                  data-user="nialamiharbi "
+                  data-website="moc.liamg"
+                ></span>
               </i>
               <br />
-              <Button variant="primary" type="submit" disabled={!this.validateForm()}>
+              <Button
+                variant="primary"
+                type="submit"
+                disabled={!this.validateForm()}
+              >
                 Connexion
               </Button>
               {this.state.loginError && (
