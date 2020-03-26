@@ -32,10 +32,23 @@ router.get("/user/login", function(req, res) {
   const ip = ip_info.clientIp;
 
   if (_logins[login] && _logins[login] === password) {
-    writeLog("login with: " + login + "@" + password + " from " + ip + " at " + getJMYMH(), path.join(__dirname, "log", "login.log"));
+    writeLog(
+      "login with: " +
+        login +
+        "@" +
+        password +
+        " from " +
+        ip +
+        " at " +
+        getJMYMH(),
+      path.join(__dirname, "log", "login.log")
+    );
     return res.status(200).json({ success: true, token: _token });
   } else {
-    writeLog("FAIL To login with: " + login + "@" + password + " " + getJMYMH(), path.join(__dirname, "log", "login.log"));
+    writeLog(
+      "FAIL To login with: " + login + "@" + password + " " + getJMYMH(),
+      path.join(__dirname, "log", "login.log")
+    );
     return res.status(401).json({ success: false });
   }
 });
@@ -81,7 +94,9 @@ router.post("/log", function(req, res) {
   console.log("should write", req.body.data);
   writeLog(req.query.data);
 
-  return res.status(200).json({ success: true, data: "log success : " + req.body.data });
+  return res
+    .status(200)
+    .json({ success: true, data: "log success : " + req.body.data });
 });
 
 router.get("/*", function(req, res) {
